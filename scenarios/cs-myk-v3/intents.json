@@ -1,0 +1,147 @@
+{
+  "scenario_id": "cs-myk-v3",
+  "version": "0.1.0",
+  "description": "마이K 앱 Intent Taxonomy",
+  "intents": [
+    { "id": "INT-1110", "name": "데이터 사용량 조회", "L1_id": "INT-1000", "L1_name": "My 정보 조회", "L2_id": "INT-1100", "L2_name": "사용량 조회", "inference_type": "Rule", "features": ["데이터 사용률", "잔여 데이터 비율"] },
+    { "id": "INT-1120", "name": "음성 사용량 조회", "L1_id": "INT-1000", "L1_name": "My 정보 조회", "L2_id": "INT-1100", "L2_name": "사용량 조회", "inference_type": "Rule", "features": ["사용 패턴"] },
+    { "id": "INT-1130", "name": "문자 사용량 조회", "L1_id": "INT-1000", "L1_name": "My 정보 조회", "L2_id": "INT-1100", "L2_name": "사용량 조회", "inference_type": "Rule", "features": ["사용 패턴"] },
+    { "id": "INT-1140", "name": "로밍 사용량 조회", "L1_id": "INT-1000", "L1_name": "My 정보 조회", "L2_id": "INT-1100", "L2_name": "사용량 조회", "inference_type": "Rule", "features": ["로밍 이력"] },
+    { "id": "INT-1150", "name": "실시간 사용 패턴 조회", "L1_id": "INT-1000", "L1_name": "My 정보 조회", "L2_id": "INT-1100", "L2_name": "사용량 조회", "inference_type": "Rule", "features": ["데이터 사용 증감률"] },
+
+    { "id": "INT-1210", "name": "월 요금 조회", "L1_id": "INT-1000", "L1_name": "My 정보 조회", "L2_id": "INT-1200", "L2_name": "요금/청구 조회", "inference_type": "Rule", "features": ["요금제 월정액", "청구 증감률"] },
+    { "id": "INT-1220", "name": "청구 상세 조회", "L1_id": "INT-1000", "L1_name": "My 정보 조회", "L2_id": "INT-1200", "L2_name": "요금/청구 조회", "inference_type": "Rule", "features": ["청구 증감률", "요금 민감도 Index"] },
+    { "id": "INT-1240", "name": "미납 요금 조회", "L1_id": "INT-1000", "L1_name": "My 정보 조회", "L2_id": "INT-1200", "L2_name": "요금/청구 조회", "inference_type": "Rule", "features": ["미납 금액"] },
+    { "id": "INT-1250", "name": "납부 내역 조회", "L1_id": "INT-1000", "L1_name": "My 정보 조회", "L2_id": "INT-1200", "L2_name": "요금/청구 조회", "inference_type": "Rule", "features": ["자동납부 등록 여부"] },
+
+    { "id": "INT-1310", "name": "가입 요금제 조회", "L1_id": "INT-1000", "L1_name": "My 정보 조회", "L2_id": "INT-1300", "L2_name": "가입정보 조회", "inference_type": "Rule", "features": ["요금제 유형", "요금제 월정액"] },
+    { "id": "INT-1320", "name": "부가서비스 조회", "L1_id": "INT-1000", "L1_name": "My 정보 조회", "L2_id": "INT-1300", "L2_name": "가입정보 조회", "inference_type": "Rule", "features": ["부가서비스 수"] },
+    { "id": "INT-1330", "name": "약정 조회", "L1_id": "INT-1000", "L1_name": "My 정보 조회", "L2_id": "INT-1300", "L2_name": "가입정보 조회", "inference_type": "Rule", "features": ["약정 진행률"] },
+    { "id": "INT-1340", "name": "결합상품 조회", "L1_id": "INT-1000", "L1_name": "My 정보 조회", "L2_id": "INT-1300", "L2_name": "가입정보 조회", "inference_type": "Rule", "features": ["결합 여부", "가족 회선 수"] },
+    { "id": "INT-1350", "name": "회선 상태 조회", "L1_id": "INT-1000", "L1_name": "My 정보 조회", "L2_id": "INT-1300", "L2_name": "가입정보 조회", "inference_type": "Rule", "features": ["가입 개월 수"] },
+
+    { "id": "INT-1410", "name": "멤버십 조회", "L1_id": "INT-1000", "L1_name": "My 정보 조회", "L2_id": "INT-1400", "L2_name": "혜택 조회", "inference_type": "Rule", "features": ["멤버십 활용도"] },
+    { "id": "INT-1420", "name": "포인트 조회", "L1_id": "INT-1000", "L1_name": "My 정보 조회", "L2_id": "INT-1400", "L2_name": "혜택 조회", "inference_type": "Rule", "features": ["멤버십 활용도"] },
+    { "id": "INT-1430", "name": "쿠폰 조회", "L1_id": "INT-1000", "L1_name": "My 정보 조회", "L2_id": "INT-1400", "L2_name": "혜택 조회", "inference_type": "Rule", "features": ["미사용 쿠폰 수"] },
+    { "id": "INT-1440", "name": "VIP 혜택 조회", "L1_id": "INT-1000", "L1_name": "My 정보 조회", "L2_id": "INT-1400", "L2_name": "혜택 조회", "inference_type": "Rule", "features": ["고객 가치 Index"] },
+    { "id": "INT-1450", "name": "제휴 혜택 조회", "L1_id": "INT-1000", "L1_name": "My 정보 조회", "L2_id": "INT-1400", "L2_name": "혜택 조회", "inference_type": "Rule", "features": ["탐색 성향 Index"] },
+
+    { "id": "INT-2110", "name": "요금제 탐색", "L1_id": "INT-2000", "L1_name": "상품 탐색/가입", "L2_id": "INT-2100", "L2_name": "모바일 상품 탐색", "inference_type": "Rule", "features": ["요금 민감도 Index", "약정 진행률"] },
+    { "id": "INT-2120", "name": "5G 상품 탐색", "L1_id": "INT-2000", "L1_name": "상품 탐색/가입", "L2_id": "INT-2100", "L2_name": "모바일 상품 탐색", "inference_type": "Rule", "features": ["요금제 유형", "데이터 사용률"] },
+    { "id": "INT-2130", "name": "데이터 상품 탐색", "L1_id": "INT-2000", "L1_name": "상품 탐색/가입", "L2_id": "INT-2100", "L2_name": "모바일 상품 탐색", "inference_type": "Model", "features": ["데이터 사용률", "데이터 사용 증감률", "사용 패턴", "잔여 데이터 비율"] },
+    { "id": "INT-2140", "name": "로밍 상품 탐색", "L1_id": "INT-2000", "L1_name": "상품 탐색/가입", "L2_id": "INT-2100", "L2_name": "모바일 상품 탐색", "inference_type": "Rule", "features": ["로밍 이력"] },
+    { "id": "INT-2150", "name": "실속형 상품 탐색", "L1_id": "INT-2000", "L1_name": "상품 탐색/가입", "L2_id": "INT-2100", "L2_name": "모바일 상품 탐색", "inference_type": "Rule", "features": ["요금 민감도 Index", "비용 부담도"] },
+
+    { "id": "INT-2210", "name": "인터넷 상품 탐색", "L1_id": "INT-2000", "L1_name": "상품 탐색/가입", "L2_id": "INT-2200", "L2_name": "홈상품 탐색", "inference_type": "Rule", "features": ["결합 여부"] },
+    { "id": "INT-2220", "name": "IPTV 상품 탐색", "L1_id": "INT-2000", "L1_name": "상품 탐색/가입", "L2_id": "INT-2200", "L2_name": "홈상품 탐색", "inference_type": "Rule", "features": ["결합 여부"] },
+    { "id": "INT-2230", "name": "인터넷전화 탐색", "L1_id": "INT-2000", "L1_name": "상품 탐색/가입", "L2_id": "INT-2200", "L2_name": "홈상품 탐색", "inference_type": "Rule", "features": ["결합 여부"] },
+    { "id": "INT-2240", "name": "결합상품 탐색", "L1_id": "INT-2000", "L1_name": "상품 탐색/가입", "L2_id": "INT-2200", "L2_name": "홈상품 탐색", "inference_type": "Rule", "features": ["결합 여부", "가족 회선 수"] },
+    { "id": "INT-2250", "name": "설치 가능지역 조회", "L1_id": "INT-2000", "L1_name": "상품 탐색/가입", "L2_id": "INT-2200", "L2_name": "홈상품 탐색", "inference_type": "Rule", "features": [] },
+
+    { "id": "INT-2310", "name": "OTT 탐색", "L1_id": "INT-2000", "L1_name": "상품 탐색/가입", "L2_id": "INT-2300", "L2_name": "부가서비스 탐색", "inference_type": "Rule", "features": ["사용 패턴"] },
+    { "id": "INT-2320", "name": "데이터 부가서비스 탐색", "L1_id": "INT-2000", "L1_name": "상품 탐색/가입", "L2_id": "INT-2300", "L2_name": "부가서비스 탐색", "inference_type": "Rule", "features": ["데이터 사용률", "잔여 데이터 비율"] },
+    { "id": "INT-2330", "name": "보안/안심 서비스 탐색", "L1_id": "INT-2000", "L1_name": "상품 탐색/가입", "L2_id": "INT-2300", "L2_name": "부가서비스 탐색", "inference_type": "Rule", "features": ["나이"] },
+    { "id": "INT-2340", "name": "금융결제 서비스 탐색", "L1_id": "INT-2000", "L1_name": "상품 탐색/가입", "L2_id": "INT-2300", "L2_name": "부가서비스 탐색", "inference_type": "Rule", "features": ["사용 패턴"] },
+    { "id": "INT-2350", "name": "생활편의 서비스 탐색", "L1_id": "INT-2000", "L1_name": "상품 탐색/가입", "L2_id": "INT-2300", "L2_name": "부가서비스 탐색", "inference_type": "Rule", "features": ["탐색 성향 Index"] },
+
+    { "id": "INT-2410", "name": "스마트폰 탐색", "L1_id": "INT-2000", "L1_name": "상품 탐색/가입", "L2_id": "INT-2400", "L2_name": "단말 탐색", "inference_type": "Rule", "features": ["약정 진행률"] },
+    { "id": "INT-2420", "name": "실속폰 탐색", "L1_id": "INT-2000", "L1_name": "상품 탐색/가입", "L2_id": "INT-2400", "L2_name": "단말 탐색", "inference_type": "Rule", "features": ["요금 민감도 Index", "나이"] },
+    { "id": "INT-2430", "name": "워치/태블릿 탐색", "L1_id": "INT-2000", "L1_name": "상품 탐색/가입", "L2_id": "INT-2400", "L2_name": "단말 탐색", "inference_type": "Rule", "features": ["고객 가치 Index"] },
+    { "id": "INT-2440", "name": "중고폰 보상 탐색", "L1_id": "INT-2000", "L1_name": "상품 탐색/가입", "L2_id": "INT-2400", "L2_name": "단말 탐색", "inference_type": "Rule", "features": ["약정 진행률"] },
+    { "id": "INT-2450", "name": "AI 디바이스 탐색", "L1_id": "INT-2000", "L1_name": "상품 탐색/가입", "L2_id": "INT-2400", "L2_name": "단말 탐색", "inference_type": "Rule", "features": ["탐색 성향 Index"] },
+
+    { "id": "INT-2510", "name": "요금제 가입", "L1_id": "INT-2000", "L1_name": "상품 탐색/가입", "L2_id": "INT-2500", "L2_name": "가입/구매 실행", "inference_type": "Rule", "features": [] },
+    { "id": "INT-2520", "name": "부가서비스 가입", "L1_id": "INT-2000", "L1_name": "상품 탐색/가입", "L2_id": "INT-2500", "L2_name": "가입/구매 실행", "inference_type": "Rule", "features": [] },
+    { "id": "INT-2530", "name": "단말 구매", "L1_id": "INT-2000", "L1_name": "상품 탐색/가입", "L2_id": "INT-2500", "L2_name": "가입/구매 실행", "inference_type": "Rule", "features": [] },
+    { "id": "INT-2540", "name": "로밍 가입", "L1_id": "INT-2000", "L1_name": "상품 탐색/가입", "L2_id": "INT-2500", "L2_name": "가입/구매 실행", "inference_type": "Rule", "features": [] },
+    { "id": "INT-2550", "name": "결합상품 가입", "L1_id": "INT-2000", "L1_name": "상품 탐색/가입", "L2_id": "INT-2500", "L2_name": "가입/구매 실행", "inference_type": "Rule", "features": [] },
+
+    { "id": "INT-3110", "name": "즉시 납부", "L1_id": "INT-3000", "L1_name": "셀프처리", "L2_id": "INT-3100", "L2_name": "요금/납부 처리", "inference_type": "Rule", "features": ["미납 금액", "자동납부 등록 여부"] },
+    { "id": "INT-3120", "name": "자동이체 변경", "L1_id": "INT-3000", "L1_name": "셀프처리", "L2_id": "INT-3100", "L2_name": "요금/납부 처리", "inference_type": "Rule", "features": ["자동납부 등록 여부", "납부 지연 횟수"] },
+    { "id": "INT-3130", "name": "결제 카드 변경", "L1_id": "INT-3000", "L1_name": "셀프처리", "L2_id": "INT-3100", "L2_name": "요금/납부 처리", "inference_type": "Rule", "features": ["자동납부 등록 여부"] },
+    { "id": "INT-3140", "name": "납부확인서 발급", "L1_id": "INT-3000", "L1_name": "셀프처리", "L2_id": "INT-3100", "L2_name": "요금/납부 처리", "inference_type": "Rule", "features": [] },
+
+    { "id": "INT-3210", "name": "요금제 변경", "L1_id": "INT-3000", "L1_name": "셀프처리", "L2_id": "INT-3200", "L2_name": "회선/서비스 처리", "inference_type": "Model", "features": ["요금 민감도 Index", "요금제 월정액", "이탈 위험 Score", "약정 진행률"] },
+    { "id": "INT-3220", "name": "명의 변경", "L1_id": "INT-3000", "L1_name": "셀프처리", "L2_id": "INT-3200", "L2_name": "회선/서비스 처리", "inference_type": "Rule", "features": [] },
+    { "id": "INT-3230", "name": "번호 변경", "L1_id": "INT-3000", "L1_name": "셀프처리", "L2_id": "INT-3200", "L2_name": "회선/서비스 처리", "inference_type": "Rule", "features": [] },
+    { "id": "INT-3240", "name": "일시정지 신청", "L1_id": "INT-3000", "L1_name": "셀프처리", "L2_id": "INT-3200", "L2_name": "회선/서비스 처리", "inference_type": "Rule", "features": ["사용 패턴"] },
+    { "id": "INT-3250", "name": "분실 신고", "L1_id": "INT-3000", "L1_name": "셀프처리", "L2_id": "INT-3200", "L2_name": "회선/서비스 처리", "inference_type": "Rule", "features": [] },
+
+    { "id": "INT-3310", "name": "이전 설치 신청", "L1_id": "INT-3000", "L1_name": "셀프처리", "L2_id": "INT-3300", "L2_name": "설치/이전 처리", "inference_type": "Rule", "features": ["결합 여부"] },
+    { "id": "INT-3320", "name": "설치 일정 조회", "L1_id": "INT-3000", "L1_name": "셀프처리", "L2_id": "INT-3300", "L2_name": "설치/이전 처리", "inference_type": "Rule", "features": [] },
+    { "id": "INT-3330", "name": "설치 예약", "L1_id": "INT-3000", "L1_name": "셀프처리", "L2_id": "INT-3300", "L2_name": "설치/이전 처리", "inference_type": "Rule", "features": [] },
+    { "id": "INT-3340", "name": "기사 방문 예약", "L1_id": "INT-3000", "L1_name": "셀프처리", "L2_id": "INT-3300", "L2_name": "설치/이전 처리", "inference_type": "Rule", "features": [] },
+
+    { "id": "INT-3410", "name": "본인 인증", "L1_id": "INT-3000", "L1_name": "셀프처리", "L2_id": "INT-3400", "L2_name": "인증/문서 처리", "inference_type": "Rule", "features": [] },
+    { "id": "INT-3420", "name": "이용 증명 발급", "L1_id": "INT-3000", "L1_name": "셀프처리", "L2_id": "INT-3400", "L2_name": "인증/문서 처리", "inference_type": "Rule", "features": [] },
+    { "id": "INT-3430", "name": "가입원부 발급", "L1_id": "INT-3000", "L1_name": "셀프처리", "L2_id": "INT-3400", "L2_name": "인증/문서 처리", "inference_type": "Rule", "features": [] },
+    { "id": "INT-3440", "name": "부채증명서 발급", "L1_id": "INT-3000", "L1_name": "셀프처리", "L2_id": "INT-3400", "L2_name": "인증/문서 처리", "inference_type": "Rule", "features": [] },
+    { "id": "INT-3450", "name": "개인정보 열람", "L1_id": "INT-3000", "L1_name": "셀프처리", "L2_id": "INT-3400", "L2_name": "인증/문서 처리", "inference_type": "Rule", "features": [] },
+
+    { "id": "INT-4110", "name": "쿠폰 탐색", "L1_id": "INT-4000", "L1_name": "혜택/프로모션", "L2_id": "INT-4100", "L2_name": "할인 혜택 탐색", "inference_type": "Rule", "features": ["요금 민감도 Index", "비용 부담도"] },
+    { "id": "INT-4120", "name": "이벤트 탐색", "L1_id": "INT-4000", "L1_name": "혜택/프로모션", "L2_id": "INT-4100", "L2_name": "할인 혜택 탐색", "inference_type": "Rule", "features": ["탐색 성향 Index"] },
+    { "id": "INT-4130", "name": "제휴 할인 탐색", "L1_id": "INT-4000", "L1_name": "혜택/프로모션", "L2_id": "INT-4100", "L2_name": "할인 혜택 탐색", "inference_type": "Rule", "features": ["멤버십 활용도"] },
+    { "id": "INT-4140", "name": "시즌 프로모션 탐색", "L1_id": "INT-4000", "L1_name": "혜택/프로모션", "L2_id": "INT-4100", "L2_name": "할인 혜택 탐색", "inference_type": "Rule", "features": ["탐색 성향 Index"] },
+
+    { "id": "INT-4210", "name": "영화 혜택 탐색", "L1_id": "INT-4000", "L1_name": "혜택/프로모션", "L2_id": "INT-4200", "L2_name": "멤버십 혜택 탐색", "inference_type": "Rule", "features": ["멤버십 활용도", "나이"] },
+    { "id": "INT-4220", "name": "외식 혜택 탐색", "L1_id": "INT-4000", "L1_name": "혜택/프로모션", "L2_id": "INT-4200", "L2_name": "멤버십 혜택 탐색", "inference_type": "Rule", "features": ["멤버십 활용도"] },
+    { "id": "INT-4230", "name": "쇼핑 혜택 탐색", "L1_id": "INT-4000", "L1_name": "혜택/프로모션", "L2_id": "INT-4200", "L2_name": "멤버십 혜택 탐색", "inference_type": "Rule", "features": ["멤버십 활용도"] },
+    { "id": "INT-4240", "name": "VIP 혜택 탐색", "L1_id": "INT-4000", "L1_name": "혜택/프로모션", "L2_id": "INT-4200", "L2_name": "멤버십 혜택 탐색", "inference_type": "Rule", "features": ["고객 가치 Index"] },
+
+    { "id": "INT-4310", "name": "AI 추천 탐색", "L1_id": "INT-4000", "L1_name": "혜택/프로모션", "L2_id": "INT-4300", "L2_name": "맞춤 추천 탐색", "inference_type": "Model", "features": ["고객 가치 Index", "비용 부담도", "데이터 사용률", "푸시 오픈율"] },
+    { "id": "INT-4320", "name": "개인화 혜택 탐색", "L1_id": "INT-4000", "L1_name": "혜택/프로모션", "L2_id": "INT-4300", "L2_name": "맞춤 추천 탐색", "inference_type": "Model", "features": ["고객 가치 Index", "멤버십 활용도", "탐색 성향 Index"] },
+    { "id": "INT-4330", "name": "추천 요금제 검토", "L1_id": "INT-4000", "L1_name": "혜택/프로모션", "L2_id": "INT-4300", "L2_name": "맞춤 추천 탐색", "inference_type": "Model", "features": ["요금 민감도 Index", "데이터 사용률", "가입 개월 수", "약정 진행률"] },
+
+    { "id": "INT-5110", "name": "인터넷 장애 해결", "L1_id": "INT-5000", "L1_name": "문제 해결/상담", "L2_id": "INT-5100", "L2_name": "품질 문제 해결", "inference_type": "Model", "features": ["품질 만족도", "결합 여부", "quality_action_count", "장애 페이지 체류"] },
+    { "id": "INT-5120", "name": "WiFi 문제 해결", "L1_id": "INT-5000", "L1_name": "문제 해결/상담", "L2_id": "INT-5100", "L2_name": "품질 문제 해결", "inference_type": "Model", "features": ["품질 만족도", "WiFi 진단 실행"] },
+    { "id": "INT-5130", "name": "속도 저하 해결", "L1_id": "INT-5000", "L1_name": "문제 해결/상담", "L2_id": "INT-5100", "L2_name": "품질 문제 해결", "inference_type": "Model", "features": ["품질 만족도", "속도 측정 실행", "데이터 사용률"] },
+    { "id": "INT-5140", "name": "IPTV 장애 해결", "L1_id": "INT-5000", "L1_name": "문제 해결/상담", "L2_id": "INT-5100", "L2_name": "품질 문제 해결", "inference_type": "Rule", "features": ["결합 여부", "품질 만족도"] },
+    { "id": "INT-5150", "name": "QoE 문제 해결", "L1_id": "INT-5000", "L1_name": "문제 해결/상담", "L2_id": "INT-5100", "L2_name": "품질 문제 해결", "inference_type": "Rule", "features": ["품질 만족도"] },
+
+    { "id": "INT-5210", "name": "로그인 오류 해결", "L1_id": "INT-5000", "L1_name": "문제 해결/상담", "L2_id": "INT-5200", "L2_name": "서비스 오류 해결", "inference_type": "Rule", "features": [] },
+    { "id": "INT-5220", "name": "결제 오류 해결", "L1_id": "INT-5000", "L1_name": "문제 해결/상담", "L2_id": "INT-5200", "L2_name": "서비스 오류 해결", "inference_type": "Rule", "features": [] },
+    { "id": "INT-5230", "name": "인증 오류 해결", "L1_id": "INT-5000", "L1_name": "문제 해결/상담", "L2_id": "INT-5200", "L2_name": "서비스 오류 해결", "inference_type": "Rule", "features": [] },
+    { "id": "INT-5240", "name": "앱 오류 해결", "L1_id": "INT-5000", "L1_name": "문제 해결/상담", "L2_id": "INT-5200", "L2_name": "서비스 오류 해결", "inference_type": "Rule", "features": [] },
+
+    { "id": "INT-5310", "name": "챗봇 상담", "L1_id": "INT-5000", "L1_name": "문제 해결/상담", "L2_id": "INT-5300", "L2_name": "고객 상담", "inference_type": "Rule", "features": ["30일 상담 횟수"] },
+    { "id": "INT-5320", "name": "채팅 상담", "L1_id": "INT-5000", "L1_name": "문제 해결/상담", "L2_id": "INT-5300", "L2_name": "고객 상담", "inference_type": "Rule", "features": ["30일 상담 횟수"] },
+    { "id": "INT-5330", "name": "전화 상담", "L1_id": "INT-5000", "L1_name": "문제 해결/상담", "L2_id": "INT-5300", "L2_name": "고객 상담", "inference_type": "Rule", "features": ["30일 상담 횟수", "나이"] },
+    { "id": "INT-5340", "name": "이메일 상담", "L1_id": "INT-5000", "L1_name": "문제 해결/상담", "L2_id": "INT-5300", "L2_name": "고객 상담", "inference_type": "Rule", "features": [] },
+    { "id": "INT-5350", "name": "카카오 상담", "L1_id": "INT-5000", "L1_name": "문제 해결/상담", "L2_id": "INT-5300", "L2_name": "고객 상담", "inference_type": "Rule", "features": ["30일 상담 횟수"] },
+
+    { "id": "INT-5410", "name": "AS 신청", "L1_id": "INT-5000", "L1_name": "문제 해결/상담", "L2_id": "INT-5400", "L2_name": "AS/지원 요청", "inference_type": "Rule", "features": ["품질 만족도", "결합 여부"] },
+    { "id": "INT-5420", "name": "장애 신고", "L1_id": "INT-5000", "L1_name": "문제 해결/상담", "L2_id": "INT-5400", "L2_name": "AS/지원 요청", "inference_type": "Rule", "features": ["품질 만족도"] },
+    { "id": "INT-5430", "name": "방문 요청", "L1_id": "INT-5000", "L1_name": "문제 해결/상담", "L2_id": "INT-5400", "L2_name": "AS/지원 요청", "inference_type": "Rule", "features": ["결합 여부"] },
+    { "id": "INT-5440", "name": "기술 지원 요청", "L1_id": "INT-5000", "L1_name": "문제 해결/상담", "L2_id": "INT-5400", "L2_name": "AS/지원 요청", "inference_type": "Rule", "features": ["품질 만족도"] },
+
+    { "id": "INT-6110", "name": "가족결합 관리", "L1_id": "INT-6000", "L1_name": "관계/공유", "L2_id": "INT-6100", "L2_name": "가족 관리", "inference_type": "Model", "features": ["결합 여부", "가족 회선 수", "가족 결합 관련 행동"] },
+    { "id": "INT-6120", "name": "자녀 회선 관리", "L1_id": "INT-6000", "L1_name": "관계/공유", "L2_id": "INT-6100", "L2_name": "가족 관리", "inference_type": "Rule", "features": ["가족 회선 수", "나이"] },
+    { "id": "INT-6130", "name": "가족 데이터 공유", "L1_id": "INT-6000", "L1_name": "관계/공유", "L2_id": "INT-6100", "L2_name": "가족 관리", "inference_type": "Rule", "features": ["가족 회선 수", "잔여 데이터 비율"] },
+    { "id": "INT-6140", "name": "가족 혜택 관리", "L1_id": "INT-6000", "L1_name": "관계/공유", "L2_id": "INT-6100", "L2_name": "가족 관리", "inference_type": "Rule", "features": ["가족 회선 수", "고객 가치 Index"] },
+
+    { "id": "INT-6210", "name": "데이터 선물", "L1_id": "INT-6000", "L1_name": "관계/공유", "L2_id": "INT-6200", "L2_name": "공유/선물", "inference_type": "Rule", "features": ["잔여 데이터 비율", "가족 회선 수"] },
+    { "id": "INT-6220", "name": "쿠폰 선물", "L1_id": "INT-6000", "L1_name": "관계/공유", "L2_id": "INT-6200", "L2_name": "공유/선물", "inference_type": "Rule", "features": ["미사용 쿠폰 수"] },
+    { "id": "INT-6230", "name": "포인트 선물", "L1_id": "INT-6000", "L1_name": "관계/공유", "L2_id": "INT-6200", "L2_name": "공유/선물", "inference_type": "Rule", "features": ["멤버십 활용도"] },
+    { "id": "INT-6240", "name": "회선 공유 설정", "L1_id": "INT-6000", "L1_name": "관계/공유", "L2_id": "INT-6200", "L2_name": "공유/선물", "inference_type": "Rule", "features": ["가족 회선 수"] },
+
+    { "id": "INT-6310", "name": "그룹 회선 관리", "L1_id": "INT-6000", "L1_name": "관계/공유", "L2_id": "INT-6300", "L2_name": "그룹 관리", "inference_type": "Rule", "features": [] },
+    { "id": "INT-6320", "name": "소상공인 회선 관리", "L1_id": "INT-6000", "L1_name": "관계/공유", "L2_id": "INT-6300", "L2_name": "그룹 관리", "inference_type": "Rule", "features": [] },
+    { "id": "INT-6330", "name": "법인 회선 관리", "L1_id": "INT-6000", "L1_name": "관계/공유", "L2_id": "INT-6300", "L2_name": "그룹 관리", "inference_type": "Rule", "features": [] },
+    { "id": "INT-6340", "name": "그룹 혜택 관리", "L1_id": "INT-6000", "L1_name": "관계/공유", "L2_id": "INT-6300", "L2_name": "그룹 관리", "inference_type": "Rule", "features": [] },
+
+    { "id": "INT-7110", "name": "위약금 조회", "L1_id": "INT-7000", "L1_name": "이탈/전환", "L2_id": "INT-7100", "L2_name": "해지 검토", "inference_type": "Model", "features": ["약정 진행률", "이탈 위험 Score", "위약금 조회 행동"] },
+    { "id": "INT-7120", "name": "해지 절차 확인", "L1_id": "INT-7000", "L1_name": "이탈/전환", "L2_id": "INT-7100", "L2_name": "해지 검토", "inference_type": "Rule", "features": ["이탈 위험 Score"] },
+    { "id": "INT-7130", "name": "해지 상담 요청", "L1_id": "INT-7000", "L1_name": "이탈/전환", "L2_id": "INT-7100", "L2_name": "해지 검토", "inference_type": "Model", "features": ["이탈 위험 Score", "30일 상담 횟수", "해지 페이지 진입"] },
+    { "id": "INT-7140", "name": "미사용 서비스 정리", "L1_id": "INT-7000", "L1_name": "이탈/전환", "L2_id": "INT-7100", "L2_name": "해지 검토", "inference_type": "Rule", "features": ["비용 부담도", "부가서비스 수"] },
+
+    { "id": "INT-7210", "name": "번호이동 탐색", "L1_id": "INT-7000", "L1_name": "이탈/전환", "L2_id": "INT-7200", "L2_name": "경쟁사 이동 검토", "inference_type": "Model", "features": ["이탈 위험 Score", "비용 부담도", "경쟁사 비교 행동"] },
+    { "id": "INT-7220", "name": "경쟁사 혜택 비교", "L1_id": "INT-7000", "L1_name": "이탈/전환", "L2_id": "INT-7200", "L2_name": "경쟁사 이동 검토", "inference_type": "Model", "features": ["비용 부담도", "품질 만족도", "경쟁사 탐색 행동"] },
+    { "id": "INT-7230", "name": "경쟁사 요금 비교", "L1_id": "INT-7000", "L1_name": "이탈/전환", "L2_id": "INT-7200", "L2_name": "경쟁사 이동 검토", "inference_type": "Rule", "features": ["요금 민감도 Index", "비용 부담도"] },
+    { "id": "INT-7240", "name": "이동 조건 검토", "L1_id": "INT-7000", "L1_name": "이탈/전환", "L2_id": "INT-7200", "L2_name": "경쟁사 이동 검토", "inference_type": "Rule", "features": ["약정 진행률"] },
+
+    { "id": "INT-7310", "name": "저가 요금 탐색", "L1_id": "INT-7000", "L1_name": "이탈/전환", "L2_id": "INT-7300", "L2_name": "비용 절감 검토", "inference_type": "Model", "features": ["요금 민감도 Index", "비용 부담도", "요금제 월정액"] },
+    { "id": "INT-7320", "name": "할인 탐색", "L1_id": "INT-7000", "L1_name": "이탈/전환", "L2_id": "INT-7300", "L2_name": "비용 절감 검토", "inference_type": "Model", "features": ["요금 민감도 Index", "미사용 쿠폰 수", "할인 페이지 체류"] },
+    { "id": "INT-7330", "name": "혜택 최적화 검토", "L1_id": "INT-7000", "L1_name": "이탈/전환", "L2_id": "INT-7300", "L2_name": "비용 절감 검토", "inference_type": "Rule", "features": ["탐색 성향 Index", "비용 부담도"] },
+    { "id": "INT-7340", "name": "불필요 서비스 제거", "L1_id": "INT-7000", "L1_name": "이탈/전환", "L2_id": "INT-7300", "L2_name": "비용 절감 검토", "inference_type": "Rule", "features": ["부가서비스 수", "비용 부담도"] }
+  ]
+}

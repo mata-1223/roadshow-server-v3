@@ -1,0 +1,118 @@
+{
+  "scenario_id": "cs-myk-v3",
+  "version": "0.1.0",
+  "description": "12문항 (정적 5 + 성향 7) - 답변별 Base Feature 시뮬레이션 매핑",
+  "questions": [
+    {
+      "id": "Q1", "type": "static", "dimension": "인구통계",
+      "question": "나이대를 알려주세요",
+      "options": [
+        { "code": "A", "label": "20대",       "features": { "나이": 25 } },
+        { "code": "B", "label": "30대",       "features": { "나이": 35 } },
+        { "code": "C", "label": "40대",       "features": { "나이": 45 } },
+        { "code": "D", "label": "50대",       "features": { "나이": 55 } },
+        { "code": "E", "label": "60대 이상",  "features": { "나이": 65 } }
+      ]
+    },
+    {
+      "id": "Q2", "type": "static", "dimension": "고객 가치",
+      "question": "KT를 얼마나 오래 사용하셨나요?",
+      "options": [
+        { "code": "A", "label": "1년 미만",  "features": { "가입 개월 수": 6 } },
+        { "code": "B", "label": "1~3년",    "features": { "가입 개월 수": 24 } },
+        { "code": "C", "label": "3~5년",    "features": { "가입 개월 수": 48 } },
+        { "code": "D", "label": "5년 이상", "features": { "가입 개월 수": 84 } }
+      ]
+    },
+    {
+      "id": "Q3", "type": "static", "dimension": "요금제 정보",
+      "question": "현재 요금제 유형은?",
+      "options": [
+        { "code": "A", "label": "5G",        "features": { "요금제 유형": "5G",   "요금제 월정액": 75000 } },
+        { "code": "B", "label": "LTE",       "features": { "요금제 유형": "LTE",  "요금제 월정액": 55000 } },
+        { "code": "C", "label": "실속형/알뜰", "features": { "요금제 유형": "실속형", "요금제 월정액": 33000 } }
+      ]
+    },
+    {
+      "id": "Q4", "type": "static", "dimension": "결합 정보",
+      "question": "결합 상품에 가입하셨나요?",
+      "options": [
+        { "code": "A", "label": "있음 (인터넷·IPTV 등)", "features": { "결합 여부": true  } },
+        { "code": "B", "label": "없음",                   "features": { "결합 여부": false } }
+      ]
+    },
+    {
+      "id": "Q5", "type": "static", "dimension": "가족 정보",
+      "question": "가족 결합 회선 수는?",
+      "options": [
+        { "code": "A", "label": "1회선 (본인만)", "features": { "가족 회선 수": 1 } },
+        { "code": "B", "label": "2~3회선",       "features": { "가족 회선 수": 3 } },
+        { "code": "C", "label": "4회선 이상",    "features": { "가족 회선 수": 5 } }
+      ]
+    },
+    {
+      "id": "Q6", "type": "behavioral", "dimension": "사용 패턴",
+      "question": "평소 스마트폰을 주로 어떻게 쓰시나요?",
+      "options": [
+        { "code": "A", "label": "영상·게임·SNS 위주",   "features": { "사용 패턴": "데이터 헤비" } },
+        { "code": "B", "label": "전화·문자 위주",       "features": { "사용 패턴": "음성 헤비" } },
+        { "code": "C", "label": "앱 결제·콘텐츠 구독",  "features": { "사용 패턴": "콘텐츠 헤비" } },
+        { "code": "D", "label": "업무용 위주",          "features": { "사용 패턴": "업무 헤비" } }
+      ]
+    },
+    {
+      "id": "Q7", "type": "behavioral", "dimension": "사용 강도",
+      "question": "데이터 사용 정도는?",
+      "options": [
+        { "code": "A", "label": "충분 (한 번도 부족하지 않음)", "features": { "데이터 사용률": 0.40, "잔여 데이터 비율": 0.60 } },
+        { "code": "B", "label": "가끔 부족",                    "features": { "데이터 사용률": 0.70, "잔여 데이터 비율": 0.30 } },
+        { "code": "C", "label": "매달 부족 (추가 충전 자주)",   "features": { "데이터 사용률": 0.90, "잔여 데이터 비율": 0.10 } }
+      ]
+    },
+    {
+      "id": "Q8", "type": "behavioral", "dimension": "요금 민감도",
+      "question": "통신비 부담은 어떠신가요?",
+      "options": [
+        { "code": "A", "label": "적정하다",      "features": { "비용 부담도": 0.2 } },
+        { "code": "B", "label": "약간 부담된다", "features": { "비용 부담도": 0.5 } },
+        { "code": "C", "label": "많이 부담된다", "features": { "비용 부담도": 0.8 } }
+      ]
+    },
+    {
+      "id": "Q9", "type": "behavioral", "dimension": "품질 만족",
+      "question": "통화 품질·속도 만족도는?",
+      "options": [
+        { "code": "A", "label": "만족",                       "features": { "품질 만족도": 0.85 } },
+        { "code": "B", "label": "보통",                       "features": { "품질 만족도": 0.55 } },
+        { "code": "C", "label": "불만 (자주 끊김/속도 느림)", "features": { "품질 만족도": 0.25 } }
+      ]
+    },
+    {
+      "id": "Q10", "type": "behavioral", "dimension": "혜택 활용",
+      "question": "멤버십 혜택을 활용하시나요?",
+      "options": [
+        { "code": "A", "label": "자주 사용",   "features": { "멤버십 활용도": 0.80 } },
+        { "code": "B", "label": "가끔 사용",   "features": { "멤버십 활용도": 0.45 } },
+        { "code": "C", "label": "거의 안 함",  "features": { "멤버십 활용도": 0.10 } }
+      ]
+    },
+    {
+      "id": "Q11", "type": "behavioral", "dimension": "탐색 성향",
+      "question": "새 상품·혜택을 자주 탐색하시나요?",
+      "options": [
+        { "code": "A", "label": "자주 (이벤트·혜택 챙김)", "features": { "푸시 오픈율": 0.80 } },
+        { "code": "B", "label": "가끔",                    "features": { "푸시 오픈율": 0.45 } },
+        { "code": "C", "label": "거의 안 함",              "features": { "푸시 오픈율": 0.10 } }
+      ]
+    },
+    {
+      "id": "Q12", "type": "behavioral", "dimension": "CS 접점",
+      "question": "고객센터 문의 빈도는?",
+      "options": [
+        { "code": "A", "label": "최근 자주 문의", "features": { "30일 상담 횟수": 3 } },
+        { "code": "B", "label": "가끔 (1~2회)",  "features": { "30일 상담 횟수": 1 } },
+        { "code": "C", "label": "거의 없음",      "features": { "30일 상담 횟수": 0 } }
+      ]
+    }
+  ]
+}

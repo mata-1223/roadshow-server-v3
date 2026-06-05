@@ -1,0 +1,28 @@
+# venv / caches
+.venv/
+.venv*/
+__pycache__/
+*.pyc
+*.pyo
+.mypy_cache/
+.pytest_cache/
+.ruff_cache/
+
+# 로컬 데이터/모델 (컨테이너에서 새로 생성)
+*.duckdb
+*.duckdb.wal
+mlflow*.db
+mlruns*/
+mlruns_v3/
+
+# 로컬 환경
+.env
+.env.local
+
+# 에디터
+.vscode/
+.idea/
+*.swp
+
+# 시스템
+.DS_Store

@@ -1,0 +1,145 @@
+{
+  "scenario_id": "cs-myk-v3",
+  "version": "0.1.0",
+  "description": "마이K 앱 행동 선택지 17개. 3단계 분기 + 행동→Intent boost 매핑",
+  "steps": [
+    {
+      "step": 1,
+      "question": "다음으로 어떤 메뉴를 선택하시나요?",
+      "behaviors": [
+        {
+          "id": "1-A",
+          "name": "데이터 사용량 페이지 진입",
+          "event_type": "page_view",
+          "entity": "data_usage",
+          "boosts": { "INT-1110": 0.15, "INT-1150": 0.10 }
+        },
+        {
+          "id": "1-B",
+          "name": "요금/청구 상세 페이지 진입",
+          "event_type": "page_view",
+          "entity": "billing",
+          "boosts": { "INT-1210": 0.15, "INT-1220": 0.10, "INT-1240": 0.10 }
+        },
+        {
+          "id": "1-C",
+          "name": "가입정보 페이지 진입",
+          "event_type": "page_view",
+          "entity": "subscription_info",
+          "boosts": { "INT-1310": 0.12, "INT-1330": 0.10, "INT-1340": 0.08 }
+        },
+        {
+          "id": "1-D",
+          "name": "혜택/멤버십 페이지 진입",
+          "event_type": "page_view",
+          "entity": "benefit_membership",
+          "boosts": { "INT-1410": 0.15, "INT-1440": 0.10, "INT-4110": 0.10 }
+        },
+        {
+          "id": "1-E",
+          "name": "상품 탐색 페이지 진입",
+          "event_type": "page_view",
+          "entity": "product_explore",
+          "boosts": { "INT-2110": 0.15, "INT-2130": 0.12, "INT-2240": 0.10 }
+        },
+        {
+          "id": "1-F",
+          "name": "고객지원 페이지 진입",
+          "event_type": "page_view",
+          "entity": "customer_support",
+          "boosts": { "INT-5110": 0.15, "INT-5310": 0.10 }
+        }
+      ]
+    },
+    {
+      "step": 2,
+      "question": "다음으로 어떤 행동을 하실건가요?",
+      "behaviors": [
+        {
+          "id": "2-A",
+          "name": "데이터 충전 버튼 클릭",
+          "event_type": "click",
+          "entity": "data_topup_button",
+          "boosts": { "INT-2130": 0.30, "INT-2320": 0.15 }
+        },
+        {
+          "id": "2-B",
+          "name": "요금제 변경 신청 클릭",
+          "event_type": "click",
+          "entity": "plan_change_button",
+          "boosts": { "INT-3210": 0.35, "INT-2110": 0.15 }
+        },
+        {
+          "id": "2-C",
+          "name": "WiFi 진단 / 속도 측정 실행",
+          "event_type": "click",
+          "entity": "quality_diagnosis",
+          "boosts": { "INT-5110": 0.30, "INT-5120": 0.25, "INT-5130": 0.20 }
+        },
+        {
+          "id": "2-D",
+          "name": "가족 결합 회선 추가 페이지",
+          "event_type": "page_view",
+          "entity": "family_bundle",
+          "boosts": { "INT-6110": 0.35, "INT-2240": 0.15 }
+        },
+        {
+          "id": "2-E",
+          "name": "위약금 계산 페이지 진입",
+          "event_type": "page_view",
+          "entity": "penalty_calc",
+          "boosts": { "INT-7110": 0.35, "INT-7120": 0.20 }
+        },
+        {
+          "id": "2-F",
+          "name": "경쟁사 비교 페이지 진입",
+          "event_type": "page_view",
+          "entity": "competitor_compare",
+          "boosts": { "INT-7210": 0.35, "INT-7220": 0.25, "INT-7230": 0.20 }
+        }
+      ]
+    },
+    {
+      "step": 3,
+      "question": "마지막으로 어떤 행동을 하실건가요?",
+      "behaviors": [
+        {
+          "id": "3-A",
+          "name": "신청/변경 확정 버튼 클릭",
+          "event_type": "click",
+          "entity": "confirm_button",
+          "boosts_dynamic": true,
+          "boosts_note": "Step 2 행동에 따라 동적 결정 (Step 2의 주 Intent +0.10~+0.20)"
+        },
+        {
+          "id": "3-B",
+          "name": "쿠폰 사용/혜택 적용 버튼 클릭",
+          "event_type": "click",
+          "entity": "coupon_use",
+          "boosts": { "INT-1430": 0.30, "INT-4110": 0.20, "INT-4320": 0.15 }
+        },
+        {
+          "id": "3-C",
+          "name": "챗봇 상담 진입",
+          "event_type": "support_entry",
+          "entity": "chatbot",
+          "boosts": { "INT-5310": 0.40, "INT-5320": 0.20 }
+        },
+        {
+          "id": "3-D",
+          "name": "전화 상담 연결 클릭",
+          "event_type": "support_entry",
+          "entity": "call_support",
+          "boosts": { "INT-5330": 0.40, "INT-5410": 0.20 }
+        },
+        {
+          "id": "3-E",
+          "name": "해지 신청 페이지 진입",
+          "event_type": "page_view",
+          "entity": "cancel_page",
+          "boosts": { "INT-7130": 0.50, "INT-7140": 0.25 }
+        }
+      ]
+    }
+  ]
+}

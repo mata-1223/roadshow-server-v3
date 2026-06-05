@@ -1,0 +1,22 @@
+.venv/
+.venv*/
+__pycache__/
+*.pyc
+*.pyo
+
+# 로컬 DB / MLflow (컨테이너에서 재생성)
+*.duckdb
+*.duckdb.wal
+mlflow*.db
+mlruns/
+mlruns_*/
+
+# 로컬 환경
+.env
+.env.local
+
+# 에디터/시스템
+.vscode/
+.idea/
+.DS_Store
+*.log

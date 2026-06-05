@@ -1,0 +1,32 @@
+{
+  "scenario_id": "cs-myk-v3",
+  "version": "0.1.0",
+  "description": "Intent별 Action 후보 카탈로그. Intent → Action 매핑은 추론 단계에서 동적 결정.",
+  "channels": [
+    { "id": "ai_agent",     "name": "AI Agent (MyK)", "icon": "🤖", "characteristic": "대화형 즉각 응답" },
+    { "id": "push",         "name": "푸시 알림",       "icon": "📱", "characteristic": "강제 노출" },
+    { "id": "call_center",  "name": "고객센터",        "icon": "📞", "characteristic": "인적 응대" }
+  ],
+  "actions": [
+    { "id": "A01", "name": "데이터 충전 추천",       "intents": ["INT-2130"],             "condition": "score >= 0.70 AND 데이터 사용률 >= 0.7", "channel": "ai_agent", "message": "데이터 1GB 즉시 충전하시겠어요?" },
+    { "id": "A02", "name": "요금제 다운그레이드 제안", "intents": ["INT-3210"],             "condition": "score >= 0.75 AND 비용 부담도 >= 0.5", "channel": "ai_agent", "message": "월 X원 저렴한 요금제로 변경 가능해요" },
+    { "id": "A03", "name": "요금제 업그레이드 추천",   "intents": ["INT-3210"],             "condition": "score >= 0.75 AND 데이터 사용률 >= 0.85", "channel": "ai_agent", "message": "5G 무제한 요금제로 데이터 걱정 없이" },
+    { "id": "A04", "name": "추천 요금제 검토",        "intents": ["INT-4330"],             "condition": "score >= 0.70",                "channel": "ai_agent", "message": "고객님께 맞는 요금제를 추천해드릴게요" },
+    { "id": "A05", "name": "AI 맞춤 혜택 안내",       "intents": ["INT-4310", "INT-4320"], "condition": "score >= 0.65",                "channel": "ai_agent", "message": "고객님께 맞춤 혜택을 찾아드렸어요" },
+    { "id": "A06", "name": "멤버십 쿠폰 즉시 발급",   "intents": ["INT-1410", "INT-4110"], "condition": "score >= 0.65 AND 쿠폰 사용 행동", "channel": "ai_agent", "message": "사용 가능한 쿠폰 3장을 발급해드렸어요" },
+    { "id": "A07", "name": "VIP 혜택 안내",          "intents": ["INT-1440", "INT-4240"], "condition": "score >= 0.70 AND 고객 가치 Index >= 70", "channel": "ai_agent", "message": "VIP 전용 혜택을 확인해보세요" },
+    { "id": "A08", "name": "즉시 납부 안내",          "intents": ["INT-3110"],             "condition": "score >= 0.85 AND 미납 금액 > 0", "channel": "ai_agent", "message": "이번 달 청구금액 ₩X를 납부하시겠어요?" },
+    { "id": "A09", "name": "자동이체 신청 유도",      "intents": ["INT-3120"],             "condition": "score >= 0.60 AND 납부 지연 이력", "channel": "ai_agent", "message": "자동이체 설정 시 매달 할인 받으세요" },
+    { "id": "A10", "name": "미납 정지 긴급 안내",     "intents": ["INT-1240"],             "condition": "score >= 0.70 AND 이탈 위험 Score >= 0.6", "channel": "push",     "message": "⚠️ 서비스 정지 위험 — 지금 납부하세요" },
+    { "id": "A11", "name": "인터넷 장애 진단 안내",   "intents": ["INT-5110", "INT-5120"], "condition": "score >= 0.70",                "channel": "ai_agent", "message": "WiFi 진단을 도와드릴게요" },
+    { "id": "A12", "name": "속도 저하 해결 가이드",   "intents": ["INT-5130"],             "condition": "score >= 0.70",                "channel": "ai_agent", "message": "속도 저하 원인을 분석해드릴게요" },
+    { "id": "A13", "name": "AS 신청 가이드",         "intents": ["INT-5410"],             "condition": "score >= 0.65 AND 품질 불만 Score >= 0.7", "channel": "ai_agent", "message": "AS 신청을 빠르게 도와드릴게요" },
+    { "id": "A14", "name": "챗봇 우선 연결",         "intents": ["INT-5310"],             "condition": "score >= 0.70",                "channel": "ai_agent", "message": "전담 상담사가 빠르게 연결됩니다" },
+    { "id": "A15", "name": "전담 상담사 연결",       "intents": ["INT-5330"],             "condition": "score >= 0.70 AND 30일 상담 횟수 >= 2", "channel": "call_center", "message": "전담 상담사가 직접 안내해드립니다" },
+    { "id": "A16", "name": "장애 보상 검토 안내",    "intents": ["INT-5110"],             "condition": "score >= 0.65 AND 반복 불만",  "channel": "call_center", "message": "장애 보상 가능 여부를 검토해드립니다" },
+    { "id": "A17", "name": "가족 결합 추가 안내",    "intents": ["INT-6110"],             "condition": "score >= 0.65 AND 가족 회선 수 >= 2", "channel": "ai_agent", "message": "가족 회선 추가 시 매달 X원 할인" },
+    { "id": "A18", "name": "리텐션 혜택 즉시 제안",  "intents": ["INT-7110", "INT-7130"], "condition": "score >= 0.85 AND 해지 페이지 진입", "channel": "ai_agent", "message": "해지 전 30% 할인 혜택을 받으세요" },
+    { "id": "A19", "name": "약정 만료 안내",         "intents": ["INT-7110"],             "condition": "score >= 0.50 AND 약정 D-60 이내", "channel": "push",     "message": "약정 만료 D-X. 만료 후 혜택을 확인하세요" },
+    { "id": "A20", "name": "저가 요금제 비교 안내",  "intents": ["INT-7310"],             "condition": "score >= 0.70 AND 비용 부담도 >= 0.5", "channel": "ai_agent", "message": "월 X원 저렴한 요금제를 비교해드릴게요" }
+  ]
+}
