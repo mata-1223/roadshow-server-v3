@@ -15,8 +15,8 @@ from dataclasses import dataclass
 from typing import Any
 
 # Softmax 분포 sharpness 조절. 작을수록 Top 점수에 분포가 집중.
-# T=0.3 → 시연 임팩트(상위 Intent 강조)와 통계적 안정성의 균형
-PROBABILITY_TEMPERATURE = 0.3
+# T=0.15 → 시연 임팩트(상위 Intent 강조) 우선. Top 5가 분포의 ~60% 점유, 행동 1번에 Δp 수%p
+PROBABILITY_TEMPERATURE = 0.15
 
 from core.builder import build_batch_features
 from core.event_extractor import extract as extract_event_features
