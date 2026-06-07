@@ -90,11 +90,10 @@ def seed_catalogs() -> None:
             b_rows.append([
                 b["id"], step, b["name"],
                 b["event_type"], b["entity"],
-                json.dumps(b.get("boosts", {}), ensure_ascii=False),
             ])
     ex.executemany(
-        "INSERT INTO catalog_behaviors (behavior_id, step, behavior_name, event_type, entity, boosts_json) "
-        "VALUES (?, ?, ?, ?, ?, ?)",
+        "INSERT INTO catalog_behaviors (behavior_id, step, behavior_name, event_type, entity) "
+        "VALUES (?, ?, ?, ?, ?)",
         b_rows,
     )
     logger.info(f"Seeded catalog_behaviors: {len(b_rows)} rows")
@@ -122,7 +121,7 @@ def load_intents_catalog() -> list[dict]:
 def load_behaviors_catalog() -> dict[str, dict]:
     """behavior_id → behavior info"""
     ex = get_executor()
-    df = ex.to_pandas("SELECT behavior_id, step, behavior_name, event_type, entity, boosts_json FROM catalog_behaviors")
+    df = ex.to_pandas("SELECT behavior_id, step, behavior_name, event_type, entity FROM catalog_behaviors")
     result = {}
     for _, r in df.iterrows():
         result[r["behavior_id"]] = {
@@ -130,6 +129,5 @@ def load_behaviors_catalog() -> dict[str, dict]:
             "name":          r["behavior_name"],
             "event_type":    r["event_type"],
             "entity":        r["entity"],
-            "boosts":        json.loads(r["boosts_json"]) if r["boosts_json"] else {},
         }
     return result

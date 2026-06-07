@@ -1,10 +1,10 @@
 {
   "scenario_id": "cs-myk-v3",
-  "version": "0.1.0",
-  "description": "12문항 (정적 5 + 성향 7) - 답변별 Base Feature 시뮬레이션 매핑",
+  "version": "0.3.0",
+  "description": "14문항 (객관 사실 5 + 사용 행동 2 + 행동 빈도·이력 5 + 사용 맥락 2). KFM Proxy 일관성을 위해 주관 체감 → 객관 행동 지표로 전환.",
   "questions": [
     {
-      "id": "Q1", "type": "static", "dimension": "인구통계",
+      "id": "Q1", "block": "objective_fact", "dimension": "인구통계",
       "question": "나이대를 알려주세요",
       "options": [
         { "code": "A", "label": "20대",       "features": { "나이": 25 } },
@@ -15,7 +15,7 @@
       ]
     },
     {
-      "id": "Q2", "type": "static", "dimension": "고객 가치",
+      "id": "Q2", "block": "objective_fact", "dimension": "고객 가치",
       "question": "KT를 얼마나 오래 사용하셨나요?",
       "options": [
         { "code": "A", "label": "1년 미만",  "features": { "가입 개월 수": 6 } },
@@ -25,7 +25,7 @@
       ]
     },
     {
-      "id": "Q3", "type": "static", "dimension": "요금제 정보",
+      "id": "Q3", "block": "objective_fact", "dimension": "요금제 정보",
       "question": "현재 요금제 유형은?",
       "options": [
         { "code": "A", "label": "5G",        "features": { "요금제 유형": "5G",   "요금제 월정액": 75000 } },
@@ -34,15 +34,17 @@
       ]
     },
     {
-      "id": "Q4", "type": "static", "dimension": "결합 정보",
-      "question": "결합 상품에 가입하셨나요?",
+      "id": "Q4", "block": "objective_fact", "dimension": "결합 정보",
+      "question": "결합 상품 가입 형태는?",
       "options": [
-        { "code": "A", "label": "있음 (인터넷·IPTV 등)", "features": { "결합 여부": true  } },
-        { "code": "B", "label": "없음",                   "features": { "결합 여부": false } }
+        { "code": "A", "label": "결합 안 함 (모바일만)",          "features": { "결합 여부": false, "결합 형태": "none" } },
+        { "code": "B", "label": "모바일 결합만 (가족 회선만)",     "features": { "결합 여부": true,  "결합 형태": "mobile_only" } },
+        { "code": "C", "label": "인터넷+IPTV 결합",               "features": { "결합 여부": true,  "결합 형태": "home" } },
+        { "code": "D", "label": "풀 결합 (모바일+인터넷+IPTV)",   "features": { "결합 여부": true,  "결합 형태": "full" } }
       ]
     },
     {
-      "id": "Q5", "type": "static", "dimension": "가족 정보",
+      "id": "Q5", "block": "objective_fact", "dimension": "가족 정보",
       "question": "가족 결합 회선 수는?",
       "options": [
         { "code": "A", "label": "1회선 (본인만)", "features": { "가족 회선 수": 1 } },
@@ -51,7 +53,7 @@
       ]
     },
     {
-      "id": "Q6", "type": "behavioral", "dimension": "사용 패턴",
+      "id": "Q6", "block": "usage_behavior", "dimension": "사용 패턴",
       "question": "평소 스마트폰을 주로 어떻게 쓰시나요?",
       "options": [
         { "code": "A", "label": "영상·게임·SNS 위주",   "features": { "사용 패턴": "데이터 헤비" } },
@@ -61,7 +63,7 @@
       ]
     },
     {
-      "id": "Q7", "type": "behavioral", "dimension": "사용 강도",
+      "id": "Q7", "block": "usage_behavior", "dimension": "사용 강도",
       "question": "데이터 사용 정도는?",
       "options": [
         { "code": "A", "label": "충분 (한 번도 부족하지 않음)", "features": { "데이터 사용률": 0.40, "잔여 데이터 비율": 0.60 } },
@@ -70,48 +72,66 @@
       ]
     },
     {
-      "id": "Q8", "type": "behavioral", "dimension": "요금 민감도",
-      "question": "통신비 부담은 어떠신가요?",
+      "id": "Q8", "block": "behavioral_history", "dimension": "청구 변동 경험",
+      "question": "최근 6개월간 요금이 평소보다 크게 늘어난 경험이 있으신가요?",
       "options": [
-        { "code": "A", "label": "적정하다",      "features": { "비용 부담도": 0.2 } },
-        { "code": "B", "label": "약간 부담된다", "features": { "비용 부담도": 0.5 } },
-        { "code": "C", "label": "많이 부담된다", "features": { "비용 부담도": 0.8 } }
+        { "code": "A", "label": "없음",       "features": { "청구 급증 경험 6m": 0 } },
+        { "code": "B", "label": "1~2회",     "features": { "청구 급증 경험 6m": 1 } },
+        { "code": "C", "label": "3회 이상",  "features": { "청구 급증 경험 6m": 3 } }
       ]
     },
     {
-      "id": "Q9", "type": "behavioral", "dimension": "품질 만족",
-      "question": "통화 품질·속도 만족도는?",
+      "id": "Q9", "block": "behavioral_history", "dimension": "품질 CS 이력",
+      "question": "최근 3개월간 통화 품질·속도 관련 고객센터 문의 횟수는?",
       "options": [
-        { "code": "A", "label": "만족",                       "features": { "품질 만족도": 0.85 } },
-        { "code": "B", "label": "보통",                       "features": { "품질 만족도": 0.55 } },
-        { "code": "C", "label": "불만 (자주 끊김/속도 느림)", "features": { "품질 만족도": 0.25 } }
+        { "code": "A", "label": "없음",       "features": { "품질 CS 문의 3m": 0 } },
+        { "code": "B", "label": "1~2회",     "features": { "품질 CS 문의 3m": 1 } },
+        { "code": "C", "label": "3회 이상",  "features": { "품질 CS 문의 3m": 3 } }
       ]
     },
     {
-      "id": "Q10", "type": "behavioral", "dimension": "혜택 활용",
-      "question": "멤버십 혜택을 활용하시나요?",
+      "id": "Q10", "block": "behavioral_history", "dimension": "멤버십 사용 빈도",
+      "question": "최근 1주간 멤버십 혜택을 사용한 횟수는?",
       "options": [
-        { "code": "A", "label": "자주 사용",   "features": { "멤버십 활용도": 0.80 } },
-        { "code": "B", "label": "가끔 사용",   "features": { "멤버십 활용도": 0.45 } },
-        { "code": "C", "label": "거의 안 함",  "features": { "멤버십 활용도": 0.10 } }
+        { "code": "A", "label": "사용 안 함", "features": { "멤버십 주간 사용 횟수": 0 } },
+        { "code": "B", "label": "1~2회",     "features": { "멤버십 주간 사용 횟수": 1 } },
+        { "code": "C", "label": "3회 이상",  "features": { "멤버십 주간 사용 횟수": 3 } }
       ]
     },
     {
-      "id": "Q11", "type": "behavioral", "dimension": "탐색 성향",
-      "question": "새 상품·혜택을 자주 탐색하시나요?",
+      "id": "Q11", "block": "behavioral_history", "dimension": "탐색 행동",
+      "question": "새 상품·혜택을 자주 확인하시나요?",
       "options": [
-        { "code": "A", "label": "자주 (이벤트·혜택 챙김)", "features": { "푸시 오픈율": 0.80 } },
-        { "code": "B", "label": "가끔",                    "features": { "푸시 오픈율": 0.45 } },
-        { "code": "C", "label": "거의 안 함",              "features": { "푸시 오픈율": 0.10 } }
+        { "code": "A", "label": "자주 확인",   "features": { "푸시 오픈율": 0.80 } },
+        { "code": "B", "label": "가끔 확인",   "features": { "푸시 오픈율": 0.45 } },
+        { "code": "C", "label": "거의 안 함",  "features": { "푸시 오픈율": 0.10 } }
       ]
     },
     {
-      "id": "Q12", "type": "behavioral", "dimension": "CS 접점",
-      "question": "고객센터 문의 빈도는?",
+      "id": "Q12", "block": "behavioral_history", "dimension": "푸시 동의",
+      "question": "마이K 앱 푸시 알림 수신에 동의하셨나요?",
       "options": [
-        { "code": "A", "label": "최근 자주 문의", "features": { "30일 상담 횟수": 3 } },
-        { "code": "B", "label": "가끔 (1~2회)",  "features": { "30일 상담 횟수": 1 } },
-        { "code": "C", "label": "거의 없음",      "features": { "30일 상담 횟수": 0 } }
+        { "code": "A", "label": "동의함",   "features": { "푸시 동의": true } },
+        { "code": "B", "label": "동의 안 함", "features": { "푸시 동의": false } }
+      ]
+    },
+    {
+      "id": "Q13", "block": "usage_context", "dimension": "단말 사용 맥락",
+      "question": "현재 단말기 사용 기간은?",
+      "options": [
+        { "code": "A", "label": "1년 미만 (최근 교체)", "features": { "단말 사용 기간": 6 } },
+        { "code": "B", "label": "1~2년",               "features": { "단말 사용 기간": 18 } },
+        { "code": "C", "label": "2~3년",               "features": { "단말 사용 기간": 30 } },
+        { "code": "D", "label": "3년 이상",            "features": { "단말 사용 기간": 48 } }
+      ]
+    },
+    {
+      "id": "Q14", "block": "usage_context", "dimension": "로밍 맥락",
+      "question": "최근 1년 해외 방문 빈도는?",
+      "options": [
+        { "code": "A", "label": "없음",       "features": { "로밍 이력": 0, "해외 출국 빈도": 0 } },
+        { "code": "B", "label": "1~2회",     "features": { "로밍 이력": 1, "해외 출국 빈도": 1 } },
+        { "code": "C", "label": "3회 이상",  "features": { "로밍 이력": 3, "해외 출국 빈도": 3 } }
       ]
     }
   ]

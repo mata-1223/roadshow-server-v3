@@ -22,7 +22,6 @@ _ENTITY_GROUP = {
     "quality_diagnosis":   ["quality_action", "wifi_diag", "speed_test"],
     "family_bundle":       ["family_bundle"],
     "penalty_calc":        ["churn_view", "penalty_view"],
-    "competitor_compare":  ["churn_view", "competitor_view"],
     "confirm_button":      ["confirm"],
     "coupon_use":          ["coupon_use"],
     "chatbot":             ["support_entry"],
@@ -108,8 +107,7 @@ class BehavioralPatternExtractor:
             "가족 결합 관련 행동":      1 if group_counts.get("family_bundle", 0) > 0 else 0,
             "위약금 조회 행동":         1 if group_counts.get("penalty_view", 0) > 0 else 0,
             "해지 페이지 진입":         1 if group_counts.get("cancel_view", 0) > 0 else 0,
-            "경쟁사 비교 행동":         1 if group_counts.get("competitor_view", 0) > 0 else 0,
-            "경쟁사 탐색 행동":         group_counts.get("competitor_view", 0),
+            "mnp_benefit_check":        0,
             "할인 페이지 체류":         group_counts.get("benefit_view", 0) * 30,
         }
 

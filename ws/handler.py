@@ -13,7 +13,12 @@ from fastapi import APIRouter, WebSocket, WebSocketDisconnect
 
 from config import settings
 from core.extractor import get_extractor
-from core.inference import infer_with_behavior, to_customer_context_json
+from core.inference import (
+    infer_with_behavior,
+    to_customer_context_json,
+    to_probability_dict,
+    to_topn_with_others,
+)
 from data.executor import get_executor
 from data.seed import load_behaviors_catalog
 from ws.manager import manager
@@ -121,14 +126,16 @@ async def _handle_behavior(
 
     # Intent Score 적재
     score_rows = [
-        [session_id, new_stage, s.intent_id, s.batch_score, s.realtime_boost,
-         s.final_score, s.rank, s.inference_type]
+        [session_id, new_stage, s.intent_id,
+         s.baseline_score, s.final_score, s.delta_score,
+         s.baseline_rank, s.rank, s.rank_change, s.inference_type]
         for s in intent_scores
     ]
     ex.executemany(
         "INSERT INTO intent_scores "
-        "(session_id, stage, intent_id, batch_score, realtime_boost, final_score, rank, inference_type) "
-        "VALUES (?, ?, ?, ?, ?, ?, ?, ?)",
+        "(session_id, stage, intent_id, baseline_score, final_score, delta_score, "
+        " baseline_rank, rank, rank_change, inference_type) "
+        "VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?)",
         score_rows,
     )
 
@@ -148,29 +155,19 @@ async def _handle_behavior(
 
     ex.execute("UPDATE sessions SET stage = ? WHERE id = ?", [new_stage, session_id])
 
-    top_n = settings.TOP_N_INTENT
+    top_n_cnt = settings.TOP_N_INTENT
+    top_items, others = to_topn_with_others(intent_scores, top_n=top_n_cnt)
+    all_probabilities = to_probability_dict(intent_scores)
+
     await websocket.send_json({
-        "type":          "INTENT_UPDATE",
-        "session_id":    session_id,
-        "stage":         new_stage,
-        "behavior_id":   behavior_id,
-        "top_n": [
-            {
-                "intent_id":      s.intent_id,
-                "intent_name":    s.intent_name,
-                "L1_id":          s.L1_id,
-                "L1_name":        s.L1_name,
-                "L2_id":          s.L2_id,
-                "L2_name":        s.L2_name,
-                "batch_score":    s.batch_score,
-                "realtime_boost": s.realtime_boost,
-                "final_score":    s.final_score,
-                "rank":           s.rank,
-                "inference_type": s.inference_type,
-            }
-            for s in intent_scores[:top_n]
-        ],
-        "computed_at":   datetime.utcnow().isoformat(),
+        "type":              "INTENT_UPDATE",
+        "session_id":        session_id,
+        "behavior_id":       behavior_id,
+        "stage":             new_stage,
+        "computed_at":       datetime.utcnow().isoformat(),
+        "top_n":             top_items,
+        "others":            others,
+        "all_probabilities": all_probabilities,
     })
 
 

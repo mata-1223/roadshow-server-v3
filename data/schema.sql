@@ -39,8 +39,7 @@ CREATE TABLE IF NOT EXISTS catalog_behaviors (
     step             INTEGER NOT NULL,
     behavior_name    VARCHAR NOT NULL,
     event_type       VARCHAR NOT NULL,
-    entity           VARCHAR NOT NULL,
-    boosts_json      VARCHAR
+    entity           VARCHAR NOT NULL
 );
 
 -- ────────────────────────────────────────────────────────────
@@ -81,16 +80,22 @@ CREATE TABLE IF NOT EXISTS event_log (
 );
 
 -- Intent Score (단일 추론 시점)
+-- baseline_score : 행동 없이 Batch Feature만으로 재추론한 점수
+-- final_score    : Batch + Behavioral Pattern Feature 합쳐 재추론한 점수
+-- delta_score    : final - baseline (행동이 만든 변화량)
+-- rank_change    : baseline_rank - rank (양수면 행동으로 순위 상승)
 CREATE SEQUENCE IF NOT EXISTS seq_intent_scores;
 CREATE TABLE IF NOT EXISTS intent_scores (
     id               BIGINT DEFAULT nextval('seq_intent_scores') PRIMARY KEY,
     session_id       VARCHAR NOT NULL,
     stage            VARCHAR NOT NULL,    -- 'initial' | 'step_1' | 'step_2' | 'step_3'
     intent_id        VARCHAR NOT NULL,
-    batch_score      DOUBLE NOT NULL,
-    realtime_boost   DOUBLE DEFAULT 0.0,
+    baseline_score   DOUBLE NOT NULL,
     final_score      DOUBLE NOT NULL,
+    delta_score      DOUBLE DEFAULT 0.0,
+    baseline_rank    INTEGER,
     rank             INTEGER,
+    rank_change      INTEGER DEFAULT 0,
     inference_type   VARCHAR NOT NULL,
     computed_at      TIMESTAMP DEFAULT CURRENT_TIMESTAMP
 );

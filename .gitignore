@@ -6,6 +6,7 @@ __pycache__/
 
 # 로컬 DB / MLflow (컨테이너에서 재생성)
 *.duckdb
+*.duckdb.bak
 *.duckdb.wal
 mlflow*.db
 mlruns/

@@ -26,7 +26,8 @@ async def get_latest_intents(session_id: str, top_n: int = 5) -> dict:
     stage = row[0]
 
     df = ex.to_pandas(
-        "SELECT intent_id, batch_score, realtime_boost, final_score, rank, inference_type "
+        "SELECT intent_id, baseline_score, final_score, delta_score, "
+        "       baseline_rank, rank, rank_change, inference_type "
         "FROM intent_scores WHERE session_id = ? AND stage = ? ORDER BY rank LIMIT ?",
         [session_id, stage, top_n],
     )
@@ -47,10 +48,12 @@ async def get_latest_intents(session_id: str, top_n: int = 5) -> dict:
             "L1_name":        meta.get("L1_name"),
             "L2_id":          meta.get("L2_id"),
             "L2_name":        meta.get("L2_name"),
-            "batch_score":    float(r["batch_score"]),
-            "realtime_boost": float(r["realtime_boost"]),
+            "baseline_score": float(r["baseline_score"]),
             "final_score":    float(r["final_score"]),
+            "delta_score":    float(r["delta_score"]),
+            "baseline_rank":  int(r["baseline_rank"]),
             "rank":           int(r["rank"]),
+            "rank_change":    int(r["rank_change"]),
             "inference_type": r["inference_type"],
         })
 

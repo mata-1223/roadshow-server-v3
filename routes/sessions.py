@@ -10,7 +10,12 @@ from fastapi import APIRouter, HTTPException
 from pydantic import BaseModel
 
 from config import settings
-from core.inference import infer_batch, to_customer_context_json
+from core.inference import (
+    infer_batch,
+    to_customer_context_json,
+    to_probability_dict,
+    to_topn_with_others,
+)
 from data.executor import get_executor
 
 router = APIRouter()
@@ -62,14 +67,16 @@ async def submit_survey(session_id: str, submission: SurveySubmission) -> dict[s
 
     # Intent Score 적재
     score_rows = [
-        [session_id, "initial", s.intent_id, s.batch_score, s.realtime_boost,
-         s.final_score, s.rank, s.inference_type]
+        [session_id, "initial", s.intent_id,
+         s.baseline_score, s.final_score, s.delta_score,
+         s.baseline_rank, s.rank, s.rank_change, s.inference_type]
         for s in intent_scores
     ]
     ex.executemany(
         "INSERT INTO intent_scores "
-        "(session_id, stage, intent_id, batch_score, realtime_boost, final_score, rank, inference_type) "
-        "VALUES (?, ?, ?, ?, ?, ?, ?, ?)",
+        "(session_id, stage, intent_id, baseline_score, final_score, delta_score, "
+        " baseline_rank, rank, rank_change, inference_type) "
+        "VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?)",
         score_rows,
     )
 
@@ -91,27 +98,15 @@ async def submit_survey(session_id: str, submission: SurveySubmission) -> dict[s
     ex.execute("UPDATE sessions SET stage = ?, last_active_at = CURRENT_TIMESTAMP WHERE id = ?",
                ["initial", session_id])
 
-    top_n = settings.TOP_N_INTENT
-    return {
-        "session_id":     session_id,
-        "stage":          "initial",
-        "batch_features": batch_features,
-        "top_n":          [_score_to_dict(s) for s in intent_scores[:top_n]],
-        "total_intents":  len(intent_scores),
-    }
+    top_items, others = to_topn_with_others(intent_scores, top_n=settings.TOP_N_INTENT)
+    all_probabilities = to_probability_dict(intent_scores)
 
-
-def _score_to_dict(s) -> dict:
     return {
-        "intent_id":      s.intent_id,
-        "intent_name":    s.intent_name,
-        "L1_id":          s.L1_id,
-        "L1_name":        s.L1_name,
-        "L2_id":          s.L2_id,
-        "L2_name":        s.L2_name,
-        "batch_score":    s.batch_score,
-        "realtime_boost": s.realtime_boost,
-        "final_score":    s.final_score,
-        "rank":           s.rank,
-        "inference_type": s.inference_type,
+        "session_id":        session_id,
+        "stage":             "initial",
+        "batch_features":    batch_features,
+        "top_n":             top_items,
+        "others":            others,
+        "all_probabilities": all_probabilities,
+        "total_intents":     len(intent_scores),
     }

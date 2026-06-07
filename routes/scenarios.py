@@ -33,3 +33,13 @@ async def get_scenario(scenario_id: str) -> dict:
         "behaviors":    _load("behaviors.json"),
         "actions":      _load("actions.json"),
     }
+
+
+@router.get("/{scenario_id}/intent-positions")
+async def get_intent_positions(scenario_id: str) -> dict:
+    """Vector Space 시각화용 사전 산출 좌표 (intent_positions.json)."""
+    path = _SCENARIO_DIR / scenario_id / "intent_positions.json"
+    if not path.exists():
+        raise HTTPException(404, f"intent_positions not found for: {scenario_id}")
+    with open(path, encoding="utf-8") as f:
+        return json.load(f)

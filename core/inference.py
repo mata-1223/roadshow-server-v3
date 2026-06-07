@@ -2,19 +2,26 @@ from __future__ import annotations
 """
 Intent Inference 통합 ([2] reference Layer)
 
-- 116개 Intent에 대해 Rule 또는 Model로 추론
-- batch_score + realtime_boost = final_score 산출
-- Top-N + 전체 결과 분리
+흐름:
+  - infer_batch(survey)  : Batch Feature만으로 baseline Intent Score 산출
+  - infer_with_behavior  : Batch + Behavioral Pattern Feature를 합쳐 재추론
+                          (boost 누적 방식이 아니라, 모든 피처를 입력으로 다시 모델/룰을 통과시킴)
+
+산출되는 IntentScore는 baseline 대비 변화량(delta_score, rank_change)을 함께 보관한다.
 """
-import json
 import logging
+import math
 from dataclasses import dataclass
 from typing import Any
 
-from config import settings
+# Softmax 분포 sharpness 조절. 작을수록 Top 점수에 분포가 집중.
+# T=0.3 → 시연 임팩트(상위 Intent 강조)와 통계적 안정성의 균형
+PROBABILITY_TEMPERATURE = 0.3
+
 from core.builder import build_batch_features
+from core.event_extractor import extract as extract_event_features
 from core.extractor import get_extractor
-from data.seed import load_intents_catalog, load_behaviors_catalog
+from data.seed import load_intents_catalog
 from models import rule_model, sklearn_model
 
 logger = logging.getLogger(__name__)
@@ -29,10 +36,12 @@ class IntentScore:
     L2_id:           str
     L2_name:         str
     inference_type:  str
-    batch_score:     float
-    realtime_boost:  float
-    final_score:     float
-    rank:            int
+    baseline_score:  float   # Batch Feature만으로 추론한 점수
+    final_score:     float   # Batch + Behavioral Pattern Feature 합쳐 재추론한 점수
+    delta_score:     float   # final - baseline
+    baseline_rank:   int     # baseline 기준 rank
+    rank:            int     # final_score 기준 rank
+    rank_change:     int     # baseline_rank - rank (양수면 상승)
 
 
 _intents_cache: list[dict] | None = None
@@ -47,20 +56,15 @@ def _intents() -> list[dict]:
 
 def infer_batch(survey_answers: dict[str, str]) -> tuple[dict[str, Any], list[IntentScore]]:
     """
-    설문 답변만으로 Base Intent Score 산출 (행동 전).
-
-    Returns
-    -------
-    (batch_features, intent_scores)
-        batch_features : Builder가 산출한 26+ 피처 dict
-        intent_scores  : 116개 IntentScore (final_score 내림차순)
+    설문 답변만으로 baseline Intent Score 산출 (행동 전).
     """
     batch_features = build_batch_features(survey_answers)
-    # 행동 관련 피처는 0으로 초기화
     pattern_features = _empty_pattern_features()
-    all_features = {**batch_features, **pattern_features}
+    event_features = _empty_event_features()
+    all_features = {**batch_features, **pattern_features, **event_features}
 
-    scores = _infer_all(all_features)
+    raw = _score_all(all_features)
+    scores = _to_intent_scores(raw, raw)
     return batch_features, scores
 
 
@@ -69,31 +73,36 @@ def infer_with_behavior(
     session_id: str,
 ) -> tuple[dict[str, Any], list[IntentScore]]:
     """
-    설문 + 누적 행동(Behavioral Pattern Extractor)을 결합하여 추론.
+    Batch Feature + 누적 Behavioral Pattern Feature + 최신 Event Feature를 합쳐 재추론.
 
-    매 행동 이후 호출.
+    baseline(행동 없는 상태) 점수를 함께 산출해 delta_score / rank_change를 채운다.
     """
     batch_features = build_batch_features(survey_answers)
-    pattern_features = get_extractor().get_pattern_features(session_id)
-    all_features = {**batch_features, **pattern_features}
 
-    scores = _infer_all(all_features)
+    # baseline: Pattern/Event Feature를 0으로 둔 상태
+    baseline_features = {
+        **batch_features,
+        **_empty_pattern_features(),
+        **_empty_event_features(),
+    }
+    baseline_raw = _score_all(baseline_features)
 
-    # 행동 boost 적용
-    behaviors = load_behaviors_catalog()
-    session_events = _get_session_event_history(session_id)
-    boost_map = _accumulate_boosts(session_events, behaviors)
+    # final: 실제 누적 Pattern + 최신 Event Feature 반영
+    extractor = get_extractor()
+    pattern_features = extractor.get_pattern_features(session_id)
+    events = extractor._events_by_session.get(session_id, [])
+    if events:
+        last = events[-1]
+        event_features = extract_event_features(
+            last["event_type"], last["entity"], last.get("occurred_at"),
+        )
+    else:
+        event_features = _empty_event_features()
 
-    # boost 적용
-    for s in scores:
-        s.realtime_boost = boost_map.get(s.intent_id, 0.0)
-        s.final_score = min(1.0, max(0.0, s.batch_score + s.realtime_boost))
+    combined_features = {**batch_features, **pattern_features, **event_features}
+    final_raw = _score_all(combined_features)
 
-    # 재정렬
-    scores.sort(key=lambda s: s.final_score, reverse=True)
-    for i, s in enumerate(scores, start=1):
-        s.rank = i
-
+    scores = _to_intent_scores(baseline_raw, final_raw)
     return batch_features, scores
 
 
@@ -113,29 +122,62 @@ def _empty_pattern_features() -> dict[str, Any]:
         "가족 결합 관련 행동":      0,
         "위약금 조회 행동":         0,
         "해지 페이지 진입":         0,
-        "경쟁사 비교 행동":         0,
-        "경쟁사 탐색 행동":         0,
+        "mnp_benefit_check":        0,
         "할인 페이지 체류":         0,
     }
 
 
-def _infer_all(features: dict[str, Any]) -> list[IntentScore]:
-    """116개 Intent 모두에 대해 Score 산출"""
-    # Boolean 필드를 0/1로 변환 (Model 입력용)
+def _empty_event_features() -> dict[str, Any]:
+    return {
+        "last_event_type":  "",
+        "last_entity":      "",
+        "current_page":     "",
+        "is_click":         0,
+        "is_page_view":     0,
+        "is_support_entry": 0,
+        "is_churn_signal":  0,
+        "is_confirm":       0,
+        "last_event_at":    "",
+    }
+
+
+def _score_all(features: dict[str, Any]) -> dict[str, float]:
+    """모든 Intent에 대해 점수만 산출 (intent_id → score)."""
     f = dict(features)
     if isinstance(f.get("결합 여부"), bool):
         f["결합 여부"] = 1 if f["결합 여부"] else 0
 
-    results: list[IntentScore] = []
+    out: dict[str, float] = {}
     for intent in _intents():
         iid = intent["id"]
         itype = intent["inference_type"]
-
         if itype == "Model":
             score = sklearn_model.predict(iid, f)
         else:
             score = rule_model.predict(iid, f)
+        out[iid] = float(score)
+    return out
 
+
+def _rank_map(raw: dict[str, float]) -> dict[str, int]:
+    ordered = sorted(raw.items(), key=lambda kv: kv[1], reverse=True)
+    return {iid: i for i, (iid, _) in enumerate(ordered, start=1)}
+
+
+def _to_intent_scores(
+    baseline_raw: dict[str, float],
+    final_raw: dict[str, float],
+) -> list[IntentScore]:
+    baseline_ranks = _rank_map(baseline_raw)
+    final_ranks    = _rank_map(final_raw)
+
+    results: list[IntentScore] = []
+    for intent in _intents():
+        iid = intent["id"]
+        b = baseline_raw.get(iid, 0.0)
+        f = final_raw.get(iid, 0.0)
+        br = baseline_ranks.get(iid, 0)
+        fr = final_ranks.get(iid, 0)
         results.append(IntentScore(
             intent_id=iid,
             intent_name=intent["name"],
@@ -143,43 +185,101 @@ def _infer_all(features: dict[str, Any]) -> list[IntentScore]:
             L1_name=intent["L1_name"],
             L2_id=intent["L2_id"],
             L2_name=intent["L2_name"],
-            inference_type=itype,
-            batch_score=round(score, 4),
-            realtime_boost=0.0,
-            final_score=round(score, 4),
-            rank=0,
+            inference_type=intent["inference_type"],
+            baseline_score=round(b, 4),
+            final_score=round(f, 4),
+            delta_score=round(f - b, 4),
+            baseline_rank=br,
+            rank=fr,
+            rank_change=br - fr,
         ))
 
     results.sort(key=lambda s: s.final_score, reverse=True)
-    for i, s in enumerate(results, start=1):
-        s.rank = i
-
     return results
 
 
-def _get_session_event_history(session_id: str) -> list[dict]:
-    """세션의 누적 이벤트 (Extractor 내부 history 활용)"""
-    extractor = get_extractor()
-    # Extractor 내부 events 직접 참조 (5분 window이 아닌 누적 전체)
-    return extractor._events_by_session.get(session_id, [])
+# ── WebSocket 페이로드 헬퍼 ───────────────────────────────────
+
+def _softmax(values: list[float], temperature: float) -> list[float]:
+    """Numerically stable softmax (raw score → 정규화 확률 분포)."""
+    if not values:
+        return []
+    scaled = [v / temperature for v in values]
+    m = max(scaled)
+    exps = [math.exp(s - m) for s in scaled]
+    total = sum(exps) or 1.0
+    return [e / total for e in exps]
 
 
-def _accumulate_boosts(events: list[dict], behaviors: dict[str, dict]) -> dict[str, float]:
+def to_probability_dict(
+    scores: list[IntentScore],
+    temperature: float = PROBABILITY_TEMPERATURE,
+) -> dict[str, dict[str, float]]:
     """
-    이벤트 히스토리에서 누적 boost 산출.
+    113개 Intent raw score → softmax 정규화 확률(p) + baseline 정규화 확률(p0).
 
-    behaviors.json의 boosts 값을 누적 적용 (entity → behavior_id 매칭).
+    raw score 합 분모 정규화는 분포가 너무 평탄해 시연 임팩트가 약하므로
+    softmax(score / T) 분포를 사용. T가 작을수록 상위 Intent에 분포가 집중된다.
+
+    Vector Space 시각화([1-2]) 가중 평균 위치 계산에 사용.
+    INTENT_UPDATE 페이로드의 `all_probabilities` 필드.
     """
-    entity_to_behavior = {b["entity"]: bid for bid, b in behaviors.items()}
+    p_vals  = _softmax([s.final_score    for s in scores], temperature)
+    p0_vals = _softmax([s.baseline_score for s in scores], temperature)
+    return {
+        s.intent_id: {
+            "p":  round(p_vals[i],  6),
+            "p0": round(p0_vals[i], 6),
+        }
+        for i, s in enumerate(scores)
+    }
 
-    boost_map: dict[str, float] = {}
-    for ev in events:
-        bid = entity_to_behavior.get(ev["entity"])
-        if bid is None:
-            continue
-        for intent_id, delta in behaviors[bid]["boosts"].items():
-            boost_map[intent_id] = boost_map.get(intent_id, 0.0) + float(delta)
-    return boost_map
+
+def to_topn_with_others(
+    scores: list[IntentScore],
+    top_n: int = 5,
+) -> tuple[list[dict], dict]:
+    """
+    Top-N + 기타(others) 페이로드 구성.
+
+    Returns
+    -------
+    (top_list, others)
+        top_list : [ {intent_id, ..., probability, baseline_probability, delta_probability} ]
+        others   : { count, probability, baseline_probability, delta_probability }
+    """
+    probs = to_probability_dict(scores)
+    sorted_scores = sorted(scores, key=lambda s: s.final_score, reverse=True)
+
+    top_items: list[dict] = []
+    for s in sorted_scores[:top_n]:
+        pr = probs[s.intent_id]
+        top_items.append({
+            "intent_id":            s.intent_id,
+            "intent_nm_ko":         s.intent_name,
+            "L1_id":                s.L1_id,
+            "L1_name":              s.L1_name,
+            "L2_id":                s.L2_id,
+            "L2_name":              s.L2_name,
+            "inference_type":       s.inference_type,
+            "rank":                 s.rank,
+            "baseline_rank":        s.baseline_rank,
+            "rank_change":          s.rank_change,
+            "probability":          pr["p"],
+            "baseline_probability": pr["p0"],
+            "delta_probability":    round(pr["p"] - pr["p0"], 6),
+        })
+
+    rest = sorted_scores[top_n:]
+    others_p  = sum(probs[s.intent_id]["p"]  for s in rest)
+    others_p0 = sum(probs[s.intent_id]["p0"] for s in rest)
+    others = {
+        "count":                len(rest),
+        "probability":          round(others_p,  6),
+        "baseline_probability": round(others_p0, 6),
+        "delta_probability":    round(others_p - others_p0, 6),
+    }
+    return top_items, others
 
 
 # ── Customer Context JSON 생성 ────────────────────────────────
@@ -191,9 +291,6 @@ def to_customer_context_json(
     scores: list[IntentScore],
     batch_features: dict[str, Any],
 ) -> dict[str, Any]:
-    """
-    추론 결과 → Customer Context JSON (DB 적재용).
-    """
     intents = []
     for s in scores:
         intents.append({
@@ -201,10 +298,12 @@ def to_customer_context_json(
             "intent_nm_ko":      s.intent_name,
             "L1":                {"id": s.L1_id, "name": s.L1_name},
             "L2":                {"id": s.L2_id, "name": s.L2_name},
-            "batch_score":       s.batch_score,
-            "realtime_boost":    s.realtime_boost,
+            "baseline_score":    s.baseline_score,
             "final_score":       s.final_score,
+            "delta_score":       s.delta_score,
+            "baseline_rank":     s.baseline_rank,
             "rank":              s.rank,
+            "rank_change":       s.rank_change,
             "inference_type":    s.inference_type,
         })
 
