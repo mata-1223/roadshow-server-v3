@@ -1,7 +1,7 @@
 {
   "scenario_id": "cs-myk-v3",
-  "version": "0.3.0",
-  "description": "14문항 (객관 사실 5 + 사용 행동 2 + 행동 빈도·이력 5 + 사용 맥락 2). KFM Proxy 일관성을 위해 주관 체감 → 객관 행동 지표로 전환.",
+  "version": "0.4.0",
+  "description": "13문항 (고객 상태 5 + 사용 행동 2 + 행동 빈도·이력 4 + 사용 맥락 2). Q3 금액 구간화, Q11 OTT 사용 빈도, 푸시 동의 제거.",
   "questions": [
     {
       "id": "Q1", "block": "objective_fact", "dimension": "인구통계",
@@ -26,11 +26,13 @@
     },
     {
       "id": "Q3", "block": "objective_fact", "dimension": "요금제 정보",
-      "question": "현재 요금제 유형은?",
+      "question": "현재 사용 중인 월 요금제 금액은?",
       "options": [
-        { "code": "A", "label": "5G",        "features": { "요금제 유형": "5G",   "요금제 월정액": 75000 } },
-        { "code": "B", "label": "LTE",       "features": { "요금제 유형": "LTE",  "요금제 월정액": 55000 } },
-        { "code": "C", "label": "실속형/알뜰", "features": { "요금제 유형": "실속형", "요금제 월정액": 33000 } }
+        { "code": "A", "label": "10만원 이상", "features": { "요금제 월정액": 100000, "요금제 구간": "premium"  } },
+        { "code": "B", "label": "7~9만원",    "features": { "요금제 월정액":  80000, "요금제 구간": "mid"      } },
+        { "code": "C", "label": "5~6만원",    "features": { "요금제 월정액":  55000, "요금제 구간": "standard" } },
+        { "code": "D", "label": "3~4만원",    "features": { "요금제 월정액":  35000, "요금제 구간": "lite"     } },
+        { "code": "E", "label": "알릴 수 없음", "features": { "요금제 월정액":  55000, "요금제 구간": "unknown"  } }
       ]
     },
     {
@@ -99,24 +101,17 @@
       ]
     },
     {
-      "id": "Q11", "block": "behavioral_history", "dimension": "탐색 행동",
-      "question": "새 상품·혜택을 자주 확인하시나요?",
+      "id": "Q11", "block": "behavioral_history", "dimension": "OTT 사용 빈도",
+      "question": "최근 1주간 OTT 콘텐츠를 시청한 빈도는?",
       "options": [
-        { "code": "A", "label": "자주 확인",   "features": { "푸시 오픈율": 0.80 } },
-        { "code": "B", "label": "가끔 확인",   "features": { "푸시 오픈율": 0.45 } },
-        { "code": "C", "label": "거의 안 함",  "features": { "푸시 오픈율": 0.10 } }
+        { "code": "A", "label": "매일",          "features": { "OTT 사용 빈도": 0.85 } },
+        { "code": "B", "label": "주 2~4회",     "features": { "OTT 사용 빈도": 0.50 } },
+        { "code": "C", "label": "월 1~3회",     "features": { "OTT 사용 빈도": 0.20 } },
+        { "code": "D", "label": "거의 안 봄",   "features": { "OTT 사용 빈도": 0.05 } }
       ]
     },
     {
-      "id": "Q12", "block": "behavioral_history", "dimension": "푸시 동의",
-      "question": "마이K 앱 푸시 알림 수신에 동의하셨나요?",
-      "options": [
-        { "code": "A", "label": "동의함",   "features": { "푸시 동의": true } },
-        { "code": "B", "label": "동의 안 함", "features": { "푸시 동의": false } }
-      ]
-    },
-    {
-      "id": "Q13", "block": "usage_context", "dimension": "단말 사용 맥락",
+      "id": "Q12", "block": "usage_context", "dimension": "단말 사용 맥락",
       "question": "현재 단말기 사용 기간은?",
       "options": [
         { "code": "A", "label": "1년 미만 (최근 교체)", "features": { "단말 사용 기간": 6 } },
@@ -126,7 +121,7 @@
       ]
     },
     {
-      "id": "Q14", "block": "usage_context", "dimension": "로밍 맥락",
+      "id": "Q13", "block": "usage_context", "dimension": "로밍 맥락",
       "question": "최근 1년 해외 방문 빈도는?",
       "options": [
         { "code": "A", "label": "없음",       "features": { "로밍 이력": 0, "해외 출국 빈도": 0 } },

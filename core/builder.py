@@ -2,20 +2,25 @@ from __future__ import annotations
 """
 Batch Context Feature Builder ([1a] reference 모듈)
 
-설문 14문항 답변 → Base Feature 시뮬레이션 → Delta/Ratio/Index/Score 파생.
+설문 13문항 답변 → Base Feature 시뮬레이션 → Delta/Ratio/Index/Score 파생.
 
-Base Feature (16개): 설문에서 직접 매핑
-  나이, 가입 개월 수, 요금제 유형, 요금제 월정액, 결합 여부, 결합 형태,
-  가족 회선 수, 사용 패턴, 데이터 사용률, 잔여 데이터 비율,
-  비용 부담도, 품질 만족도, 멤버십 활용도, 푸시 오픈율,
-  30일 상담 횟수, 단말 사용 기간, 로밍 이력, 해외 출국 빈도
+Base Feature: 설문에서 직접 매핑
+  나이(Q1), 가입 개월 수(Q2), 요금제 월정액·요금제 구간(Q3),
+  결합 여부·결합 형태(Q4), 가족 회선 수(Q5),
+  사용 패턴(Q6), 데이터 사용률·잔여 데이터 비율(Q7),
+  청구 급증 경험 6m(Q8), 품질 CS 문의 3m(Q9),
+  멤버십 주간 사용 횟수(Q10), OTT 사용 빈도(Q11),
+  단말 사용 기간(Q12), 로밍 이력·해외 출국 빈도(Q13)
 
 파생 (Builder):
+  Index (8)  — 비용 부담도, 품질 만족도, 멤버십 활용도, 30일 상담 횟수 (Proxy 추정)
+             + 요금 민감도, 고객 가치, 사용 강도, 탐색 성향
   Delta (2)  — 청구/데이터 증감률 시뮬
   Ratio (2)  — 약정 진행률, 가족 결합 비중
-  Index (4)  — 요금 민감도, 고객 가치, 사용 강도, 탐색 성향
   Score (7)  — 이탈 위험, 추천 적합도, 품질 불만, 결합 확장,
-               업셀 적합도(신설), 단말 교체 의향(신설), 로밍 의향(신설)
+               업셀 적합도, 단말 교체 의향, 로밍 의향
+
+푸시 동의·푸시 오픈율은 v0.4.0(13문항)부터 제거. OTT 사용 빈도가 그 자리를 차지.
 """
 import json
 from pathlib import Path
@@ -64,12 +69,11 @@ def _extract_base(answers: dict[str, str]) -> dict[str, Any]:
     """
     설문 답변 → Base Feature 매핑.
 
-    Q8/Q9/Q10/Q12 변경에 따라 직접 매핑되지 않는 다음 3개 값은
-    행동 지표에서 추정 (KFM Proxy 정합성 + 기존 Rule/Model 입력 호환).
-      - 비용 부담도     ← 청구 급증 경험 6m
+    Q8/Q9/Q10에서 직접 측정되지 않는 Proxy 추정 지표:
+      - 비용 부담도     ← 청구 급증 경험 6m + 요금제 월정액
       - 품질 만족도     ← 품질 CS 문의 3m (역수)
       - 멤버십 활용도   ← 멤버십 주간 사용 횟수
-    30일 상담 횟수    ← 품질 CS 문의 3m + 푸시 동의 (전체 CS 접점 합산 추정)
+      - 30일 상담 횟수  ← 품질 CS 문의 3m / 3 환산
     """
     survey = _load_survey()
     base: dict[str, Any] = dict(_DEFAULT_FEATURES)
@@ -84,7 +88,7 @@ def _extract_base(answers: dict[str, str]) -> dict[str, Any]:
             continue
         base.update(option.get("features", {}))
 
-    # ── 행동 지표 → 기존 호환 Feature 추정 ──────────────────
+    # ── Proxy 추정 지표 산출 ────────────────────────────────
     # 청구 급증 경험 → 비용 부담도 (요금제 월정액 가산)
     bill_shock = float(base.get("청구 급증 경험 6m", 0))
     fee_norm = float(base.get("요금제 월정액", 55000)) / 100000.0
@@ -113,10 +117,8 @@ def _extract_base(answers: dict[str, str]) -> dict[str, Any]:
     else:
         base["멤버십 활용도"] = 0.10
 
-    # 30일 상담 횟수 추정: 품질 CS 3m → 30일로 환산 + 푸시 비동의 가산
+    # 30일 상담 횟수 추정: 품질 CS 3m → 30일 단위 환산
     base["30일 상담 횟수"] = round(quality_cs / 3.0, 1)
-    if not bool(base.get("푸시 동의", True)):
-        base["30일 상담 횟수"] = base["30일 상담 횟수"] + 0.5
 
     # 시니어 + 결합 없음 = 자동납부 미등록 + 가끔 지연 시뮬
     if base.get("나이", 35) >= 50 and not base.get("결합 여부", False):
@@ -186,9 +188,9 @@ def _build_index(base: dict[str, Any], delta: dict[str, float], ratio: dict[str,
     pattern_w = _PATTERN_WEIGHT.get(str(base.get("사용 패턴", "데이터 헤비")), 0.50)
     usage_intensity = (data_rate * 0.5 + pattern_w * 0.5) * 100
 
-    push = float(base.get("푸시 오픈율", 0.45))
+    ott = float(base.get("OTT 사용 빈도", 0.50))
     member = float(base.get("멤버십 활용도", 0.45))
-    explore = (push * 0.6 + member * 0.4) * 100
+    explore = (ott * 0.6 + member * 0.4) * 100
 
     return {
         "요금 민감도 Index":     round(billing_sens, 2),
@@ -218,7 +220,7 @@ def _build_score(base: dict[str, Any], index: dict[str, float]) -> dict[str, flo
     data_rate = float(base.get("데이터 사용률", 0.4))
     remaining = float(base.get("잔여 데이터 비율", 0.6))
     bundle_w = _BUNDLE_WEIGHT.get(str(base.get("결합 형태", "none")), 0.0)
-    push = float(base.get("푸시 오픈율", 0.45))
+    ott = float(base.get("OTT 사용 빈도", 0.50))
     member = float(base.get("멤버십 활용도", 0.45))
     age = float(base.get("나이", 35))
     pattern = str(base.get("사용 패턴", "데이터 헤비"))
@@ -226,26 +228,22 @@ def _build_score(base: dict[str, Any], index: dict[str, float]) -> dict[str, flo
     contract_pct = min(float(base.get("가입 개월 수", 24)) / 24.0, 1.0)
     roaming_history = float(base.get("로밍 이력", 0))
     overseas_freq = float(base.get("해외 출국 빈도", 0))
-    # 새 행동 지표
     bill_shock = float(base.get("청구 급증 경험 6m", 0))
     quality_cs = float(base.get("품질 CS 문의 3m", 0))
-    push_optin = 1.0 if bool(base.get("푸시 동의", True)) else 0.0
 
-    # 1. 이탈 위험 — 행동 지표 직접 반영 (청구 급증·품질 CS·푸시 비동의)
+    # 1. 이탈 위험 — 행동 지표 직접 반영 (청구 급증·품질 CS·비용 부담·신규 고객)
     churn = (
-        min(quality_cs / 3.0, 1.0) * 0.25
-        + min(bill_shock / 3.0, 1.0) * 0.25
-        + burden * 0.20
+        min(quality_cs / 3.0, 1.0) * 0.30
+        + min(bill_shock / 3.0, 1.0) * 0.30
+        + burden * 0.25
         + (1 - tenure_pct) * 0.15
-        + (1 - push_optin) * 0.15
     )
 
-    # 2. 추천 적합도 — 푸시 동의 추가
+    # 2. 추천 적합도 — OTT 사용 빈도가 콘텐츠 수용도를 대변
     rec_fit = (
-        index["고객 가치 Index"] / 100 * 0.35
-        + push * 0.25
-        + index["사용 강도 Index"] / 100 * 0.25
-        + push_optin * 0.15
+        index["고객 가치 Index"] / 100 * 0.40
+        + ott * 0.30
+        + index["사용 강도 Index"] / 100 * 0.30
     )
 
     # 3. 품질 불만 — 품질 CS 문의 직접 활용
@@ -261,24 +259,23 @@ def _build_score(base: dict[str, Any], index: dict[str, float]) -> dict[str, flo
         + index["고객 가치 Index"] / 100 * 0.3
     )
 
-    # 5. 업셀 적합도 (신설) — 청구 급증 적음 (안정적) + 푸시 동의 추가
+    # 5. 업셀 적합도 — 사용량·결합·청구 안정성
     upsell_fit = (
-        data_rate * 0.25
-        + (1 - remaining) * 0.20
-        + bundle_w * 0.15
+        data_rate * 0.30
+        + (1 - remaining) * 0.25
+        + bundle_w * 0.20
         + tenure_pct * 0.10
-        + max(0, 1 - bill_shock / 3.0) * 0.15  # 청구 안정적
-        + push_optin * 0.15  # 푸시 수용
+        + max(0, 1 - bill_shock / 3.0) * 0.15
     )
 
-    # 6. 단말 교체 의향 (신설)
-    # 단말 오래 사용 + 약정 진행률 높음 + 탐색 성향 + 데이터 헤비
+    # 6. 단말 교체 의향
+    # 단말 오래 사용 + 약정 진행률 + OTT 시청(콘텐츠 헤비) + 데이터 패턴
     device_score = min(device_months / 36.0, 1.0)
     pattern_for_device = 1.0 if pattern in ("데이터 헤비", "콘텐츠 헤비") else 0.5
     device_change_intent = (
         device_score * 0.40
         + contract_pct * 0.25
-        + push * 0.15
+        + ott * 0.15
         + pattern_for_device * 0.20
     )
 

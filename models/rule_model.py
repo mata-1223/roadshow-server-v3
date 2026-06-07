@@ -124,8 +124,12 @@ def _rule_2110(f):  # 요금제 탐색
 @_register("INT-2120")
 def _rule_2120(f):  # 5G 상품 탐색
     upsell = float(f.get("업셀 적합도 Score", 0))
-    if f.get("요금제 유형") == "5G":
-        return 0.20  # 이미 5G
+    fee = float(f.get("요금제 월정액", 0))
+    tier = str(f.get("요금제 구간", ""))
+    # 5G 추정: premium/mid 구간 또는 월정액 5.5만+
+    is_5g_like = tier in ("premium", "mid") or fee >= 55000
+    if is_5g_like:
+        return min(0.20 + _pattern_boost(f, "product_explore_count", 0.04, 0.10), 0.40)
     base = min(upsell * 0.7 + 0.15, 0.70)
     return min(base + _pattern_boost(f, "product_explore_count", 0.08, 0.20), 0.95)
 
