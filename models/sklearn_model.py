@@ -8,7 +8,10 @@ Model-based Intent Inference ([2b] reference 모듈)
 - MLflow Pyfunc Registry에 등록 (모델명: {intent_id}_sklearn)
 - seed 고정 (42)으로 재현성 확보
 """
+import json
 import logging
+import random
+from pathlib import Path
 from typing import Any
 
 import numpy as np
@@ -19,6 +22,8 @@ from sklearn.preprocessing import StandardScaler
 from sklearn.pipeline import Pipeline
 
 from config import settings
+
+_DATASET_PATH = Path(__file__).parent.parent / "scenarios" / settings.SCENARIO_ID / "seed_dataset.json"
 
 logger = logging.getLogger(__name__)
 _model_cache: dict[str, Any] = {}
@@ -61,7 +66,7 @@ INTENT_TRAINING_DATA: dict[str, dict] = {
 
     # ── INT-4310. AI 추천 탐색 ─────────────────────────────────
     "INT-4310": {
-        "features": ["고객 가치 Index", "비용 부담도", "데이터 사용률", "푸시 오픈율"],
+        "features": ["고객 가치 Index", "비용 부담도", "데이터 사용률", "OTT 사용 빈도"],
         "X": [
             # 양성: 가치 높음 + 활발 사용 + 푸시 자주 봄
             [78, 0.5, 0.75, 0.80], [85, 0.6, 0.85, 0.75], [72, 0.5, 0.70, 0.70],
@@ -217,16 +222,74 @@ def _train_pipeline(X: list, y: list, seed: int = 42) -> Pipeline:
     return pipe
 
 
+def _extract_from_dataset(
+    intent_id: str,
+    feature_names: list[str],
+    seed: int,
+    neg_pos_ratio: float = 2.0,
+) -> tuple[list[list[float]], list[int]] | None:
+    """
+    seed_dataset.json에서 intent_id에 대한 (X, y) 추출.
+
+    - 양성: sample["intent_labels"]에 intent_id가 있는 경우 (y=1)
+    - 음성: 그 외 (y=0)
+    - 클래스 불균형 처리: 음성을 neg_pos_ratio × n_pos 까지만 샘플링
+    - 양성/음성 둘 다 3건 이상일 때만 반환, 아니면 None
+    """
+    if not _DATASET_PATH.exists():
+        return None
+    try:
+        with open(_DATASET_PATH, encoding="utf-8") as f:
+            dataset = json.load(f)
+    except Exception as e:
+        logger.warning(f"Failed to load seed_dataset.json: {e}")
+        return None
+
+    X_pos, X_neg = [], []
+    for sample in dataset.get("samples", []):
+        bf = sample.get("batch_features", {})
+        x = [float(bf.get(name, 0.0)) for name in feature_names]
+        if intent_id in sample.get("intent_labels", {}):
+            X_pos.append(x)
+        else:
+            X_neg.append(x)
+
+    if len(X_pos) < 3 or len(X_neg) < 3:
+        return None
+
+    rng = random.Random(seed)
+    n_neg_target = min(len(X_neg), max(int(len(X_pos) * neg_pos_ratio), 10))
+    X_neg_sampled = rng.sample(X_neg, n_neg_target) if len(X_neg) > n_neg_target else X_neg
+
+    X = X_pos + X_neg_sampled
+    y = [1] * len(X_pos) + [0] * len(X_neg_sampled)
+    return X, y
+
+
 def train_and_register(intent_id: str, seed: int = 42) -> Pipeline | None:
     """
     Intent의 학습 데이터로 모델 학습 + MLflow 등록.
-    학습 데이터가 없으면 None 반환.
+
+    데이터 소스 우선순위:
+      1) scenarios/cs-myk-v3/seed_dataset.json (페르소나 시드 데이터셋, 500명)
+      2) INTENT_TRAINING_DATA의 도메인 지식 X, y (각 10건)
     """
     data = INTENT_TRAINING_DATA.get(intent_id)
     if data is None:
         return None
 
-    pipe = _train_pipeline(data["X"], data["y"], seed=seed)
+    feature_names = data["features"]
+
+    # 1) 시드 데이터셋 우선
+    extracted = _extract_from_dataset(intent_id, feature_names, seed)
+    if extracted is not None:
+        X, y = extracted
+        data_source = "persona_dataset"
+    else:
+        X, y = data["X"], data["y"]
+        data_source = "domain_knowledge"
+
+    pipe = _train_pipeline(X, y, seed=seed)
 
     mlflow.set_tracking_uri(settings.MLFLOW_URI)
     with mlflow.start_run(run_name=f"{intent_id}_sklearn_init"):
@@ -236,18 +299,19 @@ def train_and_register(intent_id: str, seed: int = 42) -> Pipeline | None:
             registered_model_name=f"{intent_id}_sklearn",
         )
         mlflow.log_params({
-            "intent_id":    intent_id,
-            "n_features":   len(data["features"]),
-            "n_samples":    len(data["y"]),
-            "n_positive":   int(sum(data["y"])),
-            "seed":         seed,
-            "data_source":  "domain_knowledge",
-            "feature_names": ",".join(data["features"]),
+            "intent_id":     intent_id,
+            "n_features":    len(feature_names),
+            "n_samples":     len(y),
+            "n_positive":    int(sum(y)),
+            "seed":          seed,
+            "data_source":   data_source,
+            "feature_names": ",".join(feature_names),
         })
-        train_acc = pipe.score(np.array(data["X"], dtype=float), np.array(data["y"]))
+        train_acc = pipe.score(np.array(X, dtype=float), np.array(y))
         mlflow.log_metric("train_accuracy", train_acc)
 
-    logger.info(f"Trained + registered: {intent_id}_sklearn (acc={train_acc:.3f})")
+    logger.info(f"Trained + registered: {intent_id}_sklearn "
+                f"(source={data_source}, n={len(y)}, pos={int(sum(y))}, acc={train_acc:.3f})")
     return pipe
 
 
