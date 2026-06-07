@@ -83,14 +83,22 @@ def seed_catalogs() -> None:
     existing = ex.fetchone("SELECT COUNT(*) FROM catalog_behaviors")
     if existing and existing[0] > 0:
         ex.execute("DELETE FROM catalog_behaviors")
-    b_rows = []
-    for step_block in behaviors_data["steps"]:
-        step = step_block["step"]
-        for b in step_block["behaviors"]:
-            b_rows.append([
-                b["id"], step, b["name"],
-                b["event_type"], b["entity"],
-            ])
+    b_rows: list[list] = []
+    if behaviors_data.get("structure") == "tree-2step":
+        # 새 양식: step1.behaviors + step2.by_parent + step2.common
+        for b in behaviors_data["step1"]["behaviors"]:
+            b_rows.append([b["id"], 1, b["name"], b["event_type"], b["entity"]])
+        for parent_id, items in behaviors_data["step2"]["by_parent"].items():
+            for b in items:
+                b_rows.append([b["id"], 2, b["name"], b["event_type"], b["entity"]])
+        for b in behaviors_data["step2"]["common"]:
+            b_rows.append([b["id"], 2, b["name"], b["event_type"], b["entity"]])
+    else:
+        # 옛 양식: steps[] 평면
+        for step_block in behaviors_data["steps"]:
+            step = step_block["step"]
+            for b in step_block["behaviors"]:
+                b_rows.append([b["id"], step, b["name"], b["event_type"], b["entity"]])
     ex.executemany(
         "INSERT INTO catalog_behaviors (behavior_id, step, behavior_name, event_type, entity) "
         "VALUES (?, ?, ?, ?, ?)",

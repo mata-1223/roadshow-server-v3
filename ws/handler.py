@@ -110,7 +110,7 @@ async def _handle_behavior(
         [session_id],
     )
 
-    # Extractor에 이벤트 추가
+    # Extractor에 이벤트 추가 (app_exit/navigate_back은 Pattern 집계 영향 약함)
     get_extractor().add_event(session_id, event_type, entity)
 
     await websocket.send_json({
@@ -118,6 +118,11 @@ async def _handle_behavior(
         "behavior_id": behavior_id,
         "occurred_at": datetime.utcnow().isoformat(),
     })
+
+    # app_exit: 세션 종료. INTENT_UPDATE 미전송. stage='exited' 갱신만.
+    if event_type == "app_exit":
+        ex.execute("UPDATE sessions SET stage = ? WHERE id = ?", ["exited", session_id])
+        return
 
     # Intent 재추론 (Batch + 누적 행동)
     batch_features, intent_scores = infer_with_behavior(survey_answers, session_id)

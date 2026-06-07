@@ -1,121 +1,56 @@
 {
   "scenario_id": "cs-myk-v3",
-  "version": "0.2.0",
-  "description": "마이K 앱 행동 선택지 16개 (3단계 분기). 행동은 Event/Behavioral Pattern Feature를 생성하고, Batch+실시간 Feature를 합쳐 모델이 재추론한다. 더 이상 boost 누적 방식을 사용하지 않는다.",
-  "steps": [
-    {
-      "step": 1,
-      "question": "다음으로 어떤 메뉴를 선택하시나요?",
-      "behaviors": [
-        {
-          "id": "1-A",
-          "name": "데이터 사용량 페이지 진입",
-          "event_type": "page_view",
-          "entity": "data_usage"
-        },
-        {
-          "id": "1-B",
-          "name": "요금/청구 상세 페이지 진입",
-          "event_type": "page_view",
-          "entity": "billing"
-        },
-        {
-          "id": "1-C",
-          "name": "가입정보 페이지 진입",
-          "event_type": "page_view",
-          "entity": "subscription_info"
-        },
-        {
-          "id": "1-D",
-          "name": "혜택/멤버십 페이지 진입",
-          "event_type": "page_view",
-          "entity": "benefit_membership"
-        },
-        {
-          "id": "1-E",
-          "name": "상품 탐색 페이지 진입",
-          "event_type": "page_view",
-          "entity": "product_explore"
-        },
-        {
-          "id": "1-F",
-          "name": "고객지원 페이지 진입",
-          "event_type": "page_view",
-          "entity": "customer_support"
-        }
+  "version": "0.3.0",
+  "description": "2단계 트리. Step1=6개 상위 메뉴, Step2=Step1별 하위 3개 + 공통 BACK/EXIT. 무한 반복 가능.",
+  "structure": "tree-2step",
+  "step1": {
+    "question": "다음으로 어떤 메뉴를 선택하시나요?",
+    "behaviors": [
+      { "id": "1-A", "name": "데이터 사용량 페이지 진입",       "event_type": "page_view", "entity": "data_usage" },
+      { "id": "1-B", "name": "요금/청구 상세 페이지 진입",       "event_type": "page_view", "entity": "billing" },
+      { "id": "1-C", "name": "가입정보 페이지 진입 (요금제·약정·해지)", "event_type": "page_view", "entity": "subscription_info" },
+      { "id": "1-D", "name": "혜택/멤버십 페이지 진입",          "event_type": "page_view", "entity": "benefit_membership" },
+      { "id": "1-E", "name": "상품 탐색 페이지 진입",            "event_type": "page_view", "entity": "product_explore" },
+      { "id": "1-F", "name": "고객지원 페이지 진입",             "event_type": "page_view", "entity": "customer_support" }
+    ]
+  },
+  "step2": {
+    "question": "다음으로 어떤 행동을 하실건가요?",
+    "by_parent": {
+      "1-A": [
+        { "id": "2-A1", "name": "데이터 충전 버튼 클릭",        "event_type": "click",      "entity": "data_topup_button" },
+        { "id": "2-A2", "name": "데이터 부가서비스 가입 페이지", "event_type": "page_view",  "entity": "data_addon_page" },
+        { "id": "2-A3", "name": "사용 상세 그래프 조회",        "event_type": "page_view",  "entity": "usage_detail_chart" }
+      ],
+      "1-B": [
+        { "id": "2-B1", "name": "청구 상세 항목 조회",          "event_type": "page_view",  "entity": "billing_detail" },
+        { "id": "2-B2", "name": "즉시 납부 버튼 클릭",          "event_type": "click",      "entity": "pay_now_button" },
+        { "id": "2-B3", "name": "자동납부 설정 변경",           "event_type": "page_view",  "entity": "auto_pay_setting" }
+      ],
+      "1-C": [
+        { "id": "2-C1", "name": "요금제 변경 신청 클릭",        "event_type": "click",      "entity": "plan_change_button" },
+        { "id": "2-C2", "name": "위약금 계산 페이지 진입",      "event_type": "page_view",  "entity": "penalty_calc" },
+        { "id": "2-C3", "name": "해지 신청 페이지 진입",        "event_type": "page_view",  "entity": "cancel_page" }
+      ],
+      "1-D": [
+        { "id": "2-D1", "name": "쿠폰 사용/혜택 적용 클릭",     "event_type": "click",      "entity": "coupon_use" },
+        { "id": "2-D2", "name": "멤버십 등급 혜택 조회",        "event_type": "page_view",  "entity": "membership_tier" },
+        { "id": "2-D3", "name": "이벤트/프로모션 페이지",       "event_type": "page_view",  "entity": "promotion_event" }
+      ],
+      "1-E": [
+        { "id": "2-E1", "name": "요금제 탐색",                  "event_type": "page_view",  "entity": "plan_explore" },
+        { "id": "2-E2", "name": "단말기 탐색",                  "event_type": "page_view",  "entity": "device_explore" },
+        { "id": "2-E3", "name": "가족 결합 회선 추가 페이지",   "event_type": "page_view",  "entity": "family_bundle" }
+      ],
+      "1-F": [
+        { "id": "2-F1", "name": "WiFi 진단 / 속도 측정 실행",   "event_type": "click",          "entity": "quality_diagnosis" },
+        { "id": "2-F2", "name": "챗봇 상담 진입",               "event_type": "support_entry",  "entity": "chatbot" },
+        { "id": "2-F3", "name": "전화 상담 연결 클릭",          "event_type": "support_entry",  "entity": "call_support" }
       ]
     },
-    {
-      "step": 2,
-      "question": "다음으로 어떤 행동을 하실건가요?",
-      "behaviors": [
-        {
-          "id": "2-A",
-          "name": "데이터 충전 버튼 클릭",
-          "event_type": "click",
-          "entity": "data_topup_button"
-        },
-        {
-          "id": "2-B",
-          "name": "요금제 변경 신청 클릭",
-          "event_type": "click",
-          "entity": "plan_change_button"
-        },
-        {
-          "id": "2-C",
-          "name": "WiFi 진단 / 속도 측정 실행",
-          "event_type": "click",
-          "entity": "quality_diagnosis"
-        },
-        {
-          "id": "2-D",
-          "name": "가족 결합 회선 추가 페이지",
-          "event_type": "page_view",
-          "entity": "family_bundle"
-        },
-        {
-          "id": "2-E",
-          "name": "위약금 계산 페이지 진입",
-          "event_type": "page_view",
-          "entity": "penalty_calc"
-        }
-      ]
-    },
-    {
-      "step": 3,
-      "question": "마지막으로 어떤 행동을 하실건가요?",
-      "behaviors": [
-        {
-          "id": "3-A",
-          "name": "신청/변경 확정 버튼 클릭",
-          "event_type": "click",
-          "entity": "confirm_button"
-        },
-        {
-          "id": "3-B",
-          "name": "쿠폰 사용/혜택 적용 버튼 클릭",
-          "event_type": "click",
-          "entity": "coupon_use"
-        },
-        {
-          "id": "3-C",
-          "name": "챗봇 상담 진입",
-          "event_type": "support_entry",
-          "entity": "chatbot"
-        },
-        {
-          "id": "3-D",
-          "name": "전화 상담 연결 클릭",
-          "event_type": "support_entry",
-          "entity": "call_support"
-        },
-        {
-          "id": "3-E",
-          "name": "해지 신청 페이지 진입",
-          "event_type": "page_view",
-          "entity": "cancel_page"
-        }
-      ]
-    }
-  ]
+    "common": [
+      { "id": "BACK", "name": "뒤로가기 (상위 메뉴로 복귀)",    "event_type": "navigate_back", "entity": "back_to_step1" },
+      { "id": "EXIT", "name": "앱 이탈 (세션 종료)",            "event_type": "app_exit",      "entity": "session_end" }
+    ]
+  }
 }
