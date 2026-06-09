@@ -61,16 +61,29 @@ def seed_catalogs() -> None:
     existing = ex.fetchone("SELECT COUNT(*) FROM catalog_actions")
     if existing and existing[0] > 0:
         ex.execute("DELETE FROM catalog_actions")
-    a_rows = [
-        [
-            a["id"], a["name"],
-            json.dumps(a.get("intents", []), ensure_ascii=False),
-            a.get("condition", ""),
-            a["channel"],
-            a.get("message", ""),
-        ]
-        for a in actions_data["actions"]
-    ]
+    a_rows: list[list] = []
+    raw_actions = actions_data["actions"]
+    if isinstance(raw_actions, dict):
+        # v0.2.0: Intent-키 3채널 구조 → intent × channel 로 평면화
+        for intent_id, ch_map in raw_actions.items():
+            for channel, body in ch_map.items():
+                if isinstance(body, dict):  # 고객센터 상담사 컨텍스트 (상황+안내)
+                    message = f"상황: {body.get('situation', '')} / 안내: {body.get('guidance', '')}"
+                else:
+                    message = str(body)
+                a_rows.append([
+                    f"{intent_id}#{channel}", channel,
+                    json.dumps([intent_id], ensure_ascii=False),
+                    "", channel, message,
+                ])
+    else:
+        # 구버전: action 리스트
+        for a in raw_actions:
+            a_rows.append([
+                a["id"], a["name"],
+                json.dumps(a.get("intents", []), ensure_ascii=False),
+                a.get("condition", ""), a["channel"], a.get("message", ""),
+            ])
     ex.executemany(
         "INSERT INTO catalog_actions (action_id, action_name, intents_json, condition, channel, message) "
         "VALUES (?, ?, ?, ?, ?, ?)",

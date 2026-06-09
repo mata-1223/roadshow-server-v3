@@ -18,6 +18,10 @@ from typing import Any
 # T=0.15 → 시연 임팩트(상위 Intent 강조) 우선. Top 5가 분포의 ~60% 점유, 행동 1번에 Δp 수%p
 PROBABILITY_TEMPERATURE = 0.15
 
+import json
+from pathlib import Path
+
+from config import settings
 from core.builder import build_batch_features
 from core.event_extractor import extract as extract_event_features
 from core.extractor import get_extractor
@@ -25,6 +29,36 @@ from data.seed import load_intents_catalog
 from models import rule_model, sklearn_model
 
 logger = logging.getLogger(__name__)
+
+# 행동 → 직접 신호 Intent 부스트.
+# Rule pattern_boost가 일부 행동만 커버하는 한계를 보완해, behaviors.json의 모든 행동이
+# 의미상 연결된 Intent를 끌어올리도록 한다. (final 재추론에만 적용; baseline은 batch만)
+ACTION_SIGNAL_SCALE = 0.28   # 행동 1회당 가산
+ACTION_SIGNAL_CAP   = 0.55   # 행동 반복 시 상한
+
+_SCENARIO_DIR = Path(__file__).parent.parent / "scenarios" / settings.SCENARIO_ID
+_behavior_intent_cache: dict[str, list[str]] | None = None
+
+
+def _behavior_intent_map() -> dict[str, list[str]]:
+    global _behavior_intent_cache
+    if _behavior_intent_cache is None:
+        try:
+            with open(_SCENARIO_DIR / "behavior_intents.json", encoding="utf-8") as f:
+                _behavior_intent_cache = json.load(f).get("entity_intents", {})
+        except FileNotFoundError:
+            _behavior_intent_cache = {}
+    return _behavior_intent_cache
+
+
+def _action_intent_signals(events: list[dict]) -> dict[str, int]:
+    """세션 누적 행동에서 entity→intent 매핑으로 직접 신호 카운트 산출."""
+    m = _behavior_intent_map()
+    counts: dict[str, int] = {}
+    for ev in events:
+        for iid in m.get(ev.get("entity", ""), []):
+            counts[iid] = counts.get(iid, 0) + 1
+    return counts
 
 
 @dataclass
@@ -101,6 +135,12 @@ def infer_with_behavior(
 
     combined_features = {**batch_features, **pattern_features, **event_features}
     final_raw = _score_all(combined_features)
+
+    # 행동이 직접 가리키는 Intent를 끌어올림 (final 에만 적용 → Δ·rank_change가 행동에 귀속)
+    for iid, cnt in _action_intent_signals(events).items():
+        if iid in final_raw:
+            boost = min(cnt * ACTION_SIGNAL_SCALE, ACTION_SIGNAL_CAP)
+            final_raw[iid] = min(final_raw[iid] + boost, 0.97)
 
     scores = _to_intent_scores(baseline_raw, final_raw)
     return batch_features, scores

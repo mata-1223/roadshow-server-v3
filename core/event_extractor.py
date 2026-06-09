@@ -36,7 +36,7 @@ _ENTITY_TO_PAGE = {
 
 def extract(event_type: str, entity: str, occurred_at: datetime | None = None) -> dict[str, Any]:
     """단일 이벤트 → Event Feature dict."""
-    ts = occurred_at or datetime.utcnow()
+    ts = occurred_at or datetime.now()
     return {
         "last_event_type":  event_type,
         "last_entity":      entity,

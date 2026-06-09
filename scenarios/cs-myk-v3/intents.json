@@ -1,7 +1,7 @@
 {
   "scenario_id": "cs-myk-v3",
-  "version": "0.1.0",
-  "description": "마이K 앱 Intent Taxonomy",
+  "version": "0.2.0",
+  "description": "마이K 앱 Intent Taxonomy 113개. 푸시 오픈율→OTT 사용 빈도, 요금제 유형→요금제 월정액/구간 정합 완료",
   "intents": [
     {
       "id": "INT-1110",
@@ -124,8 +124,8 @@
       "L2_name": "가입정보 조회",
       "inference_type": "Rule",
       "features": [
-        "요금제 유형",
-        "요금제 월정액"
+        "요금제 월정액",
+        "요금제 구간"
       ]
     },
     {
@@ -259,7 +259,7 @@
       "L2_name": "모바일 상품 탐색",
       "inference_type": "Rule",
       "features": [
-        "요금제 유형",
+        "요금제 월정액",
         "데이터 사용률",
         "업셀 적합도 Score"
       ]
@@ -852,7 +852,7 @@
         "고객 가치 Index",
         "비용 부담도",
         "데이터 사용률",
-        "푸시 오픈율"
+        "OTT 사용 빈도"
       ]
     },
     {

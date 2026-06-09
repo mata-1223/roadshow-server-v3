@@ -1,0 +1,33 @@
+{
+  "scenario_id": "cs-myk-v3",
+  "version": "0.1.0",
+  "description": "행동(entity) → 직접 신호를 주는 Intent 매핑. 실시간 행동 시 해당 Intent를 끌어올려 재추론에 반영. behaviors.json의 모든 step1/step2 entity를 커버.",
+  "entity_intents": {
+    "data_usage":          ["INT-1110", "INT-1150"],
+    "data_topup_button":   ["INT-2130", "INT-2320"],
+    "data_addon_page":     ["INT-2320", "INT-2130"],
+    "usage_detail_chart":  ["INT-1110", "INT-1150"],
+    "billing":             ["INT-1210", "INT-1220"],
+    "billing_detail":      ["INT-1220", "INT-1210"],
+    "pay_now_button":      ["INT-3110", "INT-1240"],
+    "auto_pay_setting":    ["INT-3120", "INT-1240"],
+    "subscription_info":   ["INT-1310", "INT-1330", "INT-1340"],
+    "plan_change_button":  ["INT-3210", "INT-2110"],
+    "penalty_calc":        ["INT-7110", "INT-7120"],
+    "cancel_page":         ["INT-7130", "INT-7140"],
+    "benefit_membership":  ["INT-1410", "INT-1430"],
+    "coupon_use":          ["INT-1430", "INT-4110", "INT-4320"],
+    "membership_tier":     ["INT-1410", "INT-1440", "INT-4240"],
+    "promotion_event":     ["INT-4120", "INT-4140"],
+    "product_explore":     ["INT-2110", "INT-2130"],
+    "plan_explore":        ["INT-2110", "INT-2120", "INT-2150"],
+    "device_explore":      ["INT-2410", "INT-2420", "INT-2440", "INT-2530"],
+    "family_bundle":       ["INT-6110", "INT-2240"],
+    "customer_support":    ["INT-5310", "INT-5410"],
+    "quality_diagnosis":   ["INT-5110", "INT-5120", "INT-5130"],
+    "chatbot":             ["INT-5310", "INT-5320"],
+    "call_support":        ["INT-5330", "INT-5410"],
+    "back_to_step1":       [],
+    "session_end":         []
+  }
+}
