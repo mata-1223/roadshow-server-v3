@@ -33,8 +33,9 @@ logger = logging.getLogger(__name__)
 # 행동 → 직접 신호 Intent 부스트.
 # Rule pattern_boost가 일부 행동만 커버하는 한계를 보완해, behaviors.json의 모든 행동이
 # 의미상 연결된 Intent를 끌어올리도록 한다. (final 재추론에만 적용; baseline은 batch만)
-ACTION_SIGNAL_SCALE = 0.28   # 행동 1회당 가산
+ACTION_SIGNAL_SCALE = 0.28   # 최신 행동 1회당 가산 (weight=1.0 기준)
 ACTION_SIGNAL_CAP   = 0.55   # 행동 반복 시 상한
+ACTION_SIGNAL_DECAY = 0.6    # 위치 기반 recency 감쇠 (최신 age=0 → 1.0, 직전 0.6, 그전 0.36 …)
 
 _SCENARIO_DIR = Path(__file__).parent.parent / "scenarios" / settings.SCENARIO_ID
 _behavior_intent_cache: dict[str, list[str]] | None = None
@@ -51,14 +52,26 @@ def _behavior_intent_map() -> dict[str, list[str]]:
     return _behavior_intent_cache
 
 
-def _action_intent_signals(events: list[dict]) -> dict[str, int]:
-    """세션 누적 행동에서 entity→intent 매핑으로 직접 신호 카운트 산출."""
+def _action_intent_signals(events: list[dict]) -> dict[str, float]:
+    """
+    세션 누적 행동 → entity→intent 매핑으로 의도별 가중 신호 산출.
+
+    - recency decay: 최신 행동일수록 큰 weight (DECAY^age). 방금 한 행동이 현재 의도를 주도하되,
+      같은 행동 반복은 누적되어 강해진다(과거도 0으로 죽이진 않음).
+    - BACK(navigate_back)은 메뉴 복귀용 순수 내비게이션 → 신호·aging 모두에서 제외(무효과).
+      섹션을 떠난 행동은 이후 다른 행동이 쌓이며 decay로 자연 소멸한다.
+    """
     m = _behavior_intent_map()
-    counts: dict[str, int] = {}
-    for ev in events:
+    real = [ev for ev in events if ev.get("event_type") != "navigate_back"]
+    n = len(real)
+
+    weights: dict[str, float] = {}
+    for i, ev in enumerate(real):
+        age = (n - 1) - i
+        w = ACTION_SIGNAL_DECAY ** age
         for iid in m.get(ev.get("entity", ""), []):
-            counts[iid] = counts.get(iid, 0) + 1
-    return counts
+            weights[iid] = weights.get(iid, 0.0) + w
+    return weights
 
 
 @dataclass

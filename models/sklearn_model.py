@@ -247,8 +247,13 @@ def _extract_from_dataset(
 
     X_pos, X_neg = [], []
     for sample in dataset.get("samples", []):
-        bf = sample.get("batch_features", {})
-        x = [float(bf.get(name, 0.0)) for name in feature_names]
+        # batch + pattern + event 를 합친 전체 feature 벡터 (추론 시점과 동일 공간)
+        feats = {
+            **sample.get("batch_features", {}),
+            **sample.get("pattern_features", {}),
+            **sample.get("event_features", {}),
+        }
+        x = [float(feats.get(name, 0.0)) for name in feature_names]
         if intent_id in sample.get("intent_labels", {}):
             X_pos.append(x)
         else:

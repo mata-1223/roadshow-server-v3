@@ -25,6 +25,8 @@ from pathlib import Path
 sys.path.insert(0, str(Path(__file__).parent.parent))
 
 from core.builder import build_batch_features  # noqa: E402
+from core.extractor import BehavioralPatternExtractor  # noqa: E402
+from core.event_extractor import extract as extract_event  # noqa: E402
 
 
 # ─────────────────────────────────────────────────────────────
@@ -386,14 +388,30 @@ def generate_dataset(n: int, seed: int, scenario_dir: Path) -> list[dict]:
         actions = _resolve_action_entities(behaviors_data, action_seq)
         labels = _build_intent_labels(actions, persona["extra_intents"])
 
+        # 행동 시퀀스를 Extractor에 통과시켜 Pattern/Event Feature 산출 (추론 시점과 동일 경로)
+        # → 행동 feature에 분산을 부여해 Model의 training/serving skew 해소
+        sid = f"C{(i + 1):05d}"
+        ex = BehavioralPatternExtractor()
+        for a in actions:
+            ex.add_event(sid, a["event_type"], a["entity"])
+        pattern_features = ex.get_pattern_features(sid)
+        if actions:
+            last = actions[-1]
+            event_features = extract_event(last["event_type"], last["entity"])
+        else:
+            event_features = {}
+
+        scalar = lambda d: {k: v for k, v in d.items() if not isinstance(v, (list, dict))}
         rows.append({
-            "cust_id":         f"C{(i+1):05d}",
-            "persona_id":      persona["id"],
-            "persona_name":    persona["name"],
-            "survey_answers":  answers,
-            "batch_features":  {k: v for k, v in batch_features.items() if not isinstance(v, (list, dict))},
-            "actions":         actions,
-            "intent_labels":   labels,
+            "cust_id":          sid,
+            "persona_id":       persona["id"],
+            "persona_name":     persona["name"],
+            "survey_answers":   answers,
+            "batch_features":   scalar(batch_features),
+            "pattern_features": scalar(pattern_features),
+            "event_features":   scalar(event_features),
+            "actions":          actions,
+            "intent_labels":    labels,
         })
     return rows
 
