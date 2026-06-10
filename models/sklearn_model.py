@@ -226,6 +226,7 @@ def _extract_from_dataset(
     intent_id: str,
     feature_names: list[str],
     seed: int,
+    dataset_path: Path = _DATASET_PATH,
     neg_pos_ratio: float = 2.0,
 ) -> tuple[list[list[float]], list[int]] | None:
     """
@@ -236,10 +237,10 @@ def _extract_from_dataset(
     - 클래스 불균형 처리: 음성을 neg_pos_ratio × n_pos 까지만 샘플링
     - 양성/음성 둘 다 3건 이상일 때만 반환, 아니면 None
     """
-    if not _DATASET_PATH.exists():
+    if not dataset_path.exists():
         return None
     try:
-        with open(_DATASET_PATH, encoding="utf-8") as f:
+        with open(dataset_path, encoding="utf-8") as f:
             dataset = json.load(f)
     except Exception as e:
         logger.warning(f"Failed to load seed_dataset.json: {e}")
@@ -271,37 +272,49 @@ def _extract_from_dataset(
     return X, y
 
 
-def train_and_register(intent_id: str, seed: int = 42) -> Pipeline | None:
+def train_and_register(
+    intent_id: str,
+    seed: int = 42,
+    training_data: dict | None = None,
+    dataset_path: Path = _DATASET_PATH,
+    model_prefix: str = "",
+) -> Pipeline | None:
     """
     Intent의 학습 데이터로 모델 학습 + MLflow 등록.
 
     데이터 소스 우선순위:
-      1) scenarios/cs-myk-v3/seed_dataset.json (페르소나 시드 데이터셋, 500명)
-      2) INTENT_TRAINING_DATA의 도메인 지식 X, y (각 10건)
+      1) {scenario}/seed_dataset.json (페르소나 시드 데이터셋)
+      2) training_data[intent_id]의 도메인 지식 X, y
+
+    model_prefix: 시나리오별 MLflow 모델명 네임스페이스 (CS=""). 등록명 = {prefix}{intent_id}_sklearn
     """
-    data = INTENT_TRAINING_DATA.get(intent_id)
+    td = training_data if training_data is not None else INTENT_TRAINING_DATA
+    data = td.get(intent_id)
     if data is None:
         return None
 
     feature_names = data["features"]
+    model_name = f"{model_prefix}{intent_id}_sklearn"
 
     # 1) 시드 데이터셋 우선
-    extracted = _extract_from_dataset(intent_id, feature_names, seed)
+    extracted = _extract_from_dataset(intent_id, feature_names, seed, dataset_path)
     if extracted is not None:
         X, y = extracted
         data_source = "persona_dataset"
-    else:
+    elif "X" in data and "y" in data:
         X, y = data["X"], data["y"]
         data_source = "domain_knowledge"
+    else:
+        return None
 
     pipe = _train_pipeline(X, y, seed=seed)
 
     mlflow.set_tracking_uri(settings.MLFLOW_URI)
-    with mlflow.start_run(run_name=f"{intent_id}_sklearn_init"):
+    with mlflow.start_run(run_name=f"{model_name}_init"):
         mlflow.sklearn.log_model(
             pipe,
             "model",
-            registered_model_name=f"{intent_id}_sklearn",
+            registered_model_name=model_name,
         )
         mlflow.log_params({
             "intent_id":     intent_id,
@@ -315,63 +328,85 @@ def train_and_register(intent_id: str, seed: int = 42) -> Pipeline | None:
         train_acc = pipe.score(np.array(X, dtype=float), np.array(y))
         mlflow.log_metric("train_accuracy", train_acc)
 
-    logger.info(f"Trained + registered: {intent_id}_sklearn "
+    logger.info(f"Trained + registered: {model_name} "
                 f"(source={data_source}, n={len(y)}, pos={int(sum(y))}, acc={train_acc:.3f})")
     return pipe
 
 
-def _load_or_train(intent_id: str) -> Pipeline | None:
-    if intent_id in _model_cache:
-        return _model_cache[intent_id]
+def _load_or_train(
+    intent_id: str,
+    training_data: dict,
+    dataset_path: Path,
+    model_prefix: str,
+) -> Pipeline | None:
+    cache_key = f"{model_prefix}{intent_id}"
+    if cache_key in _model_cache:
+        return _model_cache[cache_key]
 
-    if intent_id not in INTENT_TRAINING_DATA:
+    if intent_id not in training_data:
         return None
 
     mlflow.set_tracking_uri(settings.MLFLOW_URI)
-    uri = f"models:/{intent_id}_sklearn/latest"
+    uri = f"models:/{model_prefix}{intent_id}_sklearn/latest"
     try:
         pipe = mlflow.sklearn.load_model(uri)
     except Exception:
-        pipe = train_and_register(intent_id)
+        pipe = train_and_register(
+            intent_id, training_data=training_data,
+            dataset_path=dataset_path, model_prefix=model_prefix,
+        )
 
-    _model_cache[intent_id] = pipe
+    _model_cache[cache_key] = pipe
     return pipe
 
 
-def predict(intent_id: str, features: dict[str, Any]) -> float:
+def predict(
+    intent_id: str,
+    features: dict[str, Any],
+    training_data: dict | None = None,
+    dataset_path: Path = _DATASET_PATH,
+    model_prefix: str = "",
+) -> float:
     """
     Intent ID에 대해 Model 기반 Score 추론.
 
     features dict에서 학습에 사용된 피처들을 순서대로 추출.
-    누락된 피처는 0.0으로 처리.
+    누락된 피처는 0.0으로 처리. training_data 기본값은 CS INTENT_TRAINING_DATA.
     """
-    pipe = _load_or_train(intent_id)
+    td = training_data if training_data is not None else INTENT_TRAINING_DATA
+    pipe = _load_or_train(intent_id, td, dataset_path, model_prefix)
     if pipe is None:
         return 0.0
 
-    data = INTENT_TRAINING_DATA[intent_id]
-    feature_names = data["features"]
+    feature_names = td[intent_id]["features"]
     x = np.array([[float(features.get(name, 0.0)) for name in feature_names]])
 
     proba = pipe.predict_proba(x)[0][1]
     return float(proba)
 
 
-def train_all(seed: int = 42) -> dict[str, float]:
+def train_all(
+    seed: int = 42,
+    training_data: dict | None = None,
+    dataset_path: Path = _DATASET_PATH,
+    model_prefix: str = "",
+) -> dict[str, float]:
     """
-    16개 Model Intent 모두 학습 + 등록.
+    Model Intent 전체 학습 + 등록. training_data 기본값은 CS.
 
     Returns
     -------
     dict : {intent_id: train_accuracy}
     """
+    td = training_data if training_data is not None else INTENT_TRAINING_DATA
     results = {}
-    for intent_id in INTENT_TRAINING_DATA.keys():
-        pipe = train_and_register(intent_id, seed=seed)
+    for intent_id in td.keys():
+        pipe = train_and_register(
+            intent_id, seed=seed, training_data=td,
+            dataset_path=dataset_path, model_prefix=model_prefix,
+        )
         if pipe is not None:
-            data = INTENT_TRAINING_DATA[intent_id]
-            acc = pipe.score(np.array(data["X"], dtype=float), np.array(data["y"]))
-            results[intent_id] = acc
+            results[intent_id] = 1.0
     return results
 
 

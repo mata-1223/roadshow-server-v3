@@ -1,0 +1,126 @@
+{
+  "scenario_id": "worker-v3",
+  "version": "0.1.0",
+  "description": "직장인 번아웃/회복 시나리오 Intent Taxonomy (PDF [3], L1 2 · L2 9)",
+  "intents": [
+    {
+      "id": "INT-W110",
+      "name": "동굴속 휴식",
+      "L1_id": "INT-W100",
+      "L1_name": "번아웃 심화",
+      "L2_id": "INT-W110",
+      "L2_name": "동굴속 휴식",
+      "inference_type": "Model",
+      "features": [
+        "Burnout Deep Score",
+        "Isolation Tendency Index",
+        "Sleep Disturbance Index"
+      ]
+    },
+    {
+      "id": "INT-W120",
+      "name": "에너지 최소화",
+      "L1_id": "INT-W100",
+      "L1_name": "번아웃 심화",
+      "L2_id": "INT-W120",
+      "L2_name": "에너지 최소화",
+      "inference_type": "Model",
+      "features": [
+        "Fatigue Load Index",
+        "Burnout Deep Score"
+      ]
+    },
+    {
+      "id": "INT-W130",
+      "name": "수면 회피 / 야간 자극 추구",
+      "L1_id": "INT-W100",
+      "L1_name": "번아웃 심화",
+      "L2_id": "INT-W130",
+      "L2_name": "수면 회피 / 야간 자극 추구",
+      "inference_type": "Rule",
+      "features": [
+        "Sleep Disturbance Index",
+        "Digital Escape Score"
+      ]
+    },
+    {
+      "id": "INT-W140",
+      "name": "일상 루틴 붕괴",
+      "L1_id": "INT-W100",
+      "L1_name": "번아웃 심화",
+      "L2_id": "INT-W140",
+      "L2_name": "일상 루틴 붕괴",
+      "inference_type": "Model",
+      "features": [
+        "Fatigue Load Index",
+        "Isolation Tendency Index",
+        "weekend_out"
+      ]
+    },
+    {
+      "id": "INT-W210",
+      "name": "즉각 스트레스 해소",
+      "L1_id": "INT-W200",
+      "L1_name": "번아웃 완화 시도",
+      "L2_id": "INT-W210",
+      "L2_name": "즉각 스트레스 해소",
+      "inference_type": "Rule",
+      "features": [
+        "Burnout Deep Score",
+        "Fatigue Load Index"
+      ]
+    },
+    {
+      "id": "INT-W220",
+      "name": "일탈·환경 전환 욕구",
+      "L1_id": "INT-W200",
+      "L1_name": "번아웃 완화 시도",
+      "L2_id": "INT-W220",
+      "L2_name": "일탈·환경 전환 욕구",
+      "inference_type": "Rule",
+      "features": [
+        "Recovery Motivation Score",
+        "Isolation Tendency Index"
+      ]
+    },
+    {
+      "id": "INT-W230",
+      "name": "신체 회복 시도",
+      "L1_id": "INT-W200",
+      "L1_name": "번아웃 완화 시도",
+      "L2_id": "INT-W230",
+      "L2_name": "신체 회복 시도",
+      "inference_type": "Rule",
+      "features": [
+        "Recovery Motivation Score",
+        "Fatigue Load Index"
+      ]
+    },
+    {
+      "id": "INT-W240",
+      "name": "심리·감정 회복",
+      "L1_id": "INT-W200",
+      "L1_name": "번아웃 완화 시도",
+      "L2_id": "INT-W240",
+      "L2_name": "심리·감정 회복",
+      "inference_type": "Rule",
+      "features": [
+        "Recovery Motivation Score",
+        "Isolation Tendency Index"
+      ]
+    },
+    {
+      "id": "INT-W250",
+      "name": "일상 회복",
+      "L1_id": "INT-W200",
+      "L1_name": "번아웃 완화 시도",
+      "L2_id": "INT-W250",
+      "L2_name": "일상 회복",
+      "inference_type": "Rule",
+      "features": [
+        "Recovery Motivation Score",
+        "Isolation Tendency Index"
+      ]
+    }
+  ]
+}

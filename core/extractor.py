@@ -58,14 +58,18 @@ class BehavioralPatternExtractor:
             "occurred_at": ts,
         })
 
-    def _events_within(
+    def events_within(
         self,
         session_id: str,
         window_seconds: int = 300,
     ) -> list[dict[str, Any]]:
+        """세션의 최근 window 내 이벤트 (시나리오 무관 저장소). 엔진별 Pattern 계산 입력."""
         events = self._events_by_session.get(session_id, [])
         cutoff = _now() - timedelta(seconds=window_seconds)
         return [e for e in events if e["occurred_at"] >= cutoff]
+
+    # 하위 호환 alias
+    _events_within = events_within
 
     def get_pattern_features(self, session_id: str) -> dict[str, Any]:
         """
