@@ -6,7 +6,7 @@
   1. 8개 페르소나 정의 (가중치·답변 분포·선호 행동 시퀀스)
   2. 가중치에 따라 N명 샘플링
   3. 각 고객의 설문 답변·batch feature·행동 시퀀스 시뮬레이션
-  4. ENTITY_TO_INTENTS 매핑으로 양성 Intent 라벨 산출
+  4. config.behavior_signals(entity→Intent) 매핑으로 양성 Intent 라벨 산출
   5. scenarios/cs-myk-v3/seed_dataset.json 적재
 
 실행:
@@ -292,37 +292,8 @@ PERSONAS = [
 ]
 
 
-# ─────────────────────────────────────────────────────────────
-# entity → 양성 Intent 매핑 (행동 시 활성화되는 Intent)
-# ─────────────────────────────────────────────────────────────
-ENTITY_TO_INTENTS = {
-    "data_usage":          ["INT-1110", "INT-1150"],
-    "data_topup_button":   ["INT-2130", "INT-2320"],
-    "data_addon_page":     ["INT-2320", "INT-2130"],
-    "usage_detail_chart":  ["INT-1110", "INT-1150"],
-    "billing":             ["INT-1210", "INT-1220"],
-    "billing_detail":      ["INT-1220", "INT-1230"],
-    "pay_now_button":      ["INT-3110", "INT-1240"],
-    "auto_pay_setting":    ["INT-3120", "INT-1240"],
-    "subscription_info":   ["INT-1310", "INT-1330", "INT-1340"],
-    "plan_change_button":  ["INT-3210", "INT-2110"],
-    "penalty_calc":        ["INT-7110", "INT-7120"],
-    "cancel_page":         ["INT-7130", "INT-7140"],
-    "benefit_membership":  ["INT-1410", "INT-1430"],
-    "coupon_use":          ["INT-1430", "INT-4110", "INT-4320"],
-    "membership_tier":     ["INT-1410", "INT-1440", "INT-4240"],
-    "promotion_event":     ["INT-4120", "INT-4140"],
-    "product_explore":     ["INT-2110", "INT-2130"],
-    "plan_explore":        ["INT-2110", "INT-2120", "INT-2150"],
-    "device_explore":      ["INT-2410", "INT-2420", "INT-2440", "INT-2530"],
-    "family_bundle":       ["INT-6110", "INT-2240"],
-    "customer_support":    ["INT-5310", "INT-5410"],
-    "quality_diagnosis":   ["INT-5110", "INT-5120", "INT-5130"],
-    "chatbot":             ["INT-5310", "INT-5320"],
-    "call_support":        ["INT-5330", "INT-5410"],
-    "back_to_step1":       [],
-    "session_end":         [],
-}
+# entity → 양성 Intent 매핑은 config.get_behavior_signals("cs-myk-v3")
+# (= L2_inference.ranker.behavior_signals)를 단일 소스로 사용 — bundle/worker와 동일.
 
 
 def main() -> None:
@@ -332,7 +303,7 @@ def main() -> None:
     rows = build_samples(
         n=args.n, seed=args.seed, personas=PERSONAS, engine=cs,
         seq_key="action_seqs", action_resolver=tree_action_resolver(behaviors),
-        entity_intents=ENTITY_TO_INTENTS,   # CS 전용(config.behavior_signals와 값 다름 → 유지)
+        entity_intents=config.get_behavior_signals(SCENARIO_ID),   # 단일 소스(bundle/worker와 동일)
         cust_prefix="C",
     )
 

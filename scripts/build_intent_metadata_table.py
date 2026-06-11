@@ -20,13 +20,15 @@ from pathlib import Path
 sys.path.insert(0, str(Path(__file__).parent.parent))
 
 from core.engines import config
-from scripts.build_persona_dataset import ENTITY_TO_INTENTS  # noqa: E402
 
 SCENARIO_ID = "cs-myk-v3"
 SCENARIO_DIR = Path(__file__).parent.parent / "scenarios" / SCENARIO_ID
 
+# entity → Intent 매핑 단일 소스 (= L2_inference.ranker.behavior_signals)
+ENTITY_TO_INTENTS = config.get_behavior_signals(SCENARIO_ID)
+
 # ── entity → event-feature/pattern-feature 매핑 ───────────
-# build_persona_dataset.py의 ENTITY_TO_INTENTS와 시나리오 §3.3의 entity 그룹을 종합.
+# config.behavior_signals(entity→Intent)와 시나리오 §3.3의 entity 그룹을 종합.
 ENTITY_META = {
     # entity:               (current_page, group(s), pattern_feature(s))
     "data_usage":           ("data",        ["data_view"],                    ["repeated_entity_count_5m"]),
