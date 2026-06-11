@@ -8,8 +8,8 @@
   - behavior_intents.json  : behaviors.json entity → 직접 신호 Intent 매핑
 세 파일을 일관되게 생성한다.
 
-PDF [2] 시나리오_결합:
-  1.1 결합 Domain Intent Taxonomy / 1.2 Metadata / 4.2 활용 방안 표 기반.
+시나리오_결합:
+  1.1 결합 Domain Intent Taxonomy / 1.2 Metadata / 4.2 활용 방안.
 
 실행:
     cd roadshow-server-v3
@@ -61,7 +61,7 @@ L2 = {
 #   key       : L3 코드 3자리 (앞 2자리가 L2)
 #   name      : Intent 한글명
 #   type      : Rule | Model
-#   features  : 추론 핵심 batch feature 명 (PDF 1.2 표 기반)
+#   features  : 추론 핵심 batch feature 명 (Index/Score)
 #   entities  : 이 Intent로 직접 신호를 주는 behavior entity (behavior_intents)
 #   push      : 앱 Push 문구
 #   cc        : (상황, 안내) 상담사 컨텍스트
@@ -406,7 +406,7 @@ def build_intents() -> dict:
     return {
         "scenario_id": SCENARIO_ID,
         "version":     "0.1.0",
-        "description": "결합 상품 활성화 시나리오 Intent Taxonomy (PDF [2] 기반, 5 L1 · {} L3)".format(len(intents)),
+        "description": "결합 상품 활성화 시나리오 Intent Taxonomy",
         "intents":     intents,
     }
 
@@ -434,7 +434,7 @@ def build_actions() -> dict:
     return {
         "scenario_id": SCENARIO_ID,
         "version":     "0.1.0",
-        "description": "결합 시나리오 Intent별 3채널 활용 예시 (PDF [2] 4.2 기반)",
+        "description": "결합 시나리오 Intent별 3채널 활용 예시",
         "channels":    CHANNELS,
         "actions":     actions,
     }
