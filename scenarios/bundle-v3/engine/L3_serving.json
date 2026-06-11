@@ -2,7 +2,7 @@
   "context_library": {
     "scenario_id": "bundle-v3",
     "version": "0.1.0",
-    "description": "결합 시나리오 Intent별 3채널 활용 예시 (PDF [2] 4.2 기반)",
+    "description": "결합 시나리오 Intent별 3채널 활용 예시",
     "channels": [
       {
         "id": "push",

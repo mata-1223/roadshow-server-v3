@@ -160,8 +160,8 @@ async def _handle_behavior(
     ex.execute("UPDATE sessions SET stage = ? WHERE id = ?", [new_stage, session_id])
 
     top_n_cnt = settings.TOP_N_INTENT
-    top_items, others = to_topn_with_others(intent_scores, top_n=top_n_cnt)
-    all_probabilities = to_probability_dict(intent_scores)
+    top_items, others = to_topn_with_others(intent_scores, top_n=top_n_cnt, scenario_id=scenario_id)
+    all_probabilities = to_probability_dict(intent_scores, scenario_id=scenario_id)
 
     await websocket.send_json({
         "type":              "INTENT_UPDATE",

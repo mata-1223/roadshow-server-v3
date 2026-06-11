@@ -2,7 +2,7 @@
   "context_library": {
     "scenario_id": "cs-myk-v3",
     "version": "0.2.0",
-    "description": "Intent별 3채널 Action (App Push / 고객센터 상담사 컨텍스트 / AI Agent). 시나리오_CS 문서 4.2 활용방안 기반.",
+    "description": "Intent별 3채널 Action (App Push / 고객센터 상담사 컨텍스트 / AI Agent).",
     "channels": [
       {
         "id": "push",

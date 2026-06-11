@@ -1,7 +1,7 @@
 {
   "scenario_id": "worker-v3",
   "version": "0.1.0",
-  "description": "직장인 번아웃/회복 시나리오 Intent Taxonomy (PDF [3], L1 2 · L2 9)",
+  "description": "직장인 번아웃/회복 시나리오 Intent Taxonomy",
   "intents": [
     {
       "id": "INT-W110",

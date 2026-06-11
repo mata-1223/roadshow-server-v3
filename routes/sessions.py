@@ -108,8 +108,8 @@ async def submit_survey(session_id: str, submission: SurveySubmission) -> dict[s
     ex.execute("UPDATE sessions SET stage = ?, last_active_at = CURRENT_TIMESTAMP WHERE id = ?",
                ["initial", session_id])
 
-    top_items, others = to_topn_with_others(intent_scores, top_n=settings.TOP_N_INTENT)
-    all_probabilities = to_probability_dict(intent_scores)
+    top_items, others = to_topn_with_others(intent_scores, top_n=settings.TOP_N_INTENT, scenario_id=scenario_id)
+    all_probabilities = to_probability_dict(intent_scores, scenario_id=scenario_id)
 
     return {
         "session_id":        session_id,

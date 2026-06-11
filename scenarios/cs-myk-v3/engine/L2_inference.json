@@ -106,6 +106,14 @@
       ],
       "back_to_step1": [],
       "session_end": []
+    },
+    "action_signal": {
+      "scale": 0.28,
+      "cap": 0.55,
+      "decay": 0.6
     }
+  },
+  "calibrator": {
+    "probability_temperature": 0.15
   }
 }

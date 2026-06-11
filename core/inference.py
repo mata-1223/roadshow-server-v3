@@ -19,20 +19,46 @@ from typing import Any
 PROBABILITY_TEMPERATURE = 0.15
 
 from config import settings
-from core.engines import get_engine
+from core.engines import get_engine, config
 from core.extractor import get_extractor
 
 logger = logging.getLogger(__name__)
 
-# 행동 → 직접 신호 Intent 부스트.
+# 행동 → 직접 신호 Intent 부스트. (시나리오 config L2_inference.ranker.action_signal로 override)
 # Rule pattern_boost가 일부 행동만 커버하는 한계를 보완해, behaviors.json의 모든 행동이
 # 의미상 연결된 Intent를 끌어올리도록 한다. (final 재추론에만 적용; baseline은 batch만)
+# 아래 값은 scenario_id 미지정/누락 시 fallback 기본값.
 ACTION_SIGNAL_SCALE = 0.28   # 최신 행동 1회당 가산 (weight=1.0 기준)
 ACTION_SIGNAL_CAP   = 0.55   # 행동 반복 시 상한
 ACTION_SIGNAL_DECAY = 0.6    # 위치 기반 recency 감쇠 (최신 age=0 → 1.0, 직전 0.6, 그전 0.36 …)
 
 
-def _action_intent_signals(events: list[dict], behavior_map: dict[str, list[str]]) -> dict[str, float]:
+def _resolve_temperature(scenario_id: str | None) -> float:
+    """시나리오 config의 softmax 온도. 누락 시 모듈 기본값 fallback."""
+    if scenario_id is None:
+        return PROBABILITY_TEMPERATURE
+    try:
+        return config.get_probability_temperature(scenario_id)
+    except (KeyError, FileNotFoundError):
+        return PROBABILITY_TEMPERATURE
+
+
+def _resolve_action_signal(scenario_id: str | None) -> tuple[float, float, float]:
+    """시나리오 config의 행동 부스트 (scale, cap, decay). 누락 시 모듈 기본값 fallback."""
+    if scenario_id is not None:
+        try:
+            sig = config.get_action_signal(scenario_id)
+            return sig["scale"], sig["cap"], sig["decay"]
+        except (KeyError, FileNotFoundError):
+            pass
+    return ACTION_SIGNAL_SCALE, ACTION_SIGNAL_CAP, ACTION_SIGNAL_DECAY
+
+
+def _action_intent_signals(
+    events: list[dict],
+    behavior_map: dict[str, list[str]],
+    decay: float = ACTION_SIGNAL_DECAY,
+) -> dict[str, float]:
     """
     세션 누적 행동 → entity→intent 매핑으로 의도별 가중 신호 산출.
 
@@ -47,7 +73,7 @@ def _action_intent_signals(events: list[dict], behavior_map: dict[str, list[str]
     weights: dict[str, float] = {}
     for i, ev in enumerate(real):
         age = (n - 1) - i
-        w = ACTION_SIGNAL_DECAY ** age
+        w = decay ** age
         for iid in behavior_map.get(ev.get("entity", ""), []):
             weights[iid] = weights.get(iid, 0.0) + w
     return weights
@@ -120,10 +146,11 @@ def infer_with_behavior(
     final_raw = _score_all(combined_features, engine)
 
     # 행동이 직접 가리키는 Intent를 끌어올림 (final 에만 적용 → Δ·rank_change가 행동에 귀속)
+    scale, cap, decay = _resolve_action_signal(scenario_id)
     behavior_map = engine.behavior_intent_map()
-    for iid, cnt in _action_intent_signals(events, behavior_map).items():
+    for iid, cnt in _action_intent_signals(events, behavior_map, decay=decay).items():
         if iid in final_raw:
-            boost = min(cnt * ACTION_SIGNAL_SCALE, ACTION_SIGNAL_CAP)
+            boost = min(cnt * scale, cap)
             final_raw[iid] = min(final_raw[iid] + boost, 0.97)
 
     scores = _to_intent_scores(baseline_raw, final_raw, engine)
@@ -202,17 +229,21 @@ def _softmax(values: list[float], temperature: float) -> list[float]:
 
 def to_probability_dict(
     scores: list[IntentScore],
-    temperature: float = PROBABILITY_TEMPERATURE,
+    scenario_id: str | None = None,
+    temperature: float | None = None,
 ) -> dict[str, dict[str, float]]:
     """
-    113개 Intent raw score → softmax 정규화 확률(p) + baseline 정규화 확률(p0).
+    Intent raw score → softmax 정규화 확률(p) + baseline 정규화 확률(p0).
 
     raw score 합 분모 정규화는 분포가 너무 평탄해 시연 임팩트가 약하므로
     softmax(score / T) 분포를 사용. T가 작을수록 상위 Intent에 분포가 집중된다.
+    T는 scenario_id의 config(L2_inference.calibrator)에서 조회(미지정 시 모듈 기본값).
 
     Vector Space 시각화([1-2]) 가중 평균 위치 계산에 사용.
     INTENT_UPDATE 페이로드의 `all_probabilities` 필드.
     """
+    if temperature is None:
+        temperature = _resolve_temperature(scenario_id)
     p_vals  = _softmax([s.final_score    for s in scores], temperature)
     p0_vals = _softmax([s.baseline_score for s in scores], temperature)
     return {
@@ -227,6 +258,7 @@ def to_probability_dict(
 def to_topn_with_others(
     scores: list[IntentScore],
     top_n: int = 5,
+    scenario_id: str | None = None,
 ) -> tuple[list[dict], dict]:
     """
     Top-N + 기타(others) 페이로드 구성.
@@ -237,7 +269,7 @@ def to_topn_with_others(
         top_list : [ {intent_id, ..., probability, baseline_probability, delta_probability} ]
         others   : { count, probability, baseline_probability, delta_probability }
     """
-    probs = to_probability_dict(scores)
+    probs = to_probability_dict(scores, scenario_id=scenario_id)
     sorted_scores = sorted(scores, key=lambda s: s.final_score, reverse=True)
 
     top_items: list[dict] = []

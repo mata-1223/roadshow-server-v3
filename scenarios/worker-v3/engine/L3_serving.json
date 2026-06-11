@@ -2,7 +2,7 @@
   "context_library": {
     "scenario_id": "worker-v3",
     "version": "0.1.0",
-    "description": "직장인 시나리오 Intent별 MyKT 앱 Push 활용 예시 (PDF [3] 4.2)",
+    "description": "직장인 시나리오 Intent별 MyKT 앱 Push 활용 예시",
     "channels": [
       {
         "id": "push",

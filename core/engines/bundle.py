@@ -11,26 +11,14 @@ from __future__ import annotations
 from pathlib import Path
 from typing import Any
 
-from core.engines import config
+from core.engines import config, common
+from core.engines.common import clamp, clamp01, g
 from core.extractor import get_extractor
 from core.engines.base import ScenarioEngine
 from models import sklearn_model
 
 _DATASET_PATH = Path(__file__).parent.parent.parent / "scenarios" / "bundle-v3" / "seed_dataset.json"
 _MODEL_PREFIX = "bundle-v3__"
-
-# ── 헬퍼 함수 사전 정의 ─────────────────────────────────────────
-def _clamp(v: float, lo: float = 0.0, hi: float = 100.0) -> float:
-    return max(lo, min(hi, v))
-
-def _clamp01(v: float) -> float:
-    return max(0.0, min(1.0, v))
-
-def _g(f: dict, k: str, d: float = 0.0) -> float:
-    try:
-        return float(f.get(k, d))
-    except (TypeError, ValueError):
-        return d
 
 
 # ─────────────────────────────────────────────────────────────
@@ -68,31 +56,31 @@ def build_batch_features(answers: dict[str, str]) -> dict[str, Any]:
     base["non_mobile_cost_gap"]    = non_mobile_cost_gap
 
     # ── Index (0~100) ────────────────────────────────────────
-    bundle_opp = _clamp(
+    bundle_opp = clamp(
         ((family_line - 1) / 3 * 50)
         + ((1 - service_coverage_ratio) * 30)
         + (household_change / 2 * 20)
     )
-    benefit_opt = _clamp(
+    benefit_opt = clamp(
         (min(non_mobile_cost_gap, 3) / 3 * 40)
         + ((2 - benefit_util) * 35)
         + ((25 if dissat in ("통신비", "혜택") else 0))
     )
-    home_expand = _clamp(
+    home_expand = clamp(
         ((1 - service_coverage_ratio) * 50)
         + (content_view / 3 * 30)
         + (20 if household_change >= 1 else 0)
     )
-    retention_ready = _clamp(
+    retention_ready = clamp(
         ((tenure_group - 1) / 2 * 40)
         + (contract_status / 2 * 60)
     )
-    churn_risk = _clamp(
+    churn_risk = clamp(
         (50 if dissat != "없음" else 0)
         + (contract_status / 2 * 30)
         + (min(non_mobile_cost_gap, 3) / 3 * 20)
     )
-    benefit_engage = _clamp(benefit_util / 2 * 100)
+    benefit_engage = clamp(benefit_util / 2 * 100)
 
     idx = {
         "Bundle Opportunity Index":     round(bundle_opp, 2),
@@ -208,60 +196,54 @@ def event_features(session_id: str) -> dict[str, Any]:
 # ─────────────────────────────────────────────────────────────
 RULES = {
     # ── 가입 확대 ──
-    "INT-B1110": lambda f: _clamp01(0.20 + _g(f, "Bundle Opportunity Index") / 100 * 0.55
-                                    + (0.1 if _g(f, "family_line_count") >= 2 else 0)),
-    "INT-B1120": lambda f: _clamp01(0.15 + (1 - _g(f, "service_coverage_ratio", 1)) * 0.6
-                                    + _g(f, "Bundle Opportunity Index") / 100 * 0.2),
-    "INT-B1130": lambda f: _clamp01(0.20 + _g(f, "Bundle Opportunity Index") / 100 * 0.4),
-    "INT-B1410": lambda f: _clamp01(0.10 + _g(f, "Acquisition Score") / 100 * 0.6),
-    "INT-B1420": lambda f: _clamp01(0.10 + _g(f, "Acquisition Score") / 100 * 0.5),
+    "INT-B1110": lambda f: clamp01(0.20 + g(f, "Bundle Opportunity Index") / 100 * 0.55
+                                    + (0.1 if g(f, "family_line_count") >= 2 else 0)),
+    "INT-B1120": lambda f: clamp01(0.15 + (1 - g(f, "service_coverage_ratio", 1)) * 0.6
+                                    + g(f, "Bundle Opportunity Index") / 100 * 0.2),
+    "INT-B1130": lambda f: clamp01(0.20 + g(f, "Bundle Opportunity Index") / 100 * 0.4),
+    "INT-B1410": lambda f: clamp01(0.10 + g(f, "Acquisition Score") / 100 * 0.6),
+    "INT-B1420": lambda f: clamp01(0.10 + g(f, "Acquisition Score") / 100 * 0.5),
     # ── 할인 최적화 ──
-    "INT-B2110": lambda f: _clamp01(0.20 + _g(f, "Benefit Engagement Index") / 100 * 0.4
-                                    + (0.15 if _g(f, "benefit_utilization") >= 2 else 0)),
-    "INT-B2210": lambda f: _clamp01(0.15 + _g(f, "Benefit Optimization Index") / 100 * 0.6),
-    "INT-B2230": lambda f: _clamp01(0.15 + _g(f, "Benefit Optimization Index") / 100 * 0.4
-                                    + min(_g(f, "non_mobile_cost_gap"), 3) / 3 * 0.2),
-    "INT-B2340": lambda f: _clamp01(0.15 + (1 - _g(f, "benefit_utilization", 2) / 3) * 0.5
-                                    + (100 - _g(f, "Benefit Engagement Index")) / 100 * 0.2),
+    "INT-B2110": lambda f: clamp01(0.20 + g(f, "Benefit Engagement Index") / 100 * 0.4
+                                    + (0.15 if g(f, "benefit_utilization") >= 2 else 0)),
+    "INT-B2210": lambda f: clamp01(0.15 + g(f, "Benefit Optimization Index") / 100 * 0.6),
+    "INT-B2230": lambda f: clamp01(0.15 + g(f, "Benefit Optimization Index") / 100 * 0.4
+                                    + min(g(f, "non_mobile_cost_gap"), 3) / 3 * 0.2),
+    "INT-B2340": lambda f: clamp01(0.15 + (1 - g(f, "benefit_utilization", 2) / 3) * 0.5
+                                    + (100 - g(f, "Benefit Engagement Index")) / 100 * 0.2),
     # ── 회선/서비스 확장 ──
-    "INT-B3110": lambda f: _clamp01(0.15 + (_g(f, "family_line_count") - 1) / 2 * 0.5
-                                    + _g(f, "Bundle Opportunity Index") / 100 * 0.25),
-    "INT-B3120": lambda f: _clamp01(0.15 + _g(f, "Home Service Expansion Index") / 100 * 0.55),
-    "INT-B3130": lambda f: _clamp01(0.15 + _g(f, "Home Service Expansion Index") / 100 * 0.35
-                                    + _g(f, "content_view_mode") / 4 * 0.25),
-    "INT-B3150": lambda f: _clamp01(0.10 + _g(f, "Home Service Expansion Index") / 100 * 0.4
-                                    + (0.2 if _g(f, "household_change") >= 1 else 0)),
-    "INT-B3330": lambda f: _clamp01(0.10 + (0.4 if _g(f, "household_change") >= 1 else 0)
-                                    + (_g(f, "family_line_count") - 1) / 2 * 0.2),
-    "INT-B3340": lambda f: _clamp01(0.10 + (0.35 if _g(f, "household_change") >= 1 else 0)),
+    "INT-B3110": lambda f: clamp01(0.15 + (g(f, "family_line_count") - 1) / 2 * 0.5
+                                    + g(f, "Bundle Opportunity Index") / 100 * 0.25),
+    "INT-B3120": lambda f: clamp01(0.15 + g(f, "Home Service Expansion Index") / 100 * 0.55),
+    "INT-B3130": lambda f: clamp01(0.15 + g(f, "Home Service Expansion Index") / 100 * 0.35
+                                    + g(f, "content_view_mode") / 4 * 0.25),
+    "INT-B3150": lambda f: clamp01(0.10 + g(f, "Home Service Expansion Index") / 100 * 0.4
+                                    + (0.2 if g(f, "household_change") >= 1 else 0)),
+    "INT-B3330": lambda f: clamp01(0.10 + (0.4 if g(f, "household_change") >= 1 else 0)
+                                    + (g(f, "family_line_count") - 1) / 2 * 0.2),
+    "INT-B3340": lambda f: clamp01(0.10 + (0.35 if g(f, "household_change") >= 1 else 0)),
     # ── 유지/락인 ──
-    "INT-B4110": lambda f: _clamp01(0.15 + _g(f, "contract_status") / 3 * 0.4
-                                    + _g(f, "Retention Readiness Index") / 100 * 0.3),
-    "INT-B4210": lambda f: _clamp01(0.10 + (_g(f, "tenure_group") - 1) / 2 * 0.45
-                                    + _g(f, "Retention Readiness Index") / 100 * 0.25),
-    "INT-B4320": lambda f: _clamp01(0.10 + _g(f, "Churn Risk Index") / 100 * 0.4
-                                    + (0.15 if _g(f, "contract_status") >= 3 else 0)),
+    "INT-B4110": lambda f: clamp01(0.15 + g(f, "contract_status") / 3 * 0.4
+                                    + g(f, "Retention Readiness Index") / 100 * 0.3),
+    "INT-B4210": lambda f: clamp01(0.10 + (g(f, "tenure_group") - 1) / 2 * 0.45
+                                    + g(f, "Retention Readiness Index") / 100 * 0.25),
+    "INT-B4320": lambda f: clamp01(0.10 + g(f, "Churn Risk Index") / 100 * 0.4
+                                    + (0.15 if g(f, "contract_status") >= 3 else 0)),
     # ── 이탈 검토 ──
-    "INT-B5120": lambda f: _clamp01(0.10 + _g(f, "Churn Risk Index") / 100 * 0.5),
-    "INT-B5310": lambda f: _clamp01(0.05 + (0.55 if f.get("dissatisfaction_factor") == "인터넷 품질" else 0)
-                                    + _g(f, "Churn Risk Index") / 100 * 0.15),
-    "INT-B5320": lambda f: _clamp01(0.05 + (0.55 if f.get("dissatisfaction_factor") == "IPTV 품질" else 0)
-                                    + _g(f, "Churn Risk Index") / 100 * 0.15),
-    "INT-B5410": lambda f: _clamp01(0.05 + _g(f, "Churn Risk Index") / 100 * 0.6),
-    "INT-B5420": lambda f: _clamp01(0.05 + _g(f, "Churn Risk Index") / 100 * 0.45
-                                    + (0.15 if _g(f, "contract_status") >= 2 else 0)),
-    "INT-B5430": lambda f: _clamp01(0.05 + _g(f, "Churn Risk Index") / 100 * 0.5),
-    "INT-B5440": lambda f: _clamp01(0.05 + _g(f, "Churn Risk Index") / 100 * 0.4),
+    "INT-B5120": lambda f: clamp01(0.10 + g(f, "Churn Risk Index") / 100 * 0.5),
+    "INT-B5310": lambda f: clamp01(0.05 + (0.55 if f.get("dissatisfaction_factor") == "인터넷 품질" else 0)
+                                    + g(f, "Churn Risk Index") / 100 * 0.15),
+    "INT-B5320": lambda f: clamp01(0.05 + (0.55 if f.get("dissatisfaction_factor") == "IPTV 품질" else 0)
+                                    + g(f, "Churn Risk Index") / 100 * 0.15),
+    "INT-B5410": lambda f: clamp01(0.05 + g(f, "Churn Risk Index") / 100 * 0.6),
+    "INT-B5420": lambda f: clamp01(0.05 + g(f, "Churn Risk Index") / 100 * 0.45
+                                    + (0.15 if g(f, "contract_status") >= 2 else 0)),
+    "INT-B5430": lambda f: clamp01(0.05 + g(f, "Churn Risk Index") / 100 * 0.5),
+    "INT-B5440": lambda f: clamp01(0.05 + g(f, "Churn Risk Index") / 100 * 0.4),
 }
 
 def rule_predict(intent_id: str, features: dict[str, Any]) -> float:
-    fn = RULES.get(intent_id)
-    if fn is None:
-        return 0.05
-    try:
-        return _clamp01(float(fn(features)))
-    except Exception:
-        return 0.05
+    return common.rule_predict(RULES, intent_id, features)
 
 
 
@@ -298,55 +280,26 @@ MODEL_TRAINING_DATA: dict[str, dict] = {
 }
 
 
-def _norm_feature(name: str, value: float) -> float:
-    """Model 미학습 시 fallback 휴리스틱용 정규화 (0~1)."""
-    if name.endswith("Index") or name.endswith("Score"):
-        return _clamp(value) / 100
-    ranges = {
-        "service_coverage_ratio": (0.0, 1.0),
-        "non_mobile_cost_gap":    (0.0, 3.0),
-        "content_view_mode":      (0.0, 4.0),
-        "benefit_utilization":    (0.0, 3.0),
-        "plan_tier":              (0.0, 4.0),
-        "family_line_count":      (1.0, 3.0),
-        "household_change":       (0.0, 2.0),
-        "tenure_group":           (1.0, 3.0),
-        "contract_status":        (1.0, 3.0),
-    }
-    if name in ranges:
-        lo, hi = ranges[name]
-        return max(0.0, min(1.0, (value - lo) / (hi - lo) if hi > lo else 0.0))
-    # 행동 Pattern count
-    return max(0.0, min(1.0, value / 3.0))
-
-
-def _model_heuristic(intent_id: str, features: dict[str, Any]) -> float:
-    spec = MODEL_TRAINING_DATA.get(intent_id)
-    if not spec:
-        return 0.05
-    vals = [_norm_feature(n, _g(features, n)) for n in spec["features"]]
-    if not vals:
-        return 0.05
-    # 미학습 Model: 학습 모델/Rule 대비 베이스 분포를 과점하지 않도록 보수적으로 감쇠
-    return round(0.04 + (sum(vals) / len(vals)) * 0.55, 4)
+# Model 휴리스틱 fallback용 feature 정규화 범위 (미학습 Model intent)
+NORM_RANGES = {
+    "service_coverage_ratio": (0.0, 1.0),
+    "non_mobile_cost_gap":    (0.0, 3.0),
+    "content_view_mode":      (0.0, 4.0),
+    "benefit_utilization":    (0.0, 3.0),
+    "plan_tier":              (0.0, 4.0),
+    "family_line_count":      (1.0, 3.0),
+    "household_change":       (0.0, 2.0),
+    "tenure_group":           (1.0, 3.0),
+    "contract_status":        (1.0, 3.0),
+}
 
 
 def model_predict(intent_id: str, features: dict[str, Any]) -> float:
-    """학습된 sklearn 모델 우선, 없으면 휴리스틱 fallback."""
-    if not _DATASET_PATH.exists():
-        return _model_heuristic(intent_id, features)
-    try:
-        p = sklearn_model.predict(
-            intent_id, features,
-            training_data=MODEL_TRAINING_DATA,
-            dataset_path=_DATASET_PATH,
-            model_prefix=_MODEL_PREFIX,
-        )
-        if p <= 0.0:
-            return _model_heuristic(intent_id, features)
-        return p
-    except Exception:
-        return _model_heuristic(intent_id, features)
+    return common.model_predict(intent_id, features,
+                                training_data=MODEL_TRAINING_DATA,
+                                dataset_path=_DATASET_PATH,
+                                model_prefix=_MODEL_PREFIX,
+                                ranges=NORM_RANGES, scale=0.55)
 
 
 # ─────────────────────────────────────────────────────────────

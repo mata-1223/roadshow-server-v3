@@ -132,10 +132,11 @@ async def list_tables() -> list[dict]:
 async def query_table(
     table_name: str,
     session_id: Optional[str] = Query(None, description="세션 ID로 필터링 (있는 경우만)"),
+    scenario_id: Optional[str] = Query(None, description="시나리오 ID로 필터링 (있는 경우만)"),
     limit:  int = Query(50, ge=1, le=1000),
     offset: int = Query(0, ge=0),
 ) -> dict:
-    """테이블 조회 (페이징 + 세션 필터)"""
+    """테이블 조회 (페이징 + 세션/시나리오 필터)"""
     if table_name not in _list_user_tables():
         raise HTTPException(404, f"Table not found: {table_name}")
 
@@ -147,11 +148,15 @@ async def query_table(
     col_list = ", ".join(columns)
     order_by = _order_clause(columns)
 
-    where_sql = ""
+    conditions: list[str] = []
     params: list = []
     if session_id and "session_id" in columns:
-        where_sql = "WHERE session_id = ?"
+        conditions.append("session_id = ?")
         params.append(session_id)
+    if scenario_id and "scenario_id" in columns:
+        conditions.append("scenario_id = ?")
+        params.append(scenario_id)
+    where_sql = ("WHERE " + " AND ".join(conditions)) if conditions else ""
 
     # 행 수
     cnt_sql = f"SELECT COUNT(*) FROM {table_name} {where_sql}"
@@ -192,6 +197,7 @@ async def query_table(
         "page":        (offset // limit) + 1,
         "page_count":  (total + limit - 1) // limit if limit > 0 else 1,
         "session_id":  session_id,
+        "scenario_id": scenario_id,
         "rows":        rows,
     }
 

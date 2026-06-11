@@ -24,10 +24,8 @@ from pathlib import Path
 
 sys.path.insert(0, str(Path(__file__).parent.parent))
 
-from core.engines import config
-from core.builder import build_batch_features  # noqa: E402
-from core.extractor import BehavioralPatternExtractor  # noqa: E402
-from core.event_extractor import extract as extract_event  # noqa: E402
+from core.engines import config, cs  # noqa: E402
+from core.extractor import get_extractor  # noqa: E402
 
 SCENARIO_ID = "cs-myk-v3"
 SCENARIO_DIR = Path(__file__).parent.parent / "scenarios" / SCENARIO_ID
@@ -385,23 +383,21 @@ def generate_dataset(n: int, seed: int, scenario_id: str) -> list[dict]:
     for i in range(n):
         persona = _pick_persona(rng)
         answers = _generate_answers(rng, persona)
-        batch_features = build_batch_features(answers)
+        batch_features = cs.build_batch_features(answers)
         action_seq = rng.choice(persona["action_seqs"])
         actions = _resolve_action_entities(behaviors_data, action_seq)
         labels = _build_intent_labels(actions, persona["extra_intents"])
 
-        # 행동 시퀀스를 Extractor에 통과시켜 Pattern/Event Feature 산출 (추론 시점과 동일 경로)
+        # 행동 시퀀스를 공유 저장소에 통과시켜 Pattern/Event Feature 산출 (추론 시점과 동일 경로)
         # → 행동 feature에 분산을 부여해 Model의 training/serving skew 해소
         sid = f"C{(i + 1):05d}"
-        ex = BehavioralPatternExtractor()
+        ex = get_extractor()
+        ex.reset(sid)
         for a in actions:
             ex.add_event(sid, a["event_type"], a["entity"])
-        pattern_features = ex.get_pattern_features(sid)
-        if actions:
-            last = actions[-1]
-            event_features = extract_event(last["event_type"], last["entity"])
-        else:
-            event_features = {}
+        pattern_features = cs.pattern_features(sid)
+        event_features = cs.event_features(sid) if actions else {}
+        ex.reset(sid)
 
         scalar = lambda d: {k: v for k, v in d.items() if not isinstance(v, (list, dict))}
         rows.append({
