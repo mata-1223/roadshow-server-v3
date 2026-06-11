@@ -24,10 +24,13 @@ from pathlib import Path
 
 sys.path.insert(0, str(Path(__file__).parent.parent))
 
+from core.engines import config
 from core.builder import build_batch_features  # noqa: E402
 from core.extractor import BehavioralPatternExtractor  # noqa: E402
 from core.event_extractor import extract as extract_event  # noqa: E402
 
+SCENARIO_ID = "cs-myk-v3"
+SCENARIO_DIR = Path(__file__).parent.parent / "scenarios" / SCENARIO_ID
 
 # ─────────────────────────────────────────────────────────────
 # 페르소나 정의
@@ -374,10 +377,9 @@ def _build_intent_labels(actions: list[dict], extra_intents: list[str]) -> dict[
     return {iid: 1 for iid in positives}
 
 
-def generate_dataset(n: int, seed: int, scenario_dir: Path) -> list[dict]:
+def generate_dataset(n: int, seed: int, scenario_id: str) -> list[dict]:
     rng = random.Random(seed)
-    with open(scenario_dir / "behaviors.json", encoding="utf-8") as f:
-        behaviors_data = json.load(f)
+    behaviors_data = config.get_behaviors(scenario_id)
 
     rows = []
     for i in range(n):
@@ -440,10 +442,9 @@ def main() -> None:
     parser.add_argument("--seed", type=int, default=42)
     args = parser.parse_args()
 
-    scenario_dir = Path(__file__).parent.parent / "scenarios" / "cs-myk-v3"
-    rows = generate_dataset(args.n, args.seed, scenario_dir)
+    rows = generate_dataset(args.n, args.seed, SCENARIO_ID)
 
-    out_path = scenario_dir / "seed_dataset.json"
+    out_path = SCENARIO_DIR / "seed_dataset.json"
     with open(out_path, "w", encoding="utf-8") as f:
         json.dump({
             "scenario_id": "cs-myk-v3",

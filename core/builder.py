@@ -19,14 +19,13 @@ Base Feature: 설문에서 직접 매핑
   Ratio (2)  — 약정 진행률, 가족 결합 비중
   Score (7)  — 이탈 위험, 추천 적합도, 품질 불만, 결합 확장,
                업셀 적합도, 단말 교체 의향, 로밍 의향
-
-푸시 동의·푸시 오픈율은 v0.4.0(13문항)부터 제거. OTT 사용 빈도가 그 자리를 차지.
 """
 import json
 from pathlib import Path
 from typing import Any
 
 from config import settings
+from core.engines import config
 
 _SCENARIO_DIR = Path(__file__).parent.parent / "scenarios" / settings.SCENARIO_ID
 
@@ -61,8 +60,7 @@ _GRADE_BY_TENURE = {6: "Bronze", 24: "Silver", 48: "Gold", 84: "Gold"}
 
 
 def _load_survey() -> dict:
-    with open(_SCENARIO_DIR / "survey.json", encoding="utf-8") as f:
-        return json.load(f)
+    return config.get_survey(settings.SCENARIO_ID)
 
 
 def _extract_base(answers: dict[str, str]) -> dict[str, Any]:
@@ -88,7 +86,7 @@ def _extract_base(answers: dict[str, str]) -> dict[str, Any]:
             continue
         base.update(option.get("features", {}))
 
-    # ── Proxy 추정 지표 산출 ────────────────────────────────
+    # ── 추정 지표 산출 ────────────────────────────────
     # 청구 급증 경험 → 비용 부담도 (요금제 월정액 가산)
     bill_shock = float(base.get("청구 급증 경험 6m", 0))
     fee_norm = float(base.get("요금제 월정액", 55000)) / 100000.0

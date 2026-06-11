@@ -18,39 +18,24 @@ from functools import lru_cache
 from pathlib import Path
 from typing import Any
 
-_SCENARIOS = Path(__file__).parent.parent.parent / "scenarios"
-
-
-@lru_cache(maxsize=None)
-def load_scenario_intents(scenario_id: str) -> tuple[dict, ...]:
-    """scenarios/{id}/intents.json → Intent dict 튜플 (캐시). 추론 카탈로그의 단일 소스."""
-    path = _SCENARIOS / scenario_id / "intents.json"
-    with open(path, encoding="utf-8") as f:
-        data = json.load(f)
-    out = []
-    for i in data["intents"]:
-        out.append({
-            "id":             i["id"],
-            "name":           i["name"],
-            "L1_id":          i["L1_id"],
-            "L1_name":        i["L1_name"],
-            "L2_id":          i["L2_id"],
-            "L2_name":        i["L2_name"],
-            "inference_type": i["inference_type"],
-            "features":       i.get("features", []),
-        })
-    return tuple(out)
-
+from core.engines import config
 
 @lru_cache(maxsize=None)
-def load_behavior_intent_map(scenario_id: str) -> tuple[tuple[str, tuple[str, ...]], ...]:
-    """scenarios/{id}/behavior_intents.json → (entity, [intent_id...]) 캐시용 튜플."""
-    path = _SCENARIOS / scenario_id / "behavior_intents.json"
-    try:
-        with open(path, encoding="utf-8") as f:
-            m = json.load(f).get("entity_intents", {})
-    except FileNotFoundError:
-        m = {}
+def load_scenario_intents(scenario_id):
+    data = config.get_taxonomy(scenario_id)
+    return tuple({ "id": i["id"],
+                  "name": i["name"],
+                  "L1_id": i["L1_id"],
+                  "L1_name": i["L1_name"],
+                   "L2_id": i["L2_id"],
+                   "L2_name": i["L2_name"],
+                   "inference_type": i["inference_type"],
+                   "features": i.get("features", [])} for i in data["intents"]
+                   )
+
+@lru_cache(maxsize=None)
+def load_behavior_intent_map(scenario_id):
+    m = config.get_behavior_signals(scenario_id)
     return tuple((k, tuple(v)) for k, v in m.items())
 
 

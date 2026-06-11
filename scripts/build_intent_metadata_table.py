@@ -19,7 +19,11 @@ from pathlib import Path
 
 sys.path.insert(0, str(Path(__file__).parent.parent))
 
+from core.engines import config
 from scripts.build_persona_dataset import ENTITY_TO_INTENTS  # noqa: E402
+
+SCENARIO_ID = "cs-myk-v3"
+SCENARIO_DIR = Path(__file__).parent.parent / "scenarios" / SCENARIO_ID
 
 # ── entity → event-feature/pattern-feature 매핑 ───────────
 # build_persona_dataset.py의 ENTITY_TO_INTENTS와 시나리오 §3.3의 entity 그룹을 종합.
@@ -117,9 +121,8 @@ def _format_batch_features(features: list[str]) -> str:
 
 
 def main() -> None:
-    scenario_dir = Path(__file__).parent.parent / "scenarios" / "cs-myk-v3"
-    with open(scenario_dir / "intents.json", encoding="utf-8") as f:
-        intents = json.load(f)["intents"]
+    SCENARIO_DIR = Path(__file__).parent.parent / "scenarios" / SCENARIO_ID
+    intents = config.get_taxonomy["intents"]
 
     rev = _reverse_entity_map()
 
@@ -170,7 +173,7 @@ def main() -> None:
 
     out.append("\n---\n\n")
     out.append("## 비고\n")
-    out.append("- **Batch Feature**: `scenarios/cs-myk-v3/intents.json`의 `features` 필드 그대로.\n")
+    out.append(f"- **Batch Feature**: `scenarios/{SCENARIO_ID}/intents.json`의 `features` 필드 그대로.\n")
     out.append("- **Event Feature**: `current_page`, `last_entity`, `is_churn_signal`, `is_support_entry` 등으로 표현. 시나리오 §3.2 정의 참고.\n")
     out.append("- **Behavioral Pattern Feature**: 5분 window 집계 카운트. 시나리오 §3.3 정의 참고.\n")
     out.append("- **방법론 분포**: Rule 99개 / Model 14개. Rule 중 ~61개는 명시 함수 정의, 나머지는 baseline(0.05).\n")

@@ -470,17 +470,28 @@ def build_behavior_intents() -> dict:
     }
 
 
+def _load(path):
+    return json.load(open(path, encoding="utf-8")) if path.exists() else {}
+
+
+def _dump(path, data):
+    path.parent.mkdir(parents=True, exist_ok=True)
+    json.dump(data, open(path, "w", encoding="utf-8"), ensure_ascii=False, indent=2)
+    print(f"Wrote {path}")
+
+
 def main() -> None:
-    OUT_DIR.mkdir(parents=True, exist_ok=True)
-    for fname, data in [
-        ("intents.json", build_intents()),
-        ("actions.json", build_actions()),
-        ("behavior_intents.json", build_behavior_intents()),
-    ]:
-        path = OUT_DIR / fname
-        with open(path, "w", encoding="utf-8") as f:
-            json.dump(data, f, ensure_ascii=False, indent=2)
-        print(f"Wrote {path}")
+    eng = OUT_DIR / "engine"
+    # L0: Intent Taxonomy (전체)
+    _dump(eng / "L0_taxonomy.json", build_intents())
+    # L3: context_library 키만 교체 (context_manager 등 형제 섹션 보존)
+    l3 = _load(eng / "L3_serving.json")
+    l3["context_library"] = build_actions()
+    _dump(eng / "L3_serving.json", l3)
+    # L2: ranker.behavior_signals만 교체 (action_signal/model/calibrator 보존)
+    l2 = _load(eng / "L2_inference.json")
+    l2.setdefault("ranker", {})["behavior_signals"] = build_behavior_intents()["entity_intents"]
+    _dump(eng / "L2_inference.json", l2)
 
     # 요약
     intents = build_intents()["intents"]

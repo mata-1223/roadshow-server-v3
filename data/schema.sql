@@ -11,7 +11,7 @@ CREATE TABLE IF NOT EXISTS scenarios (
     description  TEXT
 );
 
--- Intent 카탈로그 (116개)
+-- Intent 카탈로그 (113개)
 CREATE TABLE IF NOT EXISTS catalog_intents (
     intent_id        VARCHAR PRIMARY KEY,
     intent_name      VARCHAR NOT NULL,

@@ -2,7 +2,7 @@ from __future__ import annotations
 """
 직장인(worker-v3) Scenario Engine.
 
-PDF [3] 시나리오_직장인 명세 구현:
+[3] 시나리오_직장인 명세 구현:
   - 2.2 Batch Context Feature Builder : 설문 → Fatigue/Isolation/Retention/Sleep Index + 4 Score
   - 3.1 앱 선택지                     : 10개 앱 단일 선택 (event_type=app_open)
   - 3.2 Event Feature                 : 미생성 (단일 클릭 즉시 대응 이벤트 부재)
@@ -12,8 +12,9 @@ import json
 from pathlib import Path
 from typing import Any
 
+from core.engines import config
 from core.extractor import get_extractor
-from core.engines.base import ScenarioEngine, _SCENARIOS
+from core.engines.base import ScenarioEngine
 from models import sklearn_model
 
 _DATASET_PATH = Path(__file__).parent.parent.parent / "scenarios" / "worker-v3" / "seed_dataset.json"
@@ -39,8 +40,7 @@ def _g(f: dict, k: str, d: float = 0.0) -> float:
 # 2.2 Batch Context Feature Builder
 # ─────────────────────────────────────────────────────────────
 def build_batch_features(answers: dict[str, str]) -> dict[str, Any]:
-    with open(_SCENARIOS / "worker-v3" / "survey.json", encoding="utf-8") as f:
-        survey = json.load(f)
+    survey = config.get_survey("worker-v3")
 
     base: dict[str, Any] = {}
     for q in survey["questions"]:
@@ -83,7 +83,7 @@ def build_batch_features(answers: dict[str, str]) -> dict[str, Any]:
 # ─────────────────────────────────────────────────────────────
 # 3.3 Behavioral Pattern Extractor (app_open)
 # ─────────────────────────────────────────────────────────────
-def _empty_pattern() -> dict[str, Any]:
+def empty_pattern_features() -> dict[str, Any]:
     return {
         "launch_entity_count_5m":   0,
         "action_intensity_5m":      0,
@@ -97,7 +97,7 @@ def pattern_features(session_id: str) -> dict[str, Any]:
     events = get_extractor().events_within(session_id, window_seconds=300)
     real = [e for e in events if e["event_type"] == "app_open"]
     if not real:
-        return _empty_pattern()
+        return empty_pattern_features()
     entity_counts: dict[str, int] = {}
     for e in real:
         entity_counts[e["entity"]] = entity_counts.get(e["entity"], 0) + 1
@@ -113,7 +113,7 @@ def pattern_features(session_id: str) -> dict[str, Any]:
 
 
 # 3.2 Event Feature 미생성 → 빈 dict
-def _empty_event() -> dict[str, Any]:
+def empty_event_features() -> dict[str, Any]:
     return {}
 
 
@@ -122,7 +122,7 @@ def event_features(session_id: str) -> dict[str, Any]:
 
 
 # ─────────────────────────────────────────────────────────────
-# Rule-Based Intent Trigger (Rule 6개)
+# Rule-Based Intent Trigger (Rule-Based Method)
 # ─────────────────────────────────────────────────────────────
 RULES = {
     # 수면 회피 / 야간 자극 추구
@@ -145,9 +145,18 @@ RULES = {
                                    + (0.15 if _g(f, "social_contact") >= 3 else 0)),
 }
 
+def rule_predict(intent_id: str, features: dict[str, Any]) -> float:
+    fn = RULES.get(intent_id)
+    if fn is None:
+        return 0.05
+    try:
+        return _clamp01(float(fn(features)))
+    except Exception:
+        return 0.05
+
 
 # ─────────────────────────────────────────────────────────────
-# Predictive Intent Model (Model 3개)
+# Predictive Intent Model (Model-Based Method)
 # ─────────────────────────────────────────────────────────────
 MODEL_TRAINING_DATA: dict[str, dict] = {
     "INT-W110": {"features": ["Burnout Deep Score", "Isolation Tendency Index", "Sleep Disturbance Index"]},
@@ -202,10 +211,10 @@ class WorkerEngine(ScenarioEngine):
         return build_batch_features(answers)
 
     def empty_pattern_features(self) -> dict[str, Any]:
-        return _empty_pattern()
+        return empty_pattern_features()
 
     def empty_event_features(self) -> dict[str, Any]:
-        return _empty_event()
+        return empty_event_features()
 
     def pattern_features(self, session_id: str) -> dict[str, Any]:
         return pattern_features(session_id)
@@ -214,13 +223,7 @@ class WorkerEngine(ScenarioEngine):
         return event_features(session_id)
 
     def rule_predict(self, intent_id: str, features: dict[str, Any]) -> float:
-        fn = RULES.get(intent_id)
-        if fn is None:
-            return 0.05
-        try:
-            return _clamp01(float(fn(features)))
-        except Exception:
-            return 0.05
+        return rule_predict(intent_id, features)
 
     def model_predict(self, intent_id: str, features: dict[str, Any]) -> float:
         return model_predict(intent_id, features)

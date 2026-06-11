@@ -1,0 +1,431 @@
+{
+  "preprocessing": {
+    "survey": {
+      "scenario_id": "worker-v3",
+      "version": "0.1.0",
+      "description": "직장인 시나리오 설문 9문항. 기본 정보(Q1~Q3) + 직장 생활·사회적 활동·디지털 습관(Q4~Q9) → Batch Feature (PDF [3] 2.1/2.2).",
+      "questions": [
+        {
+          "id": "Q1",
+          "block": "objective_fact",
+          "dimension": "성연령대",
+          "question": "성별 및 연령대가 어떻게 되시나요?",
+          "options": [
+            {
+              "code": "A",
+              "label": "20대 남성",
+              "features": {
+                "gender_age": "20M",
+                "나이": 25
+              }
+            },
+            {
+              "code": "B",
+              "label": "20대 여성",
+              "features": {
+                "gender_age": "20F",
+                "나이": 25
+              }
+            },
+            {
+              "code": "C",
+              "label": "30대 남성",
+              "features": {
+                "gender_age": "30M",
+                "나이": 35
+              }
+            },
+            {
+              "code": "D",
+              "label": "30대 여성",
+              "features": {
+                "gender_age": "30F",
+                "나이": 35
+              }
+            },
+            {
+              "code": "E",
+              "label": "40대 남성",
+              "features": {
+                "gender_age": "40M",
+                "나이": 45
+              }
+            },
+            {
+              "code": "F",
+              "label": "40대 여성",
+              "features": {
+                "gender_age": "40F",
+                "나이": 45
+              }
+            },
+            {
+              "code": "G",
+              "label": "50대 이상",
+              "features": {
+                "gender_age": "50M",
+                "나이": 55
+              }
+            }
+          ]
+        },
+        {
+          "id": "Q2",
+          "block": "objective_fact",
+          "dimension": "요금제",
+          "question": "요금제는 어떤 걸 사용하고 계신가요?",
+          "options": [
+            {
+              "code": "A",
+              "label": "5G 초이스/스페셜 (9만원↑)",
+              "features": {
+                "plan_tier": 1
+              }
+            },
+            {
+              "code": "B",
+              "label": "5G 베이직/심플 (6~8만원)",
+              "features": {
+                "plan_tier": 2
+              }
+            },
+            {
+              "code": "C",
+              "label": "5G 슬림 (3~5만원)",
+              "features": {
+                "plan_tier": 3
+              }
+            },
+            {
+              "code": "D",
+              "label": "요고 (3~7만원)",
+              "features": {
+                "plan_tier": 4
+              }
+            }
+          ]
+        },
+        {
+          "id": "Q3",
+          "block": "objective_fact",
+          "dimension": "이용기간",
+          "question": "KT 가입 기간은 어떻게 되시나요?",
+          "options": [
+            {
+              "code": "A",
+              "label": "1년 미만",
+              "features": {
+                "tenure_group": 1
+              }
+            },
+            {
+              "code": "B",
+              "label": "1~3년",
+              "features": {
+                "tenure_group": 2
+              }
+            },
+            {
+              "code": "C",
+              "label": "3~5년",
+              "features": {
+                "tenure_group": 3
+              }
+            },
+            {
+              "code": "D",
+              "label": "5~10년",
+              "features": {
+                "tenure_group": 4
+              }
+            },
+            {
+              "code": "E",
+              "label": "10년 이상",
+              "features": {
+                "tenure_group": 5
+              }
+            }
+          ]
+        },
+        {
+          "id": "Q4",
+          "block": "life_pattern",
+          "dimension": "퇴근시간",
+          "question": "평균 퇴근 시간은 어떻게 되시나요?",
+          "options": [
+            {
+              "code": "A",
+              "label": "18시 이전(정시)",
+              "features": {
+                "offwork_time": 1
+              }
+            },
+            {
+              "code": "B",
+              "label": "18~20시",
+              "features": {
+                "offwork_time": 2
+              }
+            },
+            {
+              "code": "C",
+              "label": "20~22시",
+              "features": {
+                "offwork_time": 3
+              }
+            },
+            {
+              "code": "D",
+              "label": "22시 이후",
+              "features": {
+                "offwork_time": 4
+              }
+            }
+          ]
+        },
+        {
+          "id": "Q5",
+          "block": "life_pattern",
+          "dimension": "야근빈도",
+          "question": "1주에 몇 번 야근하시나요?",
+          "options": [
+            {
+              "code": "A",
+              "label": "없음",
+              "features": {
+                "overtime_freq": 1
+              }
+            },
+            {
+              "code": "B",
+              "label": "주 1~2회",
+              "features": {
+                "overtime_freq": 2
+              }
+            },
+            {
+              "code": "C",
+              "label": "주 3~4회",
+              "features": {
+                "overtime_freq": 3
+              }
+            },
+            {
+              "code": "D",
+              "label": "거의 매일(주 5회↑)",
+              "features": {
+                "overtime_freq": 4
+              }
+            }
+          ]
+        },
+        {
+          "id": "Q6",
+          "block": "life_pattern",
+          "dimension": "퇴근후이동",
+          "question": "퇴근 후 주된 이동 패턴이 어떻게 되시나요?",
+          "options": [
+            {
+              "code": "A",
+              "label": "바로 귀가 (이동 없음)",
+              "features": {
+                "move_pattern": 1
+              }
+            },
+            {
+              "code": "B",
+              "label": "1~2군데 경유 후 귀가 (모임·여가)",
+              "features": {
+                "move_pattern": 2
+              }
+            }
+          ]
+        },
+        {
+          "id": "Q7",
+          "block": "social_activity",
+          "dimension": "주말외출",
+          "question": "주말에 보통 외출하시나요?",
+          "options": [
+            {
+              "code": "A",
+              "label": "거의 없음 (집에 있음)",
+              "features": {
+                "weekend_out": 1
+              }
+            },
+            {
+              "code": "B",
+              "label": "주 1회",
+              "features": {
+                "weekend_out": 2
+              }
+            },
+            {
+              "code": "C",
+              "label": "주 2회 이상",
+              "features": {
+                "weekend_out": 3
+              }
+            }
+          ]
+        },
+        {
+          "id": "Q8",
+          "block": "social_activity",
+          "dimension": "지인연락변화",
+          "question": "최근 2주 동안 지인과의 연락 빈도 변화는 어떻게 되나요?",
+          "options": [
+            {
+              "code": "A",
+              "label": "평소보다 많이 줄었음",
+              "features": {
+                "social_contact": 1
+              }
+            },
+            {
+              "code": "B",
+              "label": "조금 줄었음",
+              "features": {
+                "social_contact": 2
+              }
+            },
+            {
+              "code": "C",
+              "label": "비슷함",
+              "features": {
+                "social_contact": 3
+              }
+            },
+            {
+              "code": "D",
+              "label": "오히려 늘었음",
+              "features": {
+                "social_contact": 4
+              }
+            }
+          ]
+        },
+        {
+          "id": "Q9",
+          "block": "digital_habit",
+          "dimension": "야간폰사용",
+          "question": "평소 야간(22시 이후)에 스마트폰 사용 패턴이 어떻게 되시나요?",
+          "options": [
+            {
+              "code": "A",
+              "label": "바로 취침 (거의 사용 안 함)",
+              "features": {
+                "night_phone_usage": 1
+              }
+            },
+            {
+              "code": "B",
+              "label": "가볍게 확인 후 취침",
+              "features": {
+                "night_phone_usage": 2
+              }
+            },
+            {
+              "code": "C",
+              "label": "SNS·OTT·유튜브 등을 1시간 이상 봄",
+              "features": {
+                "night_phone_usage": 3
+              }
+            }
+          ]
+        }
+      ]
+    }
+  },
+  "behavior_catalog": {
+    "scenario_id": "worker-v3",
+    "version": "0.1.0",
+    "description": "단일 선택. 10개 앱 유형 중 하나를 선택(반복 가능). event_type=app_open 단일화. PDF [3] 3.1 앱 선택지.",
+    "structure": "single-select",
+    "question": "지금 어떤 앱을 여시나요?",
+    "apps": [
+      {
+        "id": "app-delivery",
+        "name": "배달 앱",
+        "entity": "delivery",
+        "event_type": "app_open",
+        "icon": "🍔",
+        "examples": "배달의민족·쿠팡이츠·요기요"
+      },
+      {
+        "id": "app-mental",
+        "name": "명상·마음챙김 앱",
+        "entity": "mental_recovery",
+        "event_type": "app_open",
+        "icon": "🧘",
+        "examples": "Calm·하루명상·마보"
+      },
+      {
+        "id": "app-travel",
+        "name": "여행·숙박 앱",
+        "entity": "travel",
+        "event_type": "app_open",
+        "icon": "✈️",
+        "examples": "야놀자·여기어때·Trip.com"
+      },
+      {
+        "id": "app-shopping",
+        "name": "쇼핑 앱",
+        "entity": "shopping",
+        "event_type": "app_open",
+        "icon": "🛍️",
+        "examples": "쿠팡·지그재그·에이블리"
+      },
+      {
+        "id": "app-exercise",
+        "name": "운동·러닝 앱",
+        "entity": "exercise",
+        "event_type": "app_open",
+        "icon": "🏃",
+        "examples": "Nike Run Club·런데이·삼성헬스"
+      },
+      {
+        "id": "app-sns",
+        "name": "SNS·숏폼 앱",
+        "entity": "sns",
+        "event_type": "app_open",
+        "icon": "📱",
+        "examples": "유튜브·인스타그램·틱톡"
+      },
+      {
+        "id": "app-ott",
+        "name": "OTT·영상 앱",
+        "entity": "ott",
+        "event_type": "app_open",
+        "icon": "🎬",
+        "examples": "넷플릭스·티빙·디즈니+"
+      },
+      {
+        "id": "app-messenger",
+        "name": "메신저 앱",
+        "entity": "messenger",
+        "event_type": "app_open",
+        "icon": "💬",
+        "examples": "카카오톡·문자"
+      },
+      {
+        "id": "app-music",
+        "name": "음악·ASMR 앱",
+        "entity": "music",
+        "event_type": "app_open",
+        "icon": "🎧",
+        "examples": "지니뮤직"
+      },
+      {
+        "id": "app-reading",
+        "name": "독서·자기계발 앱",
+        "entity": "reading",
+        "event_type": "app_open",
+        "icon": "📖",
+        "examples": "밀리의서재"
+      }
+    ]
+  }
+}

@@ -1,0 +1,652 @@
+{
+  "preprocessing": {
+    "survey": {
+      "scenario_id": "cs-myk-v3",
+      "version": "0.4.0",
+      "description": "13문항 (고객 상태 5 + 사용 행동 2 + 행동 빈도·이력 4 + 사용 맥락 2). Q3 금액 구간화, Q11 OTT 사용 빈도, 푸시 동의 제거.",
+      "questions": [
+        {
+          "id": "Q1",
+          "block": "objective_fact",
+          "dimension": "인구통계",
+          "question": "나이대를 알려주세요",
+          "options": [
+            {
+              "code": "A",
+              "label": "20대",
+              "features": {
+                "나이": 25
+              }
+            },
+            {
+              "code": "B",
+              "label": "30대",
+              "features": {
+                "나이": 35
+              }
+            },
+            {
+              "code": "C",
+              "label": "40대",
+              "features": {
+                "나이": 45
+              }
+            },
+            {
+              "code": "D",
+              "label": "50대",
+              "features": {
+                "나이": 55
+              }
+            },
+            {
+              "code": "E",
+              "label": "60대 이상",
+              "features": {
+                "나이": 65
+              }
+            }
+          ]
+        },
+        {
+          "id": "Q2",
+          "block": "objective_fact",
+          "dimension": "고객 가치",
+          "question": "KT를 얼마나 오래 사용하셨나요?",
+          "options": [
+            {
+              "code": "A",
+              "label": "1년 미만",
+              "features": {
+                "가입 개월 수": 6
+              }
+            },
+            {
+              "code": "B",
+              "label": "1~3년",
+              "features": {
+                "가입 개월 수": 24
+              }
+            },
+            {
+              "code": "C",
+              "label": "3~5년",
+              "features": {
+                "가입 개월 수": 48
+              }
+            },
+            {
+              "code": "D",
+              "label": "5년 이상",
+              "features": {
+                "가입 개월 수": 84
+              }
+            }
+          ]
+        },
+        {
+          "id": "Q3",
+          "block": "objective_fact",
+          "dimension": "요금제 정보",
+          "question": "현재 사용 중인 월 요금제 금액은?",
+          "options": [
+            {
+              "code": "A",
+              "label": "10만원 이상",
+              "features": {
+                "요금제 월정액": 100000,
+                "요금제 구간": "premium"
+              }
+            },
+            {
+              "code": "B",
+              "label": "7~9만원",
+              "features": {
+                "요금제 월정액": 80000,
+                "요금제 구간": "mid"
+              }
+            },
+            {
+              "code": "C",
+              "label": "5~6만원",
+              "features": {
+                "요금제 월정액": 55000,
+                "요금제 구간": "standard"
+              }
+            },
+            {
+              "code": "D",
+              "label": "3~4만원",
+              "features": {
+                "요금제 월정액": 35000,
+                "요금제 구간": "lite"
+              }
+            },
+            {
+              "code": "E",
+              "label": "알릴 수 없음",
+              "features": {
+                "요금제 월정액": 55000,
+                "요금제 구간": "unknown"
+              }
+            }
+          ]
+        },
+        {
+          "id": "Q4",
+          "block": "objective_fact",
+          "dimension": "결합 정보",
+          "question": "결합 상품 가입 형태는?",
+          "options": [
+            {
+              "code": "A",
+              "label": "결합 안 함 (모바일만)",
+              "features": {
+                "결합 여부": false,
+                "결합 형태": "none"
+              }
+            },
+            {
+              "code": "B",
+              "label": "모바일 결합만 (가족 회선만)",
+              "features": {
+                "결합 여부": true,
+                "결합 형태": "mobile_only"
+              }
+            },
+            {
+              "code": "C",
+              "label": "인터넷+IPTV 결합",
+              "features": {
+                "결합 여부": true,
+                "결합 형태": "home"
+              }
+            },
+            {
+              "code": "D",
+              "label": "풀 결합 (모바일+인터넷+IPTV)",
+              "features": {
+                "결합 여부": true,
+                "결합 형태": "full"
+              }
+            }
+          ]
+        },
+        {
+          "id": "Q5",
+          "block": "objective_fact",
+          "dimension": "가족 정보",
+          "question": "가족 결합 회선 수는?",
+          "options": [
+            {
+              "code": "A",
+              "label": "1회선 (본인만)",
+              "features": {
+                "가족 회선 수": 1
+              }
+            },
+            {
+              "code": "B",
+              "label": "2~3회선",
+              "features": {
+                "가족 회선 수": 3
+              }
+            },
+            {
+              "code": "C",
+              "label": "4회선 이상",
+              "features": {
+                "가족 회선 수": 5
+              }
+            }
+          ]
+        },
+        {
+          "id": "Q6",
+          "block": "usage_behavior",
+          "dimension": "사용 패턴",
+          "question": "평소 스마트폰을 주로 어떻게 쓰시나요?",
+          "options": [
+            {
+              "code": "A",
+              "label": "영상·게임·SNS 위주",
+              "features": {
+                "사용 패턴": "데이터 헤비"
+              }
+            },
+            {
+              "code": "B",
+              "label": "전화·문자 위주",
+              "features": {
+                "사용 패턴": "음성 헤비"
+              }
+            },
+            {
+              "code": "C",
+              "label": "앱 결제·콘텐츠 구독",
+              "features": {
+                "사용 패턴": "콘텐츠 헤비"
+              }
+            },
+            {
+              "code": "D",
+              "label": "업무용 위주",
+              "features": {
+                "사용 패턴": "업무 헤비"
+              }
+            }
+          ]
+        },
+        {
+          "id": "Q7",
+          "block": "usage_behavior",
+          "dimension": "사용 강도",
+          "question": "데이터 사용 정도는?",
+          "options": [
+            {
+              "code": "A",
+              "label": "충분 (한 번도 부족하지 않음)",
+              "features": {
+                "데이터 사용률": 0.4,
+                "잔여 데이터 비율": 0.6
+              }
+            },
+            {
+              "code": "B",
+              "label": "가끔 부족",
+              "features": {
+                "데이터 사용률": 0.7,
+                "잔여 데이터 비율": 0.3
+              }
+            },
+            {
+              "code": "C",
+              "label": "매달 부족 (추가 충전 자주)",
+              "features": {
+                "데이터 사용률": 0.9,
+                "잔여 데이터 비율": 0.1
+              }
+            }
+          ]
+        },
+        {
+          "id": "Q8",
+          "block": "behavioral_history",
+          "dimension": "청구 변동 경험",
+          "question": "최근 6개월간 요금이 평소보다 크게 늘어난 경험이 있으신가요?",
+          "options": [
+            {
+              "code": "A",
+              "label": "없음",
+              "features": {
+                "청구 급증 경험 6m": 0
+              }
+            },
+            {
+              "code": "B",
+              "label": "1~2회",
+              "features": {
+                "청구 급증 경험 6m": 1
+              }
+            },
+            {
+              "code": "C",
+              "label": "3회 이상",
+              "features": {
+                "청구 급증 경험 6m": 3
+              }
+            }
+          ]
+        },
+        {
+          "id": "Q9",
+          "block": "behavioral_history",
+          "dimension": "품질 CS 이력",
+          "question": "최근 3개월간 통화 품질·속도 관련 고객센터 문의 횟수는?",
+          "options": [
+            {
+              "code": "A",
+              "label": "없음",
+              "features": {
+                "품질 CS 문의 3m": 0
+              }
+            },
+            {
+              "code": "B",
+              "label": "1~2회",
+              "features": {
+                "품질 CS 문의 3m": 1
+              }
+            },
+            {
+              "code": "C",
+              "label": "3회 이상",
+              "features": {
+                "품질 CS 문의 3m": 3
+              }
+            }
+          ]
+        },
+        {
+          "id": "Q10",
+          "block": "behavioral_history",
+          "dimension": "멤버십 사용 빈도",
+          "question": "최근 1주간 멤버십 혜택을 사용한 횟수는?",
+          "options": [
+            {
+              "code": "A",
+              "label": "사용 안 함",
+              "features": {
+                "멤버십 주간 사용 횟수": 0
+              }
+            },
+            {
+              "code": "B",
+              "label": "1~2회",
+              "features": {
+                "멤버십 주간 사용 횟수": 1
+              }
+            },
+            {
+              "code": "C",
+              "label": "3회 이상",
+              "features": {
+                "멤버십 주간 사용 횟수": 3
+              }
+            }
+          ]
+        },
+        {
+          "id": "Q11",
+          "block": "behavioral_history",
+          "dimension": "OTT 사용 빈도",
+          "question": "최근 1주간 OTT 콘텐츠를 시청한 빈도는?",
+          "options": [
+            {
+              "code": "A",
+              "label": "매일",
+              "features": {
+                "OTT 사용 빈도": 0.85
+              }
+            },
+            {
+              "code": "B",
+              "label": "주 2~4회",
+              "features": {
+                "OTT 사용 빈도": 0.5
+              }
+            },
+            {
+              "code": "C",
+              "label": "월 1~3회",
+              "features": {
+                "OTT 사용 빈도": 0.2
+              }
+            },
+            {
+              "code": "D",
+              "label": "거의 안 봄",
+              "features": {
+                "OTT 사용 빈도": 0.05
+              }
+            }
+          ]
+        },
+        {
+          "id": "Q12",
+          "block": "usage_context",
+          "dimension": "단말 사용 맥락",
+          "question": "현재 단말기 사용 기간은?",
+          "options": [
+            {
+              "code": "A",
+              "label": "1년 미만 (최근 교체)",
+              "features": {
+                "단말 사용 기간": 6
+              }
+            },
+            {
+              "code": "B",
+              "label": "1~2년",
+              "features": {
+                "단말 사용 기간": 18
+              }
+            },
+            {
+              "code": "C",
+              "label": "2~3년",
+              "features": {
+                "단말 사용 기간": 30
+              }
+            },
+            {
+              "code": "D",
+              "label": "3년 이상",
+              "features": {
+                "단말 사용 기간": 48
+              }
+            }
+          ]
+        },
+        {
+          "id": "Q13",
+          "block": "usage_context",
+          "dimension": "로밍 맥락",
+          "question": "최근 1년 해외 방문 빈도는?",
+          "options": [
+            {
+              "code": "A",
+              "label": "없음",
+              "features": {
+                "로밍 이력": 0,
+                "해외 출국 빈도": 0
+              }
+            },
+            {
+              "code": "B",
+              "label": "1~2회",
+              "features": {
+                "로밍 이력": 1,
+                "해외 출국 빈도": 1
+              }
+            },
+            {
+              "code": "C",
+              "label": "3회 이상",
+              "features": {
+                "로밍 이력": 3,
+                "해외 출국 빈도": 3
+              }
+            }
+          ]
+        }
+      ]
+    }
+  },
+  "behavior_catalog": {
+    "scenario_id": "cs-myk-v3",
+    "version": "0.3.0",
+    "description": "2단계 트리. Step1=6개 상위 메뉴, Step2=Step1별 하위 3개 + 공통 BACK/EXIT. 무한 반복 가능.",
+    "structure": "tree-2step",
+    "step1": {
+      "question": "다음으로 어떤 메뉴를 선택하시나요?",
+      "behaviors": [
+        {
+          "id": "1-A",
+          "name": "데이터 사용량 페이지 진입",
+          "event_type": "page_view",
+          "entity": "data_usage"
+        },
+        {
+          "id": "1-B",
+          "name": "요금/청구 상세 페이지 진입",
+          "event_type": "page_view",
+          "entity": "billing"
+        },
+        {
+          "id": "1-C",
+          "name": "가입정보 페이지 진입 (요금제·약정·해지)",
+          "event_type": "page_view",
+          "entity": "subscription_info"
+        },
+        {
+          "id": "1-D",
+          "name": "혜택/멤버십 페이지 진입",
+          "event_type": "page_view",
+          "entity": "benefit_membership"
+        },
+        {
+          "id": "1-E",
+          "name": "상품 탐색 페이지 진입",
+          "event_type": "page_view",
+          "entity": "product_explore"
+        },
+        {
+          "id": "1-F",
+          "name": "고객지원 페이지 진입",
+          "event_type": "page_view",
+          "entity": "customer_support"
+        }
+      ]
+    },
+    "step2": {
+      "question": "다음으로 어떤 행동을 하실건가요?",
+      "by_parent": {
+        "1-A": [
+          {
+            "id": "2-A1",
+            "name": "데이터 충전 버튼 클릭",
+            "event_type": "click",
+            "entity": "data_topup_button"
+          },
+          {
+            "id": "2-A2",
+            "name": "데이터 부가서비스 가입 페이지",
+            "event_type": "page_view",
+            "entity": "data_addon_page"
+          },
+          {
+            "id": "2-A3",
+            "name": "사용 상세 그래프 조회",
+            "event_type": "page_view",
+            "entity": "usage_detail_chart"
+          }
+        ],
+        "1-B": [
+          {
+            "id": "2-B1",
+            "name": "청구 상세 항목 조회",
+            "event_type": "page_view",
+            "entity": "billing_detail"
+          },
+          {
+            "id": "2-B2",
+            "name": "즉시 납부 버튼 클릭",
+            "event_type": "click",
+            "entity": "pay_now_button"
+          },
+          {
+            "id": "2-B3",
+            "name": "자동납부 설정 변경",
+            "event_type": "page_view",
+            "entity": "auto_pay_setting"
+          }
+        ],
+        "1-C": [
+          {
+            "id": "2-C1",
+            "name": "요금제 변경 신청 클릭",
+            "event_type": "click",
+            "entity": "plan_change_button"
+          },
+          {
+            "id": "2-C2",
+            "name": "위약금 계산 페이지 진입",
+            "event_type": "page_view",
+            "entity": "penalty_calc"
+          },
+          {
+            "id": "2-C3",
+            "name": "해지 신청 페이지 진입",
+            "event_type": "page_view",
+            "entity": "cancel_page"
+          }
+        ],
+        "1-D": [
+          {
+            "id": "2-D1",
+            "name": "쿠폰 사용/혜택 적용 클릭",
+            "event_type": "click",
+            "entity": "coupon_use"
+          },
+          {
+            "id": "2-D2",
+            "name": "멤버십 등급 혜택 조회",
+            "event_type": "page_view",
+            "entity": "membership_tier"
+          },
+          {
+            "id": "2-D3",
+            "name": "이벤트/프로모션 페이지",
+            "event_type": "page_view",
+            "entity": "promotion_event"
+          }
+        ],
+        "1-E": [
+          {
+            "id": "2-E1",
+            "name": "요금제 탐색",
+            "event_type": "page_view",
+            "entity": "plan_explore"
+          },
+          {
+            "id": "2-E2",
+            "name": "단말기 탐색",
+            "event_type": "page_view",
+            "entity": "device_explore"
+          },
+          {
+            "id": "2-E3",
+            "name": "가족 결합 회선 추가 페이지",
+            "event_type": "page_view",
+            "entity": "family_bundle"
+          }
+        ],
+        "1-F": [
+          {
+            "id": "2-F1",
+            "name": "WiFi 진단 / 속도 측정 실행",
+            "event_type": "click",
+            "entity": "quality_diagnosis"
+          },
+          {
+            "id": "2-F2",
+            "name": "챗봇 상담 진입",
+            "event_type": "support_entry",
+            "entity": "chatbot"
+          },
+          {
+            "id": "2-F3",
+            "name": "전화 상담 연결 클릭",
+            "event_type": "support_entry",
+            "entity": "call_support"
+          }
+        ]
+      },
+      "common": [
+        {
+          "id": "BACK",
+          "name": "뒤로가기 (상위 메뉴로 복귀)",
+          "event_type": "navigate_back",
+          "entity": "back_to_step1"
+        },
+        {
+          "id": "EXIT",
+          "name": "앱 이탈 (세션 종료)",
+          "event_type": "app_exit",
+          "entity": "session_end"
+        }
+      ]
+    }
+  }
+}

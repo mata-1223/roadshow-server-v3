@@ -8,6 +8,7 @@ from pathlib import Path
 
 from config import settings
 from data.executor import get_executor
+from core.engines import config
 
 logger = logging.getLogger(__name__)
 
@@ -23,7 +24,8 @@ def seed_catalogs() -> None:
     ex = get_executor()
 
     # ── 시나리오 메타 ────────────────────────────────────────
-    intents_data = _load_json("intents.json")
+    intents_data   = {"intents": list(config.get_taxonomy(settings.SCENARIO_ID)["intents"]),
+                    "version": config.get_taxonomy(settings.SCENARIO_ID).get("version","")}
     ex.execute(
         "INSERT OR REPLACE INTO scenarios (id, name, version, description) VALUES (?, ?, ?, ?)",
         [
@@ -34,7 +36,7 @@ def seed_catalogs() -> None:
         ],
     )
 
-    # ── Intent 카탈로그 (116개) ──────────────────────────────
+    # ── Intent 카탈로그 (113개) ──────────────────────────────
     existing = ex.fetchone("SELECT COUNT(*) FROM catalog_intents")
     if existing and existing[0] > 0:
         ex.execute("DELETE FROM catalog_intents")
@@ -57,7 +59,7 @@ def seed_catalogs() -> None:
     logger.info(f"Seeded catalog_intents: {len(rows)} rows")
 
     # ── Action 카탈로그 ──────────────────────────────────────
-    actions_data = _load_json("actions.json")
+    actions_data   = config.get_actions(settings.SCENARIO_ID)
     existing = ex.fetchone("SELECT COUNT(*) FROM catalog_actions")
     if existing and existing[0] > 0:
         ex.execute("DELETE FROM catalog_actions")
@@ -92,7 +94,7 @@ def seed_catalogs() -> None:
     logger.info(f"Seeded catalog_actions: {len(a_rows)} rows")
 
     # ── Behavior 카탈로그 ────────────────────────────────────
-    behaviors_data = _load_json("behaviors.json")
+    behaviors_data = config.get_behaviors(settings.SCENARIO_ID)
     existing = ex.fetchone("SELECT COUNT(*) FROM catalog_behaviors")
     if existing and existing[0] > 0:
         ex.execute("DELETE FROM catalog_behaviors")

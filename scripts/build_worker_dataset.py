@@ -19,10 +19,12 @@ from pathlib import Path
 
 sys.path.insert(0, str(Path(__file__).parent.parent))
 
+from core.engines import config
 from core.engines.worker import build_batch_features, pattern_features  # noqa: E402
 from core.extractor import get_extractor  # noqa: E402
 
-SCENARIO_DIR = Path(__file__).parent.parent / "scenarios" / "worker-v3"
+SCENARIO_ID = "worker-v3"
+SCENARIO_DIR = Path(__file__).parent.parent / "scenarios" / SCENARIO_ID
 
 # 페르소나: answer_dist {qid:{code:w}}, app_seqs [[entity..]], extra_intents
 PERSONAS = [
@@ -108,7 +110,7 @@ def main():
     args = parser.parse_args()
     rng = random.Random(args.seed)
 
-    entity_intents = json.load(open(SCENARIO_DIR / "behavior_intents.json", encoding="utf-8"))["entity_intents"]
+    entity_intents = config.get_behavior_signals(SCENARIO_ID)
     ex = get_extractor()
 
     rows = []

@@ -2,7 +2,7 @@ from __future__ import annotations
 """
 결합(bundle-v3) Scenario Engine.
 
-PDF [2] 시나리오_결합 명세 구현:
+[2] 시나리오_결합 명세 구현:
   - 2.2 Batch Context Feature Builder : 설문 → Base/Delta/Ratio/Index/Score
   - 3.3 Behavioral Pattern Extractor  : entity/event_type 흐름 → Pattern Feature
   - 3.2 Event Feature Extractor       : 단일 클릭 즉시 대응 Trigger Action 플래그
@@ -11,6 +11,7 @@ PDF [2] 시나리오_결합 명세 구현:
 from pathlib import Path
 from typing import Any
 
+from core.engines import config
 from core.extractor import get_extractor
 from core.engines.base import ScenarioEngine
 from models import sklearn_model
@@ -18,30 +19,25 @@ from models import sklearn_model
 _DATASET_PATH = Path(__file__).parent.parent.parent / "scenarios" / "bundle-v3" / "seed_dataset.json"
 _MODEL_PREFIX = "bundle-v3__"
 
-
-# ── Index / Score 키 ─────────────────────────────────────────
-INDEX_KEYS = [
-    "Bundle Opportunity Index", "Benefit Optimization Index", "Home Service Expansion Index",
-    "Retention Readiness Index", "Churn Risk Index", "Benefit Engagement Index",
-]
-SCORE_KEYS = [
-    "Acquisition Score", "Benefit Optimization Score", "Service Expansion Score",
-    "Retention Score", "Churn Defense Score",
-]
-
-
+# ── 헬퍼 함수 사전 정의 ─────────────────────────────────────────
 def _clamp(v: float, lo: float = 0.0, hi: float = 100.0) -> float:
     return max(lo, min(hi, v))
+
+def _clamp01(v: float) -> float:
+    return max(0.0, min(1.0, v))
+
+def _g(f: dict, k: str, d: float = 0.0) -> float:
+    try:
+        return float(f.get(k, d))
+    except (TypeError, ValueError):
+        return d
 
 
 # ─────────────────────────────────────────────────────────────
 # 2.2 Batch Context Feature Builder
 # ─────────────────────────────────────────────────────────────
 def build_batch_features(answers: dict[str, str]) -> dict[str, Any]:
-    import json
-    from core.engines.base import _SCENARIOS
-    with open(_SCENARIOS / "bundle-v3" / "survey.json", encoding="utf-8") as f:
-        survey = json.load(f)
+    survey = config.get_survey("bundle-v3")
 
     base: dict[str, Any] = {}
     for q in survey["questions"]:
@@ -122,11 +118,7 @@ def build_batch_features(answers: dict[str, str]) -> dict[str, Any]:
 # ─────────────────────────────────────────────────────────────
 # 3.3 Behavioral Pattern Extractor
 # ─────────────────────────────────────────────────────────────
-# event_type 분류 (3.3): action_select / comparison_action / decision_action / churn_action
-_PATTERN_EVENT_TYPES = {"action_select", "comparison_action", "decision_action", "churn_action", "support_entry", "page_view"}
-
-
-def _empty_pattern() -> dict[str, Any]:
+def empty_pattern_features() -> dict[str, Any]:
     return {
         "explored_entity_count_5m":   0,
         "comparison_action_count_5m": 0,
@@ -146,7 +138,7 @@ def pattern_features(session_id: str) -> dict[str, Any]:
     events = get_extractor().events_within(session_id, window_seconds=300)
     real = [e for e in events if e["event_type"] not in ("navigate_back", "app_exit")]
     if not real:
-        return _empty_pattern()
+        return empty_pattern_features()
 
     entity_counts: dict[str, int] = {}
     type_counts: dict[str, int] = {}
@@ -189,7 +181,7 @@ _TRIGGER_BY_ENTITY = {
 _TRIGGER_FLAGS = list(set(_TRIGGER_BY_ENTITY.values()))
 
 
-def _empty_event() -> dict[str, Any]:
+def empty_event_features() -> dict[str, Any]:
     d = {f: 0 for f in _TRIGGER_FLAGS}
     d.update({"last_event_type": "", "last_entity": "", "is_churn_signal": 0, "is_decision": 0})
     return d
@@ -198,9 +190,9 @@ def _empty_event() -> dict[str, Any]:
 def event_features(session_id: str) -> dict[str, Any]:
     events = get_extractor()._events_by_session.get(session_id, [])
     if not events:
-        return _empty_event()
+        return empty_event_features()
     last = events[-1]
-    out = _empty_event()
+    out = empty_event_features()
     out["last_event_type"] = last["event_type"]
     out["last_entity"]     = last["entity"]
     trigger = _TRIGGER_BY_ENTITY.get(last["entity"])
@@ -212,15 +204,8 @@ def event_features(session_id: str) -> dict[str, Any]:
 
 
 # ─────────────────────────────────────────────────────────────
-# Rule-Based Intent Trigger (Rule 타입 25개)
+# Rule-Based Intent Trigger (Rule-Based Method)
 # ─────────────────────────────────────────────────────────────
-def _g(f: dict, k: str, d: float = 0.0) -> float:
-    try:
-        return float(f.get(k, d))
-    except (TypeError, ValueError):
-        return d
-
-
 RULES = {
     # ── 가입 확대 ──
     "INT-B1110": lambda f: _clamp01(0.20 + _g(f, "Bundle Opportunity Index") / 100 * 0.55
@@ -269,13 +254,19 @@ RULES = {
     "INT-B5440": lambda f: _clamp01(0.05 + _g(f, "Churn Risk Index") / 100 * 0.4),
 }
 
+def rule_predict(intent_id: str, features: dict[str, Any]) -> float:
+    fn = RULES.get(intent_id)
+    if fn is None:
+        return 0.05
+    try:
+        return _clamp01(float(fn(features)))
+    except Exception:
+        return 0.05
 
-def _clamp01(v: float) -> float:
-    return max(0.0, min(1.0, v))
 
 
 # ─────────────────────────────────────────────────────────────
-# Predictive Intent Model (Model 타입 25개)
+# Predictive Intent Model (Model-Based Method)
 # ─────────────────────────────────────────────────────────────
 # 각 Model Intent의 학습 입력 feature (batch Index/Score + 행동 Pattern Feature)
 MODEL_TRAINING_DATA: dict[str, dict] = {
@@ -365,10 +356,10 @@ class BundleEngine(ScenarioEngine):
         return build_batch_features(answers)
 
     def empty_pattern_features(self) -> dict[str, Any]:
-        return _empty_pattern()
+        return empty_pattern_features()
 
     def empty_event_features(self) -> dict[str, Any]:
-        return _empty_event()
+        return empty_event_features()
 
     def pattern_features(self, session_id: str) -> dict[str, Any]:
         return pattern_features(session_id)
@@ -377,13 +368,7 @@ class BundleEngine(ScenarioEngine):
         return event_features(session_id)
 
     def rule_predict(self, intent_id: str, features: dict[str, Any]) -> float:
-        fn = RULES.get(intent_id)
-        if fn is None:
-            return 0.05
-        try:
-            return _clamp01(float(fn(features)))
-        except Exception:
-            return 0.05
+        return rule_predict(intent_id, features)
 
     def model_predict(self, intent_id: str, features: dict[str, Any]) -> float:
         return model_predict(intent_id, features)

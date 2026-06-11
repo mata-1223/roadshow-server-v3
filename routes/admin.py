@@ -26,12 +26,12 @@ _TABLE_META = {
     },
     "event_log": {
         "label":       "행동 이벤트 로그",
-        "description": "마이K 앱 행동 이벤트 (참여자 × 행동)",
+        "description": "행동 이벤트 (참여자 × 행동)",
         "kind":        "runtime",
     },
     "intent_scores": {
         "label":       "Intent Score",
-        "description": "Intent 추론 결과 — 매 단계마다 116개 적재",
+        "description": "Intent 추론 결과 — 매 단계마다 Intent Score 추론 History 적재",
         "kind":        "runtime",
     },
     "customer_contexts": {

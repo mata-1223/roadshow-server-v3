@@ -1,0 +1,110 @@
+{
+  "ranker": {
+    "behavior_signals": {
+      "bundle_eligibility": [
+        "INT-B1110"
+      ],
+      "family_bundle": [
+        "INT-B1110",
+        "INT-B3110"
+      ],
+      "internet_iptv_bundle": [
+        "INT-B1120",
+        "INT-B3140"
+      ],
+      "discount_calc": [
+        "INT-B1210",
+        "INT-B2210"
+      ],
+      "total_bundle": [
+        "INT-B1210"
+      ],
+      "internet_signup_benefit": [
+        "INT-B1310"
+      ],
+      "bundle_apply": [
+        "INT-B1410",
+        "INT-B1420"
+      ],
+      "support_consult": [
+        "INT-B1420"
+      ],
+      "current_bundle_benefit": [
+        "INT-B2110"
+      ],
+      "promotion_benefit": [
+        "INT-B2220"
+      ],
+      "card_benefit": [
+        "INT-B2230"
+      ],
+      "membership_benefit": [
+        "INT-B2320"
+      ],
+      "unused_benefit": [
+        "INT-B2340"
+      ],
+      "internet": [
+        "INT-B3120"
+      ],
+      "iptv": [
+        "INT-B3130"
+      ],
+      "wifi": [
+        "INT-B3150"
+      ],
+      "contract_status": [
+        "INT-B4110"
+      ],
+      "renewal_benefit": [
+        "INT-B4120"
+      ],
+      "renewal_consult": [
+        "INT-B4120"
+      ],
+      "long_term_benefit": [
+        "INT-B4210"
+      ],
+      "penalty": [
+        "INT-B4320",
+        "INT-B5410",
+        "INT-B5420"
+      ],
+      "competitor_compare": [
+        "INT-B5110"
+      ],
+      "mnp": [
+        "INT-B5120",
+        "INT-B5440"
+      ],
+      "benefit_check": [
+        "INT-B2110",
+        "INT-B2210",
+        "INT-B2340"
+      ],
+      "bundle_discount_check": [
+        "INT-B1110",
+        "INT-B1210",
+        "INT-B3110"
+      ],
+      "home_service_explore": [
+        "INT-B1120",
+        "INT-B3120",
+        "INT-B3130",
+        "INT-B3140"
+      ],
+      "contract_benefit_check": [
+        "INT-B4110",
+        "INT-B4120",
+        "INT-B4210"
+      ],
+      "competitor_explore": [
+        "INT-B5110",
+        "INT-B5410",
+        "INT-B5420"
+      ],
+      "back_to_step1": [],
+      "session_end": []
+    }
+  }
+}

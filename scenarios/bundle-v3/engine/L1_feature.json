@@ -1,0 +1,616 @@
+{
+  "preprocessing": {
+    "survey": {
+      "scenario_id": "bundle-v3",
+      "version": "0.1.0",
+      "description": "결합 시나리오 설문 12문항. 고객 상태 정보(Q1~Q8) + 이용 성향(Q9~Q12) → Batch Feature 매핑 (PDF [2] 2.1/2.2).",
+      "questions": [
+        {
+          "id": "Q1",
+          "block": "objective_fact",
+          "dimension": "인구통계",
+          "question": "성별을 알려주세요",
+          "options": [
+            {
+              "code": "A",
+              "label": "남성",
+              "features": {
+                "gender": "남성"
+              }
+            },
+            {
+              "code": "B",
+              "label": "여성",
+              "features": {
+                "gender": "여성"
+              }
+            }
+          ]
+        },
+        {
+          "id": "Q2",
+          "block": "objective_fact",
+          "dimension": "인구통계",
+          "question": "연령대를 알려주세요",
+          "options": [
+            {
+              "code": "A",
+              "label": "20대",
+              "features": {
+                "age_group": "20대",
+                "나이": 25
+              }
+            },
+            {
+              "code": "B",
+              "label": "30대",
+              "features": {
+                "age_group": "30대",
+                "나이": 35
+              }
+            },
+            {
+              "code": "C",
+              "label": "40대",
+              "features": {
+                "age_group": "40대",
+                "나이": 45
+              }
+            },
+            {
+              "code": "D",
+              "label": "50대",
+              "features": {
+                "age_group": "50대",
+                "나이": 55
+              }
+            },
+            {
+              "code": "E",
+              "label": "60대 이상",
+              "features": {
+                "age_group": "60대 이상",
+                "나이": 65
+              }
+            }
+          ]
+        },
+        {
+          "id": "Q3",
+          "block": "objective_fact",
+          "dimension": "요금제",
+          "question": "현재 사용 중인 요금제는 무엇인가요?",
+          "options": [
+            {
+              "code": "A",
+              "label": "알뜰폰",
+              "features": {
+                "plan_tier": 1,
+                "plan_bill_level": 1
+              }
+            },
+            {
+              "code": "B",
+              "label": "5G 슬림 / LTE",
+              "features": {
+                "plan_tier": 2,
+                "plan_bill_level": 2
+              }
+            },
+            {
+              "code": "C",
+              "label": "5G 심플 / 베이직",
+              "features": {
+                "plan_tier": 3,
+                "plan_bill_level": 3
+              }
+            },
+            {
+              "code": "D",
+              "label": "5G 스페셜 / 초이스",
+              "features": {
+                "plan_tier": 4,
+                "plan_bill_level": 4
+              }
+            }
+          ]
+        },
+        {
+          "id": "Q4",
+          "block": "objective_fact",
+          "dimension": "가족구성",
+          "question": "가족 중 KT를 이용하는 사람은?",
+          "options": [
+            {
+              "code": "A",
+              "label": "나만 이용",
+              "features": {
+                "family_line_count": 1
+              }
+            },
+            {
+              "code": "B",
+              "label": "1~2명 더 이용",
+              "features": {
+                "family_line_count": 2
+              }
+            },
+            {
+              "code": "C",
+              "label": "3명 이상 더 이용",
+              "features": {
+                "family_line_count": 3
+              }
+            }
+          ]
+        },
+        {
+          "id": "Q5",
+          "block": "objective_fact",
+          "dimension": "이용서비스",
+          "question": "현재 이용 중인 서비스는?",
+          "options": [
+            {
+              "code": "A",
+              "label": "모바일",
+              "features": {
+                "subscribed_service_count": 1
+              }
+            },
+            {
+              "code": "B",
+              "label": "모바일 + 인터넷",
+              "features": {
+                "subscribed_service_count": 2
+              }
+            },
+            {
+              "code": "C",
+              "label": "모바일 + 인터넷 + IPTV",
+              "features": {
+                "subscribed_service_count": 3
+              }
+            }
+          ]
+        },
+        {
+          "id": "Q6",
+          "block": "objective_fact",
+          "dimension": "거주환경",
+          "question": "최근 1년 내 가족 또는 거주 환경 변화가 있었나요?",
+          "options": [
+            {
+              "code": "A",
+              "label": "변화 없음",
+              "features": {
+                "household_change": 0
+              }
+            },
+            {
+              "code": "B",
+              "label": "이사·독립",
+              "features": {
+                "household_change": 1
+              }
+            },
+            {
+              "code": "C",
+              "label": "가족 구성원 증가",
+              "features": {
+                "household_change": 2
+              }
+            }
+          ]
+        },
+        {
+          "id": "Q7",
+          "block": "objective_fact",
+          "dimension": "이용기간",
+          "question": "현재 KT 이용 기간은 어느 정도인가요?",
+          "options": [
+            {
+              "code": "A",
+              "label": "1년 미만",
+              "features": {
+                "tenure_group": 1,
+                "가입 개월 수": 6
+              }
+            },
+            {
+              "code": "B",
+              "label": "1~3년",
+              "features": {
+                "tenure_group": 2,
+                "가입 개월 수": 24
+              }
+            },
+            {
+              "code": "C",
+              "label": "3년 이상",
+              "features": {
+                "tenure_group": 3,
+                "가입 개월 수": 48
+              }
+            }
+          ]
+        },
+        {
+          "id": "Q8",
+          "block": "objective_fact",
+          "dimension": "약정",
+          "question": "현재 약정 상태는?",
+          "options": [
+            {
+              "code": "A",
+              "label": "약정 없음",
+              "features": {
+                "contract_status": 1
+              }
+            },
+            {
+              "code": "B",
+              "label": "약정 잔여 6개월 이상",
+              "features": {
+                "contract_status": 2
+              }
+            },
+            {
+              "code": "C",
+              "label": "약정 만료 예정(6개월 이내)",
+              "features": {
+                "contract_status": 3
+              }
+            }
+          ]
+        },
+        {
+          "id": "Q9",
+          "block": "usage_tendency",
+          "dimension": "비용민감도",
+          "question": "현재 월 통신비는 어느 수준인가요?",
+          "options": [
+            {
+              "code": "A",
+              "label": "5만원 미만",
+              "features": {
+                "monthly_bill_level": 1
+              }
+            },
+            {
+              "code": "B",
+              "label": "5만원 이상~7만원 미만",
+              "features": {
+                "monthly_bill_level": 2
+              }
+            },
+            {
+              "code": "C",
+              "label": "7만원 이상~10만원 미만",
+              "features": {
+                "monthly_bill_level": 3
+              }
+            },
+            {
+              "code": "D",
+              "label": "10만원 이상",
+              "features": {
+                "monthly_bill_level": 4
+              }
+            }
+          ]
+        },
+        {
+          "id": "Q10",
+          "block": "usage_tendency",
+          "dimension": "혜택활용",
+          "question": "평소 혜택이나 쿠폰 이용 수준은?",
+          "options": [
+            {
+              "code": "A",
+              "label": "거의 사용하지 않는다",
+              "features": {
+                "benefit_utilization": 1
+              }
+            },
+            {
+              "code": "B",
+              "label": "필요한 것만 사용한다",
+              "features": {
+                "benefit_utilization": 2
+              }
+            },
+            {
+              "code": "C",
+              "label": "자주 찾아서 사용한다",
+              "features": {
+                "benefit_utilization": 3
+              }
+            }
+          ]
+        },
+        {
+          "id": "Q11",
+          "block": "usage_tendency",
+          "dimension": "불만요인",
+          "question": "현재 가장 아쉽게 느끼는 부분은?",
+          "options": [
+            {
+              "code": "A",
+              "label": "통신비",
+              "features": {
+                "dissatisfaction_factor": "통신비"
+              }
+            },
+            {
+              "code": "B",
+              "label": "혜택",
+              "features": {
+                "dissatisfaction_factor": "혜택"
+              }
+            },
+            {
+              "code": "C",
+              "label": "인터넷 품질",
+              "features": {
+                "dissatisfaction_factor": "인터넷 품질"
+              }
+            },
+            {
+              "code": "D",
+              "label": "IPTV 품질",
+              "features": {
+                "dissatisfaction_factor": "IPTV 품질"
+              }
+            },
+            {
+              "code": "E",
+              "label": "모바일 데이터 품질",
+              "features": {
+                "dissatisfaction_factor": "모바일 데이터 품질"
+              }
+            },
+            {
+              "code": "F",
+              "label": "없음",
+              "features": {
+                "dissatisfaction_factor": "없음"
+              }
+            }
+          ]
+        },
+        {
+          "id": "Q12",
+          "block": "usage_tendency",
+          "dimension": "콘텐츠소비",
+          "question": "콘텐츠를 시청한다면 주로 어떤 방식인가요?",
+          "options": [
+            {
+              "code": "A",
+              "label": "TV 위주",
+              "features": {
+                "content_view_mode": 1
+              }
+            },
+            {
+              "code": "B",
+              "label": "OTT 위주",
+              "features": {
+                "content_view_mode": 2
+              }
+            },
+            {
+              "code": "C",
+              "label": "둘 다 이용",
+              "features": {
+                "content_view_mode": 3
+              }
+            },
+            {
+              "code": "D",
+              "label": "콘텐츠 이용이 많지 않음",
+              "features": {
+                "content_view_mode": 4
+              }
+            }
+          ]
+        }
+      ]
+    }
+  },
+  "behavior_catalog": {
+    "scenario_id": "bundle-v3",
+    "version": "0.1.0",
+    "description": "2단계 트리. Step1=5개 목적형 행동, Step2=Step1별 하위 4~5개 + 공통 BACK/EXIT. PDF [2] 3.1 앱 행동 선택지.",
+    "structure": "tree-2step",
+    "step1": {
+      "question": "다음으로 어떤 메뉴를 선택하시나요?",
+      "behaviors": [
+        {
+          "id": "1-A",
+          "name": "할인 혜택 확인",
+          "event_type": "page_view",
+          "entity": "benefit_check"
+        },
+        {
+          "id": "1-B",
+          "name": "결합 할인 확인",
+          "event_type": "page_view",
+          "entity": "bundle_discount_check"
+        },
+        {
+          "id": "1-C",
+          "name": "인터넷/IPTV 알아보기",
+          "event_type": "page_view",
+          "entity": "home_service_explore"
+        },
+        {
+          "id": "1-D",
+          "name": "약정 혜택 확인",
+          "event_type": "page_view",
+          "entity": "contract_benefit_check"
+        },
+        {
+          "id": "1-E",
+          "name": "타사 혜택 비교",
+          "event_type": "page_view",
+          "entity": "competitor_explore"
+        }
+      ]
+    },
+    "step2": {
+      "question": "다음으로 어떤 행동을 하실건가요?",
+      "by_parent": {
+        "1-A": [
+          {
+            "id": "2-A1",
+            "name": "할인 계산기 조회",
+            "event_type": "action_select",
+            "entity": "discount_calc"
+          },
+          {
+            "id": "2-A2",
+            "name": "카드 제휴 혜택 조회",
+            "event_type": "action_select",
+            "entity": "card_benefit"
+          },
+          {
+            "id": "2-A3",
+            "name": "미사용 혜택 조회",
+            "event_type": "action_select",
+            "entity": "unused_benefit"
+          },
+          {
+            "id": "2-A4",
+            "name": "장기고객 혜택 조회",
+            "event_type": "action_select",
+            "entity": "long_term_benefit"
+          }
+        ],
+        "1-B": [
+          {
+            "id": "2-B1",
+            "name": "가족 결합 조회",
+            "event_type": "comparison_action",
+            "entity": "family_bundle"
+          },
+          {
+            "id": "2-B2",
+            "name": "총액결합 할인 조회",
+            "event_type": "comparison_action",
+            "entity": "total_bundle"
+          },
+          {
+            "id": "2-B3",
+            "name": "결합 가능 여부 조회",
+            "event_type": "action_select",
+            "entity": "bundle_eligibility"
+          },
+          {
+            "id": "2-B4",
+            "name": "결합 가입/변경 신청",
+            "event_type": "decision_action",
+            "entity": "bundle_apply"
+          }
+        ],
+        "1-C": [
+          {
+            "id": "2-C1",
+            "name": "인터넷 상품 조회",
+            "event_type": "action_select",
+            "entity": "internet"
+          },
+          {
+            "id": "2-C2",
+            "name": "IPTV 상품 조회",
+            "event_type": "action_select",
+            "entity": "iptv"
+          },
+          {
+            "id": "2-C3",
+            "name": "인터넷+IPTV 결합 조회",
+            "event_type": "comparison_action",
+            "entity": "internet_iptv_bundle"
+          },
+          {
+            "id": "2-C4",
+            "name": "홈WiFi 조회",
+            "event_type": "action_select",
+            "entity": "wifi"
+          }
+        ],
+        "1-D": [
+          {
+            "id": "2-D1",
+            "name": "약정 상태 조회",
+            "event_type": "action_select",
+            "entity": "contract_status"
+          },
+          {
+            "id": "2-D2",
+            "name": "현재 결합 혜택 조회",
+            "event_type": "action_select",
+            "entity": "current_bundle_benefit"
+          },
+          {
+            "id": "2-D3",
+            "name": "재약정 혜택 조회",
+            "event_type": "comparison_action",
+            "entity": "renewal_benefit"
+          },
+          {
+            "id": "2-D4",
+            "name": "재약정 상담 신청",
+            "event_type": "decision_action",
+            "entity": "renewal_consult"
+          }
+        ],
+        "1-E": [
+          {
+            "id": "2-E1",
+            "name": "타사 결합 할인 비교",
+            "event_type": "churn_action",
+            "entity": "competitor_compare"
+          },
+          {
+            "id": "2-E2",
+            "name": "번호이동 혜택 조회",
+            "event_type": "churn_action",
+            "entity": "mnp"
+          },
+          {
+            "id": "2-E3",
+            "name": "인터넷 신규가입 혜택 조회",
+            "event_type": "action_select",
+            "entity": "internet_signup_benefit"
+          },
+          {
+            "id": "2-E4",
+            "name": "위약금 조회",
+            "event_type": "churn_action",
+            "entity": "penalty"
+          },
+          {
+            "id": "2-E5",
+            "name": "고객센터 상담 연결",
+            "event_type": "support_entry",
+            "entity": "support_consult"
+          }
+        ]
+      },
+      "common": [
+        {
+          "id": "BACK",
+          "name": "뒤로가기 (상위 메뉴로 복귀)",
+          "event_type": "navigate_back",
+          "entity": "back_to_step1"
+        },
+        {
+          "id": "EXIT",
+          "name": "앱 이탈 (세션 종료)",
+          "event_type": "app_exit",
+          "entity": "session_end"
+        }
+      ]
+    }
+  }
+}
