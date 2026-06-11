@@ -13,18 +13,15 @@ CS의 build_persona_dataset.py와 동일 구조이나 결합 엔진/행동/매�
 """
 from __future__ import annotations
 
-import argparse
-import json
-import random
 import sys
-from collections import Counter
 from pathlib import Path
 
 sys.path.insert(0, str(Path(__file__).parent.parent))
 
-from core.engines import config
-from core.engines.bundle import build_batch_features, pattern_features, event_features  # noqa: E402
-from core.extractor import get_extractor  # noqa: E402
+from core.engines import config, bundle  # noqa: E402
+from scripts._dataset_common import (  # noqa: E402
+    parse_args, build_samples, tree_action_resolver, write_dataset, print_label_stats,
+)
 
 
 SCENARIO_ID = "bundle-v3"
@@ -140,81 +137,19 @@ PERSONAS = [
 ]
 
 
-def _resolve_entities(behaviors, seq):
-    by_id = {b["id"]: b for b in behaviors["step1"]["behaviors"]}
-    for items in behaviors["step2"]["by_parent"].values():
-        for b in items:
-            by_id[b["id"]] = b
-    for b in behaviors["step2"]["common"]:
-        by_id[b["id"]] = b
-    out = []
-    for bid in seq:
-        b = by_id.get(bid)
-        if b:
-            out.append({"behavior_id": b["id"], "event_type": b["event_type"], "entity": b["entity"]})
-    return out
-
-
 def main():
-    parser = argparse.ArgumentParser()
-    parser.add_argument("--n", type=int, default=500)
-    parser.add_argument("--seed", type=int, default=42)
-    args = parser.parse_args()
-    rng = random.Random(args.seed)
-
+    args = parse_args()
     behaviors = config.get_behaviors(SCENARIO_ID)
     entity_intents = config.get_behavior_signals(SCENARIO_ID)
-    ex = get_extractor()
 
-    rows = []
-    for i in range(args.n):
-        persona = rng.choices(PERSONAS, weights=[p["weight"] for p in PERSONAS], k=1)[0]
-        answers = {qid: rng.choices(list(d), weights=list(d.values()), k=1)[0]
-                   for qid, d in persona["answer_dist"].items()}
-        batch = build_batch_features(answers)
-        seq = rng.choice(persona["action_seqs"])
-        actions = _resolve_entities(behaviors, seq)
+    rows = build_samples(
+        n=args.n, seed=args.seed, personas=PERSONAS, engine=bundle,
+        seq_key="action_seqs", action_resolver=tree_action_resolver(behaviors),
+        entity_intents=entity_intents, cust_prefix="BC",
+    )
 
-        sid = f"BC{i + 1:05d}"
-        ex.reset(sid)
-        for a in actions:
-            ex.add_event(sid, a["event_type"], a["entity"])
-        pat = pattern_features(sid)
-        evt = event_features(sid)
-        ex.reset(sid)
-
-        # 양성 라벨: 행동 entity 매핑 + persona extra_intents
-        positives = set(persona["extra_intents"])
-        for a in actions:
-            positives.update(entity_intents.get(a["entity"], []))
-        labels = {iid: 1 for iid in positives}
-
-        scalar = lambda d: {k: v for k, v in d.items() if not isinstance(v, (list, dict))}
-        rows.append({
-            "cust_id": sid, "persona_id": persona["id"], "persona_name": persona["name"],
-            "survey_answers": answers,
-            "batch_features": scalar(batch),
-            "pattern_features": scalar(pat),
-            "event_features": scalar(evt),
-            "actions": actions,
-            "intent_labels": labels,
-        })
-
-    out_path = SCENARIO_DIR / "seed_dataset.json"
-    json.dump({"scenario_id": "bundle-v3", "n_samples": len(rows), "n_personas": len(PERSONAS),
-               "seed": args.seed, "samples": rows},
-              open(out_path, "w", encoding="utf-8"), ensure_ascii=False, indent=2)
-    print(f"Wrote {out_path} ({len(rows)} samples)")
-
-    # 통계
-    label_counts = Counter()
-    for r in rows:
-        for iid in r["intent_labels"]:
-            label_counts[iid] += 1
-    print("\n── 양성 라벨 Top 20 ──")
-    for iid, c in label_counts.most_common(20):
-        print(f"  {iid}: {c} ({c/len(rows)*100:.1f}%)")
-    print(f"\n  총 양성 라벨 Intent 종류: {len(label_counts)} / 50")
+    write_dataset(SCENARIO_DIR / "seed_dataset.json", rows, SCENARIO_ID, len(PERSONAS), args.seed)
+    print_label_stats(rows, total=50, top_n=20)
 
 
 if __name__ == "__main__":

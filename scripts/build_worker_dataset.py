@@ -10,18 +10,15 @@
 """
 from __future__ import annotations
 
-import argparse
-import json
-import random
 import sys
-from collections import Counter
 from pathlib import Path
 
 sys.path.insert(0, str(Path(__file__).parent.parent))
 
-from core.engines import config
-from core.engines.worker import build_batch_features, pattern_features  # noqa: E402
-from core.extractor import get_extractor  # noqa: E402
+from core.engines import config, worker  # noqa: E402
+from scripts._dataset_common import (  # noqa: E402
+    parse_args, build_samples, app_action_resolver, write_dataset, print_label_stats,
+)
 
 SCENARIO_ID = "worker-v3"
 SCENARIO_DIR = Path(__file__).parent.parent / "scenarios" / SCENARIO_ID
@@ -104,60 +101,17 @@ PERSONAS = [
 
 
 def main():
-    parser = argparse.ArgumentParser()
-    parser.add_argument("--n", type=int, default=500)
-    parser.add_argument("--seed", type=int, default=42)
-    args = parser.parse_args()
-    rng = random.Random(args.seed)
-
+    args = parse_args()
     entity_intents = config.get_behavior_signals(SCENARIO_ID)
-    ex = get_extractor()
 
-    rows = []
-    for i in range(args.n):
-        persona = rng.choices(PERSONAS, weights=[p["weight"] for p in PERSONAS], k=1)[0]
-        answers = {qid: rng.choices(list(d), weights=list(d.values()), k=1)[0]
-                   for qid, d in persona["answer_dist"].items()}
-        batch = build_batch_features(answers)
-        seq = rng.choice(persona["app_seqs"])
-        actions = [{"behavior_id": f"app-{e}", "event_type": "app_open", "entity": e} for e in seq]
+    rows = build_samples(
+        n=args.n, seed=args.seed, personas=PERSONAS, engine=worker,
+        seq_key="app_seqs", action_resolver=app_action_resolver,
+        entity_intents=entity_intents, cust_prefix="WC",
+    )
 
-        sid = f"WC{i + 1:05d}"
-        ex.reset(sid)
-        for a in actions:
-            ex.add_event(sid, "app_open", a["entity"])
-        pat = pattern_features(sid)
-        ex.reset(sid)
-
-        positives = set(persona["extra_intents"])
-        for a in actions:
-            positives.update(entity_intents.get(a["entity"], []))
-        labels = {iid: 1 for iid in positives}
-
-        scalar = lambda d: {k: v for k, v in d.items() if not isinstance(v, (list, dict))}
-        rows.append({
-            "cust_id": sid, "persona_id": persona["id"], "persona_name": persona["name"],
-            "survey_answers": answers,
-            "batch_features": scalar(batch),
-            "pattern_features": scalar(pat),
-            "event_features": {},
-            "actions": actions,
-            "intent_labels": labels,
-        })
-
-    out_path = SCENARIO_DIR / "seed_dataset.json"
-    json.dump({"scenario_id": "worker-v3", "n_samples": len(rows), "n_personas": len(PERSONAS),
-               "seed": args.seed, "samples": rows},
-              open(out_path, "w", encoding="utf-8"), ensure_ascii=False, indent=2)
-    print(f"Wrote {out_path} ({len(rows)} samples)")
-
-    label_counts = Counter()
-    for r in rows:
-        for iid in r["intent_labels"]:
-            label_counts[iid] += 1
-    print("\n── 양성 라벨 ──")
-    for iid, c in label_counts.most_common():
-        print(f"  {iid}: {c} ({c/len(rows)*100:.1f}%)")
+    write_dataset(SCENARIO_DIR / "seed_dataset.json", rows, SCENARIO_ID, len(PERSONAS), args.seed)
+    print_label_stats(rows)
 
 
 if __name__ == "__main__":

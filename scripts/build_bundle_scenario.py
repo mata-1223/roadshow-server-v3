@@ -17,8 +17,12 @@ PDF [2] 시나리오_결합:
 """
 from __future__ import annotations
 
-import json
+import sys
 from pathlib import Path
+
+sys.path.insert(0, str(Path(__file__).parent.parent))
+
+from scripts._scenario_common import emit_layers  # noqa: E402
 
 SCENARIO_ID = "bundle-v3"
 OUT_DIR = Path(__file__).parent.parent / "scenarios" / SCENARIO_ID
@@ -470,28 +474,13 @@ def build_behavior_intents() -> dict:
     }
 
 
-def _load(path):
-    return json.load(open(path, encoding="utf-8")) if path.exists() else {}
-
-
-def _dump(path, data):
-    path.parent.mkdir(parents=True, exist_ok=True)
-    json.dump(data, open(path, "w", encoding="utf-8"), ensure_ascii=False, indent=2)
-    print(f"Wrote {path}")
-
-
 def main() -> None:
-    eng = OUT_DIR / "engine"
-    # L0: Intent Taxonomy (전체)
-    _dump(eng / "L0_taxonomy.json", build_intents())
-    # L3: context_library 키만 교체 (context_manager 등 형제 섹션 보존)
-    l3 = _load(eng / "L3_serving.json")
-    l3["context_library"] = build_actions()
-    _dump(eng / "L3_serving.json", l3)
-    # L2: ranker.behavior_signals만 교체 (action_signal/model/calibrator 보존)
-    l2 = _load(eng / "L2_inference.json")
-    l2.setdefault("ranker", {})["behavior_signals"] = build_behavior_intents()["entity_intents"]
-    _dump(eng / "L2_inference.json", l2)
+    emit_layers(
+        OUT_DIR / "engine",
+        taxonomy=build_intents(),
+        context_library=build_actions(),
+        behavior_signals=build_behavior_intents()["entity_intents"],
+    )
 
     # 요약
     intents = build_intents()["intents"]
