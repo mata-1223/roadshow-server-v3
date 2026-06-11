@@ -16,8 +16,15 @@ mlruns_*/
 .env
 .env.local
 
+# 로컬 작업 문서
+docs/superpowers/
+
+# 로컬 테스트
+tests/
+
 # 에디터/시스템
 .vscode/
 .idea/
 .DS_Store
 *.log
+
