@@ -213,7 +213,6 @@ def _build_score(base: dict[str, Any], index: dict[str, float]) -> dict[str, flo
     device_months = float(base.get("단말 사용 기간", 18))
     contract_pct = min(float(base.get("가입 개월 수", 24)) / 24.0, 1.0)
     roaming_history = float(base.get("로밍 이력", 0))
-    overseas_freq = float(base.get("해외 출국 빈도", 0))
     bill_shock = float(base.get("청구 급증 경험 6m", 0))
     quality_cs = float(base.get("품질 CS 문의 3m", 0))
 
@@ -266,10 +265,9 @@ def _build_score(base: dict[str, Any], index: dict[str, float]) -> dict[str, flo
     )
 
     # 7. 로밍 의향 (신설)
-    # 로밍 이력 + 출국 빈도 + 사용 패턴 + 비용 부담 반대
+    # 로밍 이력 + 사용 패턴 + 비용 부담 반대
     roaming_intent = (
-        min(roaming_history / 3.0, 1.0) * 0.45
-        + min(overseas_freq / 3.0, 1.0) * 0.35
+        min(roaming_history / 3.0, 1.0) * 0.80
         + (1 - burden) * 0.10
         + (0.5 if pattern == "업무 헤비" else 0.2) * 0.10
     )
@@ -491,9 +489,8 @@ def _rule_1120(f):  # 음성 사용량 조회
 @_register("INT-1140")
 def _rule_1140(f):  # 로밍 사용량 조회
     roaming = float(f.get("로밍 이력", 0))
-    overseas = float(f.get("해외 출국 빈도", 0))
-    if roaming >= 3 or overseas >= 3: return 0.70
-    if roaming >= 1 or overseas >= 1: return 0.50
+    if roaming >= 3: return 0.70
+    if roaming >= 1: return 0.50
     return 0.05
 
 @_register("INT-1150")
