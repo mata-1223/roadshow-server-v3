@@ -3,8 +3,8 @@ from __future__ import annotations
 엔진 공유 메커니즘 (시나리오 무관).
 
 - micro-helper: clamp / clamp01 / g
-- Rule 오케스트레이션: rule_predict(rules, ...)  — RULES 룩업 + clamp + 예외 처리
 - Model 오케스트레이션: model_predict(...)        — raw sklearn predict + 휴리스틱 폴백
+  (Rule 오케스트레이션은 formula.rule_predict — 선언형 spec 평가로 이전)
 
 시나리오 차이(rules/training_data/ranges/scale/invert)는 인자로 주입한다.
 models/(raw sklearn predict / 룰 함수)에는 의존하지만, models/는 common을 import하지 않는다(단방향).
@@ -28,17 +28,6 @@ def g(f: dict, k: str, d: float = 0.0) -> float:
         return float(f.get(k, d))
     except (TypeError, ValueError):
         return d
-
-
-# ── Rule 오케스트레이션 (제네릭 룰 룩업) ──────────────────────
-def rule_predict(rules: dict, intent_id: str, features: dict[str, Any]) -> float:
-    fn = rules.get(intent_id)
-    if fn is None:
-        return 0.05
-    try:
-        return clamp01(float(fn(features)))
-    except Exception:
-        return 0.05
 
 
 # ── Model 오케스트레이션 (raw predict + 휴리스틱 폴백) ─────────
