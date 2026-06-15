@@ -1386,16 +1386,16 @@
         "나이": 25
       },
       "pattern_features": {
-        "action_intensity_5m": 2,
+        "action_intensity_5m": 4,
         "churn_action_count_5m": 0,
         "comparison_action_count_5m": 0,
         "decision_action_count_5m": 0,
         "dominant_entity_5m": "home_service_explore",
         "entity_focus_ratio_5m": 0.5,
-        "entity_transition_pattern": "home_service_explore→internet",
-        "explored_entity_count_5m": 2,
-        "last_entity": "internet",
-        "repeated_entity_count_5m": 1,
+        "entity_transition_pattern": "internet→home_service_explore→iptv",
+        "explored_entity_count_5m": 3,
+        "last_entity": "iptv",
+        "repeated_entity_count_5m": 2,
         "support_entry_count_5m": 0
       },
       "event_features": {
@@ -1403,7 +1403,7 @@
         "competitor_compare_entry": 0,
         "is_churn_signal": 0,
         "is_decision": 0,
-        "last_entity": "internet",
+        "last_entity": "iptv",
         "last_event_type": "action_select",
         "mnp_benefit_check": 0,
         "renewal_consult_submit": 0,
@@ -1420,6 +1420,21 @@
           "behavior_id": "2-C1",
           "event_type": "action_select",
           "entity": "internet"
+        },
+        {
+          "behavior_id": "BACK",
+          "event_type": "navigate_back",
+          "entity": "back_to_step1"
+        },
+        {
+          "behavior_id": "1-C",
+          "event_type": "page_view",
+          "entity": "home_service_explore"
+        },
+        {
+          "behavior_id": "2-C2",
+          "event_type": "action_select",
+          "entity": "iptv"
         }
       ],
       "intent_labels": {
@@ -1570,16 +1585,16 @@
         "나이": 35
       },
       "pattern_features": {
-        "action_intensity_5m": 2,
+        "action_intensity_5m": 4,
         "churn_action_count_5m": 0,
         "comparison_action_count_5m": 0,
         "decision_action_count_5m": 0,
         "dominant_entity_5m": "home_service_explore",
         "entity_focus_ratio_5m": 0.5,
-        "entity_transition_pattern": "home_service_explore→internet",
-        "explored_entity_count_5m": 2,
-        "last_entity": "internet",
-        "repeated_entity_count_5m": 1,
+        "entity_transition_pattern": "internet→home_service_explore→iptv",
+        "explored_entity_count_5m": 3,
+        "last_entity": "iptv",
+        "repeated_entity_count_5m": 2,
         "support_entry_count_5m": 0
       },
       "event_features": {
@@ -1587,7 +1602,7 @@
         "competitor_compare_entry": 0,
         "is_churn_signal": 0,
         "is_decision": 0,
-        "last_entity": "internet",
+        "last_entity": "iptv",
         "last_event_type": "action_select",
         "mnp_benefit_check": 0,
         "renewal_consult_submit": 0,
@@ -1604,6 +1619,21 @@
           "behavior_id": "2-C1",
           "event_type": "action_select",
           "entity": "internet"
+        },
+        {
+          "behavior_id": "BACK",
+          "event_type": "navigate_back",
+          "entity": "back_to_step1"
+        },
+        {
+          "behavior_id": "1-C",
+          "event_type": "page_view",
+          "entity": "home_service_explore"
+        },
+        {
+          "behavior_id": "2-C2",
+          "event_type": "action_select",
+          "entity": "iptv"
         }
       ],
       "intent_labels": {
@@ -2306,16 +2336,16 @@
         "나이": 35
       },
       "pattern_features": {
-        "action_intensity_5m": 2,
+        "action_intensity_5m": 4,
         "churn_action_count_5m": 0,
-        "comparison_action_count_5m": 1,
+        "comparison_action_count_5m": 0,
         "decision_action_count_5m": 0,
         "dominant_entity_5m": "home_service_explore",
         "entity_focus_ratio_5m": 0.5,
-        "entity_transition_pattern": "home_service_explore→internet_iptv_bundle",
-        "explored_entity_count_5m": 2,
-        "last_entity": "internet_iptv_bundle",
-        "repeated_entity_count_5m": 1,
+        "entity_transition_pattern": "iptv→home_service_explore→wifi",
+        "explored_entity_count_5m": 3,
+        "last_entity": "wifi",
+        "repeated_entity_count_5m": 2,
         "support_entry_count_5m": 0
       },
       "event_features": {
@@ -2323,8 +2353,8 @@
         "competitor_compare_entry": 0,
         "is_churn_signal": 0,
         "is_decision": 0,
-        "last_entity": "internet_iptv_bundle",
-        "last_event_type": "comparison_action",
+        "last_entity": "wifi",
+        "last_event_type": "action_select",
         "mnp_benefit_check": 0,
         "renewal_consult_submit": 0,
         "support_entry": 0,
@@ -2337,9 +2367,24 @@
           "entity": "home_service_explore"
         },
         {
-          "behavior_id": "2-C3",
-          "event_type": "comparison_action",
-          "entity": "internet_iptv_bundle"
+          "behavior_id": "2-C2",
+          "event_type": "action_select",
+          "entity": "iptv"
+        },
+        {
+          "behavior_id": "BACK",
+          "event_type": "navigate_back",
+          "entity": "back_to_step1"
+        },
+        {
+          "behavior_id": "1-C",
+          "event_type": "page_view",
+          "entity": "home_service_explore"
+        },
+        {
+          "behavior_id": "2-C4",
+          "event_type": "action_select",
+          "entity": "wifi"
         }
       ],
       "intent_labels": {
@@ -3241,16 +3286,16 @@
         "나이": 25
       },
       "pattern_features": {
-        "action_intensity_5m": 2,
+        "action_intensity_5m": 4,
         "churn_action_count_5m": 0,
         "comparison_action_count_5m": 0,
         "decision_action_count_5m": 0,
         "dominant_entity_5m": "home_service_explore",
         "entity_focus_ratio_5m": 0.5,
-        "entity_transition_pattern": "home_service_explore→internet",
-        "explored_entity_count_5m": 2,
-        "last_entity": "internet",
-        "repeated_entity_count_5m": 1,
+        "entity_transition_pattern": "internet→home_service_explore→iptv",
+        "explored_entity_count_5m": 3,
+        "last_entity": "iptv",
+        "repeated_entity_count_5m": 2,
         "support_entry_count_5m": 0
       },
       "event_features": {
@@ -3258,7 +3303,7 @@
         "competitor_compare_entry": 0,
         "is_churn_signal": 0,
         "is_decision": 0,
-        "last_entity": "internet",
+        "last_entity": "iptv",
         "last_event_type": "action_select",
         "mnp_benefit_check": 0,
         "renewal_consult_submit": 0,
@@ -3275,6 +3320,21 @@
           "behavior_id": "2-C1",
           "event_type": "action_select",
           "entity": "internet"
+        },
+        {
+          "behavior_id": "BACK",
+          "event_type": "navigate_back",
+          "entity": "back_to_step1"
+        },
+        {
+          "behavior_id": "1-C",
+          "event_type": "page_view",
+          "entity": "home_service_explore"
+        },
+        {
+          "behavior_id": "2-C2",
+          "event_type": "action_select",
+          "entity": "iptv"
         }
       ],
       "intent_labels": {
@@ -3519,13 +3579,13 @@
       "pattern_features": {
         "action_intensity_5m": 2,
         "churn_action_count_5m": 0,
-        "comparison_action_count_5m": 0,
+        "comparison_action_count_5m": 1,
         "decision_action_count_5m": 0,
         "dominant_entity_5m": "home_service_explore",
         "entity_focus_ratio_5m": 0.5,
-        "entity_transition_pattern": "home_service_explore→iptv",
+        "entity_transition_pattern": "home_service_explore→internet_iptv_bundle",
         "explored_entity_count_5m": 2,
-        "last_entity": "iptv",
+        "last_entity": "internet_iptv_bundle",
         "repeated_entity_count_5m": 1,
         "support_entry_count_5m": 0
       },
@@ -3534,8 +3594,8 @@
         "competitor_compare_entry": 0,
         "is_churn_signal": 0,
         "is_decision": 0,
-        "last_entity": "iptv",
-        "last_event_type": "action_select",
+        "last_entity": "internet_iptv_bundle",
+        "last_event_type": "comparison_action",
         "mnp_benefit_check": 0,
         "renewal_consult_submit": 0,
         "support_entry": 0,
@@ -3548,9 +3608,9 @@
           "entity": "home_service_explore"
         },
         {
-          "behavior_id": "2-C2",
-          "event_type": "action_select",
-          "entity": "iptv"
+          "behavior_id": "2-C3",
+          "event_type": "comparison_action",
+          "entity": "internet_iptv_bundle"
         }
       ],
       "intent_labels": {
@@ -5012,16 +5072,16 @@
         "나이": 35
       },
       "pattern_features": {
-        "action_intensity_5m": 2,
+        "action_intensity_5m": 4,
         "churn_action_count_5m": 0,
         "comparison_action_count_5m": 0,
         "decision_action_count_5m": 0,
         "dominant_entity_5m": "home_service_explore",
         "entity_focus_ratio_5m": 0.5,
-        "entity_transition_pattern": "home_service_explore→internet",
-        "explored_entity_count_5m": 2,
-        "last_entity": "internet",
-        "repeated_entity_count_5m": 1,
+        "entity_transition_pattern": "internet→home_service_explore→iptv",
+        "explored_entity_count_5m": 3,
+        "last_entity": "iptv",
+        "repeated_entity_count_5m": 2,
         "support_entry_count_5m": 0
       },
       "event_features": {
@@ -5029,7 +5089,7 @@
         "competitor_compare_entry": 0,
         "is_churn_signal": 0,
         "is_decision": 0,
-        "last_entity": "internet",
+        "last_entity": "iptv",
         "last_event_type": "action_select",
         "mnp_benefit_check": 0,
         "renewal_consult_submit": 0,
@@ -5046,6 +5106,21 @@
           "behavior_id": "2-C1",
           "event_type": "action_select",
           "entity": "internet"
+        },
+        {
+          "behavior_id": "BACK",
+          "event_type": "navigate_back",
+          "entity": "back_to_step1"
+        },
+        {
+          "behavior_id": "1-C",
+          "event_type": "page_view",
+          "entity": "home_service_explore"
+        },
+        {
+          "behavior_id": "2-C2",
+          "event_type": "action_select",
+          "entity": "iptv"
         }
       ],
       "intent_labels": {
@@ -5410,16 +5485,16 @@
         "나이": 25
       },
       "pattern_features": {
-        "action_intensity_5m": 2,
+        "action_intensity_5m": 4,
         "churn_action_count_5m": 0,
-        "comparison_action_count_5m": 0,
+        "comparison_action_count_5m": 1,
         "decision_action_count_5m": 0,
         "dominant_entity_5m": "home_service_explore",
         "entity_focus_ratio_5m": 0.5,
-        "entity_transition_pattern": "home_service_explore→wifi",
-        "explored_entity_count_5m": 2,
+        "entity_transition_pattern": "internet_iptv_bundle→home_service_explore→wifi",
+        "explored_entity_count_5m": 3,
         "last_entity": "wifi",
-        "repeated_entity_count_5m": 1,
+        "repeated_entity_count_5m": 2,
         "support_entry_count_5m": 0
       },
       "event_features": {
@@ -5435,6 +5510,21 @@
         "termination_penalty_check": 0
       },
       "actions": [
+        {
+          "behavior_id": "1-C",
+          "event_type": "page_view",
+          "entity": "home_service_explore"
+        },
+        {
+          "behavior_id": "2-C3",
+          "event_type": "comparison_action",
+          "entity": "internet_iptv_bundle"
+        },
+        {
+          "behavior_id": "BACK",
+          "event_type": "navigate_back",
+          "entity": "back_to_step1"
+        },
         {
           "behavior_id": "1-C",
           "event_type": "page_view",
@@ -5502,16 +5592,16 @@
         "나이": 25
       },
       "pattern_features": {
-        "action_intensity_5m": 2,
+        "action_intensity_5m": 4,
         "churn_action_count_5m": 0,
         "comparison_action_count_5m": 0,
         "decision_action_count_5m": 0,
         "dominant_entity_5m": "home_service_explore",
         "entity_focus_ratio_5m": 0.5,
-        "entity_transition_pattern": "home_service_explore→internet",
-        "explored_entity_count_5m": 2,
-        "last_entity": "internet",
-        "repeated_entity_count_5m": 1,
+        "entity_transition_pattern": "internet→home_service_explore→iptv",
+        "explored_entity_count_5m": 3,
+        "last_entity": "iptv",
+        "repeated_entity_count_5m": 2,
         "support_entry_count_5m": 0
       },
       "event_features": {
@@ -5519,7 +5609,7 @@
         "competitor_compare_entry": 0,
         "is_churn_signal": 0,
         "is_decision": 0,
-        "last_entity": "internet",
+        "last_entity": "iptv",
         "last_event_type": "action_select",
         "mnp_benefit_check": 0,
         "renewal_consult_submit": 0,
@@ -5536,6 +5626,21 @@
           "behavior_id": "2-C1",
           "event_type": "action_select",
           "entity": "internet"
+        },
+        {
+          "behavior_id": "BACK",
+          "event_type": "navigate_back",
+          "entity": "back_to_step1"
+        },
+        {
+          "behavior_id": "1-C",
+          "event_type": "page_view",
+          "entity": "home_service_explore"
+        },
+        {
+          "behavior_id": "2-C2",
+          "event_type": "action_select",
+          "entity": "iptv"
         }
       ],
       "intent_labels": {
@@ -6240,13 +6345,13 @@
       "pattern_features": {
         "action_intensity_5m": 2,
         "churn_action_count_5m": 0,
-        "comparison_action_count_5m": 0,
+        "comparison_action_count_5m": 1,
         "decision_action_count_5m": 0,
         "dominant_entity_5m": "home_service_explore",
         "entity_focus_ratio_5m": 0.5,
-        "entity_transition_pattern": "home_service_explore→iptv",
+        "entity_transition_pattern": "home_service_explore→internet_iptv_bundle",
         "explored_entity_count_5m": 2,
-        "last_entity": "iptv",
+        "last_entity": "internet_iptv_bundle",
         "repeated_entity_count_5m": 1,
         "support_entry_count_5m": 0
       },
@@ -6255,8 +6360,8 @@
         "competitor_compare_entry": 0,
         "is_churn_signal": 0,
         "is_decision": 0,
-        "last_entity": "iptv",
-        "last_event_type": "action_select",
+        "last_entity": "internet_iptv_bundle",
+        "last_event_type": "comparison_action",
         "mnp_benefit_check": 0,
         "renewal_consult_submit": 0,
         "support_entry": 0,
@@ -6269,9 +6374,9 @@
           "entity": "home_service_explore"
         },
         {
-          "behavior_id": "2-C2",
-          "event_type": "action_select",
-          "entity": "iptv"
+          "behavior_id": "2-C3",
+          "event_type": "comparison_action",
+          "entity": "internet_iptv_bundle"
         }
       ],
       "intent_labels": {
@@ -6974,16 +7079,16 @@
         "나이": 35
       },
       "pattern_features": {
-        "action_intensity_5m": 2,
+        "action_intensity_5m": 4,
         "churn_action_count_5m": 0,
-        "comparison_action_count_5m": 0,
+        "comparison_action_count_5m": 1,
         "decision_action_count_5m": 0,
         "dominant_entity_5m": "home_service_explore",
         "entity_focus_ratio_5m": 0.5,
-        "entity_transition_pattern": "home_service_explore→wifi",
-        "explored_entity_count_5m": 2,
+        "entity_transition_pattern": "internet_iptv_bundle→home_service_explore→wifi",
+        "explored_entity_count_5m": 3,
         "last_entity": "wifi",
-        "repeated_entity_count_5m": 1,
+        "repeated_entity_count_5m": 2,
         "support_entry_count_5m": 0
       },
       "event_features": {
@@ -6999,6 +7104,21 @@
         "termination_penalty_check": 0
       },
       "actions": [
+        {
+          "behavior_id": "1-C",
+          "event_type": "page_view",
+          "entity": "home_service_explore"
+        },
+        {
+          "behavior_id": "2-C3",
+          "event_type": "comparison_action",
+          "entity": "internet_iptv_bundle"
+        },
+        {
+          "behavior_id": "BACK",
+          "event_type": "navigate_back",
+          "entity": "back_to_step1"
+        },
         {
           "behavior_id": "1-C",
           "event_type": "page_view",
@@ -7449,16 +7569,16 @@
         "나이": 35
       },
       "pattern_features": {
-        "action_intensity_5m": 2,
+        "action_intensity_5m": 4,
         "churn_action_count_5m": 0,
-        "comparison_action_count_5m": 0,
+        "comparison_action_count_5m": 1,
         "decision_action_count_5m": 0,
         "dominant_entity_5m": "home_service_explore",
         "entity_focus_ratio_5m": 0.5,
-        "entity_transition_pattern": "home_service_explore→wifi",
-        "explored_entity_count_5m": 2,
+        "entity_transition_pattern": "internet_iptv_bundle→home_service_explore→wifi",
+        "explored_entity_count_5m": 3,
         "last_entity": "wifi",
-        "repeated_entity_count_5m": 1,
+        "repeated_entity_count_5m": 2,
         "support_entry_count_5m": 0
       },
       "event_features": {
@@ -7474,6 +7594,21 @@
         "termination_penalty_check": 0
       },
       "actions": [
+        {
+          "behavior_id": "1-C",
+          "event_type": "page_view",
+          "entity": "home_service_explore"
+        },
+        {
+          "behavior_id": "2-C3",
+          "event_type": "comparison_action",
+          "entity": "internet_iptv_bundle"
+        },
+        {
+          "behavior_id": "BACK",
+          "event_type": "navigate_back",
+          "entity": "back_to_step1"
+        },
         {
           "behavior_id": "1-C",
           "event_type": "page_view",
@@ -8110,13 +8245,13 @@
       "pattern_features": {
         "action_intensity_5m": 2,
         "churn_action_count_5m": 0,
-        "comparison_action_count_5m": 0,
+        "comparison_action_count_5m": 1,
         "decision_action_count_5m": 0,
         "dominant_entity_5m": "home_service_explore",
         "entity_focus_ratio_5m": 0.5,
-        "entity_transition_pattern": "home_service_explore→iptv",
+        "entity_transition_pattern": "home_service_explore→internet_iptv_bundle",
         "explored_entity_count_5m": 2,
-        "last_entity": "iptv",
+        "last_entity": "internet_iptv_bundle",
         "repeated_entity_count_5m": 1,
         "support_entry_count_5m": 0
       },
@@ -8125,8 +8260,8 @@
         "competitor_compare_entry": 0,
         "is_churn_signal": 0,
         "is_decision": 0,
-        "last_entity": "iptv",
-        "last_event_type": "action_select",
+        "last_entity": "internet_iptv_bundle",
+        "last_event_type": "comparison_action",
         "mnp_benefit_check": 0,
         "renewal_consult_submit": 0,
         "support_entry": 0,
@@ -8139,9 +8274,9 @@
           "entity": "home_service_explore"
         },
         {
-          "behavior_id": "2-C2",
-          "event_type": "action_select",
-          "entity": "iptv"
+          "behavior_id": "2-C3",
+          "event_type": "comparison_action",
+          "entity": "internet_iptv_bundle"
         }
       ],
       "intent_labels": {
@@ -9175,16 +9310,16 @@
         "나이": 25
       },
       "pattern_features": {
-        "action_intensity_5m": 2,
+        "action_intensity_5m": 4,
         "churn_action_count_5m": 0,
         "comparison_action_count_5m": 0,
         "decision_action_count_5m": 0,
         "dominant_entity_5m": "home_service_explore",
         "entity_focus_ratio_5m": 0.5,
-        "entity_transition_pattern": "home_service_explore→internet",
-        "explored_entity_count_5m": 2,
-        "last_entity": "internet",
-        "repeated_entity_count_5m": 1,
+        "entity_transition_pattern": "internet→home_service_explore→iptv",
+        "explored_entity_count_5m": 3,
+        "last_entity": "iptv",
+        "repeated_entity_count_5m": 2,
         "support_entry_count_5m": 0
       },
       "event_features": {
@@ -9192,7 +9327,7 @@
         "competitor_compare_entry": 0,
         "is_churn_signal": 0,
         "is_decision": 0,
-        "last_entity": "internet",
+        "last_entity": "iptv",
         "last_event_type": "action_select",
         "mnp_benefit_check": 0,
         "renewal_consult_submit": 0,
@@ -9209,6 +9344,21 @@
           "behavior_id": "2-C1",
           "event_type": "action_select",
           "entity": "internet"
+        },
+        {
+          "behavior_id": "BACK",
+          "event_type": "navigate_back",
+          "entity": "back_to_step1"
+        },
+        {
+          "behavior_id": "1-C",
+          "event_type": "page_view",
+          "entity": "home_service_explore"
+        },
+        {
+          "behavior_id": "2-C2",
+          "event_type": "action_select",
+          "entity": "iptv"
         }
       ],
       "intent_labels": {
@@ -9269,13 +9419,13 @@
       "pattern_features": {
         "action_intensity_5m": 2,
         "churn_action_count_5m": 0,
-        "comparison_action_count_5m": 0,
+        "comparison_action_count_5m": 1,
         "decision_action_count_5m": 0,
         "dominant_entity_5m": "home_service_explore",
         "entity_focus_ratio_5m": 0.5,
-        "entity_transition_pattern": "home_service_explore→iptv",
+        "entity_transition_pattern": "home_service_explore→internet_iptv_bundle",
         "explored_entity_count_5m": 2,
-        "last_entity": "iptv",
+        "last_entity": "internet_iptv_bundle",
         "repeated_entity_count_5m": 1,
         "support_entry_count_5m": 0
       },
@@ -9284,8 +9434,8 @@
         "competitor_compare_entry": 0,
         "is_churn_signal": 0,
         "is_decision": 0,
-        "last_entity": "iptv",
-        "last_event_type": "action_select",
+        "last_entity": "internet_iptv_bundle",
+        "last_event_type": "comparison_action",
         "mnp_benefit_check": 0,
         "renewal_consult_submit": 0,
         "support_entry": 0,
@@ -9298,9 +9448,9 @@
           "entity": "home_service_explore"
         },
         {
-          "behavior_id": "2-C2",
-          "event_type": "action_select",
-          "entity": "iptv"
+          "behavior_id": "2-C3",
+          "event_type": "comparison_action",
+          "entity": "internet_iptv_bundle"
         }
       ],
       "intent_labels": {
@@ -9359,16 +9509,16 @@
         "나이": 35
       },
       "pattern_features": {
-        "action_intensity_5m": 2,
+        "action_intensity_5m": 4,
         "churn_action_count_5m": 0,
         "comparison_action_count_5m": 0,
         "decision_action_count_5m": 0,
         "dominant_entity_5m": "home_service_explore",
         "entity_focus_ratio_5m": 0.5,
-        "entity_transition_pattern": "home_service_explore→internet",
-        "explored_entity_count_5m": 2,
-        "last_entity": "internet",
-        "repeated_entity_count_5m": 1,
+        "entity_transition_pattern": "internet→home_service_explore→iptv",
+        "explored_entity_count_5m": 3,
+        "last_entity": "iptv",
+        "repeated_entity_count_5m": 2,
         "support_entry_count_5m": 0
       },
       "event_features": {
@@ -9376,7 +9526,7 @@
         "competitor_compare_entry": 0,
         "is_churn_signal": 0,
         "is_decision": 0,
-        "last_entity": "internet",
+        "last_entity": "iptv",
         "last_event_type": "action_select",
         "mnp_benefit_check": 0,
         "renewal_consult_submit": 0,
@@ -9393,6 +9543,21 @@
           "behavior_id": "2-C1",
           "event_type": "action_select",
           "entity": "internet"
+        },
+        {
+          "behavior_id": "BACK",
+          "event_type": "navigate_back",
+          "entity": "back_to_step1"
+        },
+        {
+          "behavior_id": "1-C",
+          "event_type": "page_view",
+          "entity": "home_service_explore"
+        },
+        {
+          "behavior_id": "2-C2",
+          "event_type": "action_select",
+          "entity": "iptv"
         }
       ],
       "intent_labels": {
@@ -10187,16 +10352,16 @@
         "나이": 25
       },
       "pattern_features": {
-        "action_intensity_5m": 2,
+        "action_intensity_5m": 4,
         "churn_action_count_5m": 0,
         "comparison_action_count_5m": 0,
         "decision_action_count_5m": 0,
         "dominant_entity_5m": "home_service_explore",
         "entity_focus_ratio_5m": 0.5,
-        "entity_transition_pattern": "home_service_explore→internet",
-        "explored_entity_count_5m": 2,
-        "last_entity": "internet",
-        "repeated_entity_count_5m": 1,
+        "entity_transition_pattern": "internet→home_service_explore→iptv",
+        "explored_entity_count_5m": 3,
+        "last_entity": "iptv",
+        "repeated_entity_count_5m": 2,
         "support_entry_count_5m": 0
       },
       "event_features": {
@@ -10204,7 +10369,7 @@
         "competitor_compare_entry": 0,
         "is_churn_signal": 0,
         "is_decision": 0,
-        "last_entity": "internet",
+        "last_entity": "iptv",
         "last_event_type": "action_select",
         "mnp_benefit_check": 0,
         "renewal_consult_submit": 0,
@@ -10221,6 +10386,21 @@
           "behavior_id": "2-C1",
           "event_type": "action_select",
           "entity": "internet"
+        },
+        {
+          "behavior_id": "BACK",
+          "event_type": "navigate_back",
+          "entity": "back_to_step1"
+        },
+        {
+          "behavior_id": "1-C",
+          "event_type": "page_view",
+          "entity": "home_service_explore"
+        },
+        {
+          "behavior_id": "2-C2",
+          "event_type": "action_select",
+          "entity": "iptv"
         }
       ],
       "intent_labels": {
@@ -10371,16 +10551,16 @@
         "나이": 35
       },
       "pattern_features": {
-        "action_intensity_5m": 2,
+        "action_intensity_5m": 4,
         "churn_action_count_5m": 0,
         "comparison_action_count_5m": 0,
         "decision_action_count_5m": 0,
         "dominant_entity_5m": "home_service_explore",
         "entity_focus_ratio_5m": 0.5,
-        "entity_transition_pattern": "home_service_explore→internet",
-        "explored_entity_count_5m": 2,
-        "last_entity": "internet",
-        "repeated_entity_count_5m": 1,
+        "entity_transition_pattern": "internet→home_service_explore→iptv",
+        "explored_entity_count_5m": 3,
+        "last_entity": "iptv",
+        "repeated_entity_count_5m": 2,
         "support_entry_count_5m": 0
       },
       "event_features": {
@@ -10388,7 +10568,7 @@
         "competitor_compare_entry": 0,
         "is_churn_signal": 0,
         "is_decision": 0,
-        "last_entity": "internet",
+        "last_entity": "iptv",
         "last_event_type": "action_select",
         "mnp_benefit_check": 0,
         "renewal_consult_submit": 0,
@@ -10405,6 +10585,21 @@
           "behavior_id": "2-C1",
           "event_type": "action_select",
           "entity": "internet"
+        },
+        {
+          "behavior_id": "BACK",
+          "event_type": "navigate_back",
+          "entity": "back_to_step1"
+        },
+        {
+          "behavior_id": "1-C",
+          "event_type": "page_view",
+          "entity": "home_service_explore"
+        },
+        {
+          "behavior_id": "2-C2",
+          "event_type": "action_select",
+          "entity": "iptv"
         }
       ],
       "intent_labels": {
@@ -10463,16 +10658,16 @@
         "나이": 25
       },
       "pattern_features": {
-        "action_intensity_5m": 2,
+        "action_intensity_5m": 4,
         "churn_action_count_5m": 0,
-        "comparison_action_count_5m": 0,
+        "comparison_action_count_5m": 1,
         "decision_action_count_5m": 0,
         "dominant_entity_5m": "home_service_explore",
         "entity_focus_ratio_5m": 0.5,
-        "entity_transition_pattern": "home_service_explore→wifi",
-        "explored_entity_count_5m": 2,
+        "entity_transition_pattern": "internet_iptv_bundle→home_service_explore→wifi",
+        "explored_entity_count_5m": 3,
         "last_entity": "wifi",
-        "repeated_entity_count_5m": 1,
+        "repeated_entity_count_5m": 2,
         "support_entry_count_5m": 0
       },
       "event_features": {
@@ -10488,6 +10683,21 @@
         "termination_penalty_check": 0
       },
       "actions": [
+        {
+          "behavior_id": "1-C",
+          "event_type": "page_view",
+          "entity": "home_service_explore"
+        },
+        {
+          "behavior_id": "2-C3",
+          "event_type": "comparison_action",
+          "entity": "internet_iptv_bundle"
+        },
+        {
+          "behavior_id": "BACK",
+          "event_type": "navigate_back",
+          "entity": "back_to_step1"
+        },
         {
           "behavior_id": "1-C",
           "event_type": "page_view",
@@ -10649,13 +10859,13 @@
       "pattern_features": {
         "action_intensity_5m": 2,
         "churn_action_count_5m": 0,
-        "comparison_action_count_5m": 0,
+        "comparison_action_count_5m": 1,
         "decision_action_count_5m": 0,
         "dominant_entity_5m": "home_service_explore",
         "entity_focus_ratio_5m": 0.5,
-        "entity_transition_pattern": "home_service_explore→iptv",
+        "entity_transition_pattern": "home_service_explore→internet_iptv_bundle",
         "explored_entity_count_5m": 2,
-        "last_entity": "iptv",
+        "last_entity": "internet_iptv_bundle",
         "repeated_entity_count_5m": 1,
         "support_entry_count_5m": 0
       },
@@ -10664,8 +10874,8 @@
         "competitor_compare_entry": 0,
         "is_churn_signal": 0,
         "is_decision": 0,
-        "last_entity": "iptv",
-        "last_event_type": "action_select",
+        "last_entity": "internet_iptv_bundle",
+        "last_event_type": "comparison_action",
         "mnp_benefit_check": 0,
         "renewal_consult_submit": 0,
         "support_entry": 0,
@@ -10678,9 +10888,9 @@
           "entity": "home_service_explore"
         },
         {
-          "behavior_id": "2-C2",
-          "event_type": "action_select",
-          "entity": "iptv"
+          "behavior_id": "2-C3",
+          "event_type": "comparison_action",
+          "entity": "internet_iptv_bundle"
         }
       ],
       "intent_labels": {
@@ -10831,16 +11041,16 @@
         "나이": 25
       },
       "pattern_features": {
-        "action_intensity_5m": 2,
+        "action_intensity_5m": 4,
         "churn_action_count_5m": 0,
-        "comparison_action_count_5m": 1,
+        "comparison_action_count_5m": 0,
         "decision_action_count_5m": 0,
         "dominant_entity_5m": "home_service_explore",
         "entity_focus_ratio_5m": 0.5,
-        "entity_transition_pattern": "home_service_explore→internet_iptv_bundle",
-        "explored_entity_count_5m": 2,
-        "last_entity": "internet_iptv_bundle",
-        "repeated_entity_count_5m": 1,
+        "entity_transition_pattern": "iptv→home_service_explore→wifi",
+        "explored_entity_count_5m": 3,
+        "last_entity": "wifi",
+        "repeated_entity_count_5m": 2,
         "support_entry_count_5m": 0
       },
       "event_features": {
@@ -10848,8 +11058,8 @@
         "competitor_compare_entry": 0,
         "is_churn_signal": 0,
         "is_decision": 0,
-        "last_entity": "internet_iptv_bundle",
-        "last_event_type": "comparison_action",
+        "last_entity": "wifi",
+        "last_event_type": "action_select",
         "mnp_benefit_check": 0,
         "renewal_consult_submit": 0,
         "support_entry": 0,
@@ -10862,9 +11072,24 @@
           "entity": "home_service_explore"
         },
         {
-          "behavior_id": "2-C3",
-          "event_type": "comparison_action",
-          "entity": "internet_iptv_bundle"
+          "behavior_id": "2-C2",
+          "event_type": "action_select",
+          "entity": "iptv"
+        },
+        {
+          "behavior_id": "BACK",
+          "event_type": "navigate_back",
+          "entity": "back_to_step1"
+        },
+        {
+          "behavior_id": "1-C",
+          "event_type": "page_view",
+          "entity": "home_service_explore"
+        },
+        {
+          "behavior_id": "2-C4",
+          "event_type": "action_select",
+          "entity": "wifi"
         }
       ],
       "intent_labels": {
@@ -11107,16 +11332,16 @@
         "나이": 35
       },
       "pattern_features": {
-        "action_intensity_5m": 2,
+        "action_intensity_5m": 4,
         "churn_action_count_5m": 0,
-        "comparison_action_count_5m": 0,
+        "comparison_action_count_5m": 1,
         "decision_action_count_5m": 0,
         "dominant_entity_5m": "home_service_explore",
         "entity_focus_ratio_5m": 0.5,
-        "entity_transition_pattern": "home_service_explore→wifi",
-        "explored_entity_count_5m": 2,
+        "entity_transition_pattern": "internet_iptv_bundle→home_service_explore→wifi",
+        "explored_entity_count_5m": 3,
         "last_entity": "wifi",
-        "repeated_entity_count_5m": 1,
+        "repeated_entity_count_5m": 2,
         "support_entry_count_5m": 0
       },
       "event_features": {
@@ -11132,6 +11357,21 @@
         "termination_penalty_check": 0
       },
       "actions": [
+        {
+          "behavior_id": "1-C",
+          "event_type": "page_view",
+          "entity": "home_service_explore"
+        },
+        {
+          "behavior_id": "2-C3",
+          "event_type": "comparison_action",
+          "entity": "internet_iptv_bundle"
+        },
+        {
+          "behavior_id": "BACK",
+          "event_type": "navigate_back",
+          "entity": "back_to_step1"
+        },
         {
           "behavior_id": "1-C",
           "event_type": "page_view",
@@ -11567,16 +11807,16 @@
         "나이": 35
       },
       "pattern_features": {
-        "action_intensity_5m": 2,
+        "action_intensity_5m": 4,
         "churn_action_count_5m": 0,
-        "comparison_action_count_5m": 1,
+        "comparison_action_count_5m": 0,
         "decision_action_count_5m": 0,
         "dominant_entity_5m": "home_service_explore",
         "entity_focus_ratio_5m": 0.5,
-        "entity_transition_pattern": "home_service_explore→internet_iptv_bundle",
-        "explored_entity_count_5m": 2,
-        "last_entity": "internet_iptv_bundle",
-        "repeated_entity_count_5m": 1,
+        "entity_transition_pattern": "iptv→home_service_explore→wifi",
+        "explored_entity_count_5m": 3,
+        "last_entity": "wifi",
+        "repeated_entity_count_5m": 2,
         "support_entry_count_5m": 0
       },
       "event_features": {
@@ -11584,8 +11824,8 @@
         "competitor_compare_entry": 0,
         "is_churn_signal": 0,
         "is_decision": 0,
-        "last_entity": "internet_iptv_bundle",
-        "last_event_type": "comparison_action",
+        "last_entity": "wifi",
+        "last_event_type": "action_select",
         "mnp_benefit_check": 0,
         "renewal_consult_submit": 0,
         "support_entry": 0,
@@ -11598,9 +11838,24 @@
           "entity": "home_service_explore"
         },
         {
-          "behavior_id": "2-C3",
-          "event_type": "comparison_action",
-          "entity": "internet_iptv_bundle"
+          "behavior_id": "2-C2",
+          "event_type": "action_select",
+          "entity": "iptv"
+        },
+        {
+          "behavior_id": "BACK",
+          "event_type": "navigate_back",
+          "entity": "back_to_step1"
+        },
+        {
+          "behavior_id": "1-C",
+          "event_type": "page_view",
+          "entity": "home_service_explore"
+        },
+        {
+          "behavior_id": "2-C4",
+          "event_type": "action_select",
+          "entity": "wifi"
         }
       ],
       "intent_labels": {
@@ -12410,16 +12665,16 @@
         "나이": 25
       },
       "pattern_features": {
-        "action_intensity_5m": 2,
+        "action_intensity_5m": 4,
         "churn_action_count_5m": 0,
-        "comparison_action_count_5m": 1,
+        "comparison_action_count_5m": 0,
         "decision_action_count_5m": 0,
         "dominant_entity_5m": "home_service_explore",
         "entity_focus_ratio_5m": 0.5,
-        "entity_transition_pattern": "home_service_explore→internet_iptv_bundle",
-        "explored_entity_count_5m": 2,
-        "last_entity": "internet_iptv_bundle",
-        "repeated_entity_count_5m": 1,
+        "entity_transition_pattern": "iptv→home_service_explore→wifi",
+        "explored_entity_count_5m": 3,
+        "last_entity": "wifi",
+        "repeated_entity_count_5m": 2,
         "support_entry_count_5m": 0
       },
       "event_features": {
@@ -12427,8 +12682,8 @@
         "competitor_compare_entry": 0,
         "is_churn_signal": 0,
         "is_decision": 0,
-        "last_entity": "internet_iptv_bundle",
-        "last_event_type": "comparison_action",
+        "last_entity": "wifi",
+        "last_event_type": "action_select",
         "mnp_benefit_check": 0,
         "renewal_consult_submit": 0,
         "support_entry": 0,
@@ -12441,9 +12696,24 @@
           "entity": "home_service_explore"
         },
         {
-          "behavior_id": "2-C3",
-          "event_type": "comparison_action",
-          "entity": "internet_iptv_bundle"
+          "behavior_id": "2-C2",
+          "event_type": "action_select",
+          "entity": "iptv"
+        },
+        {
+          "behavior_id": "BACK",
+          "event_type": "navigate_back",
+          "entity": "back_to_step1"
+        },
+        {
+          "behavior_id": "1-C",
+          "event_type": "page_view",
+          "entity": "home_service_explore"
+        },
+        {
+          "behavior_id": "2-C4",
+          "event_type": "action_select",
+          "entity": "wifi"
         }
       ],
       "intent_labels": {
@@ -12504,13 +12774,13 @@
       "pattern_features": {
         "action_intensity_5m": 2,
         "churn_action_count_5m": 0,
-        "comparison_action_count_5m": 0,
+        "comparison_action_count_5m": 1,
         "decision_action_count_5m": 0,
         "dominant_entity_5m": "home_service_explore",
         "entity_focus_ratio_5m": 0.5,
-        "entity_transition_pattern": "home_service_explore→iptv",
+        "entity_transition_pattern": "home_service_explore→internet_iptv_bundle",
         "explored_entity_count_5m": 2,
-        "last_entity": "iptv",
+        "last_entity": "internet_iptv_bundle",
         "repeated_entity_count_5m": 1,
         "support_entry_count_5m": 0
       },
@@ -12519,8 +12789,8 @@
         "competitor_compare_entry": 0,
         "is_churn_signal": 0,
         "is_decision": 0,
-        "last_entity": "iptv",
-        "last_event_type": "action_select",
+        "last_entity": "internet_iptv_bundle",
+        "last_event_type": "comparison_action",
         "mnp_benefit_check": 0,
         "renewal_consult_submit": 0,
         "support_entry": 0,
@@ -12533,9 +12803,9 @@
           "entity": "home_service_explore"
         },
         {
-          "behavior_id": "2-C2",
-          "event_type": "action_select",
-          "entity": "iptv"
+          "behavior_id": "2-C3",
+          "event_type": "comparison_action",
+          "entity": "internet_iptv_bundle"
         }
       ],
       "intent_labels": {
@@ -13534,16 +13804,16 @@
         "나이": 25
       },
       "pattern_features": {
-        "action_intensity_5m": 2,
+        "action_intensity_5m": 4,
         "churn_action_count_5m": 0,
-        "comparison_action_count_5m": 1,
+        "comparison_action_count_5m": 0,
         "decision_action_count_5m": 0,
         "dominant_entity_5m": "home_service_explore",
         "entity_focus_ratio_5m": 0.5,
-        "entity_transition_pattern": "home_service_explore→internet_iptv_bundle",
-        "explored_entity_count_5m": 2,
-        "last_entity": "internet_iptv_bundle",
-        "repeated_entity_count_5m": 1,
+        "entity_transition_pattern": "iptv→home_service_explore→wifi",
+        "explored_entity_count_5m": 3,
+        "last_entity": "wifi",
+        "repeated_entity_count_5m": 2,
         "support_entry_count_5m": 0
       },
       "event_features": {
@@ -13551,8 +13821,8 @@
         "competitor_compare_entry": 0,
         "is_churn_signal": 0,
         "is_decision": 0,
-        "last_entity": "internet_iptv_bundle",
-        "last_event_type": "comparison_action",
+        "last_entity": "wifi",
+        "last_event_type": "action_select",
         "mnp_benefit_check": 0,
         "renewal_consult_submit": 0,
         "support_entry": 0,
@@ -13565,9 +13835,24 @@
           "entity": "home_service_explore"
         },
         {
-          "behavior_id": "2-C3",
-          "event_type": "comparison_action",
-          "entity": "internet_iptv_bundle"
+          "behavior_id": "2-C2",
+          "event_type": "action_select",
+          "entity": "iptv"
+        },
+        {
+          "behavior_id": "BACK",
+          "event_type": "navigate_back",
+          "entity": "back_to_step1"
+        },
+        {
+          "behavior_id": "1-C",
+          "event_type": "page_view",
+          "entity": "home_service_explore"
+        },
+        {
+          "behavior_id": "2-C4",
+          "event_type": "action_select",
+          "entity": "wifi"
         }
       ],
       "intent_labels": {
@@ -13917,16 +14202,16 @@
         "나이": 25
       },
       "pattern_features": {
-        "action_intensity_5m": 2,
+        "action_intensity_5m": 4,
         "churn_action_count_5m": 0,
         "comparison_action_count_5m": 0,
         "decision_action_count_5m": 0,
         "dominant_entity_5m": "home_service_explore",
         "entity_focus_ratio_5m": 0.5,
-        "entity_transition_pattern": "home_service_explore→internet",
-        "explored_entity_count_5m": 2,
-        "last_entity": "internet",
-        "repeated_entity_count_5m": 1,
+        "entity_transition_pattern": "internet→home_service_explore→iptv",
+        "explored_entity_count_5m": 3,
+        "last_entity": "iptv",
+        "repeated_entity_count_5m": 2,
         "support_entry_count_5m": 0
       },
       "event_features": {
@@ -13934,7 +14219,7 @@
         "competitor_compare_entry": 0,
         "is_churn_signal": 0,
         "is_decision": 0,
-        "last_entity": "internet",
+        "last_entity": "iptv",
         "last_event_type": "action_select",
         "mnp_benefit_check": 0,
         "renewal_consult_submit": 0,
@@ -13951,6 +14236,21 @@
           "behavior_id": "2-C1",
           "event_type": "action_select",
           "entity": "internet"
+        },
+        {
+          "behavior_id": "BACK",
+          "event_type": "navigate_back",
+          "entity": "back_to_step1"
+        },
+        {
+          "behavior_id": "1-C",
+          "event_type": "page_view",
+          "entity": "home_service_explore"
+        },
+        {
+          "behavior_id": "2-C2",
+          "event_type": "action_select",
+          "entity": "iptv"
         }
       ],
       "intent_labels": {
@@ -15051,16 +15351,16 @@
         "나이": 25
       },
       "pattern_features": {
-        "action_intensity_5m": 2,
+        "action_intensity_5m": 4,
         "churn_action_count_5m": 0,
         "comparison_action_count_5m": 0,
         "decision_action_count_5m": 0,
         "dominant_entity_5m": "home_service_explore",
         "entity_focus_ratio_5m": 0.5,
-        "entity_transition_pattern": "home_service_explore→internet",
-        "explored_entity_count_5m": 2,
-        "last_entity": "internet",
-        "repeated_entity_count_5m": 1,
+        "entity_transition_pattern": "internet→home_service_explore→iptv",
+        "explored_entity_count_5m": 3,
+        "last_entity": "iptv",
+        "repeated_entity_count_5m": 2,
         "support_entry_count_5m": 0
       },
       "event_features": {
@@ -15068,7 +15368,7 @@
         "competitor_compare_entry": 0,
         "is_churn_signal": 0,
         "is_decision": 0,
-        "last_entity": "internet",
+        "last_entity": "iptv",
         "last_event_type": "action_select",
         "mnp_benefit_check": 0,
         "renewal_consult_submit": 0,
@@ -15085,6 +15385,21 @@
           "behavior_id": "2-C1",
           "event_type": "action_select",
           "entity": "internet"
+        },
+        {
+          "behavior_id": "BACK",
+          "event_type": "navigate_back",
+          "entity": "back_to_step1"
+        },
+        {
+          "behavior_id": "1-C",
+          "event_type": "page_view",
+          "entity": "home_service_explore"
+        },
+        {
+          "behavior_id": "2-C2",
+          "event_type": "action_select",
+          "entity": "iptv"
         }
       ],
       "intent_labels": {
@@ -15235,16 +15550,16 @@
         "나이": 35
       },
       "pattern_features": {
-        "action_intensity_5m": 2,
+        "action_intensity_5m": 4,
         "churn_action_count_5m": 0,
-        "comparison_action_count_5m": 1,
+        "comparison_action_count_5m": 0,
         "decision_action_count_5m": 0,
         "dominant_entity_5m": "home_service_explore",
         "entity_focus_ratio_5m": 0.5,
-        "entity_transition_pattern": "home_service_explore→internet_iptv_bundle",
-        "explored_entity_count_5m": 2,
-        "last_entity": "internet_iptv_bundle",
-        "repeated_entity_count_5m": 1,
+        "entity_transition_pattern": "iptv→home_service_explore→wifi",
+        "explored_entity_count_5m": 3,
+        "last_entity": "wifi",
+        "repeated_entity_count_5m": 2,
         "support_entry_count_5m": 0
       },
       "event_features": {
@@ -15252,8 +15567,8 @@
         "competitor_compare_entry": 0,
         "is_churn_signal": 0,
         "is_decision": 0,
-        "last_entity": "internet_iptv_bundle",
-        "last_event_type": "comparison_action",
+        "last_entity": "wifi",
+        "last_event_type": "action_select",
         "mnp_benefit_check": 0,
         "renewal_consult_submit": 0,
         "support_entry": 0,
@@ -15266,9 +15581,24 @@
           "entity": "home_service_explore"
         },
         {
-          "behavior_id": "2-C3",
-          "event_type": "comparison_action",
-          "entity": "internet_iptv_bundle"
+          "behavior_id": "2-C2",
+          "event_type": "action_select",
+          "entity": "iptv"
+        },
+        {
+          "behavior_id": "BACK",
+          "event_type": "navigate_back",
+          "entity": "back_to_step1"
+        },
+        {
+          "behavior_id": "1-C",
+          "event_type": "page_view",
+          "entity": "home_service_explore"
+        },
+        {
+          "behavior_id": "2-C4",
+          "event_type": "action_select",
+          "entity": "wifi"
         }
       ],
       "intent_labels": {
@@ -15513,13 +15843,13 @@
       "pattern_features": {
         "action_intensity_5m": 2,
         "churn_action_count_5m": 0,
-        "comparison_action_count_5m": 0,
+        "comparison_action_count_5m": 1,
         "decision_action_count_5m": 0,
         "dominant_entity_5m": "home_service_explore",
         "entity_focus_ratio_5m": 0.5,
-        "entity_transition_pattern": "home_service_explore→iptv",
+        "entity_transition_pattern": "home_service_explore→internet_iptv_bundle",
         "explored_entity_count_5m": 2,
-        "last_entity": "iptv",
+        "last_entity": "internet_iptv_bundle",
         "repeated_entity_count_5m": 1,
         "support_entry_count_5m": 0
       },
@@ -15528,8 +15858,8 @@
         "competitor_compare_entry": 0,
         "is_churn_signal": 0,
         "is_decision": 0,
-        "last_entity": "iptv",
-        "last_event_type": "action_select",
+        "last_entity": "internet_iptv_bundle",
+        "last_event_type": "comparison_action",
         "mnp_benefit_check": 0,
         "renewal_consult_submit": 0,
         "support_entry": 0,
@@ -15542,9 +15872,9 @@
           "entity": "home_service_explore"
         },
         {
-          "behavior_id": "2-C2",
-          "event_type": "action_select",
-          "entity": "iptv"
+          "behavior_id": "2-C3",
+          "event_type": "comparison_action",
+          "entity": "internet_iptv_bundle"
         }
       ],
       "intent_labels": {
@@ -16637,13 +16967,13 @@
       "pattern_features": {
         "action_intensity_5m": 2,
         "churn_action_count_5m": 0,
-        "comparison_action_count_5m": 0,
+        "comparison_action_count_5m": 1,
         "decision_action_count_5m": 0,
         "dominant_entity_5m": "home_service_explore",
         "entity_focus_ratio_5m": 0.5,
-        "entity_transition_pattern": "home_service_explore→iptv",
+        "entity_transition_pattern": "home_service_explore→internet_iptv_bundle",
         "explored_entity_count_5m": 2,
-        "last_entity": "iptv",
+        "last_entity": "internet_iptv_bundle",
         "repeated_entity_count_5m": 1,
         "support_entry_count_5m": 0
       },
@@ -16652,8 +16982,8 @@
         "competitor_compare_entry": 0,
         "is_churn_signal": 0,
         "is_decision": 0,
-        "last_entity": "iptv",
-        "last_event_type": "action_select",
+        "last_entity": "internet_iptv_bundle",
+        "last_event_type": "comparison_action",
         "mnp_benefit_check": 0,
         "renewal_consult_submit": 0,
         "support_entry": 0,
@@ -16666,9 +16996,9 @@
           "entity": "home_service_explore"
         },
         {
-          "behavior_id": "2-C2",
-          "event_type": "action_select",
-          "entity": "iptv"
+          "behavior_id": "2-C3",
+          "event_type": "comparison_action",
+          "entity": "internet_iptv_bundle"
         }
       ],
       "intent_labels": {
@@ -16911,16 +17241,16 @@
         "나이": 25
       },
       "pattern_features": {
-        "action_intensity_5m": 2,
+        "action_intensity_5m": 4,
         "churn_action_count_5m": 0,
-        "comparison_action_count_5m": 0,
+        "comparison_action_count_5m": 1,
         "decision_action_count_5m": 0,
         "dominant_entity_5m": "home_service_explore",
         "entity_focus_ratio_5m": 0.5,
-        "entity_transition_pattern": "home_service_explore→wifi",
-        "explored_entity_count_5m": 2,
+        "entity_transition_pattern": "internet_iptv_bundle→home_service_explore→wifi",
+        "explored_entity_count_5m": 3,
         "last_entity": "wifi",
-        "repeated_entity_count_5m": 1,
+        "repeated_entity_count_5m": 2,
         "support_entry_count_5m": 0
       },
       "event_features": {
@@ -16936,6 +17266,21 @@
         "termination_penalty_check": 0
       },
       "actions": [
+        {
+          "behavior_id": "1-C",
+          "event_type": "page_view",
+          "entity": "home_service_explore"
+        },
+        {
+          "behavior_id": "2-C3",
+          "event_type": "comparison_action",
+          "entity": "internet_iptv_bundle"
+        },
+        {
+          "behavior_id": "BACK",
+          "event_type": "navigate_back",
+          "entity": "back_to_step1"
+        },
         {
           "behavior_id": "1-C",
           "event_type": "page_view",
@@ -18858,16 +19203,16 @@
         "나이": 25
       },
       "pattern_features": {
-        "action_intensity_5m": 2,
+        "action_intensity_5m": 4,
         "churn_action_count_5m": 0,
-        "comparison_action_count_5m": 1,
+        "comparison_action_count_5m": 0,
         "decision_action_count_5m": 0,
         "dominant_entity_5m": "home_service_explore",
         "entity_focus_ratio_5m": 0.5,
-        "entity_transition_pattern": "home_service_explore→internet_iptv_bundle",
-        "explored_entity_count_5m": 2,
-        "last_entity": "internet_iptv_bundle",
-        "repeated_entity_count_5m": 1,
+        "entity_transition_pattern": "iptv→home_service_explore→wifi",
+        "explored_entity_count_5m": 3,
+        "last_entity": "wifi",
+        "repeated_entity_count_5m": 2,
         "support_entry_count_5m": 0
       },
       "event_features": {
@@ -18875,8 +19220,8 @@
         "competitor_compare_entry": 0,
         "is_churn_signal": 0,
         "is_decision": 0,
-        "last_entity": "internet_iptv_bundle",
-        "last_event_type": "comparison_action",
+        "last_entity": "wifi",
+        "last_event_type": "action_select",
         "mnp_benefit_check": 0,
         "renewal_consult_submit": 0,
         "support_entry": 0,
@@ -18889,9 +19234,24 @@
           "entity": "home_service_explore"
         },
         {
-          "behavior_id": "2-C3",
-          "event_type": "comparison_action",
-          "entity": "internet_iptv_bundle"
+          "behavior_id": "2-C2",
+          "event_type": "action_select",
+          "entity": "iptv"
+        },
+        {
+          "behavior_id": "BACK",
+          "event_type": "navigate_back",
+          "entity": "back_to_step1"
+        },
+        {
+          "behavior_id": "1-C",
+          "event_type": "page_view",
+          "entity": "home_service_explore"
+        },
+        {
+          "behavior_id": "2-C4",
+          "event_type": "action_select",
+          "entity": "wifi"
         }
       ],
       "intent_labels": {
@@ -18952,13 +19312,13 @@
       "pattern_features": {
         "action_intensity_5m": 2,
         "churn_action_count_5m": 0,
-        "comparison_action_count_5m": 0,
+        "comparison_action_count_5m": 1,
         "decision_action_count_5m": 0,
         "dominant_entity_5m": "home_service_explore",
         "entity_focus_ratio_5m": 0.5,
-        "entity_transition_pattern": "home_service_explore→iptv",
+        "entity_transition_pattern": "home_service_explore→internet_iptv_bundle",
         "explored_entity_count_5m": 2,
-        "last_entity": "iptv",
+        "last_entity": "internet_iptv_bundle",
         "repeated_entity_count_5m": 1,
         "support_entry_count_5m": 0
       },
@@ -18967,8 +19327,8 @@
         "competitor_compare_entry": 0,
         "is_churn_signal": 0,
         "is_decision": 0,
-        "last_entity": "iptv",
-        "last_event_type": "action_select",
+        "last_entity": "internet_iptv_bundle",
+        "last_event_type": "comparison_action",
         "mnp_benefit_check": 0,
         "renewal_consult_submit": 0,
         "support_entry": 0,
@@ -18981,9 +19341,9 @@
           "entity": "home_service_explore"
         },
         {
-          "behavior_id": "2-C2",
-          "event_type": "action_select",
-          "entity": "iptv"
+          "behavior_id": "2-C3",
+          "event_type": "comparison_action",
+          "entity": "internet_iptv_bundle"
         }
       ],
       "intent_labels": {
@@ -19410,16 +19770,16 @@
         "나이": 35
       },
       "pattern_features": {
-        "action_intensity_5m": 2,
+        "action_intensity_5m": 4,
         "churn_action_count_5m": 0,
-        "comparison_action_count_5m": 0,
+        "comparison_action_count_5m": 1,
         "decision_action_count_5m": 0,
         "dominant_entity_5m": "home_service_explore",
         "entity_focus_ratio_5m": 0.5,
-        "entity_transition_pattern": "home_service_explore→wifi",
-        "explored_entity_count_5m": 2,
+        "entity_transition_pattern": "internet_iptv_bundle→home_service_explore→wifi",
+        "explored_entity_count_5m": 3,
         "last_entity": "wifi",
-        "repeated_entity_count_5m": 1,
+        "repeated_entity_count_5m": 2,
         "support_entry_count_5m": 0
       },
       "event_features": {
@@ -19435,6 +19795,21 @@
         "termination_penalty_check": 0
       },
       "actions": [
+        {
+          "behavior_id": "1-C",
+          "event_type": "page_view",
+          "entity": "home_service_explore"
+        },
+        {
+          "behavior_id": "2-C3",
+          "event_type": "comparison_action",
+          "entity": "internet_iptv_bundle"
+        },
+        {
+          "behavior_id": "BACK",
+          "event_type": "navigate_back",
+          "entity": "back_to_step1"
+        },
         {
           "behavior_id": "1-C",
           "event_type": "page_view",
@@ -21479,16 +21854,16 @@
         "나이": 35
       },
       "pattern_features": {
-        "action_intensity_5m": 2,
+        "action_intensity_5m": 4,
         "churn_action_count_5m": 0,
-        "comparison_action_count_5m": 0,
+        "comparison_action_count_5m": 1,
         "decision_action_count_5m": 0,
         "dominant_entity_5m": "home_service_explore",
         "entity_focus_ratio_5m": 0.5,
-        "entity_transition_pattern": "home_service_explore→wifi",
-        "explored_entity_count_5m": 2,
+        "entity_transition_pattern": "internet_iptv_bundle→home_service_explore→wifi",
+        "explored_entity_count_5m": 3,
         "last_entity": "wifi",
-        "repeated_entity_count_5m": 1,
+        "repeated_entity_count_5m": 2,
         "support_entry_count_5m": 0
       },
       "event_features": {
@@ -21504,6 +21879,21 @@
         "termination_penalty_check": 0
       },
       "actions": [
+        {
+          "behavior_id": "1-C",
+          "event_type": "page_view",
+          "entity": "home_service_explore"
+        },
+        {
+          "behavior_id": "2-C3",
+          "event_type": "comparison_action",
+          "entity": "internet_iptv_bundle"
+        },
+        {
+          "behavior_id": "BACK",
+          "event_type": "navigate_back",
+          "entity": "back_to_step1"
+        },
         {
           "behavior_id": "1-C",
           "event_type": "page_view",
@@ -23578,16 +23968,16 @@
         "나이": 35
       },
       "pattern_features": {
-        "action_intensity_5m": 2,
+        "action_intensity_5m": 4,
         "churn_action_count_5m": 0,
-        "comparison_action_count_5m": 0,
+        "comparison_action_count_5m": 1,
         "decision_action_count_5m": 0,
         "dominant_entity_5m": "home_service_explore",
         "entity_focus_ratio_5m": 0.5,
-        "entity_transition_pattern": "home_service_explore→wifi",
-        "explored_entity_count_5m": 2,
+        "entity_transition_pattern": "internet_iptv_bundle→home_service_explore→wifi",
+        "explored_entity_count_5m": 3,
         "last_entity": "wifi",
-        "repeated_entity_count_5m": 1,
+        "repeated_entity_count_5m": 2,
         "support_entry_count_5m": 0
       },
       "event_features": {
@@ -23603,6 +23993,21 @@
         "termination_penalty_check": 0
       },
       "actions": [
+        {
+          "behavior_id": "1-C",
+          "event_type": "page_view",
+          "entity": "home_service_explore"
+        },
+        {
+          "behavior_id": "2-C3",
+          "event_type": "comparison_action",
+          "entity": "internet_iptv_bundle"
+        },
+        {
+          "behavior_id": "BACK",
+          "event_type": "navigate_back",
+          "entity": "back_to_step1"
+        },
         {
           "behavior_id": "1-C",
           "event_type": "page_view",
@@ -24145,16 +24550,16 @@
         "나이": 35
       },
       "pattern_features": {
-        "action_intensity_5m": 2,
+        "action_intensity_5m": 4,
         "churn_action_count_5m": 0,
-        "comparison_action_count_5m": 0,
+        "comparison_action_count_5m": 1,
         "decision_action_count_5m": 0,
         "dominant_entity_5m": "home_service_explore",
         "entity_focus_ratio_5m": 0.5,
-        "entity_transition_pattern": "home_service_explore→wifi",
-        "explored_entity_count_5m": 2,
+        "entity_transition_pattern": "internet_iptv_bundle→home_service_explore→wifi",
+        "explored_entity_count_5m": 3,
         "last_entity": "wifi",
-        "repeated_entity_count_5m": 1,
+        "repeated_entity_count_5m": 2,
         "support_entry_count_5m": 0
       },
       "event_features": {
@@ -24170,6 +24575,21 @@
         "termination_penalty_check": 0
       },
       "actions": [
+        {
+          "behavior_id": "1-C",
+          "event_type": "page_view",
+          "entity": "home_service_explore"
+        },
+        {
+          "behavior_id": "2-C3",
+          "event_type": "comparison_action",
+          "entity": "internet_iptv_bundle"
+        },
+        {
+          "behavior_id": "BACK",
+          "event_type": "navigate_back",
+          "entity": "back_to_step1"
+        },
         {
           "behavior_id": "1-C",
           "event_type": "page_view",
@@ -24605,16 +25025,16 @@
         "나이": 35
       },
       "pattern_features": {
-        "action_intensity_5m": 2,
+        "action_intensity_5m": 4,
         "churn_action_count_5m": 0,
-        "comparison_action_count_5m": 0,
+        "comparison_action_count_5m": 1,
         "decision_action_count_5m": 0,
         "dominant_entity_5m": "home_service_explore",
         "entity_focus_ratio_5m": 0.5,
-        "entity_transition_pattern": "home_service_explore→wifi",
-        "explored_entity_count_5m": 2,
+        "entity_transition_pattern": "internet_iptv_bundle→home_service_explore→wifi",
+        "explored_entity_count_5m": 3,
         "last_entity": "wifi",
-        "repeated_entity_count_5m": 1,
+        "repeated_entity_count_5m": 2,
         "support_entry_count_5m": 0
       },
       "event_features": {
@@ -24630,6 +25050,21 @@
         "termination_penalty_check": 0
       },
       "actions": [
+        {
+          "behavior_id": "1-C",
+          "event_type": "page_view",
+          "entity": "home_service_explore"
+        },
+        {
+          "behavior_id": "2-C3",
+          "event_type": "comparison_action",
+          "entity": "internet_iptv_bundle"
+        },
+        {
+          "behavior_id": "BACK",
+          "event_type": "navigate_back",
+          "entity": "back_to_step1"
+        },
         {
           "behavior_id": "1-C",
           "event_type": "page_view",
@@ -25371,16 +25806,16 @@
         "나이": 25
       },
       "pattern_features": {
-        "action_intensity_5m": 2,
+        "action_intensity_5m": 4,
         "churn_action_count_5m": 0,
         "comparison_action_count_5m": 0,
         "decision_action_count_5m": 0,
         "dominant_entity_5m": "home_service_explore",
         "entity_focus_ratio_5m": 0.5,
-        "entity_transition_pattern": "home_service_explore→internet",
-        "explored_entity_count_5m": 2,
-        "last_entity": "internet",
-        "repeated_entity_count_5m": 1,
+        "entity_transition_pattern": "internet→home_service_explore→iptv",
+        "explored_entity_count_5m": 3,
+        "last_entity": "iptv",
+        "repeated_entity_count_5m": 2,
         "support_entry_count_5m": 0
       },
       "event_features": {
@@ -25388,7 +25823,7 @@
         "competitor_compare_entry": 0,
         "is_churn_signal": 0,
         "is_decision": 0,
-        "last_entity": "internet",
+        "last_entity": "iptv",
         "last_event_type": "action_select",
         "mnp_benefit_check": 0,
         "renewal_consult_submit": 0,
@@ -25405,6 +25840,21 @@
           "behavior_id": "2-C1",
           "event_type": "action_select",
           "entity": "internet"
+        },
+        {
+          "behavior_id": "BACK",
+          "event_type": "navigate_back",
+          "entity": "back_to_step1"
+        },
+        {
+          "behavior_id": "1-C",
+          "event_type": "page_view",
+          "entity": "home_service_explore"
+        },
+        {
+          "behavior_id": "2-C2",
+          "event_type": "action_select",
+          "entity": "iptv"
         }
       ],
       "intent_labels": {
@@ -25649,13 +26099,13 @@
       "pattern_features": {
         "action_intensity_5m": 2,
         "churn_action_count_5m": 0,
-        "comparison_action_count_5m": 0,
+        "comparison_action_count_5m": 1,
         "decision_action_count_5m": 0,
         "dominant_entity_5m": "home_service_explore",
         "entity_focus_ratio_5m": 0.5,
-        "entity_transition_pattern": "home_service_explore→iptv",
+        "entity_transition_pattern": "home_service_explore→internet_iptv_bundle",
         "explored_entity_count_5m": 2,
-        "last_entity": "iptv",
+        "last_entity": "internet_iptv_bundle",
         "repeated_entity_count_5m": 1,
         "support_entry_count_5m": 0
       },
@@ -25664,8 +26114,8 @@
         "competitor_compare_entry": 0,
         "is_churn_signal": 0,
         "is_decision": 0,
-        "last_entity": "iptv",
-        "last_event_type": "action_select",
+        "last_entity": "internet_iptv_bundle",
+        "last_event_type": "comparison_action",
         "mnp_benefit_check": 0,
         "renewal_consult_submit": 0,
         "support_entry": 0,
@@ -25678,9 +26128,9 @@
           "entity": "home_service_explore"
         },
         {
-          "behavior_id": "2-C2",
-          "event_type": "action_select",
-          "entity": "iptv"
+          "behavior_id": "2-C3",
+          "event_type": "comparison_action",
+          "entity": "internet_iptv_bundle"
         }
       ],
       "intent_labels": {
@@ -25925,13 +26375,13 @@
       "pattern_features": {
         "action_intensity_5m": 2,
         "churn_action_count_5m": 0,
-        "comparison_action_count_5m": 0,
+        "comparison_action_count_5m": 1,
         "decision_action_count_5m": 0,
         "dominant_entity_5m": "home_service_explore",
         "entity_focus_ratio_5m": 0.5,
-        "entity_transition_pattern": "home_service_explore→iptv",
+        "entity_transition_pattern": "home_service_explore→internet_iptv_bundle",
         "explored_entity_count_5m": 2,
-        "last_entity": "iptv",
+        "last_entity": "internet_iptv_bundle",
         "repeated_entity_count_5m": 1,
         "support_entry_count_5m": 0
       },
@@ -25940,8 +26390,8 @@
         "competitor_compare_entry": 0,
         "is_churn_signal": 0,
         "is_decision": 0,
-        "last_entity": "iptv",
-        "last_event_type": "action_select",
+        "last_entity": "internet_iptv_bundle",
+        "last_event_type": "comparison_action",
         "mnp_benefit_check": 0,
         "renewal_consult_submit": 0,
         "support_entry": 0,
@@ -25954,9 +26404,9 @@
           "entity": "home_service_explore"
         },
         {
-          "behavior_id": "2-C2",
-          "event_type": "action_select",
-          "entity": "iptv"
+          "behavior_id": "2-C3",
+          "event_type": "comparison_action",
+          "entity": "internet_iptv_bundle"
         }
       ],
       "intent_labels": {
@@ -26950,16 +27400,16 @@
         "나이": 35
       },
       "pattern_features": {
-        "action_intensity_5m": 2,
+        "action_intensity_5m": 4,
         "churn_action_count_5m": 0,
-        "comparison_action_count_5m": 1,
+        "comparison_action_count_5m": 0,
         "decision_action_count_5m": 0,
         "dominant_entity_5m": "home_service_explore",
         "entity_focus_ratio_5m": 0.5,
-        "entity_transition_pattern": "home_service_explore→internet_iptv_bundle",
-        "explored_entity_count_5m": 2,
-        "last_entity": "internet_iptv_bundle",
-        "repeated_entity_count_5m": 1,
+        "entity_transition_pattern": "iptv→home_service_explore→wifi",
+        "explored_entity_count_5m": 3,
+        "last_entity": "wifi",
+        "repeated_entity_count_5m": 2,
         "support_entry_count_5m": 0
       },
       "event_features": {
@@ -26967,8 +27417,8 @@
         "competitor_compare_entry": 0,
         "is_churn_signal": 0,
         "is_decision": 0,
-        "last_entity": "internet_iptv_bundle",
-        "last_event_type": "comparison_action",
+        "last_entity": "wifi",
+        "last_event_type": "action_select",
         "mnp_benefit_check": 0,
         "renewal_consult_submit": 0,
         "support_entry": 0,
@@ -26981,9 +27431,24 @@
           "entity": "home_service_explore"
         },
         {
-          "behavior_id": "2-C3",
-          "event_type": "comparison_action",
-          "entity": "internet_iptv_bundle"
+          "behavior_id": "2-C2",
+          "event_type": "action_select",
+          "entity": "iptv"
+        },
+        {
+          "behavior_id": "BACK",
+          "event_type": "navigate_back",
+          "entity": "back_to_step1"
+        },
+        {
+          "behavior_id": "1-C",
+          "event_type": "page_view",
+          "entity": "home_service_explore"
+        },
+        {
+          "behavior_id": "2-C4",
+          "event_type": "action_select",
+          "entity": "wifi"
         }
       ],
       "intent_labels": {
@@ -27134,16 +27599,16 @@
         "나이": 25
       },
       "pattern_features": {
-        "action_intensity_5m": 2,
+        "action_intensity_5m": 4,
         "churn_action_count_5m": 0,
-        "comparison_action_count_5m": 0,
+        "comparison_action_count_5m": 1,
         "decision_action_count_5m": 0,
         "dominant_entity_5m": "home_service_explore",
         "entity_focus_ratio_5m": 0.5,
-        "entity_transition_pattern": "home_service_explore→wifi",
-        "explored_entity_count_5m": 2,
+        "entity_transition_pattern": "internet_iptv_bundle→home_service_explore→wifi",
+        "explored_entity_count_5m": 3,
         "last_entity": "wifi",
-        "repeated_entity_count_5m": 1,
+        "repeated_entity_count_5m": 2,
         "support_entry_count_5m": 0
       },
       "event_features": {
@@ -27159,6 +27624,21 @@
         "termination_penalty_check": 0
       },
       "actions": [
+        {
+          "behavior_id": "1-C",
+          "event_type": "page_view",
+          "entity": "home_service_explore"
+        },
+        {
+          "behavior_id": "2-C3",
+          "event_type": "comparison_action",
+          "entity": "internet_iptv_bundle"
+        },
+        {
+          "behavior_id": "BACK",
+          "event_type": "navigate_back",
+          "entity": "back_to_step1"
+        },
         {
           "behavior_id": "1-C",
           "event_type": "page_view",
@@ -27228,13 +27708,13 @@
       "pattern_features": {
         "action_intensity_5m": 2,
         "churn_action_count_5m": 0,
-        "comparison_action_count_5m": 0,
+        "comparison_action_count_5m": 1,
         "decision_action_count_5m": 0,
         "dominant_entity_5m": "home_service_explore",
         "entity_focus_ratio_5m": 0.5,
-        "entity_transition_pattern": "home_service_explore→iptv",
+        "entity_transition_pattern": "home_service_explore→internet_iptv_bundle",
         "explored_entity_count_5m": 2,
-        "last_entity": "iptv",
+        "last_entity": "internet_iptv_bundle",
         "repeated_entity_count_5m": 1,
         "support_entry_count_5m": 0
       },
@@ -27243,8 +27723,8 @@
         "competitor_compare_entry": 0,
         "is_churn_signal": 0,
         "is_decision": 0,
-        "last_entity": "iptv",
-        "last_event_type": "action_select",
+        "last_entity": "internet_iptv_bundle",
+        "last_event_type": "comparison_action",
         "mnp_benefit_check": 0,
         "renewal_consult_submit": 0,
         "support_entry": 0,
@@ -27257,9 +27737,9 @@
           "entity": "home_service_explore"
         },
         {
-          "behavior_id": "2-C2",
-          "event_type": "action_select",
-          "entity": "iptv"
+          "behavior_id": "2-C3",
+          "event_type": "comparison_action",
+          "entity": "internet_iptv_bundle"
         }
       ],
       "intent_labels": {
@@ -28084,16 +28564,16 @@
         "나이": 25
       },
       "pattern_features": {
-        "action_intensity_5m": 2,
+        "action_intensity_5m": 4,
         "churn_action_count_5m": 0,
         "comparison_action_count_5m": 0,
         "decision_action_count_5m": 0,
         "dominant_entity_5m": "home_service_explore",
         "entity_focus_ratio_5m": 0.5,
-        "entity_transition_pattern": "home_service_explore→internet",
-        "explored_entity_count_5m": 2,
-        "last_entity": "internet",
-        "repeated_entity_count_5m": 1,
+        "entity_transition_pattern": "internet→home_service_explore→iptv",
+        "explored_entity_count_5m": 3,
+        "last_entity": "iptv",
+        "repeated_entity_count_5m": 2,
         "support_entry_count_5m": 0
       },
       "event_features": {
@@ -28101,7 +28581,7 @@
         "competitor_compare_entry": 0,
         "is_churn_signal": 0,
         "is_decision": 0,
-        "last_entity": "internet",
+        "last_entity": "iptv",
         "last_event_type": "action_select",
         "mnp_benefit_check": 0,
         "renewal_consult_submit": 0,
@@ -28118,6 +28598,21 @@
           "behavior_id": "2-C1",
           "event_type": "action_select",
           "entity": "internet"
+        },
+        {
+          "behavior_id": "BACK",
+          "event_type": "navigate_back",
+          "entity": "back_to_step1"
+        },
+        {
+          "behavior_id": "1-C",
+          "event_type": "page_view",
+          "entity": "home_service_explore"
+        },
+        {
+          "behavior_id": "2-C2",
+          "event_type": "action_select",
+          "entity": "iptv"
         }
       ],
       "intent_labels": {
@@ -28178,13 +28673,13 @@
       "pattern_features": {
         "action_intensity_5m": 2,
         "churn_action_count_5m": 0,
-        "comparison_action_count_5m": 0,
+        "comparison_action_count_5m": 1,
         "decision_action_count_5m": 0,
         "dominant_entity_5m": "home_service_explore",
         "entity_focus_ratio_5m": 0.5,
-        "entity_transition_pattern": "home_service_explore→iptv",
+        "entity_transition_pattern": "home_service_explore→internet_iptv_bundle",
         "explored_entity_count_5m": 2,
-        "last_entity": "iptv",
+        "last_entity": "internet_iptv_bundle",
         "repeated_entity_count_5m": 1,
         "support_entry_count_5m": 0
       },
@@ -28193,8 +28688,8 @@
         "competitor_compare_entry": 0,
         "is_churn_signal": 0,
         "is_decision": 0,
-        "last_entity": "iptv",
-        "last_event_type": "action_select",
+        "last_entity": "internet_iptv_bundle",
+        "last_event_type": "comparison_action",
         "mnp_benefit_check": 0,
         "renewal_consult_submit": 0,
         "support_entry": 0,
@@ -28207,9 +28702,9 @@
           "entity": "home_service_explore"
         },
         {
-          "behavior_id": "2-C2",
-          "event_type": "action_select",
-          "entity": "iptv"
+          "behavior_id": "2-C3",
+          "event_type": "comparison_action",
+          "entity": "internet_iptv_bundle"
         }
       ],
       "intent_labels": {
@@ -28835,16 +29330,16 @@
         "나이": 35
       },
       "pattern_features": {
-        "action_intensity_5m": 2,
+        "action_intensity_5m": 4,
         "churn_action_count_5m": 0,
-        "comparison_action_count_5m": 1,
+        "comparison_action_count_5m": 0,
         "decision_action_count_5m": 0,
         "dominant_entity_5m": "home_service_explore",
         "entity_focus_ratio_5m": 0.5,
-        "entity_transition_pattern": "home_service_explore→internet_iptv_bundle",
-        "explored_entity_count_5m": 2,
-        "last_entity": "internet_iptv_bundle",
-        "repeated_entity_count_5m": 1,
+        "entity_transition_pattern": "iptv→home_service_explore→wifi",
+        "explored_entity_count_5m": 3,
+        "last_entity": "wifi",
+        "repeated_entity_count_5m": 2,
         "support_entry_count_5m": 0
       },
       "event_features": {
@@ -28852,8 +29347,8 @@
         "competitor_compare_entry": 0,
         "is_churn_signal": 0,
         "is_decision": 0,
-        "last_entity": "internet_iptv_bundle",
-        "last_event_type": "comparison_action",
+        "last_entity": "wifi",
+        "last_event_type": "action_select",
         "mnp_benefit_check": 0,
         "renewal_consult_submit": 0,
         "support_entry": 0,
@@ -28866,9 +29361,24 @@
           "entity": "home_service_explore"
         },
         {
-          "behavior_id": "2-C3",
-          "event_type": "comparison_action",
-          "entity": "internet_iptv_bundle"
+          "behavior_id": "2-C2",
+          "event_type": "action_select",
+          "entity": "iptv"
+        },
+        {
+          "behavior_id": "BACK",
+          "event_type": "navigate_back",
+          "entity": "back_to_step1"
+        },
+        {
+          "behavior_id": "1-C",
+          "event_type": "page_view",
+          "entity": "home_service_explore"
+        },
+        {
+          "behavior_id": "2-C4",
+          "event_type": "action_select",
+          "entity": "wifi"
         }
       ],
       "intent_labels": {
@@ -29310,16 +29820,16 @@
         "나이": 35
       },
       "pattern_features": {
-        "action_intensity_5m": 2,
+        "action_intensity_5m": 4,
         "churn_action_count_5m": 0,
         "comparison_action_count_5m": 0,
         "decision_action_count_5m": 0,
         "dominant_entity_5m": "home_service_explore",
         "entity_focus_ratio_5m": 0.5,
-        "entity_transition_pattern": "home_service_explore→internet",
-        "explored_entity_count_5m": 2,
-        "last_entity": "internet",
-        "repeated_entity_count_5m": 1,
+        "entity_transition_pattern": "internet→home_service_explore→iptv",
+        "explored_entity_count_5m": 3,
+        "last_entity": "iptv",
+        "repeated_entity_count_5m": 2,
         "support_entry_count_5m": 0
       },
       "event_features": {
@@ -29327,7 +29837,7 @@
         "competitor_compare_entry": 0,
         "is_churn_signal": 0,
         "is_decision": 0,
-        "last_entity": "internet",
+        "last_entity": "iptv",
         "last_event_type": "action_select",
         "mnp_benefit_check": 0,
         "renewal_consult_submit": 0,
@@ -29344,6 +29854,21 @@
           "behavior_id": "2-C1",
           "event_type": "action_select",
           "entity": "internet"
+        },
+        {
+          "behavior_id": "BACK",
+          "event_type": "navigate_back",
+          "entity": "back_to_step1"
+        },
+        {
+          "behavior_id": "1-C",
+          "event_type": "page_view",
+          "entity": "home_service_explore"
+        },
+        {
+          "behavior_id": "2-C2",
+          "event_type": "action_select",
+          "entity": "iptv"
         }
       ],
       "intent_labels": {
@@ -30076,16 +30601,16 @@
         "나이": 25
       },
       "pattern_features": {
-        "action_intensity_5m": 2,
+        "action_intensity_5m": 4,
         "churn_action_count_5m": 0,
-        "comparison_action_count_5m": 0,
+        "comparison_action_count_5m": 1,
         "decision_action_count_5m": 0,
         "dominant_entity_5m": "home_service_explore",
         "entity_focus_ratio_5m": 0.5,
-        "entity_transition_pattern": "home_service_explore→wifi",
-        "explored_entity_count_5m": 2,
+        "entity_transition_pattern": "internet_iptv_bundle→home_service_explore→wifi",
+        "explored_entity_count_5m": 3,
         "last_entity": "wifi",
-        "repeated_entity_count_5m": 1,
+        "repeated_entity_count_5m": 2,
         "support_entry_count_5m": 0
       },
       "event_features": {
@@ -30101,6 +30626,21 @@
         "termination_penalty_check": 0
       },
       "actions": [
+        {
+          "behavior_id": "1-C",
+          "event_type": "page_view",
+          "entity": "home_service_explore"
+        },
+        {
+          "behavior_id": "2-C3",
+          "event_type": "comparison_action",
+          "entity": "internet_iptv_bundle"
+        },
+        {
+          "behavior_id": "BACK",
+          "event_type": "navigate_back",
+          "entity": "back_to_step1"
+        },
         {
           "behavior_id": "1-C",
           "event_type": "page_view",
@@ -30536,16 +31076,16 @@
         "나이": 35
       },
       "pattern_features": {
-        "action_intensity_5m": 2,
+        "action_intensity_5m": 4,
         "churn_action_count_5m": 0,
         "comparison_action_count_5m": 0,
         "decision_action_count_5m": 0,
         "dominant_entity_5m": "home_service_explore",
         "entity_focus_ratio_5m": 0.5,
-        "entity_transition_pattern": "home_service_explore→internet",
-        "explored_entity_count_5m": 2,
-        "last_entity": "internet",
-        "repeated_entity_count_5m": 1,
+        "entity_transition_pattern": "internet→home_service_explore→iptv",
+        "explored_entity_count_5m": 3,
+        "last_entity": "iptv",
+        "repeated_entity_count_5m": 2,
         "support_entry_count_5m": 0
       },
       "event_features": {
@@ -30553,7 +31093,7 @@
         "competitor_compare_entry": 0,
         "is_churn_signal": 0,
         "is_decision": 0,
-        "last_entity": "internet",
+        "last_entity": "iptv",
         "last_event_type": "action_select",
         "mnp_benefit_check": 0,
         "renewal_consult_submit": 0,
@@ -30570,6 +31110,21 @@
           "behavior_id": "2-C1",
           "event_type": "action_select",
           "entity": "internet"
+        },
+        {
+          "behavior_id": "BACK",
+          "event_type": "navigate_back",
+          "entity": "back_to_step1"
+        },
+        {
+          "behavior_id": "1-C",
+          "event_type": "page_view",
+          "entity": "home_service_explore"
+        },
+        {
+          "behavior_id": "2-C2",
+          "event_type": "action_select",
+          "entity": "iptv"
         }
       ],
       "intent_labels": {
@@ -31548,16 +32103,16 @@
         "나이": 25
       },
       "pattern_features": {
-        "action_intensity_5m": 2,
+        "action_intensity_5m": 4,
         "churn_action_count_5m": 0,
         "comparison_action_count_5m": 0,
         "decision_action_count_5m": 0,
         "dominant_entity_5m": "home_service_explore",
         "entity_focus_ratio_5m": 0.5,
-        "entity_transition_pattern": "home_service_explore→internet",
-        "explored_entity_count_5m": 2,
-        "last_entity": "internet",
-        "repeated_entity_count_5m": 1,
+        "entity_transition_pattern": "internet→home_service_explore→iptv",
+        "explored_entity_count_5m": 3,
+        "last_entity": "iptv",
+        "repeated_entity_count_5m": 2,
         "support_entry_count_5m": 0
       },
       "event_features": {
@@ -31565,7 +32120,7 @@
         "competitor_compare_entry": 0,
         "is_churn_signal": 0,
         "is_decision": 0,
-        "last_entity": "internet",
+        "last_entity": "iptv",
         "last_event_type": "action_select",
         "mnp_benefit_check": 0,
         "renewal_consult_submit": 0,
@@ -31582,6 +32137,21 @@
           "behavior_id": "2-C1",
           "event_type": "action_select",
           "entity": "internet"
+        },
+        {
+          "behavior_id": "BACK",
+          "event_type": "navigate_back",
+          "entity": "back_to_step1"
+        },
+        {
+          "behavior_id": "1-C",
+          "event_type": "page_view",
+          "entity": "home_service_explore"
+        },
+        {
+          "behavior_id": "2-C2",
+          "event_type": "action_select",
+          "entity": "iptv"
         }
       ],
       "intent_labels": {
@@ -31642,13 +32212,13 @@
       "pattern_features": {
         "action_intensity_5m": 2,
         "churn_action_count_5m": 0,
-        "comparison_action_count_5m": 0,
+        "comparison_action_count_5m": 1,
         "decision_action_count_5m": 0,
         "dominant_entity_5m": "home_service_explore",
         "entity_focus_ratio_5m": 0.5,
-        "entity_transition_pattern": "home_service_explore→iptv",
+        "entity_transition_pattern": "home_service_explore→internet_iptv_bundle",
         "explored_entity_count_5m": 2,
-        "last_entity": "iptv",
+        "last_entity": "internet_iptv_bundle",
         "repeated_entity_count_5m": 1,
         "support_entry_count_5m": 0
       },
@@ -31657,8 +32227,8 @@
         "competitor_compare_entry": 0,
         "is_churn_signal": 0,
         "is_decision": 0,
-        "last_entity": "iptv",
-        "last_event_type": "action_select",
+        "last_entity": "internet_iptv_bundle",
+        "last_event_type": "comparison_action",
         "mnp_benefit_check": 0,
         "renewal_consult_submit": 0,
         "support_entry": 0,
@@ -31671,9 +32241,9 @@
           "entity": "home_service_explore"
         },
         {
-          "behavior_id": "2-C2",
-          "event_type": "action_select",
-          "entity": "iptv"
+          "behavior_id": "2-C3",
+          "event_type": "comparison_action",
+          "entity": "internet_iptv_bundle"
         }
       ],
       "intent_labels": {
@@ -32498,16 +33068,16 @@
         "나이": 25
       },
       "pattern_features": {
-        "action_intensity_5m": 2,
+        "action_intensity_5m": 4,
         "churn_action_count_5m": 0,
-        "comparison_action_count_5m": 1,
+        "comparison_action_count_5m": 0,
         "decision_action_count_5m": 0,
         "dominant_entity_5m": "home_service_explore",
         "entity_focus_ratio_5m": 0.5,
-        "entity_transition_pattern": "home_service_explore→internet_iptv_bundle",
-        "explored_entity_count_5m": 2,
-        "last_entity": "internet_iptv_bundle",
-        "repeated_entity_count_5m": 1,
+        "entity_transition_pattern": "iptv→home_service_explore→wifi",
+        "explored_entity_count_5m": 3,
+        "last_entity": "wifi",
+        "repeated_entity_count_5m": 2,
         "support_entry_count_5m": 0
       },
       "event_features": {
@@ -32515,8 +33085,8 @@
         "competitor_compare_entry": 0,
         "is_churn_signal": 0,
         "is_decision": 0,
-        "last_entity": "internet_iptv_bundle",
-        "last_event_type": "comparison_action",
+        "last_entity": "wifi",
+        "last_event_type": "action_select",
         "mnp_benefit_check": 0,
         "renewal_consult_submit": 0,
         "support_entry": 0,
@@ -32529,9 +33099,24 @@
           "entity": "home_service_explore"
         },
         {
-          "behavior_id": "2-C3",
-          "event_type": "comparison_action",
-          "entity": "internet_iptv_bundle"
+          "behavior_id": "2-C2",
+          "event_type": "action_select",
+          "entity": "iptv"
+        },
+        {
+          "behavior_id": "BACK",
+          "event_type": "navigate_back",
+          "entity": "back_to_step1"
+        },
+        {
+          "behavior_id": "1-C",
+          "event_type": "page_view",
+          "entity": "home_service_explore"
+        },
+        {
+          "behavior_id": "2-C4",
+          "event_type": "action_select",
+          "entity": "wifi"
         }
       ],
       "intent_labels": {
@@ -32774,16 +33359,16 @@
         "나이": 25
       },
       "pattern_features": {
-        "action_intensity_5m": 2,
+        "action_intensity_5m": 4,
         "churn_action_count_5m": 0,
         "comparison_action_count_5m": 0,
         "decision_action_count_5m": 0,
         "dominant_entity_5m": "home_service_explore",
         "entity_focus_ratio_5m": 0.5,
-        "entity_transition_pattern": "home_service_explore→internet",
-        "explored_entity_count_5m": 2,
-        "last_entity": "internet",
-        "repeated_entity_count_5m": 1,
+        "entity_transition_pattern": "internet→home_service_explore→iptv",
+        "explored_entity_count_5m": 3,
+        "last_entity": "iptv",
+        "repeated_entity_count_5m": 2,
         "support_entry_count_5m": 0
       },
       "event_features": {
@@ -32791,7 +33376,7 @@
         "competitor_compare_entry": 0,
         "is_churn_signal": 0,
         "is_decision": 0,
-        "last_entity": "internet",
+        "last_entity": "iptv",
         "last_event_type": "action_select",
         "mnp_benefit_check": 0,
         "renewal_consult_submit": 0,
@@ -32808,6 +33393,21 @@
           "behavior_id": "2-C1",
           "event_type": "action_select",
           "entity": "internet"
+        },
+        {
+          "behavior_id": "BACK",
+          "event_type": "navigate_back",
+          "entity": "back_to_step1"
+        },
+        {
+          "behavior_id": "1-C",
+          "event_type": "page_view",
+          "entity": "home_service_explore"
+        },
+        {
+          "behavior_id": "2-C2",
+          "event_type": "action_select",
+          "entity": "iptv"
         }
       ],
       "intent_labels": {
@@ -34206,13 +34806,13 @@
       "pattern_features": {
         "action_intensity_5m": 2,
         "churn_action_count_5m": 0,
-        "comparison_action_count_5m": 0,
+        "comparison_action_count_5m": 1,
         "decision_action_count_5m": 0,
         "dominant_entity_5m": "home_service_explore",
         "entity_focus_ratio_5m": 0.5,
-        "entity_transition_pattern": "home_service_explore→iptv",
+        "entity_transition_pattern": "home_service_explore→internet_iptv_bundle",
         "explored_entity_count_5m": 2,
-        "last_entity": "iptv",
+        "last_entity": "internet_iptv_bundle",
         "repeated_entity_count_5m": 1,
         "support_entry_count_5m": 0
       },
@@ -34221,8 +34821,8 @@
         "competitor_compare_entry": 0,
         "is_churn_signal": 0,
         "is_decision": 0,
-        "last_entity": "iptv",
-        "last_event_type": "action_select",
+        "last_entity": "internet_iptv_bundle",
+        "last_event_type": "comparison_action",
         "mnp_benefit_check": 0,
         "renewal_consult_submit": 0,
         "support_entry": 0,
@@ -34235,9 +34835,9 @@
           "entity": "home_service_explore"
         },
         {
-          "behavior_id": "2-C2",
-          "event_type": "action_select",
-          "entity": "iptv"
+          "behavior_id": "2-C3",
+          "event_type": "comparison_action",
+          "entity": "internet_iptv_bundle"
         }
       ],
       "intent_labels": {
@@ -34888,16 +35488,16 @@
         "나이": 25
       },
       "pattern_features": {
-        "action_intensity_5m": 2,
+        "action_intensity_5m": 4,
         "churn_action_count_5m": 0,
-        "comparison_action_count_5m": 0,
+        "comparison_action_count_5m": 1,
         "decision_action_count_5m": 0,
         "dominant_entity_5m": "home_service_explore",
         "entity_focus_ratio_5m": 0.5,
-        "entity_transition_pattern": "home_service_explore→wifi",
-        "explored_entity_count_5m": 2,
+        "entity_transition_pattern": "internet_iptv_bundle→home_service_explore→wifi",
+        "explored_entity_count_5m": 3,
         "last_entity": "wifi",
-        "repeated_entity_count_5m": 1,
+        "repeated_entity_count_5m": 2,
         "support_entry_count_5m": 0
       },
       "event_features": {
@@ -34913,6 +35513,21 @@
         "termination_penalty_check": 0
       },
       "actions": [
+        {
+          "behavior_id": "1-C",
+          "event_type": "page_view",
+          "entity": "home_service_explore"
+        },
+        {
+          "behavior_id": "2-C3",
+          "event_type": "comparison_action",
+          "entity": "internet_iptv_bundle"
+        },
+        {
+          "behavior_id": "BACK",
+          "event_type": "navigate_back",
+          "entity": "back_to_step1"
+        },
         {
           "behavior_id": "1-C",
           "event_type": "page_view",
@@ -35915,16 +36530,16 @@
         "나이": 25
       },
       "pattern_features": {
-        "action_intensity_5m": 2,
+        "action_intensity_5m": 4,
         "churn_action_count_5m": 0,
         "comparison_action_count_5m": 0,
         "decision_action_count_5m": 0,
         "dominant_entity_5m": "home_service_explore",
         "entity_focus_ratio_5m": 0.5,
-        "entity_transition_pattern": "home_service_explore→internet",
-        "explored_entity_count_5m": 2,
-        "last_entity": "internet",
-        "repeated_entity_count_5m": 1,
+        "entity_transition_pattern": "internet→home_service_explore→iptv",
+        "explored_entity_count_5m": 3,
+        "last_entity": "iptv",
+        "repeated_entity_count_5m": 2,
         "support_entry_count_5m": 0
       },
       "event_features": {
@@ -35932,7 +36547,7 @@
         "competitor_compare_entry": 0,
         "is_churn_signal": 0,
         "is_decision": 0,
-        "last_entity": "internet",
+        "last_entity": "iptv",
         "last_event_type": "action_select",
         "mnp_benefit_check": 0,
         "renewal_consult_submit": 0,
@@ -35949,6 +36564,21 @@
           "behavior_id": "2-C1",
           "event_type": "action_select",
           "entity": "internet"
+        },
+        {
+          "behavior_id": "BACK",
+          "event_type": "navigate_back",
+          "entity": "back_to_step1"
+        },
+        {
+          "behavior_id": "1-C",
+          "event_type": "page_view",
+          "entity": "home_service_explore"
+        },
+        {
+          "behavior_id": "2-C2",
+          "event_type": "action_select",
+          "entity": "iptv"
         }
       ],
       "intent_labels": {
@@ -36114,16 +36744,16 @@
         "나이": 25
       },
       "pattern_features": {
-        "action_intensity_5m": 2,
+        "action_intensity_5m": 4,
         "churn_action_count_5m": 0,
         "comparison_action_count_5m": 0,
         "decision_action_count_5m": 0,
         "dominant_entity_5m": "home_service_explore",
         "entity_focus_ratio_5m": 0.5,
-        "entity_transition_pattern": "home_service_explore→internet",
-        "explored_entity_count_5m": 2,
-        "last_entity": "internet",
-        "repeated_entity_count_5m": 1,
+        "entity_transition_pattern": "internet→home_service_explore→iptv",
+        "explored_entity_count_5m": 3,
+        "last_entity": "iptv",
+        "repeated_entity_count_5m": 2,
         "support_entry_count_5m": 0
       },
       "event_features": {
@@ -36131,7 +36761,7 @@
         "competitor_compare_entry": 0,
         "is_churn_signal": 0,
         "is_decision": 0,
-        "last_entity": "internet",
+        "last_entity": "iptv",
         "last_event_type": "action_select",
         "mnp_benefit_check": 0,
         "renewal_consult_submit": 0,
@@ -36148,6 +36778,21 @@
           "behavior_id": "2-C1",
           "event_type": "action_select",
           "entity": "internet"
+        },
+        {
+          "behavior_id": "BACK",
+          "event_type": "navigate_back",
+          "entity": "back_to_step1"
+        },
+        {
+          "behavior_id": "1-C",
+          "event_type": "page_view",
+          "entity": "home_service_explore"
+        },
+        {
+          "behavior_id": "2-C2",
+          "event_type": "action_select",
+          "entity": "iptv"
         }
       ],
       "intent_labels": {
@@ -38862,16 +39507,16 @@
         "나이": 25
       },
       "pattern_features": {
-        "action_intensity_5m": 2,
+        "action_intensity_5m": 4,
         "churn_action_count_5m": 0,
-        "comparison_action_count_5m": 0,
+        "comparison_action_count_5m": 1,
         "decision_action_count_5m": 0,
         "dominant_entity_5m": "home_service_explore",
         "entity_focus_ratio_5m": 0.5,
-        "entity_transition_pattern": "home_service_explore→wifi",
-        "explored_entity_count_5m": 2,
+        "entity_transition_pattern": "internet_iptv_bundle→home_service_explore→wifi",
+        "explored_entity_count_5m": 3,
         "last_entity": "wifi",
-        "repeated_entity_count_5m": 1,
+        "repeated_entity_count_5m": 2,
         "support_entry_count_5m": 0
       },
       "event_features": {
@@ -38887,6 +39532,21 @@
         "termination_penalty_check": 0
       },
       "actions": [
+        {
+          "behavior_id": "1-C",
+          "event_type": "page_view",
+          "entity": "home_service_explore"
+        },
+        {
+          "behavior_id": "2-C3",
+          "event_type": "comparison_action",
+          "entity": "internet_iptv_bundle"
+        },
+        {
+          "behavior_id": "BACK",
+          "event_type": "navigate_back",
+          "entity": "back_to_step1"
+        },
         {
           "behavior_id": "1-C",
           "event_type": "page_view",
@@ -40379,16 +41039,16 @@
         "나이": 25
       },
       "pattern_features": {
-        "action_intensity_5m": 2,
+        "action_intensity_5m": 4,
         "churn_action_count_5m": 0,
         "comparison_action_count_5m": 0,
         "decision_action_count_5m": 0,
         "dominant_entity_5m": "home_service_explore",
         "entity_focus_ratio_5m": 0.5,
-        "entity_transition_pattern": "home_service_explore→internet",
-        "explored_entity_count_5m": 2,
-        "last_entity": "internet",
-        "repeated_entity_count_5m": 1,
+        "entity_transition_pattern": "internet→home_service_explore→iptv",
+        "explored_entity_count_5m": 3,
+        "last_entity": "iptv",
+        "repeated_entity_count_5m": 2,
         "support_entry_count_5m": 0
       },
       "event_features": {
@@ -40396,7 +41056,7 @@
         "competitor_compare_entry": 0,
         "is_churn_signal": 0,
         "is_decision": 0,
-        "last_entity": "internet",
+        "last_entity": "iptv",
         "last_event_type": "action_select",
         "mnp_benefit_check": 0,
         "renewal_consult_submit": 0,
@@ -40413,6 +41073,21 @@
           "behavior_id": "2-C1",
           "event_type": "action_select",
           "entity": "internet"
+        },
+        {
+          "behavior_id": "BACK",
+          "event_type": "navigate_back",
+          "entity": "back_to_step1"
+        },
+        {
+          "behavior_id": "1-C",
+          "event_type": "page_view",
+          "entity": "home_service_explore"
+        },
+        {
+          "behavior_id": "2-C2",
+          "event_type": "action_select",
+          "entity": "iptv"
         }
       ],
       "intent_labels": {
@@ -41883,13 +42558,13 @@
       "pattern_features": {
         "action_intensity_5m": 2,
         "churn_action_count_5m": 0,
-        "comparison_action_count_5m": 0,
+        "comparison_action_count_5m": 1,
         "decision_action_count_5m": 0,
         "dominant_entity_5m": "home_service_explore",
         "entity_focus_ratio_5m": 0.5,
-        "entity_transition_pattern": "home_service_explore→iptv",
+        "entity_transition_pattern": "home_service_explore→internet_iptv_bundle",
         "explored_entity_count_5m": 2,
-        "last_entity": "iptv",
+        "last_entity": "internet_iptv_bundle",
         "repeated_entity_count_5m": 1,
         "support_entry_count_5m": 0
       },
@@ -41898,8 +42573,8 @@
         "competitor_compare_entry": 0,
         "is_churn_signal": 0,
         "is_decision": 0,
-        "last_entity": "iptv",
-        "last_event_type": "action_select",
+        "last_entity": "internet_iptv_bundle",
+        "last_event_type": "comparison_action",
         "mnp_benefit_check": 0,
         "renewal_consult_submit": 0,
         "support_entry": 0,
@@ -41912,9 +42587,9 @@
           "entity": "home_service_explore"
         },
         {
-          "behavior_id": "2-C2",
-          "event_type": "action_select",
-          "entity": "iptv"
+          "behavior_id": "2-C3",
+          "event_type": "comparison_action",
+          "entity": "internet_iptv_bundle"
         }
       ],
       "intent_labels": {
@@ -41973,16 +42648,16 @@
         "나이": 25
       },
       "pattern_features": {
-        "action_intensity_5m": 2,
+        "action_intensity_5m": 4,
         "churn_action_count_5m": 0,
-        "comparison_action_count_5m": 1,
+        "comparison_action_count_5m": 0,
         "decision_action_count_5m": 0,
         "dominant_entity_5m": "home_service_explore",
         "entity_focus_ratio_5m": 0.5,
-        "entity_transition_pattern": "home_service_explore→internet_iptv_bundle",
-        "explored_entity_count_5m": 2,
-        "last_entity": "internet_iptv_bundle",
-        "repeated_entity_count_5m": 1,
+        "entity_transition_pattern": "iptv→home_service_explore→wifi",
+        "explored_entity_count_5m": 3,
+        "last_entity": "wifi",
+        "repeated_entity_count_5m": 2,
         "support_entry_count_5m": 0
       },
       "event_features": {
@@ -41990,8 +42665,8 @@
         "competitor_compare_entry": 0,
         "is_churn_signal": 0,
         "is_decision": 0,
-        "last_entity": "internet_iptv_bundle",
-        "last_event_type": "comparison_action",
+        "last_entity": "wifi",
+        "last_event_type": "action_select",
         "mnp_benefit_check": 0,
         "renewal_consult_submit": 0,
         "support_entry": 0,
@@ -42004,9 +42679,24 @@
           "entity": "home_service_explore"
         },
         {
-          "behavior_id": "2-C3",
-          "event_type": "comparison_action",
-          "entity": "internet_iptv_bundle"
+          "behavior_id": "2-C2",
+          "event_type": "action_select",
+          "entity": "iptv"
+        },
+        {
+          "behavior_id": "BACK",
+          "event_type": "navigate_back",
+          "entity": "back_to_step1"
+        },
+        {
+          "behavior_id": "1-C",
+          "event_type": "page_view",
+          "entity": "home_service_explore"
+        },
+        {
+          "behavior_id": "2-C4",
+          "event_type": "action_select",
+          "entity": "wifi"
         }
       ],
       "intent_labels": {
@@ -42157,16 +42847,16 @@
         "나이": 25
       },
       "pattern_features": {
-        "action_intensity_5m": 2,
+        "action_intensity_5m": 4,
         "churn_action_count_5m": 0,
-        "comparison_action_count_5m": 1,
+        "comparison_action_count_5m": 0,
         "decision_action_count_5m": 0,
         "dominant_entity_5m": "home_service_explore",
         "entity_focus_ratio_5m": 0.5,
-        "entity_transition_pattern": "home_service_explore→internet_iptv_bundle",
-        "explored_entity_count_5m": 2,
-        "last_entity": "internet_iptv_bundle",
-        "repeated_entity_count_5m": 1,
+        "entity_transition_pattern": "iptv→home_service_explore→wifi",
+        "explored_entity_count_5m": 3,
+        "last_entity": "wifi",
+        "repeated_entity_count_5m": 2,
         "support_entry_count_5m": 0
       },
       "event_features": {
@@ -42174,8 +42864,8 @@
         "competitor_compare_entry": 0,
         "is_churn_signal": 0,
         "is_decision": 0,
-        "last_entity": "internet_iptv_bundle",
-        "last_event_type": "comparison_action",
+        "last_entity": "wifi",
+        "last_event_type": "action_select",
         "mnp_benefit_check": 0,
         "renewal_consult_submit": 0,
         "support_entry": 0,
@@ -42188,9 +42878,24 @@
           "entity": "home_service_explore"
         },
         {
-          "behavior_id": "2-C3",
-          "event_type": "comparison_action",
-          "entity": "internet_iptv_bundle"
+          "behavior_id": "2-C2",
+          "event_type": "action_select",
+          "entity": "iptv"
+        },
+        {
+          "behavior_id": "BACK",
+          "event_type": "navigate_back",
+          "entity": "back_to_step1"
+        },
+        {
+          "behavior_id": "1-C",
+          "event_type": "page_view",
+          "entity": "home_service_explore"
+        },
+        {
+          "behavior_id": "2-C4",
+          "event_type": "action_select",
+          "entity": "wifi"
         }
       ],
       "intent_labels": {
@@ -42985,16 +43690,16 @@
         "나이": 35
       },
       "pattern_features": {
-        "action_intensity_5m": 2,
+        "action_intensity_5m": 4,
         "churn_action_count_5m": 0,
-        "comparison_action_count_5m": 0,
+        "comparison_action_count_5m": 1,
         "decision_action_count_5m": 0,
         "dominant_entity_5m": "home_service_explore",
         "entity_focus_ratio_5m": 0.5,
-        "entity_transition_pattern": "home_service_explore→wifi",
-        "explored_entity_count_5m": 2,
+        "entity_transition_pattern": "internet_iptv_bundle→home_service_explore→wifi",
+        "explored_entity_count_5m": 3,
         "last_entity": "wifi",
-        "repeated_entity_count_5m": 1,
+        "repeated_entity_count_5m": 2,
         "support_entry_count_5m": 0
       },
       "event_features": {
@@ -43010,6 +43715,21 @@
         "termination_penalty_check": 0
       },
       "actions": [
+        {
+          "behavior_id": "1-C",
+          "event_type": "page_view",
+          "entity": "home_service_explore"
+        },
+        {
+          "behavior_id": "2-C3",
+          "event_type": "comparison_action",
+          "entity": "internet_iptv_bundle"
+        },
+        {
+          "behavior_id": "BACK",
+          "event_type": "navigate_back",
+          "entity": "back_to_step1"
+        },
         {
           "behavior_id": "1-C",
           "event_type": "page_view",
@@ -43261,16 +43981,16 @@
         "나이": 35
       },
       "pattern_features": {
-        "action_intensity_5m": 2,
+        "action_intensity_5m": 4,
         "churn_action_count_5m": 0,
         "comparison_action_count_5m": 0,
         "decision_action_count_5m": 0,
         "dominant_entity_5m": "home_service_explore",
         "entity_focus_ratio_5m": 0.5,
-        "entity_transition_pattern": "home_service_explore→internet",
-        "explored_entity_count_5m": 2,
-        "last_entity": "internet",
-        "repeated_entity_count_5m": 1,
+        "entity_transition_pattern": "internet→home_service_explore→iptv",
+        "explored_entity_count_5m": 3,
+        "last_entity": "iptv",
+        "repeated_entity_count_5m": 2,
         "support_entry_count_5m": 0
       },
       "event_features": {
@@ -43278,7 +43998,7 @@
         "competitor_compare_entry": 0,
         "is_churn_signal": 0,
         "is_decision": 0,
-        "last_entity": "internet",
+        "last_entity": "iptv",
         "last_event_type": "action_select",
         "mnp_benefit_check": 0,
         "renewal_consult_submit": 0,
@@ -43295,6 +44015,21 @@
           "behavior_id": "2-C1",
           "event_type": "action_select",
           "entity": "internet"
+        },
+        {
+          "behavior_id": "BACK",
+          "event_type": "navigate_back",
+          "entity": "back_to_step1"
+        },
+        {
+          "behavior_id": "1-C",
+          "event_type": "page_view",
+          "entity": "home_service_explore"
+        },
+        {
+          "behavior_id": "2-C2",
+          "event_type": "action_select",
+          "entity": "iptv"
         }
       ],
       "intent_labels": {
@@ -43721,16 +44456,16 @@
         "나이": 35
       },
       "pattern_features": {
-        "action_intensity_5m": 2,
+        "action_intensity_5m": 4,
         "churn_action_count_5m": 0,
-        "comparison_action_count_5m": 1,
+        "comparison_action_count_5m": 0,
         "decision_action_count_5m": 0,
         "dominant_entity_5m": "home_service_explore",
         "entity_focus_ratio_5m": 0.5,
-        "entity_transition_pattern": "home_service_explore→internet_iptv_bundle",
-        "explored_entity_count_5m": 2,
-        "last_entity": "internet_iptv_bundle",
-        "repeated_entity_count_5m": 1,
+        "entity_transition_pattern": "iptv→home_service_explore→wifi",
+        "explored_entity_count_5m": 3,
+        "last_entity": "wifi",
+        "repeated_entity_count_5m": 2,
         "support_entry_count_5m": 0
       },
       "event_features": {
@@ -43738,8 +44473,8 @@
         "competitor_compare_entry": 0,
         "is_churn_signal": 0,
         "is_decision": 0,
-        "last_entity": "internet_iptv_bundle",
-        "last_event_type": "comparison_action",
+        "last_entity": "wifi",
+        "last_event_type": "action_select",
         "mnp_benefit_check": 0,
         "renewal_consult_submit": 0,
         "support_entry": 0,
@@ -43752,9 +44487,24 @@
           "entity": "home_service_explore"
         },
         {
-          "behavior_id": "2-C3",
-          "event_type": "comparison_action",
-          "entity": "internet_iptv_bundle"
+          "behavior_id": "2-C2",
+          "event_type": "action_select",
+          "entity": "iptv"
+        },
+        {
+          "behavior_id": "BACK",
+          "event_type": "navigate_back",
+          "entity": "back_to_step1"
+        },
+        {
+          "behavior_id": "1-C",
+          "event_type": "page_view",
+          "entity": "home_service_explore"
+        },
+        {
+          "behavior_id": "2-C4",
+          "event_type": "action_select",
+          "entity": "wifi"
         }
       ],
       "intent_labels": {
@@ -44089,16 +44839,16 @@
         "나이": 25
       },
       "pattern_features": {
-        "action_intensity_5m": 2,
+        "action_intensity_5m": 4,
         "churn_action_count_5m": 0,
-        "comparison_action_count_5m": 1,
+        "comparison_action_count_5m": 0,
         "decision_action_count_5m": 0,
         "dominant_entity_5m": "home_service_explore",
         "entity_focus_ratio_5m": 0.5,
-        "entity_transition_pattern": "home_service_explore→internet_iptv_bundle",
-        "explored_entity_count_5m": 2,
-        "last_entity": "internet_iptv_bundle",
-        "repeated_entity_count_5m": 1,
+        "entity_transition_pattern": "iptv→home_service_explore→wifi",
+        "explored_entity_count_5m": 3,
+        "last_entity": "wifi",
+        "repeated_entity_count_5m": 2,
         "support_entry_count_5m": 0
       },
       "event_features": {
@@ -44106,8 +44856,8 @@
         "competitor_compare_entry": 0,
         "is_churn_signal": 0,
         "is_decision": 0,
-        "last_entity": "internet_iptv_bundle",
-        "last_event_type": "comparison_action",
+        "last_entity": "wifi",
+        "last_event_type": "action_select",
         "mnp_benefit_check": 0,
         "renewal_consult_submit": 0,
         "support_entry": 0,
@@ -44120,9 +44870,24 @@
           "entity": "home_service_explore"
         },
         {
-          "behavior_id": "2-C3",
-          "event_type": "comparison_action",
-          "entity": "internet_iptv_bundle"
+          "behavior_id": "2-C2",
+          "event_type": "action_select",
+          "entity": "iptv"
+        },
+        {
+          "behavior_id": "BACK",
+          "event_type": "navigate_back",
+          "entity": "back_to_step1"
+        },
+        {
+          "behavior_id": "1-C",
+          "event_type": "page_view",
+          "entity": "home_service_explore"
+        },
+        {
+          "behavior_id": "2-C4",
+          "event_type": "action_select",
+          "entity": "wifi"
         }
       ],
       "intent_labels": {
@@ -44934,13 +45699,13 @@
       "pattern_features": {
         "action_intensity_5m": 2,
         "churn_action_count_5m": 0,
-        "comparison_action_count_5m": 0,
+        "comparison_action_count_5m": 1,
         "decision_action_count_5m": 0,
         "dominant_entity_5m": "home_service_explore",
         "entity_focus_ratio_5m": 0.5,
-        "entity_transition_pattern": "home_service_explore→iptv",
+        "entity_transition_pattern": "home_service_explore→internet_iptv_bundle",
         "explored_entity_count_5m": 2,
-        "last_entity": "iptv",
+        "last_entity": "internet_iptv_bundle",
         "repeated_entity_count_5m": 1,
         "support_entry_count_5m": 0
       },
@@ -44949,8 +45714,8 @@
         "competitor_compare_entry": 0,
         "is_churn_signal": 0,
         "is_decision": 0,
-        "last_entity": "iptv",
-        "last_event_type": "action_select",
+        "last_entity": "internet_iptv_bundle",
+        "last_event_type": "comparison_action",
         "mnp_benefit_check": 0,
         "renewal_consult_submit": 0,
         "support_entry": 0,
@@ -44963,9 +45728,9 @@
           "entity": "home_service_explore"
         },
         {
-          "behavior_id": "2-C2",
-          "event_type": "action_select",
-          "entity": "iptv"
+          "behavior_id": "2-C3",
+          "event_type": "comparison_action",
+          "entity": "internet_iptv_bundle"
         }
       ],
       "intent_labels": {
@@ -45024,16 +45789,16 @@
         "나이": 35
       },
       "pattern_features": {
-        "action_intensity_5m": 2,
+        "action_intensity_5m": 4,
         "churn_action_count_5m": 0,
-        "comparison_action_count_5m": 0,
+        "comparison_action_count_5m": 1,
         "decision_action_count_5m": 0,
         "dominant_entity_5m": "home_service_explore",
         "entity_focus_ratio_5m": 0.5,
-        "entity_transition_pattern": "home_service_explore→wifi",
-        "explored_entity_count_5m": 2,
+        "entity_transition_pattern": "internet_iptv_bundle→home_service_explore→wifi",
+        "explored_entity_count_5m": 3,
         "last_entity": "wifi",
-        "repeated_entity_count_5m": 1,
+        "repeated_entity_count_5m": 2,
         "support_entry_count_5m": 0
       },
       "event_features": {
@@ -45049,6 +45814,21 @@
         "termination_penalty_check": 0
       },
       "actions": [
+        {
+          "behavior_id": "1-C",
+          "event_type": "page_view",
+          "entity": "home_service_explore"
+        },
+        {
+          "behavior_id": "2-C3",
+          "event_type": "comparison_action",
+          "entity": "internet_iptv_bundle"
+        },
+        {
+          "behavior_id": "BACK",
+          "event_type": "navigate_back",
+          "entity": "back_to_step1"
+        },
         {
           "behavior_id": "1-C",
           "event_type": "page_view",
@@ -45792,13 +46572,13 @@
       "pattern_features": {
         "action_intensity_5m": 2,
         "churn_action_count_5m": 0,
-        "comparison_action_count_5m": 0,
+        "comparison_action_count_5m": 1,
         "decision_action_count_5m": 0,
         "dominant_entity_5m": "home_service_explore",
         "entity_focus_ratio_5m": 0.5,
-        "entity_transition_pattern": "home_service_explore→iptv",
+        "entity_transition_pattern": "home_service_explore→internet_iptv_bundle",
         "explored_entity_count_5m": 2,
-        "last_entity": "iptv",
+        "last_entity": "internet_iptv_bundle",
         "repeated_entity_count_5m": 1,
         "support_entry_count_5m": 0
       },
@@ -45807,8 +46587,8 @@
         "competitor_compare_entry": 0,
         "is_churn_signal": 0,
         "is_decision": 0,
-        "last_entity": "iptv",
-        "last_event_type": "action_select",
+        "last_entity": "internet_iptv_bundle",
+        "last_event_type": "comparison_action",
         "mnp_benefit_check": 0,
         "renewal_consult_submit": 0,
         "support_entry": 0,
@@ -45821,9 +46601,9 @@
           "entity": "home_service_explore"
         },
         {
-          "behavior_id": "2-C2",
-          "event_type": "action_select",
-          "entity": "iptv"
+          "behavior_id": "2-C3",
+          "event_type": "comparison_action",
+          "entity": "internet_iptv_bundle"
         }
       ],
       "intent_labels": {
@@ -45882,16 +46662,16 @@
         "나이": 25
       },
       "pattern_features": {
-        "action_intensity_5m": 2,
+        "action_intensity_5m": 4,
         "churn_action_count_5m": 0,
-        "comparison_action_count_5m": 0,
+        "comparison_action_count_5m": 1,
         "decision_action_count_5m": 0,
         "dominant_entity_5m": "home_service_explore",
         "entity_focus_ratio_5m": 0.5,
-        "entity_transition_pattern": "home_service_explore→wifi",
-        "explored_entity_count_5m": 2,
+        "entity_transition_pattern": "internet_iptv_bundle→home_service_explore→wifi",
+        "explored_entity_count_5m": 3,
         "last_entity": "wifi",
-        "repeated_entity_count_5m": 1,
+        "repeated_entity_count_5m": 2,
         "support_entry_count_5m": 0
       },
       "event_features": {
@@ -45907,6 +46687,21 @@
         "termination_penalty_check": 0
       },
       "actions": [
+        {
+          "behavior_id": "1-C",
+          "event_type": "page_view",
+          "entity": "home_service_explore"
+        },
+        {
+          "behavior_id": "2-C3",
+          "event_type": "comparison_action",
+          "entity": "internet_iptv_bundle"
+        },
+        {
+          "behavior_id": "BACK",
+          "event_type": "navigate_back",
+          "entity": "back_to_step1"
+        },
         {
           "behavior_id": "1-C",
           "event_type": "page_view",
@@ -46250,16 +47045,16 @@
         "나이": 35
       },
       "pattern_features": {
-        "action_intensity_5m": 2,
+        "action_intensity_5m": 4,
         "churn_action_count_5m": 0,
         "comparison_action_count_5m": 0,
         "decision_action_count_5m": 0,
         "dominant_entity_5m": "home_service_explore",
         "entity_focus_ratio_5m": 0.5,
-        "entity_transition_pattern": "home_service_explore→internet",
-        "explored_entity_count_5m": 2,
-        "last_entity": "internet",
-        "repeated_entity_count_5m": 1,
+        "entity_transition_pattern": "internet→home_service_explore→iptv",
+        "explored_entity_count_5m": 3,
+        "last_entity": "iptv",
+        "repeated_entity_count_5m": 2,
         "support_entry_count_5m": 0
       },
       "event_features": {
@@ -46267,7 +47062,7 @@
         "competitor_compare_entry": 0,
         "is_churn_signal": 0,
         "is_decision": 0,
-        "last_entity": "internet",
+        "last_entity": "iptv",
         "last_event_type": "action_select",
         "mnp_benefit_check": 0,
         "renewal_consult_submit": 0,
@@ -46284,6 +47079,21 @@
           "behavior_id": "2-C1",
           "event_type": "action_select",
           "entity": "internet"
+        },
+        {
+          "behavior_id": "BACK",
+          "event_type": "navigate_back",
+          "entity": "back_to_step1"
+        },
+        {
+          "behavior_id": "1-C",
+          "event_type": "page_view",
+          "entity": "home_service_explore"
+        },
+        {
+          "behavior_id": "2-C2",
+          "event_type": "action_select",
+          "entity": "iptv"
         }
       ],
       "intent_labels": {
@@ -47016,16 +47826,16 @@
         "나이": 25
       },
       "pattern_features": {
-        "action_intensity_5m": 2,
+        "action_intensity_5m": 4,
         "churn_action_count_5m": 0,
-        "comparison_action_count_5m": 1,
+        "comparison_action_count_5m": 0,
         "decision_action_count_5m": 0,
         "dominant_entity_5m": "home_service_explore",
         "entity_focus_ratio_5m": 0.5,
-        "entity_transition_pattern": "home_service_explore→internet_iptv_bundle",
-        "explored_entity_count_5m": 2,
-        "last_entity": "internet_iptv_bundle",
-        "repeated_entity_count_5m": 1,
+        "entity_transition_pattern": "iptv→home_service_explore→wifi",
+        "explored_entity_count_5m": 3,
+        "last_entity": "wifi",
+        "repeated_entity_count_5m": 2,
         "support_entry_count_5m": 0
       },
       "event_features": {
@@ -47033,8 +47843,8 @@
         "competitor_compare_entry": 0,
         "is_churn_signal": 0,
         "is_decision": 0,
-        "last_entity": "internet_iptv_bundle",
-        "last_event_type": "comparison_action",
+        "last_entity": "wifi",
+        "last_event_type": "action_select",
         "mnp_benefit_check": 0,
         "renewal_consult_submit": 0,
         "support_entry": 0,
@@ -47047,9 +47857,24 @@
           "entity": "home_service_explore"
         },
         {
-          "behavior_id": "2-C3",
-          "event_type": "comparison_action",
-          "entity": "internet_iptv_bundle"
+          "behavior_id": "2-C2",
+          "event_type": "action_select",
+          "entity": "iptv"
+        },
+        {
+          "behavior_id": "BACK",
+          "event_type": "navigate_back",
+          "entity": "back_to_step1"
+        },
+        {
+          "behavior_id": "1-C",
+          "event_type": "page_view",
+          "entity": "home_service_explore"
+        },
+        {
+          "behavior_id": "2-C4",
+          "event_type": "action_select",
+          "entity": "wifi"
         }
       ],
       "intent_labels": {
