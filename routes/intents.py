@@ -18,12 +18,12 @@ async def get_latest_intents(session_id: str, top_n: int = 5) -> dict:
 
     # 최신 stage 찾기
     row = ex.fetchone(
-        "SELECT stage FROM sessions WHERE id = ?",
+        "SELECT stage, scenario_id FROM sessions WHERE id = ?",
         [session_id],
     )
     if row is None:
         raise HTTPException(404, "Session not found")
-    stage = row[0]
+    stage, scenario_id = row[0], row[1]
 
     df = ex.to_pandas(
         "SELECT intent_id, baseline_score, final_score, delta_score, "
@@ -32,9 +32,11 @@ async def get_latest_intents(session_id: str, top_n: int = 5) -> dict:
         [session_id, stage, top_n],
     )
 
-    # Intent 메타 조회
+    # Intent 메타 조회 (해당 시나리오)
     df_meta = ex.to_pandas(
-        "SELECT intent_id, intent_name, L1_id, L1_name, L2_id, L2_name FROM catalog_intents"
+        "SELECT intent_id, intent_name, L1_id, L1_name, L2_id, L2_name "
+        "FROM catalog_intents WHERE scenario_id = ?",
+        [scenario_id],
     )
     meta_by_id = {r["intent_id"]: r for _, r in df_meta.iterrows()}
 

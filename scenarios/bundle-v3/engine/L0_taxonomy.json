@@ -1,7 +1,7 @@
 {
   "scenario_id": "bundle-v3",
   "version": "0.1.0",
-  "description": "결합 상품 활성화 시나리오 Intent Taxonomy (PDF [2] 기반, 5 L1 · 50 L3)",
+  "description": "결합 상품 활성화 시나리오 Intent Taxonomy",
   "intents": [
     {
       "id": "INT-B1110",

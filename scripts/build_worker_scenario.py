@@ -3,7 +3,7 @@
 직장인(worker-v3) 시나리오 카탈로그 생성기.
 
 단일 TAXONOMY 정의로부터 intents.json / actions.json / behavior_intents.json 생성.
-PDF [3] 시나리오_직장인:
+시나리오_직장인:
   1.1 직장인 Domain Intent Taxonomy (L1 2 · L2 9)
   3.1 앱 선택지 (10개 앱 단일 선택)
   4.2 활용 방안 (MyKT 앱 Push 단일 채널)
@@ -14,8 +14,12 @@ PDF [3] 시나리오_직장인:
 """
 from __future__ import annotations
 
-import json
+import sys
 from pathlib import Path
+
+sys.path.insert(0, str(Path(__file__).parent.parent))
+
+from scripts._scenario_common import emit_layers  # noqa: E402
 
 SCENARIO_ID = "worker-v3"
 OUT_DIR = Path(__file__).parent.parent / "scenarios" / SCENARIO_ID
@@ -85,7 +89,7 @@ def build_intents():
             "inference_type": t["type"], "features": t["features"],
         })
     return {"scenario_id": SCENARIO_ID, "version": "0.1.0",
-            "description": "직장인 번아웃/회복 시나리오 Intent Taxonomy (PDF [3], L1 2 · L2 9)",
+            "description": "직장인 번아웃/회복 시나리오 Intent Taxonomy",
             "intents": intents}
 
 
@@ -101,7 +105,7 @@ def build_actions():
         iid = f"INT-W{t['key']}"
         actions[iid] = {"push": t["push"], "service": t["service"]}
     return {"scenario_id": SCENARIO_ID, "version": "0.1.0",
-            "description": "직장인 시나리오 Intent별 MyKT 앱 Push 활용 예시 (PDF [3] 4.2)",
+            "description": "직장인 시나리오 Intent별 MyKT 앱 Push 활용 예시",
             "channels": CHANNELS, "actions": actions}
 
 
@@ -117,12 +121,12 @@ def build_behavior_intents():
 
 
 def main():
-    OUT_DIR.mkdir(parents=True, exist_ok=True)
-    for fname, data in [("intents.json", build_intents()),
-                        ("actions.json", build_actions()),
-                        ("behavior_intents.json", build_behavior_intents())]:
-        json.dump(data, open(OUT_DIR / fname, "w", encoding="utf-8"), ensure_ascii=False, indent=2)
-        print(f"Wrote {OUT_DIR / fname}")
+    emit_layers(
+        OUT_DIR / "engine",
+        taxonomy=build_intents(),
+        context_library=build_actions(),
+        behavior_signals=build_behavior_intents()["entity_intents"],
+    )
     from collections import Counter
     ints = build_intents()["intents"]
     print("inference_type:", Counter(i["inference_type"] for i in ints))

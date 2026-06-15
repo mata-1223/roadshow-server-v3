@@ -1,6 +1,6 @@
 -- ────────────────────────────────────────────────────────────
 -- roadshow-server-v3 DuckDB Schema
--- 시나리오: cs-myk-v3
+-- 시나리오: cs-myk-v3 / bundle-v3 / worker-v3
 -- ────────────────────────────────────────────────────────────
 
 -- 시나리오 메타
@@ -11,35 +11,41 @@ CREATE TABLE IF NOT EXISTS scenarios (
     description  TEXT
 );
 
--- Intent 카탈로그 (116개)
+-- Intent 카탈로그 (시나리오별)
 CREATE TABLE IF NOT EXISTS catalog_intents (
-    intent_id        VARCHAR PRIMARY KEY,
+    scenario_id      VARCHAR NOT NULL,
+    intent_id        VARCHAR NOT NULL,
     intent_name      VARCHAR NOT NULL,
     L1_id            VARCHAR NOT NULL,
     L1_name          VARCHAR NOT NULL,
     L2_id            VARCHAR NOT NULL,
     L2_name          VARCHAR NOT NULL,
     inference_type   VARCHAR NOT NULL,    -- 'Rule' | 'Model'
-    features_json    VARCHAR              -- JSON array
+    features_json    VARCHAR,             -- JSON array
+    PRIMARY KEY (scenario_id, intent_id)
 );
 
--- Action 카탈로그
+-- Action 카탈로그 (시나리오별)
 CREATE TABLE IF NOT EXISTS catalog_actions (
-    action_id        VARCHAR PRIMARY KEY,
+    scenario_id      VARCHAR NOT NULL,
+    action_id        VARCHAR NOT NULL,
     action_name      VARCHAR NOT NULL,
     intents_json     VARCHAR NOT NULL,
     condition        VARCHAR,
     channel          VARCHAR NOT NULL,
-    message          VARCHAR
+    message          VARCHAR,
+    PRIMARY KEY (scenario_id, action_id)
 );
 
--- Behavior 카탈로그
+-- Behavior 카탈로그 (시나리오별)
 CREATE TABLE IF NOT EXISTS catalog_behaviors (
-    behavior_id      VARCHAR PRIMARY KEY,
+    scenario_id      VARCHAR NOT NULL,
+    behavior_id      VARCHAR NOT NULL,
     step             INTEGER NOT NULL,
     behavior_name    VARCHAR NOT NULL,
     event_type       VARCHAR NOT NULL,
-    entity           VARCHAR NOT NULL
+    entity           VARCHAR NOT NULL,
+    PRIMARY KEY (scenario_id, behavior_id)
 );
 
 -- ────────────────────────────────────────────────────────────

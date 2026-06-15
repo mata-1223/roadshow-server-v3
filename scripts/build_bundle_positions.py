@@ -4,6 +4,10 @@ import json
 import math
 from datetime import datetime
 from pathlib import Path
+import sys
+
+sys.path.insert(0, str(Path(__file__).parent.parent))
+from core.engines import config
 
 L1_ZONES = {
     "INT-B1000": {"L1_name": "가입 확대",       "centroid": (-0.55,  0.55), "color": "#10b981"},
@@ -13,6 +17,8 @@ L1_ZONES = {
     "INT-B5000": {"L1_name": "이탈 검토",       "centroid": ( 0.60, -0.55), "color": "#1f2937"},
 }
 ZONE_RADIUS = 0.22
+
+SCENARIO_ID = "bundle-v3"
 
 
 def _place(i: int, total: int, centroid):
@@ -25,8 +31,8 @@ def _place(i: int, total: int, centroid):
 
 
 def main():
-    sdir = Path(__file__).parent.parent / "scenarios" / "bundle-v3"
-    intents = json.load(open(sdir / "intents.json", encoding="utf-8"))["intents"]
+    sdir = Path(__file__).parent.parent / "scenarios" / SCENARIO_ID
+    intents = config.get_taxonomy(SCENARIO_ID)["intents"]
     by_l1 = {}
     for it in intents:
         by_l1.setdefault(it["L1_id"], []).append(it)
