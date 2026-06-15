@@ -431,31 +431,28 @@
       {
         "id": "Q13",
         "block": "usage_context",
-        "dimension": "로밍 맥락",
-        "question": "최근 1년 해외 방문 빈도는?",
+        "dimension": "로밍 이용",
+        "question": "최근 1년간 로밍 이용 빈도는?",
         "options": [
           {
             "code": "A",
             "label": "없음",
             "features": {
-              "로밍 이력": 0,
-              "해외 출국 빈도": 0
+              "로밍 이력": 0
             }
           },
           {
             "code": "B",
             "label": "1~2회",
             "features": {
-              "로밍 이력": 1,
-              "해외 출국 빈도": 1
+              "로밍 이력": 1
             }
           },
           {
             "code": "C",
             "label": "3회 이상",
             "features": {
-              "로밍 이력": 3,
-              "해외 출국 빈도": 3
+              "로밍 이력": 3
             }
           }
         ]
