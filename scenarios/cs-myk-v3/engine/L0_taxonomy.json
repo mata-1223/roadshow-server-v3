@@ -49,8 +49,7 @@
       "L2_name": "사용량 조회",
       "inference_type": "Rule",
       "features": [
-        "로밍 이력",
-        "해외 출국 빈도"
+        "로밍 이력"
       ]
     },
     {
