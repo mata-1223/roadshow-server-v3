@@ -54,14 +54,22 @@ def _cond(spec: dict, features: dict) -> bool:
 
 
 def eval_formula(node: Any, features: dict) -> float:
-    """수식 spec → float. (시나리오 무관)"""
+    """수식 spec → float. (시나리오 무관). dict 노드는 결과에 div→mul 후처리(연산순서 재현)."""
     if isinstance(node, bool):
         return float(node)
     if isinstance(node, (int, float)):
         return float(node)
     if not isinstance(node, dict):
         raise ValueError(f"invalid formula node: {node!r}")
+    v = _raw(node, features)
+    if "div" in node:                      # 후처리 (a*x+b)/div*mul 등 원본 연산순서 재현
+        v = v / node["div"]
+    if "mul" in node:
+        v = v * node["mul"]
+    return v
 
+
+def _raw(node: dict, features: dict) -> float:
     if "py" in node:
         return float(_load_py(node["py"])(features))
 
@@ -92,11 +100,14 @@ def eval_formula(node: Any, features: dict) -> float:
         branch = node["then"] if _cond(node["if"], features) else node.get("else", 0.0)
         return eval_formula(branch, features)
 
+    if "feat" in node and "map" in node:           # 범주값 → 가중치 lookup
+        return float(node["map"].get(features.get(node["feat"]), node.get("default", 0.0)))
+
     if "feat" in node and "threshold" in node:
         x = g(features, node["feat"], node.get("default", 0.0))
-        for t, v in node["threshold"]:
+        for t, val in node["threshold"]:
             if x >= t:
-                return float(v)
+                return float(val)
         return float(node.get("default", 0.0))
 
     if "feat" in node and "linear" in node:
@@ -108,11 +119,8 @@ def eval_formula(node: Any, features: dict) -> float:
                 x = max(lo, x)
             if hi is not None:
                 x = min(hi, x)
-        v = a * x + b
-        if "div" in node:                  # 원본 연산순서 재현: (a*x+b)/div*mul
-            v = v / node["div"]
-        if "mul" in node:
-            v = v * node["mul"]
-        return v
+        return a * x + b
+
+    raise ValueError(f"unknown formula node: {node!r}")
 
     raise ValueError(f"unknown formula node: {node!r}")

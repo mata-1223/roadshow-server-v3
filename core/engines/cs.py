@@ -27,14 +27,6 @@ _DEFAULT_FEATURES = {
 }
 
 
-# ── 사용 패턴별 데이터 사용 가중치 ──────────────────────────
-_PATTERN_WEIGHT = {
-    "데이터 헤비":   0.90,
-    "음성 헤비":     0.20,
-    "콘텐츠 헤비":   0.60,
-    "업무 헤비":     0.50,
-}
-
 # ── 결합 형태별 가중치 (0~1) ───────────────────────────────
 _BUNDLE_WEIGHT = {
     "none":         0.0,
@@ -120,26 +112,6 @@ def _extract_base(answers: dict[str, str]) -> dict[str, Any]:
     return base
 
 
-def _build_delta(base: dict[str, Any]) -> dict[str, float]:
-    """이전 시점 대비 변화량 (시연용 시뮬값)"""
-    data_rate = float(base.get("데이터 사용률", 0.4))
-    if data_rate >= 0.8:
-        data_delta = 0.18
-    elif data_rate >= 0.6:
-        data_delta = 0.08
-    else:
-        data_delta = 0.02
-
-    bill = float(base.get("요금제 월정액", 55000))
-    avg_bill = bill * 0.92
-    bill_delta = (bill - avg_bill) / avg_bill
-
-    return {
-        "데이터 사용 증감률": round(data_delta, 4),
-        "청구 증감률":        round(bill_delta, 4),
-    }
-
-
 def _build_ratio(base: dict[str, Any]) -> dict[str, float]:
     """구성비"""
     tenure = float(base.get("가입 개월 수", 24))
@@ -158,151 +130,18 @@ def _build_ratio(base: dict[str, Any]) -> dict[str, float]:
     }
 
 
-def _build_index(base: dict[str, Any], delta: dict[str, float], ratio: dict[str, float]) -> dict[str, float]:
-    """정규화 지표 0~100"""
-    burden = float(base.get("비용 부담도", 0.5))
-    fee = float(base.get("요금제 월정액", 55000)) / 100000.0
-    billing_sens = (burden * 0.6 + fee * 0.4) * 100
-
-    tenure = float(base.get("가입 개월 수", 24)) / 84.0
-    bundle = _BUNDLE_WEIGHT.get(str(base.get("결합 형태", "none")), 0.0)
-    family = float(base.get("가족 회선 수", 1)) / 5.0
-    cust_value = (tenure * 0.4 + bundle * 0.3 + min(family, 1.0) * 0.3) * 100
-
-    data_rate = float(base.get("데이터 사용률", 0.4))
-    pattern_w = _PATTERN_WEIGHT.get(str(base.get("사용 패턴", "데이터 헤비")), 0.50)
-    usage_intensity = (data_rate * 0.5 + pattern_w * 0.5) * 100
-
-    ott = float(base.get("OTT 사용 빈도", 0.50))
-    member = float(base.get("멤버십 활용도", 0.45))
-    explore = (ott * 0.6 + member * 0.4) * 100
-
-    return {
-        "요금 민감도 Index":     round(billing_sens, 2),
-        "고객 가치 Index":        round(cust_value, 2),
-        "사용 강도 Index":        round(usage_intensity, 2),
-        "탐색 성향 Index":        round(explore, 2),
-    }
-
-
-def _build_score(base: dict[str, Any], index: dict[str, float]) -> dict[str, float]:
-    """
-    ML 예측 점수 (0~1).
-
-    7개 Score:
-      1. 이탈 위험 Score      (기존)
-      2. 추천 적합도 Score    (기존)
-      3. 품질 불만 Score      (기존)
-      4. 결합 확장 Score      (기존)
-      5. 업셀 적합도 Score    (신설)
-      6. 단말 교체 의향 Score (신설)
-      7. 로밍 의향 Score      (신설)
-    """
-    satisfaction = float(base.get("품질 만족도", 0.55))
-    burden = float(base.get("비용 부담도", 0.5))
-    tenure_pct = min(float(base.get("가입 개월 수", 24)) / 84.0, 1.0)
-    cs_count = float(base.get("30일 상담 횟수", 0)) / 5.0
-    data_rate = float(base.get("데이터 사용률", 0.4))
-    remaining = float(base.get("잔여 데이터 비율", 0.6))
-    bundle_w = _BUNDLE_WEIGHT.get(str(base.get("결합 형태", "none")), 0.0)
-    ott = float(base.get("OTT 사용 빈도", 0.50))
-    member = float(base.get("멤버십 활용도", 0.45))
-    age = float(base.get("나이", 35))
-    pattern = str(base.get("사용 패턴", "데이터 헤비"))
-    device_months = float(base.get("단말 사용 기간", 18))
-    contract_pct = min(float(base.get("가입 개월 수", 24)) / 24.0, 1.0)
-    roaming_history = float(base.get("로밍 이력", 0))
-    bill_shock = float(base.get("청구 급증 경험 6m", 0))
-    quality_cs = float(base.get("품질 CS 문의 3m", 0))
-
-    # 1. 이탈 위험 — 행동 지표 직접 반영 (청구 급증·품질 CS·비용 부담·신규 고객)
-    churn = (
-        min(quality_cs / 3.0, 1.0) * 0.30
-        + min(bill_shock / 3.0, 1.0) * 0.30
-        + burden * 0.25
-        + (1 - tenure_pct) * 0.15
-    )
-
-    # 2. 추천 적합도 — OTT 사용 빈도가 콘텐츠 수용도를 대변
-    rec_fit = (
-        index["고객 가치 Index"] / 100 * 0.40
-        + ott * 0.30
-        + index["사용 강도 Index"] / 100 * 0.30
-    )
-
-    # 3. 품질 불만 — 품질 CS 문의 직접 활용
-    quality_complaint = (
-        min(quality_cs / 3.0, 1.0) * 0.7
-        + (1 - satisfaction) * 0.3
-    )
-
-    # 4. 결합 확장
-    bundle_expand = (
-        bundle_w * 0.4
-        + min(float(base.get("가족 회선 수", 1)) / 5.0, 1.0) * 0.3
-        + index["고객 가치 Index"] / 100 * 0.3
-    )
-
-    # 5. 업셀 적합도 — 사용량·결합·청구 안정성
-    upsell_fit = (
-        data_rate * 0.30
-        + (1 - remaining) * 0.25
-        + bundle_w * 0.20
-        + tenure_pct * 0.10
-        + max(0, 1 - bill_shock / 3.0) * 0.15
-    )
-
-    # 6. 단말 교체 의향
-    # 단말 오래 사용 + 약정 진행률 + OTT 시청(콘텐츠 헤비) + 데이터 패턴
-    device_score = min(device_months / 36.0, 1.0)
-    pattern_for_device = 1.0 if pattern in ("데이터 헤비", "콘텐츠 헤비") else 0.5
-    device_change_intent = (
-        device_score * 0.40
-        + contract_pct * 0.25
-        + ott * 0.15
-        + pattern_for_device * 0.20
-    )
-
-    # 7. 로밍 의향 (신설)
-    # 로밍 이력 + 사용 패턴 + 비용 부담 반대
-    roaming_intent = (
-        min(roaming_history / 3.0, 1.0) * 0.80
-        + (1 - burden) * 0.10
-        + (0.5 if pattern == "업무 헤비" else 0.2) * 0.10
-    )
-
-    return {
-        "이탈 위험 Score":         round(churn, 4),
-        "추천 적합도 Score":       round(rec_fit, 4),
-        "품질 불만 Score":         round(quality_complaint, 4),
-        "결합 확장 Score":         round(bundle_expand, 4),
-        "업셀 적합도 Score":       round(upsell_fit, 4),
-        "단말 교체 의향 Score":    round(device_change_intent, 4),
-        "로밍 의향 Score":         round(roaming_intent, 4),
-    }
-
-
 # ── Public API ────────────────────────────────────────────────
 
 def build_batch_features(survey_answers: dict[str, str]) -> dict[str, Any]:
     """
-    설문 답변(dict) → Batch Feature(dict)
+    설문 답변(dict) → Batch Feature(dict).
 
-    Parameters
-    ----------
-    survey_answers : {"Q1": "A", ..., "Q14": "B"}
-
-    Returns
-    -------
-    dict : Base(~18) + Delta(2) + Ratio(2) + Index(4) + Score(7)
+    Base(proxy 추정·자동납부/등급 시뮬)와 가족결합비중은 불규칙 → Python(_extract_base/_build_ratio).
+    Delta·Index·Score(선언형 수식)는 L1_feature.json:batch_builder → extract.run_batch_builder.
     """
     base = _extract_base(survey_answers)
-    delta = _build_delta(base)
     ratio = _build_ratio(base)
-    index = _build_index(base, delta, ratio)
-    score = _build_score(base, index)
-
-    return {**base, **delta, **ratio, **index, **score}
+    return extract.run_batch_builder({**base, **ratio}, config.get_batch_builder("cs-myk-v3"))
 
 
 # ═════════════════ [1c]/[1b] Pattern·Event Extractor (선언형) ═════════════════
