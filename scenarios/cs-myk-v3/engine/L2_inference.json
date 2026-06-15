@@ -1381,6 +1381,7 @@
     "probability_temperature": 0.15
   },
   "model": {
+    "backend": "sklearn",
     "training_data": {
       "INT-2130": {
         "features": [

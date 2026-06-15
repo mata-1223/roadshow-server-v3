@@ -3,15 +3,13 @@ from __future__ import annotations
 엔진 공유 메커니즘 (시나리오 무관).
 
 - micro-helper: clamp / clamp01 / g
-- Model 오케스트레이션: model_predict(...)        — raw sklearn predict + 휴리스틱 폴백
+- Model 오케스트레이션: model_predict(...)        — 백엔드 predict + 휴리스틱 폴백
   (Rule 오케스트레이션은 formula.rule_predict — 선언형 spec 평가로 이전)
 
-시나리오 차이(rules/training_data/ranges/scale/invert)는 인자로 주입한다.
-models/(raw sklearn predict / 룰 함수)에는 의존하지만, models/는 common을 import하지 않는다(단방향).
+시나리오 차이(training_data/ranges/scale/invert)와 ML 백엔드(backend)는 인자로 주입한다.
+특정 ML 구현(sklearn/torch…)에 의존하지 않는다 — 백엔드는 models.get_backend로 호출자가 해결.
 """
 from typing import Any
-
-from models import sklearn_model
 
 
 # ── micro-helper ──────────────────────────────────────────────
@@ -69,6 +67,7 @@ def model_predict(
     intent_id: str,
     features: dict[str, Any],
     *,
+    backend: Any,
     training_data: dict,
     dataset_path,
     model_prefix: str,
@@ -76,7 +75,7 @@ def model_predict(
     scale: float,
     invert: frozenset = frozenset(),
 ) -> float:
-    """학습된 sklearn 모델 우선, 없으면 휴리스틱 폴백."""
+    """학습된 모델(backend.predict) 우선, 없으면 휴리스틱 폴백. backend는 호출자가 주입(sklearn/torch…)."""
     def heur():
         return model_heuristic(intent_id, features, training_data=training_data,
                                ranges=ranges, scale=scale, invert=invert)
@@ -84,8 +83,8 @@ def model_predict(
     if not dataset_path.exists():
         return heur()
     try:
-        p = sklearn_model.predict(intent_id, features, training_data=training_data,
-                                  dataset_path=dataset_path, model_prefix=model_prefix)
+        p = backend.predict(intent_id, features, training_data=training_data,
+                            dataset_path=dataset_path, model_prefix=model_prefix)
         return p if p > 0.0 else heur()
     except Exception:
         return heur()
