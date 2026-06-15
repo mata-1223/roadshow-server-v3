@@ -21,3 +21,6 @@ mlruns_*/
 .idea/
 .DS_Store
 *.log
+
+# 내부 문서 (배포 제외)
+.documents/

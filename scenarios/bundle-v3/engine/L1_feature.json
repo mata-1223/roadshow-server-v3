@@ -1,0 +1,7 @@
+{
+  "_note": "L1 처리 config는 Phase 2에서 채움. 현재 Index/Score·event·pattern 수식은 Python 엔진(core/engines/*)에 있음.",
+  "preprocessing": {},
+  "batch_builder": {},
+  "event": {},
+  "pattern": {}
+}

@@ -1,0 +1,657 @@
+{
+  "scenario_id": "bundle-v3",
+  "version": "0.1.0",
+  "description": "결합 상품 활성화 시나리오 Intent Taxonomy",
+  "intents": [
+    {
+      "id": "INT-B1110",
+      "name": "가족 결합 가능 여부 확인",
+      "L1_id": "INT-B1000",
+      "L1_name": "가입 확대",
+      "L2_id": "INT-B1100",
+      "L2_name": "결합 가능 여부 탐색",
+      "inference_type": "Rule",
+      "features": [
+        "family_line_count",
+        "Bundle Opportunity Index"
+      ]
+    },
+    {
+      "id": "INT-B1120",
+      "name": "인터넷/IPTV 결합 가능 여부 확인",
+      "L1_id": "INT-B1000",
+      "L1_name": "가입 확대",
+      "L2_id": "INT-B1100",
+      "L2_name": "결합 가능 여부 탐색",
+      "inference_type": "Rule",
+      "features": [
+        "service_coverage_ratio",
+        "Bundle Opportunity Index"
+      ]
+    },
+    {
+      "id": "INT-B1130",
+      "name": "현재 요금제 기반 결합 가능 여부 확인",
+      "L1_id": "INT-B1000",
+      "L1_name": "가입 확대",
+      "L2_id": "INT-B1100",
+      "L2_name": "결합 가능 여부 탐색",
+      "inference_type": "Rule",
+      "features": [
+        "plan_tier",
+        "Bundle Opportunity Index"
+      ]
+    },
+    {
+      "id": "INT-B1210",
+      "name": "할인 중심 결합 상품 탐색",
+      "L1_id": "INT-B1000",
+      "L1_name": "가입 확대",
+      "L2_id": "INT-B1200",
+      "L2_name": "결합 상품 탐색",
+      "inference_type": "Model",
+      "features": [
+        "non_mobile_cost_gap",
+        "Benefit Optimization Index"
+      ]
+    },
+    {
+      "id": "INT-B1220",
+      "name": "데이터 혜택 중심 결합 상품 탐색",
+      "L1_id": "INT-B1000",
+      "L1_name": "가입 확대",
+      "L2_id": "INT-B1200",
+      "L2_name": "결합 상품 탐색",
+      "inference_type": "Model",
+      "features": [
+        "content_view_mode",
+        "Benefit Engagement Index"
+      ]
+    },
+    {
+      "id": "INT-B1230",
+      "name": "프리미엄 혜택 중심 결합 상품 탐색",
+      "L1_id": "INT-B1000",
+      "L1_name": "가입 확대",
+      "L2_id": "INT-B1200",
+      "L2_name": "결합 상품 탐색",
+      "inference_type": "Model",
+      "features": [
+        "plan_tier",
+        "Benefit Engagement Index"
+      ]
+    },
+    {
+      "id": "INT-B1310",
+      "name": "신규 가입 혜택 확인",
+      "L1_id": "INT-B1000",
+      "L1_name": "가입 확대",
+      "L2_id": "INT-B1300",
+      "L2_name": "가입 혜택 탐색",
+      "inference_type": "Model",
+      "features": [
+        "Bundle Opportunity Index",
+        "Benefit Optimization Index"
+      ]
+    },
+    {
+      "id": "INT-B1410",
+      "name": "온라인 가입 검토",
+      "L1_id": "INT-B1000",
+      "L1_name": "가입 확대",
+      "L2_id": "INT-B1400",
+      "L2_name": "가입 실행 검토",
+      "inference_type": "Rule",
+      "features": [
+        "Bundle Opportunity Index",
+        "Acquisition Score"
+      ]
+    },
+    {
+      "id": "INT-B1420",
+      "name": "상담 기반 가입 검토",
+      "L1_id": "INT-B1000",
+      "L1_name": "가입 확대",
+      "L2_id": "INT-B1400",
+      "L2_name": "가입 실행 검토",
+      "inference_type": "Rule",
+      "features": [
+        "Bundle Opportunity Index",
+        "Acquisition Score"
+      ]
+    },
+    {
+      "id": "INT-B1430",
+      "name": "매장 방문 가입 검토",
+      "L1_id": "INT-B1000",
+      "L1_name": "가입 확대",
+      "L2_id": "INT-B1400",
+      "L2_name": "가입 실행 검토",
+      "inference_type": "Model",
+      "features": [
+        "Bundle Opportunity Index",
+        "Acquisition Score"
+      ]
+    },
+    {
+      "id": "INT-B2110",
+      "name": "현재 적용 혜택 확인",
+      "L1_id": "INT-B2000",
+      "L1_name": "할인 최적화",
+      "L2_id": "INT-B2100",
+      "L2_name": "현재 혜택 점검",
+      "inference_type": "Rule",
+      "features": [
+        "Benefit Engagement Index",
+        "benefit_utilization"
+      ]
+    },
+    {
+      "id": "INT-B2210",
+      "name": "추가 할인 가능 여부 확인",
+      "L1_id": "INT-B2000",
+      "L1_name": "할인 최적화",
+      "L2_id": "INT-B2200",
+      "L2_name": "추가 혜택 탐색",
+      "inference_type": "Rule",
+      "features": [
+        "Benefit Optimization Index",
+        "non_mobile_cost_gap"
+      ]
+    },
+    {
+      "id": "INT-B2220",
+      "name": "프로모션/이벤트 혜택 탐색",
+      "L1_id": "INT-B2000",
+      "L1_name": "할인 최적화",
+      "L2_id": "INT-B2200",
+      "L2_name": "추가 혜택 탐색",
+      "inference_type": "Model",
+      "features": [
+        "Benefit Optimization Index",
+        "benefit_utilization"
+      ]
+    },
+    {
+      "id": "INT-B2230",
+      "name": "카드 제휴 혜택 탐색",
+      "L1_id": "INT-B2000",
+      "L1_name": "할인 최적화",
+      "L2_id": "INT-B2200",
+      "L2_name": "추가 혜택 탐색",
+      "inference_type": "Rule",
+      "features": [
+        "Benefit Optimization Index",
+        "non_mobile_cost_gap"
+      ]
+    },
+    {
+      "id": "INT-B2310",
+      "name": "데이터 혜택 활용 검토",
+      "L1_id": "INT-B2000",
+      "L1_name": "할인 최적화",
+      "L2_id": "INT-B2300",
+      "L2_name": "혜택 활용 최적화",
+      "inference_type": "Model",
+      "features": [
+        "Benefit Engagement Index",
+        "content_view_mode"
+      ]
+    },
+    {
+      "id": "INT-B2320",
+      "name": "멤버십 혜택 활용 검토",
+      "L1_id": "INT-B2000",
+      "L1_name": "할인 최적화",
+      "L2_id": "INT-B2300",
+      "L2_name": "혜택 활용 최적화",
+      "inference_type": "Model",
+      "features": [
+        "Benefit Engagement Index",
+        "benefit_utilization"
+      ]
+    },
+    {
+      "id": "INT-B2330",
+      "name": "OTT/콘텐츠 혜택 활용 검토",
+      "L1_id": "INT-B2000",
+      "L1_name": "할인 최적화",
+      "L2_id": "INT-B2300",
+      "L2_name": "혜택 활용 최적화",
+      "inference_type": "Model",
+      "features": [
+        "Benefit Engagement Index",
+        "content_view_mode"
+      ]
+    },
+    {
+      "id": "INT-B2340",
+      "name": "미사용 혜택 확인",
+      "L1_id": "INT-B2000",
+      "L1_name": "할인 최적화",
+      "L2_id": "INT-B2300",
+      "L2_name": "혜택 활용 최적화",
+      "inference_type": "Rule",
+      "features": [
+        "Benefit Engagement Index",
+        "benefit_utilization"
+      ]
+    },
+    {
+      "id": "INT-B3110",
+      "name": "가족 회선 추가 검토",
+      "L1_id": "INT-B3000",
+      "L1_name": "회선/서비스 확장",
+      "L2_id": "INT-B3100",
+      "L2_name": "결합 범위 확대",
+      "inference_type": "Rule",
+      "features": [
+        "family_line_count",
+        "Bundle Opportunity Index"
+      ]
+    },
+    {
+      "id": "INT-B3120",
+      "name": "인터넷 결합 추가 검토",
+      "L1_id": "INT-B3000",
+      "L1_name": "회선/서비스 확장",
+      "L2_id": "INT-B3100",
+      "L2_name": "결합 범위 확대",
+      "inference_type": "Rule",
+      "features": [
+        "Home Service Expansion Index",
+        "service_coverage_ratio"
+      ]
+    },
+    {
+      "id": "INT-B3130",
+      "name": "IPTV 결합 추가 검토",
+      "L1_id": "INT-B3000",
+      "L1_name": "회선/서비스 확장",
+      "L2_id": "INT-B3100",
+      "L2_name": "결합 범위 확대",
+      "inference_type": "Rule",
+      "features": [
+        "Home Service Expansion Index",
+        "content_view_mode"
+      ]
+    },
+    {
+      "id": "INT-B3140",
+      "name": "인터넷+IPTV 통합 이용 검토",
+      "L1_id": "INT-B3000",
+      "L1_name": "회선/서비스 확장",
+      "L2_id": "INT-B3100",
+      "L2_name": "결합 범위 확대",
+      "inference_type": "Model",
+      "features": [
+        "Home Service Expansion Index",
+        "service_coverage_ratio"
+      ]
+    },
+    {
+      "id": "INT-B3150",
+      "name": "홈 WiFi 추가 검토",
+      "L1_id": "INT-B3000",
+      "L1_name": "회선/서비스 확장",
+      "L2_id": "INT-B3100",
+      "L2_name": "결합 범위 확대",
+      "inference_type": "Rule",
+      "features": [
+        "Home Service Expansion Index",
+        "household_change"
+      ]
+    },
+    {
+      "id": "INT-B3210",
+      "name": "워치 회선 추가 검토",
+      "L1_id": "INT-B3000",
+      "L1_name": "회선/서비스 확장",
+      "L2_id": "INT-B3200",
+      "L2_name": "디바이스/IoT 확장",
+      "inference_type": "Model",
+      "features": [
+        "plan_tier",
+        "Service Expansion Score"
+      ]
+    },
+    {
+      "id": "INT-B3220",
+      "name": "태블릿 결합 추가 검토",
+      "L1_id": "INT-B3000",
+      "L1_name": "회선/서비스 확장",
+      "L2_id": "INT-B3200",
+      "L2_name": "디바이스/IoT 확장",
+      "inference_type": "Model",
+      "features": [
+        "plan_tier",
+        "Service Expansion Score"
+      ]
+    },
+    {
+      "id": "INT-B3230",
+      "name": "세컨드 디바이스 연결 검토",
+      "L1_id": "INT-B3000",
+      "L1_name": "회선/서비스 확장",
+      "L2_id": "INT-B3200",
+      "L2_name": "디바이스/IoT 확장",
+      "inference_type": "Model",
+      "features": [
+        "plan_tier",
+        "Service Expansion Score"
+      ]
+    },
+    {
+      "id": "INT-B3240",
+      "name": "IoT 기기 연계 검토",
+      "L1_id": "INT-B3000",
+      "L1_name": "회선/서비스 확장",
+      "L2_id": "INT-B3200",
+      "L2_name": "디바이스/IoT 확장",
+      "inference_type": "Model",
+      "features": [
+        "plan_tier",
+        "Service Expansion Score"
+      ]
+    },
+    {
+      "id": "INT-B3310",
+      "name": "가족 회선 통합 검토",
+      "L1_id": "INT-B3000",
+      "L1_name": "회선/서비스 확장",
+      "L2_id": "INT-B3300",
+      "L2_name": "결합 구조 재구성",
+      "inference_type": "Model",
+      "features": [
+        "family_line_count",
+        "Bundle Opportunity Index"
+      ]
+    },
+    {
+      "id": "INT-B3320",
+      "name": "가족 회선 분리 검토",
+      "L1_id": "INT-B3000",
+      "L1_name": "회선/서비스 확장",
+      "L2_id": "INT-B3300",
+      "L2_name": "결합 구조 재구성",
+      "inference_type": "Model",
+      "features": [
+        "family_line_count",
+        "household_change"
+      ]
+    },
+    {
+      "id": "INT-B3330",
+      "name": "명의 변경 검토",
+      "L1_id": "INT-B3000",
+      "L1_name": "회선/서비스 확장",
+      "L2_id": "INT-B3300",
+      "L2_name": "결합 구조 재구성",
+      "inference_type": "Rule",
+      "features": [
+        "household_change",
+        "family_line_count"
+      ]
+    },
+    {
+      "id": "INT-B3340",
+      "name": "대표 회선 변경 검토",
+      "L1_id": "INT-B3000",
+      "L1_name": "회선/서비스 확장",
+      "L2_id": "INT-B3300",
+      "L2_name": "결합 구조 재구성",
+      "inference_type": "Rule",
+      "features": [
+        "household_change",
+        "family_line_count"
+      ]
+    },
+    {
+      "id": "INT-B3350",
+      "name": "회선 이동 검토",
+      "L1_id": "INT-B3000",
+      "L1_name": "회선/서비스 확장",
+      "L2_id": "INT-B3300",
+      "L2_name": "결합 구조 재구성",
+      "inference_type": "Model",
+      "features": [
+        "household_change",
+        "family_line_count"
+      ]
+    },
+    {
+      "id": "INT-B4110",
+      "name": "약정 상태 및 연장 혜택 확인",
+      "L1_id": "INT-B4000",
+      "L1_name": "유지/락인",
+      "L2_id": "INT-B4100",
+      "L2_name": "재약정 검토",
+      "inference_type": "Rule",
+      "features": [
+        "contract_status",
+        "Retention Readiness Index"
+      ]
+    },
+    {
+      "id": "INT-B4120",
+      "name": "재약정 혜택 비교",
+      "L1_id": "INT-B4000",
+      "L1_name": "유지/락인",
+      "L2_id": "INT-B4100",
+      "L2_name": "재약정 검토",
+      "inference_type": "Model",
+      "features": [
+        "Retention Readiness Index",
+        "Benefit Engagement Index"
+      ]
+    },
+    {
+      "id": "INT-B4210",
+      "name": "장기 혜택 확인",
+      "L1_id": "INT-B4000",
+      "L1_name": "유지/락인",
+      "L2_id": "INT-B4200",
+      "L2_name": "장기 고객 혜택 확인",
+      "inference_type": "Rule",
+      "features": [
+        "tenure_group",
+        "Retention Readiness Index"
+      ]
+    },
+    {
+      "id": "INT-B4310",
+      "name": "요금제 변경 영향 확인",
+      "L1_id": "INT-B4000",
+      "L1_name": "유지/락인",
+      "L2_id": "INT-B4300",
+      "L2_name": "결합 유지 영향 확인",
+      "inference_type": "Model",
+      "features": [
+        "non_mobile_cost_gap",
+        "Retention Readiness Index"
+      ]
+    },
+    {
+      "id": "INT-B4320",
+      "name": "결합 해지 영향 확인",
+      "L1_id": "INT-B4000",
+      "L1_name": "유지/락인",
+      "L2_id": "INT-B4300",
+      "L2_name": "결합 유지 영향 확인",
+      "inference_type": "Rule",
+      "features": [
+        "Retention Readiness Index",
+        "Churn Risk Index"
+      ]
+    },
+    {
+      "id": "INT-B5110",
+      "name": "타사 결합 혜택/가격 비교",
+      "L1_id": "INT-B5000",
+      "L1_name": "이탈 검토",
+      "L2_id": "INT-B5100",
+      "L2_name": "경쟁사 비교",
+      "inference_type": "Model",
+      "features": [
+        "Churn Risk Index",
+        "non_mobile_cost_gap"
+      ]
+    },
+    {
+      "id": "INT-B5120",
+      "name": "번호이동 기반 혜택 비교",
+      "L1_id": "INT-B5000",
+      "L1_name": "이탈 검토",
+      "L2_id": "INT-B5100",
+      "L2_name": "경쟁사 비교",
+      "inference_type": "Rule",
+      "features": [
+        "Churn Risk Index",
+        "contract_status"
+      ]
+    },
+    {
+      "id": "INT-B5210",
+      "name": "혜택 부족 체감",
+      "L1_id": "INT-B5000",
+      "L1_name": "이탈 검토",
+      "L2_id": "INT-B5200",
+      "L2_name": "혜택/비용 불만",
+      "inference_type": "Model",
+      "features": [
+        "dissatisfaction_factor",
+        "Benefit Optimization Index"
+      ]
+    },
+    {
+      "id": "INT-B5220",
+      "name": "결합 유지 가치 하락",
+      "L1_id": "INT-B5000",
+      "L1_name": "이탈 검토",
+      "L2_id": "INT-B5200",
+      "L2_name": "혜택/비용 불만",
+      "inference_type": "Model",
+      "features": [
+        "dissatisfaction_factor",
+        "Retention Readiness Index"
+      ]
+    },
+    {
+      "id": "INT-B5230",
+      "name": "통신비 부담 증가",
+      "L1_id": "INT-B5000",
+      "L1_name": "이탈 검토",
+      "L2_id": "INT-B5200",
+      "L2_name": "혜택/비용 불만",
+      "inference_type": "Model",
+      "features": [
+        "non_mobile_cost_gap",
+        "dissatisfaction_factor"
+      ]
+    },
+    {
+      "id": "INT-B5310",
+      "name": "인터넷 품질 불만",
+      "L1_id": "INT-B5000",
+      "L1_name": "이탈 검토",
+      "L2_id": "INT-B5300",
+      "L2_name": "품질 불만",
+      "inference_type": "Rule",
+      "features": [
+        "dissatisfaction_factor",
+        "Churn Risk Index"
+      ]
+    },
+    {
+      "id": "INT-B5320",
+      "name": "IPTV 품질 불만",
+      "L1_id": "INT-B5000",
+      "L1_name": "이탈 검토",
+      "L2_id": "INT-B5300",
+      "L2_name": "품질 불만",
+      "inference_type": "Rule",
+      "features": [
+        "dissatisfaction_factor",
+        "Churn Risk Index"
+      ]
+    },
+    {
+      "id": "INT-B5330",
+      "name": "모바일 데이터 품질 불만",
+      "L1_id": "INT-B5000",
+      "L1_name": "이탈 검토",
+      "L2_id": "INT-B5300",
+      "L2_name": "품질 불만",
+      "inference_type": "Model",
+      "features": [
+        "dissatisfaction_factor",
+        "Churn Risk Index"
+      ]
+    },
+    {
+      "id": "INT-B5340",
+      "name": "장애 반복 불만",
+      "L1_id": "INT-B5000",
+      "L1_name": "이탈 검토",
+      "L2_id": "INT-B5300",
+      "L2_name": "품질 불만",
+      "inference_type": "Model",
+      "features": [
+        "dissatisfaction_factor",
+        "Churn Risk Index"
+      ]
+    },
+    {
+      "id": "INT-B5410",
+      "name": "해지 절차 확인",
+      "L1_id": "INT-B5000",
+      "L1_name": "이탈 검토",
+      "L2_id": "INT-B5400",
+      "L2_name": "해지 검토",
+      "inference_type": "Rule",
+      "features": [
+        "Churn Risk Index",
+        "Retention Readiness Index"
+      ]
+    },
+    {
+      "id": "INT-B5420",
+      "name": "위약금 확인",
+      "L1_id": "INT-B5000",
+      "L1_name": "이탈 검토",
+      "L2_id": "INT-B5400",
+      "L2_name": "해지 검토",
+      "inference_type": "Rule",
+      "features": [
+        "Churn Risk Index",
+        "contract_status"
+      ]
+    },
+    {
+      "id": "INT-B5430",
+      "name": "해지 영향 확인",
+      "L1_id": "INT-B5000",
+      "L1_name": "이탈 검토",
+      "L2_id": "INT-B5400",
+      "L2_name": "해지 검토",
+      "inference_type": "Rule",
+      "features": [
+        "Churn Risk Index",
+        "Retention Readiness Index"
+      ]
+    },
+    {
+      "id": "INT-B5440",
+      "name": "번호이동 절차 확인",
+      "L1_id": "INT-B5000",
+      "L1_name": "이탈 검토",
+      "L2_id": "INT-B5400",
+      "L2_name": "해지 검토",
+      "inference_type": "Rule",
+      "features": [
+        "Churn Risk Index",
+        "contract_status"
+      ]
+    }
+  ]
+}

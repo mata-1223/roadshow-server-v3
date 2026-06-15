@@ -18,41 +18,47 @@ from typing import Any
 # T=0.15 → 시연 임팩트(상위 Intent 강조) 우선. Top 5가 분포의 ~60% 점유, 행동 1번에 Δp 수%p
 PROBABILITY_TEMPERATURE = 0.15
 
-import json
-from pathlib import Path
-
 from config import settings
-from core.builder import build_batch_features
-from core.event_extractor import extract as extract_event_features
+from core.engines import get_engine, config
 from core.extractor import get_extractor
-from data.seed import load_intents_catalog
-from models import rule_model, sklearn_model
 
 logger = logging.getLogger(__name__)
 
-# 행동 → 직접 신호 Intent 부스트.
+# 행동 → 직접 신호 Intent 부스트. (시나리오 config L2_inference.ranker.action_signal로 override)
 # Rule pattern_boost가 일부 행동만 커버하는 한계를 보완해, behaviors.json의 모든 행동이
 # 의미상 연결된 Intent를 끌어올리도록 한다. (final 재추론에만 적용; baseline은 batch만)
+# 아래 값은 scenario_id 미지정/누락 시 fallback 기본값.
 ACTION_SIGNAL_SCALE = 0.28   # 최신 행동 1회당 가산 (weight=1.0 기준)
 ACTION_SIGNAL_CAP   = 0.55   # 행동 반복 시 상한
 ACTION_SIGNAL_DECAY = 0.6    # 위치 기반 recency 감쇠 (최신 age=0 → 1.0, 직전 0.6, 그전 0.36 …)
 
-_SCENARIO_DIR = Path(__file__).parent.parent / "scenarios" / settings.SCENARIO_ID
-_behavior_intent_cache: dict[str, list[str]] | None = None
+
+def _resolve_temperature(scenario_id: str | None) -> float:
+    """시나리오 config의 softmax 온도. 누락 시 모듈 기본값 fallback."""
+    if scenario_id is None:
+        return PROBABILITY_TEMPERATURE
+    try:
+        return config.get_probability_temperature(scenario_id)
+    except (KeyError, FileNotFoundError):
+        return PROBABILITY_TEMPERATURE
 
 
-def _behavior_intent_map() -> dict[str, list[str]]:
-    global _behavior_intent_cache
-    if _behavior_intent_cache is None:
+def _resolve_action_signal(scenario_id: str | None) -> tuple[float, float, float]:
+    """시나리오 config의 행동 부스트 (scale, cap, decay). 누락 시 모듈 기본값 fallback."""
+    if scenario_id is not None:
         try:
-            with open(_SCENARIO_DIR / "behavior_intents.json", encoding="utf-8") as f:
-                _behavior_intent_cache = json.load(f).get("entity_intents", {})
-        except FileNotFoundError:
-            _behavior_intent_cache = {}
-    return _behavior_intent_cache
+            sig = config.get_action_signal(scenario_id)
+            return sig["scale"], sig["cap"], sig["decay"]
+        except (KeyError, FileNotFoundError):
+            pass
+    return ACTION_SIGNAL_SCALE, ACTION_SIGNAL_CAP, ACTION_SIGNAL_DECAY
 
 
-def _action_intent_signals(events: list[dict]) -> dict[str, float]:
+def _action_intent_signals(
+    events: list[dict],
+    behavior_map: dict[str, list[str]],
+    decay: float = ACTION_SIGNAL_DECAY,
+) -> dict[str, float]:
     """
     세션 누적 행동 → entity→intent 매핑으로 의도별 가중 신호 산출.
 
@@ -61,15 +67,14 @@ def _action_intent_signals(events: list[dict]) -> dict[str, float]:
     - BACK(navigate_back)은 메뉴 복귀용 순수 내비게이션 → 신호·aging 모두에서 제외(무효과).
       섹션을 떠난 행동은 이후 다른 행동이 쌓이며 decay로 자연 소멸한다.
     """
-    m = _behavior_intent_map()
     real = [ev for ev in events if ev.get("event_type") != "navigate_back"]
     n = len(real)
 
     weights: dict[str, float] = {}
     for i, ev in enumerate(real):
         age = (n - 1) - i
-        w = ACTION_SIGNAL_DECAY ** age
-        for iid in m.get(ev.get("entity", ""), []):
+        w = decay ** age
+        for iid in behavior_map.get(ev.get("entity", ""), []):
             weights[iid] = weights.get(iid, 0.0) + w
     return weights
 
@@ -91,123 +96,80 @@ class IntentScore:
     rank_change:     int     # baseline_rank - rank (양수면 상승)
 
 
-_intents_cache: list[dict] | None = None
-
-
-def _intents() -> list[dict]:
-    global _intents_cache
-    if _intents_cache is None:
-        _intents_cache = load_intents_catalog()
-    return _intents_cache
-
-
-def infer_batch(survey_answers: dict[str, str]) -> tuple[dict[str, Any], list[IntentScore]]:
+def infer_batch(
+    survey_answers: dict[str, str],
+    scenario_id: str = settings.SCENARIO_ID,
+) -> tuple[dict[str, Any], list[IntentScore]]:
     """
     설문 답변만으로 baseline Intent Score 산출 (행동 전).
     """
-    batch_features = build_batch_features(survey_answers)
-    pattern_features = _empty_pattern_features()
-    event_features = _empty_event_features()
-    all_features = {**batch_features, **pattern_features, **event_features}
+    engine = get_engine(scenario_id)
+    batch_features = engine.build_batch_features(survey_answers)
+    all_features = {
+        **batch_features,
+        **engine.empty_pattern_features(),
+        **engine.empty_event_features(),
+    }
 
-    raw = _score_all(all_features)
-    scores = _to_intent_scores(raw, raw)
+    raw = _score_all(all_features, engine)
+    scores = _to_intent_scores(raw, raw, engine)
     return batch_features, scores
 
 
 def infer_with_behavior(
     survey_answers: dict[str, str],
     session_id: str,
+    scenario_id: str = settings.SCENARIO_ID,
 ) -> tuple[dict[str, Any], list[IntentScore]]:
     """
     Batch Feature + 누적 Behavioral Pattern Feature + 최신 Event Feature를 합쳐 재추론.
 
     baseline(행동 없는 상태) 점수를 함께 산출해 delta_score / rank_change를 채운다.
     """
-    batch_features = build_batch_features(survey_answers)
+    engine = get_engine(scenario_id)
+    batch_features = engine.build_batch_features(survey_answers)
 
     # baseline: Pattern/Event Feature를 0으로 둔 상태
     baseline_features = {
         **batch_features,
-        **_empty_pattern_features(),
-        **_empty_event_features(),
+        **engine.empty_pattern_features(),
+        **engine.empty_event_features(),
     }
-    baseline_raw = _score_all(baseline_features)
+    baseline_raw = _score_all(baseline_features, engine)
 
-    # final: 실제 누적 Pattern + 최신 Event Feature 반영
-    extractor = get_extractor()
-    pattern_features = extractor.get_pattern_features(session_id)
-    events = extractor._events_by_session.get(session_id, [])
-    if events:
-        last = events[-1]
-        event_features = extract_event_features(
-            last["event_type"], last["entity"], last.get("occurred_at"),
-        )
-    else:
-        event_features = _empty_event_features()
+    # final: 실제 누적 Pattern + 최신 Event Feature 반영 (엔진 전용 계산)
+    pattern_features = engine.pattern_features(session_id)
+    event_features = engine.event_features(session_id)
+    events = get_extractor()._events_by_session.get(session_id, [])
 
     combined_features = {**batch_features, **pattern_features, **event_features}
-    final_raw = _score_all(combined_features)
+    final_raw = _score_all(combined_features, engine)
 
     # 행동이 직접 가리키는 Intent를 끌어올림 (final 에만 적용 → Δ·rank_change가 행동에 귀속)
-    for iid, cnt in _action_intent_signals(events).items():
+    scale, cap, decay = _resolve_action_signal(scenario_id)
+    behavior_map = engine.behavior_intent_map()
+    for iid, cnt in _action_intent_signals(events, behavior_map, decay=decay).items():
         if iid in final_raw:
-            boost = min(cnt * ACTION_SIGNAL_SCALE, ACTION_SIGNAL_CAP)
+            boost = min(cnt * scale, cap)
             final_raw[iid] = min(final_raw[iid] + boost, 0.97)
 
-    scores = _to_intent_scores(baseline_raw, final_raw)
+    scores = _to_intent_scores(baseline_raw, final_raw, engine)
     return batch_features, scores
 
 
-def _empty_pattern_features() -> dict[str, Any]:
-    return {
-        "repeated_entity_count_5m": 0,
-        "support_entry_count_5m":   0,
-        "billing_page_view_count":  0,
-        "product_explore_count":    0,
-        "benefit_explore_count":    0,
-        "churn_page_view_count":    0,
-        "quality_action_count":     0,
-        "last_3_events":            "",
-        "WiFi 진단 실행":           0,
-        "속도 측정 실행":           0,
-        "장애 페이지 체류":         0,
-        "가족 결합 관련 행동":      0,
-        "위약금 조회 행동":         0,
-        "해지 페이지 진입":         0,
-        "mnp_benefit_check":        0,
-        "할인 페이지 체류":         0,
-    }
-
-
-def _empty_event_features() -> dict[str, Any]:
-    return {
-        "last_event_type":  "",
-        "last_entity":      "",
-        "current_page":     "",
-        "is_click":         0,
-        "is_page_view":     0,
-        "is_support_entry": 0,
-        "is_churn_signal":  0,
-        "is_confirm":       0,
-        "last_event_at":    "",
-    }
-
-
-def _score_all(features: dict[str, Any]) -> dict[str, float]:
+def _score_all(features: dict[str, Any], engine) -> dict[str, float]:
     """모든 Intent에 대해 점수만 산출 (intent_id → score)."""
     f = dict(features)
     if isinstance(f.get("결합 여부"), bool):
         f["결합 여부"] = 1 if f["결합 여부"] else 0
 
     out: dict[str, float] = {}
-    for intent in _intents():
+    for intent in engine.intents():
         iid = intent["id"]
-        itype = intent["inference_type"]
-        if itype == "Model":
-            score = sklearn_model.predict(iid, f)
+        if intent["inference_type"] == "Model":
+            score = engine.model_predict(iid, f)
         else:
-            score = rule_model.predict(iid, f)
+            score = engine.rule_predict(iid, f)
         out[iid] = float(score)
     return out
 
@@ -220,12 +182,13 @@ def _rank_map(raw: dict[str, float]) -> dict[str, int]:
 def _to_intent_scores(
     baseline_raw: dict[str, float],
     final_raw: dict[str, float],
+    engine,
 ) -> list[IntentScore]:
     baseline_ranks = _rank_map(baseline_raw)
     final_ranks    = _rank_map(final_raw)
 
     results: list[IntentScore] = []
-    for intent in _intents():
+    for intent in engine.intents():
         iid = intent["id"]
         b = baseline_raw.get(iid, 0.0)
         f = final_raw.get(iid, 0.0)
@@ -266,17 +229,21 @@ def _softmax(values: list[float], temperature: float) -> list[float]:
 
 def to_probability_dict(
     scores: list[IntentScore],
-    temperature: float = PROBABILITY_TEMPERATURE,
+    scenario_id: str | None = None,
+    temperature: float | None = None,
 ) -> dict[str, dict[str, float]]:
     """
-    113개 Intent raw score → softmax 정규화 확률(p) + baseline 정규화 확률(p0).
+    Intent raw score → softmax 정규화 확률(p) + baseline 정규화 확률(p0).
 
     raw score 합 분모 정규화는 분포가 너무 평탄해 시연 임팩트가 약하므로
     softmax(score / T) 분포를 사용. T가 작을수록 상위 Intent에 분포가 집중된다.
+    T는 scenario_id의 config(L2_inference.calibrator)에서 조회(미지정 시 모듈 기본값).
 
     Vector Space 시각화([1-2]) 가중 평균 위치 계산에 사용.
     INTENT_UPDATE 페이로드의 `all_probabilities` 필드.
     """
+    if temperature is None:
+        temperature = _resolve_temperature(scenario_id)
     p_vals  = _softmax([s.final_score    for s in scores], temperature)
     p0_vals = _softmax([s.baseline_score for s in scores], temperature)
     return {
@@ -291,6 +258,7 @@ def to_probability_dict(
 def to_topn_with_others(
     scores: list[IntentScore],
     top_n: int = 5,
+    scenario_id: str | None = None,
 ) -> tuple[list[dict], dict]:
     """
     Top-N + 기타(others) 페이로드 구성.
@@ -301,7 +269,7 @@ def to_topn_with_others(
         top_list : [ {intent_id, ..., probability, baseline_probability, delta_probability} ]
         others   : { count, probability, baseline_probability, delta_probability }
     """
-    probs = to_probability_dict(scores)
+    probs = to_probability_dict(scores, scenario_id=scenario_id)
     sorted_scores = sorted(scores, key=lambda s: s.final_score, reverse=True)
 
     top_items: list[dict] = []

@@ -16,6 +16,13 @@ import json
 import math
 from datetime import datetime
 from pathlib import Path
+import sys
+
+sys.path.insert(0, str(Path(__file__).parent.parent))
+from core.engines import config
+
+SCENARIO_ID = "cs-myk-v3"
+SCENARIO_DIR = Path(__file__).parent.parent / "scenarios" / SCENARIO_ID
 
 # ── L1 zone 정의 ──────────────────────────────────────────────
 # (x_center, y_center) — 좌표 범위 [-1, 1]
@@ -48,9 +55,8 @@ def _place_in_zone(idx_in_zone: int, total_in_zone: int, centroid: tuple[float, 
     return round(x, 4), round(y, 4)
 
 
-def build(scenario_dir: Path) -> dict:
-    with open(scenario_dir / "intents.json", encoding="utf-8") as f:
-        intents_data = json.load(f)
+def build(scenario_id: Path) -> dict:
+    intents_data = config.get_taxonomy(scenario_id)
     intents = intents_data.get("intents", intents_data) if isinstance(intents_data, dict) else intents_data
 
     # L1별 그룹화
@@ -97,9 +103,8 @@ def build(scenario_dir: Path) -> dict:
 
 
 def main() -> None:
-    scenario_dir = Path(__file__).parent.parent / "scenarios" / "cs-myk-v3"
-    out_path = scenario_dir / "intent_positions.json"
-    payload = build(scenario_dir)
+    out_path = SCENARIO_DIR / "intent_positions.json"
+    payload = build(SCENARIO_ID)
     with open(out_path, "w", encoding="utf-8") as f:
         json.dump(payload, f, ensure_ascii=False, indent=2)
     print(f"Wrote {out_path} (intents={len(payload['intents'])}, l1_zones={len(payload['l1_zones'])})")

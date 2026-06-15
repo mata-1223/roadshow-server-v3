@@ -20,8 +20,15 @@ L1 grid 백업과 같은 형식으로 산출하므로 산출 후 덮어쓰면
 """
 import argparse
 import json
+import sys
 from datetime import datetime
 from pathlib import Path
+
+sys.path.insert(0, str(Path(__file__).parent.parent))
+from core.engines import config
+
+SCENARIO_ID = "cs-myk-v3"
+SCENARIO_DIR = Path(__file__).parent.parent / "scenarios" / SCENARIO_ID
 
 L1_COLORS = {
     "INT-1000": "#3b82f6",
@@ -62,9 +69,7 @@ def main() -> None:
             f"({e})"
         )
 
-    scenario_dir = Path(__file__).parent.parent / "scenarios" / "cs-myk-v3"
-    with open(scenario_dir / "intents.json", encoding="utf-8") as f:
-        intents_data = json.load(f)
+    intents_data = config.get_taxonomy(SCENARIO_ID)
     intents = intents_data["intents"] if isinstance(intents_data, dict) else intents_data
     print(f"Loaded {len(intents)} intents")
 
@@ -132,7 +137,7 @@ def main() -> None:
         "l1_zones":         l1_zones,
     }
 
-    out_path = scenario_dir / "intent_positions.json"
+    out_path = SCENARIO_DIR / "intent_positions.json"
     with open(out_path, "w", encoding="utf-8") as f:
         json.dump(payload, f, ensure_ascii=False, indent=2)
     print(f"Wrote {out_path}")

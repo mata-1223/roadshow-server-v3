@@ -6,7 +6,7 @@
   1. 8개 페르소나 정의 (가중치·답변 분포·선호 행동 시퀀스)
   2. 가중치에 따라 N명 샘플링
   3. 각 고객의 설문 답변·batch feature·행동 시퀀스 시뮬레이션
-  4. ENTITY_TO_INTENTS 매핑으로 양성 Intent 라벨 산출
+  4. config.behavior_signals(entity→Intent) 매핑으로 양성 Intent 라벨 산출
   5. scenarios/cs-myk-v3/seed_dataset.json 적재
 
 실행:
@@ -15,19 +15,19 @@
 """
 from __future__ import annotations
 
-import argparse
-import json
-import random
 import sys
 from collections import Counter
 from pathlib import Path
 
 sys.path.insert(0, str(Path(__file__).parent.parent))
 
-from core.builder import build_batch_features  # noqa: E402
-from core.extractor import BehavioralPatternExtractor  # noqa: E402
-from core.event_extractor import extract as extract_event  # noqa: E402
+from core.engines import config, cs  # noqa: E402
+from scripts._dataset_common import (  # noqa: E402
+    parse_args, build_samples, tree_action_resolver, write_dataset, print_label_stats,
+)
 
+SCENARIO_ID = "cs-myk-v3"
+SCENARIO_DIR = Path(__file__).parent.parent / "scenarios" / SCENARIO_ID
 
 # ─────────────────────────────────────────────────────────────
 # 페르소나 정의
@@ -292,169 +292,30 @@ PERSONAS = [
 ]
 
 
-# ─────────────────────────────────────────────────────────────
-# entity → 양성 Intent 매핑 (행동 시 활성화되는 Intent)
-# ─────────────────────────────────────────────────────────────
-ENTITY_TO_INTENTS = {
-    "data_usage":          ["INT-1110", "INT-1150"],
-    "data_topup_button":   ["INT-2130", "INT-2320"],
-    "data_addon_page":     ["INT-2320", "INT-2130"],
-    "usage_detail_chart":  ["INT-1110", "INT-1150"],
-    "billing":             ["INT-1210", "INT-1220"],
-    "billing_detail":      ["INT-1220", "INT-1230"],
-    "pay_now_button":      ["INT-3110", "INT-1240"],
-    "auto_pay_setting":    ["INT-3120", "INT-1240"],
-    "subscription_info":   ["INT-1310", "INT-1330", "INT-1340"],
-    "plan_change_button":  ["INT-3210", "INT-2110"],
-    "penalty_calc":        ["INT-7110", "INT-7120"],
-    "cancel_page":         ["INT-7130", "INT-7140"],
-    "benefit_membership":  ["INT-1410", "INT-1430"],
-    "coupon_use":          ["INT-1430", "INT-4110", "INT-4320"],
-    "membership_tier":     ["INT-1410", "INT-1440", "INT-4240"],
-    "promotion_event":     ["INT-4120", "INT-4140"],
-    "product_explore":     ["INT-2110", "INT-2130"],
-    "plan_explore":        ["INT-2110", "INT-2120", "INT-2150"],
-    "device_explore":      ["INT-2410", "INT-2420", "INT-2440", "INT-2530"],
-    "family_bundle":       ["INT-6110", "INT-2240"],
-    "customer_support":    ["INT-5310", "INT-5410"],
-    "quality_diagnosis":   ["INT-5110", "INT-5120", "INT-5130"],
-    "chatbot":             ["INT-5310", "INT-5320"],
-    "call_support":        ["INT-5330", "INT-5410"],
-    "back_to_step1":       [],
-    "session_end":         [],
-}
+# entity → 양성 Intent 매핑은 config.get_behavior_signals("cs-myk-v3")
+# (= L2_inference.ranker.behavior_signals)를 단일 소스로 사용 — bundle/worker와 동일.
 
 
-def _weighted_choice(rng: random.Random, dist: dict[str, float]) -> str:
-    keys = list(dist.keys())
-    weights = list(dist.values())
-    return rng.choices(keys, weights=weights, k=1)[0]
+def main() -> None:
+    args = parse_args()
+    behaviors = config.get_behaviors(SCENARIO_ID)
 
+    rows = build_samples(
+        n=args.n, seed=args.seed, personas=PERSONAS, engine=cs,
+        seq_key="action_seqs", action_resolver=tree_action_resolver(behaviors),
+        entity_intents=config.get_behavior_signals(SCENARIO_ID),   # 단일 소스(bundle/worker와 동일)
+        cust_prefix="C",
+    )
 
-def _pick_persona(rng: random.Random) -> dict:
-    weights = [p["weight"] for p in PERSONAS]
-    return rng.choices(PERSONAS, weights=weights, k=1)[0]
+    write_dataset(SCENARIO_DIR / "seed_dataset.json", rows, SCENARIO_ID, len(PERSONAS), args.seed)
 
-
-def _generate_answers(rng: random.Random, persona: dict) -> dict[str, str]:
-    return {qid: _weighted_choice(rng, dist) for qid, dist in persona["answer_dist"].items()}
-
-
-def _resolve_action_entities(behaviors_data: dict, action_seq: list[str]) -> list[dict]:
-    """behavior_id 시퀀스 → [{behavior_id, event_type, entity}]."""
-    step1 = behaviors_data["step1"]["behaviors"]
-    step2_by_parent = behaviors_data["step2"]["by_parent"]
-    step2_common   = behaviors_data["step2"]["common"]
-
-    by_id = {b["id"]: b for b in step1}
-    for items in step2_by_parent.values():
-        for b in items:
-            by_id[b["id"]] = b
-    for b in step2_common:
-        by_id[b["id"]] = b
-
-    out = []
-    for bid in action_seq:
-        b = by_id.get(bid)
-        if b is None:
-            continue
-        out.append({
-            "behavior_id": b["id"],
-            "event_type":  b["event_type"],
-            "entity":      b["entity"],
-        })
-    return out
-
-
-def _build_intent_labels(actions: list[dict], extra_intents: list[str]) -> dict[str, int]:
-    """행동 entity 매핑 + 페르소나 extra_intents = 양성 라벨 (1)."""
-    positives = set(extra_intents)
-    for a in actions:
-        positives.update(ENTITY_TO_INTENTS.get(a["entity"], []))
-    return {iid: 1 for iid in positives}
-
-
-def generate_dataset(n: int, seed: int, scenario_dir: Path) -> list[dict]:
-    rng = random.Random(seed)
-    with open(scenario_dir / "behaviors.json", encoding="utf-8") as f:
-        behaviors_data = json.load(f)
-
-    rows = []
-    for i in range(n):
-        persona = _pick_persona(rng)
-        answers = _generate_answers(rng, persona)
-        batch_features = build_batch_features(answers)
-        action_seq = rng.choice(persona["action_seqs"])
-        actions = _resolve_action_entities(behaviors_data, action_seq)
-        labels = _build_intent_labels(actions, persona["extra_intents"])
-
-        # 행동 시퀀스를 Extractor에 통과시켜 Pattern/Event Feature 산출 (추론 시점과 동일 경로)
-        # → 행동 feature에 분산을 부여해 Model의 training/serving skew 해소
-        sid = f"C{(i + 1):05d}"
-        ex = BehavioralPatternExtractor()
-        for a in actions:
-            ex.add_event(sid, a["event_type"], a["entity"])
-        pattern_features = ex.get_pattern_features(sid)
-        if actions:
-            last = actions[-1]
-            event_features = extract_event(last["event_type"], last["entity"])
-        else:
-            event_features = {}
-
-        scalar = lambda d: {k: v for k, v in d.items() if not isinstance(v, (list, dict))}
-        rows.append({
-            "cust_id":          sid,
-            "persona_id":       persona["id"],
-            "persona_name":     persona["name"],
-            "survey_answers":   answers,
-            "batch_features":   scalar(batch_features),
-            "pattern_features": scalar(pattern_features),
-            "event_features":   scalar(event_features),
-            "actions":          actions,
-            "intent_labels":    labels,
-        })
-    return rows
-
-
-def _print_stats(rows: list[dict]) -> None:
+    # CS 상세: Persona 분포
     persona_counts = Counter(r["persona_id"] for r in rows)
-    label_counts = Counter()
-    for r in rows:
-        for iid in r["intent_labels"]:
-            label_counts[iid] += 1
-
     print(f"\n── Persona 분포 ────────────────────────────────────────")
     for pid, cnt in sorted(persona_counts.items()):
         name = next(p["name"] for p in PERSONAS if p["id"] == pid)
         print(f"  {pid:4s} {name:32s} : {cnt:4d} ({cnt/len(rows)*100:5.1f}%)")
-
-    print(f"\n── 양성 라벨 Top 20 Intent ─────────────────────────────")
-    for iid, cnt in label_counts.most_common(20):
-        print(f"  {iid:9s}: {cnt:4d}건  ({cnt/len(rows)*100:5.1f}%)")
-    print(f"\n  총 양성 라벨된 Intent 종류: {len(label_counts)}")
-
-
-def main() -> None:
-    parser = argparse.ArgumentParser()
-    parser.add_argument("--n",    type=int, default=500)
-    parser.add_argument("--seed", type=int, default=42)
-    args = parser.parse_args()
-
-    scenario_dir = Path(__file__).parent.parent / "scenarios" / "cs-myk-v3"
-    rows = generate_dataset(args.n, args.seed, scenario_dir)
-
-    out_path = scenario_dir / "seed_dataset.json"
-    with open(out_path, "w", encoding="utf-8") as f:
-        json.dump({
-            "scenario_id": "cs-myk-v3",
-            "n_samples":   len(rows),
-            "n_personas":  len(PERSONAS),
-            "seed":        args.seed,
-            "samples":     rows,
-        }, f, ensure_ascii=False, indent=2)
-    print(f"Wrote {out_path} ({len(rows)} samples)")
-
-    _print_stats(rows)
+    print_label_stats(rows, top_n=20)
 
 
 if __name__ == "__main__":

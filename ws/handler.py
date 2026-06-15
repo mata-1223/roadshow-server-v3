@@ -20,7 +20,6 @@ from core.inference import (
     to_topn_with_others,
 )
 from data.executor import get_executor
-from data.seed import load_behaviors_catalog
 from ws.manager import manager
 
 router = APIRouter()
@@ -46,11 +45,12 @@ async def websocket_endpoint(websocket: WebSocket) -> None:
             await websocket.send_json({"type": "ERROR", "code": "SESSION_NOT_FOUND"})
             return
 
+        scenario_id = row[1]
         manager._connections[session_id] = websocket
         await websocket.send_json({
             "type":         "SESSION_READY",
             "session_id":   session_id,
-            "scenario_id":  row[1],
+            "scenario_id":  scenario_id,
             "stage":        row[2],
         })
 
@@ -62,7 +62,7 @@ async def websocket_endpoint(websocket: WebSocket) -> None:
             mtype = msg.get("type")
 
             if mtype == "BEHAVIOR":
-                await _handle_behavior(websocket, session_id, survey_answers, msg)
+                await _handle_behavior(websocket, session_id, scenario_id, survey_answers, msg)
             else:
                 await websocket.send_json({"type": "ERROR", "code": "UNKNOWN_TYPE"})
 
@@ -82,6 +82,7 @@ async def websocket_endpoint(websocket: WebSocket) -> None:
 async def _handle_behavior(
     websocket: WebSocket,
     session_id: str,
+    scenario_id: str,
     survey_answers: dict[str, str],
     msg: dict,
 ) -> None:
@@ -94,16 +95,14 @@ async def _handle_behavior(
 
     ex = get_executor()
 
-    # 행동 정보 조회 (step)
-    behaviors = load_behaviors_catalog()
-    behavior_info = behaviors.get(behavior_id, {})
-    step = behavior_info.get("step", 0)
+    # step: behavior_id 접두사로 판정 (1-* = step1, 그 외 step2). 시나리오 무관.
+    step = 1 if str(behavior_id).startswith("1-") else 2
 
     # 이벤트 로그 적재
     ex.execute(
         "INSERT INTO event_log (session_id, scenario_id, step, behavior_id, event_type, entity) "
         "VALUES (?, ?, ?, ?, ?, ?)",
-        [session_id, settings.SCENARIO_ID, step, behavior_id, event_type, entity],
+        [session_id, scenario_id, step, behavior_id, event_type, entity],
     )
     ex.execute(
         "UPDATE sessions SET last_active_at = CURRENT_TIMESTAMP WHERE id = ?",
@@ -125,7 +124,7 @@ async def _handle_behavior(
         return
 
     # Intent 재추론 (Batch + 누적 행동)
-    batch_features, intent_scores = infer_with_behavior(survey_answers, session_id)
+    batch_features, intent_scores = infer_with_behavior(survey_answers, session_id, scenario_id)
 
     new_stage = f"step_{step}" if step > 0 else "initial"
 
@@ -148,21 +147,21 @@ async def _handle_behavior(
     context = to_customer_context_json(
         session_id=session_id,
         stage=new_stage,
-        scenario_id=settings.SCENARIO_ID,
+        scenario_id=scenario_id,
         scores=intent_scores,
         batch_features=batch_features,
     )
     ex.execute(
         "INSERT INTO customer_contexts (session_id, scenario_id, stage, context_json) "
         "VALUES (?, ?, ?, ?)",
-        [session_id, settings.SCENARIO_ID, new_stage, json.dumps(context, ensure_ascii=False)],
+        [session_id, scenario_id, new_stage, json.dumps(context, ensure_ascii=False)],
     )
 
     ex.execute("UPDATE sessions SET stage = ? WHERE id = ?", [new_stage, session_id])
 
     top_n_cnt = settings.TOP_N_INTENT
-    top_items, others = to_topn_with_others(intent_scores, top_n=top_n_cnt)
-    all_probabilities = to_probability_dict(intent_scores)
+    top_items, others = to_topn_with_others(intent_scores, top_n=top_n_cnt, scenario_id=scenario_id)
+    all_probabilities = to_probability_dict(intent_scores, scenario_id=scenario_id)
 
     await websocket.send_json({
         "type":              "INTENT_UPDATE",

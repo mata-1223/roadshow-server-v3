@@ -4,7 +4,7 @@ from __future__ import annotations
 """
 import json
 import uuid
-from typing import Any
+from typing import Any, Optional
 
 from fastapi import APIRouter, HTTPException
 from pydantic import BaseModel
@@ -30,17 +30,26 @@ class SurveySubmission(BaseModel):
     answers: dict[str, str]  # {"Q1": "A", ...}
 
 
+class CreateSessionRequest(BaseModel):
+    scenario_id: Optional[str] = None
+
+
 @router.post("", response_model=CreateSessionResponse)
-async def create_session() -> CreateSessionResponse:
+async def create_session(req: Optional[CreateSessionRequest] = None) -> CreateSessionResponse:
+    from core.engines import available_scenarios
+    scenario_id = (req.scenario_id if req and req.scenario_id else None) or settings.SCENARIO_ID
+    if scenario_id not in available_scenarios():
+        raise HTTPException(400, f"Unknown scenario: {scenario_id}")
+
     session_id = f"S-{uuid.uuid4().hex[:12]}"
     ex = get_executor()
     ex.execute(
         "INSERT INTO sessions (id, scenario_id, stage) VALUES (?, ?, ?)",
-        [session_id, settings.SCENARIO_ID, "initial"],
+        [session_id, scenario_id, "initial"],
     )
     return CreateSessionResponse(
         session_id=session_id,
-        scenario_id=settings.SCENARIO_ID,
+        scenario_id=scenario_id,
     )
 
 
@@ -48,10 +57,11 @@ async def create_session() -> CreateSessionResponse:
 async def submit_survey(session_id: str, submission: SurveySubmission) -> dict[str, Any]:
     ex = get_executor()
 
-    # 세션 검증
-    row = ex.fetchone("SELECT id FROM sessions WHERE id = ?", [session_id])
+    # 세션 검증 + scenario_id 조회
+    row = ex.fetchone("SELECT id, scenario_id FROM sessions WHERE id = ?", [session_id])
     if row is None:
         raise HTTPException(404, "Session not found")
+    scenario_id = row[1]
 
     # 답변 적재
     answer_rows = [
@@ -63,7 +73,7 @@ async def submit_survey(session_id: str, submission: SurveySubmission) -> dict[s
     )
 
     # Base Intent 추론
-    batch_features, intent_scores = infer_batch(submission.answers)
+    batch_features, intent_scores = infer_batch(submission.answers, scenario_id)
 
     # Intent Score 적재
     score_rows = [
@@ -84,22 +94,22 @@ async def submit_survey(session_id: str, submission: SurveySubmission) -> dict[s
     context = to_customer_context_json(
         session_id=session_id,
         stage="initial",
-        scenario_id=settings.SCENARIO_ID,
+        scenario_id=scenario_id,
         scores=intent_scores,
         batch_features=batch_features,
     )
     ex.execute(
         "INSERT INTO customer_contexts (session_id, scenario_id, stage, context_json) "
         "VALUES (?, ?, ?, ?)",
-        [session_id, settings.SCENARIO_ID, "initial", json.dumps(context, ensure_ascii=False)],
+        [session_id, scenario_id, "initial", json.dumps(context, ensure_ascii=False)],
     )
 
     # 세션 stage 갱신
     ex.execute("UPDATE sessions SET stage = ?, last_active_at = CURRENT_TIMESTAMP WHERE id = ?",
                ["initial", session_id])
 
-    top_items, others = to_topn_with_others(intent_scores, top_n=settings.TOP_N_INTENT)
-    all_probabilities = to_probability_dict(intent_scores)
+    top_items, others = to_topn_with_others(intent_scores, top_n=settings.TOP_N_INTENT, scenario_id=scenario_id)
+    all_probabilities = to_probability_dict(intent_scores, scenario_id=scenario_id)
 
     return {
         "session_id":        session_id,

@@ -1,0 +1,45 @@
+{
+  "ranker": {
+    "behavior_signals": {
+      "music": [
+        "INT-W110",
+        "INT-W240"
+      ],
+      "sns": [
+        "INT-W130"
+      ],
+      "ott": [
+        "INT-W130"
+      ],
+      "delivery": [
+        "INT-W210"
+      ],
+      "shopping": [
+        "INT-W210"
+      ],
+      "travel": [
+        "INT-W220"
+      ],
+      "exercise": [
+        "INT-W230"
+      ],
+      "mental_recovery": [
+        "INT-W240"
+      ],
+      "messenger": [
+        "INT-W250"
+      ],
+      "reading": [
+        "INT-W250"
+      ]
+    },
+    "action_signal": {
+      "scale": 0.28,
+      "cap": 0.55,
+      "decay": 0.6
+    }
+  },
+  "calibrator": {
+    "probability_temperature": 0.15
+  }
+}

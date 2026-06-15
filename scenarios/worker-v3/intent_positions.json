@@ -1,0 +1,87 @@
+{
+  "scenario_id": "worker-v3",
+  "embedding_model": "(backup: L1 grid)",
+  "reducer": "(none)",
+  "reducer_params": {},
+  "coord_range": [
+    -1,
+    1
+  ],
+  "note": "L1 2 zone 배치",
+  "intents": [
+    {
+      "intent_id": "INT-W110",
+      "L1_id": "INT-W100",
+      "x": -0.05,
+      "y": 0.0
+    },
+    {
+      "intent_id": "INT-W120",
+      "L1_id": "INT-W100",
+      "x": -0.45,
+      "y": 0.4
+    },
+    {
+      "intent_id": "INT-W130",
+      "L1_id": "INT-W100",
+      "x": -0.85,
+      "y": 0.0
+    },
+    {
+      "intent_id": "INT-W140",
+      "L1_id": "INT-W100",
+      "x": -0.45,
+      "y": -0.4
+    },
+    {
+      "intent_id": "INT-W210",
+      "L1_id": "INT-W200",
+      "x": 0.85,
+      "y": 0.0
+    },
+    {
+      "intent_id": "INT-W220",
+      "L1_id": "INT-W200",
+      "x": 0.5736,
+      "y": 0.3804
+    },
+    {
+      "intent_id": "INT-W230",
+      "L1_id": "INT-W200",
+      "x": 0.1264,
+      "y": 0.2351
+    },
+    {
+      "intent_id": "INT-W240",
+      "L1_id": "INT-W200",
+      "x": 0.1264,
+      "y": -0.2351
+    },
+    {
+      "intent_id": "INT-W250",
+      "L1_id": "INT-W200",
+      "x": 0.5736,
+      "y": -0.3804
+    }
+  ],
+  "l1_zones": [
+    {
+      "L1_id": "INT-W100",
+      "L1_name": "번아웃 심화",
+      "centroid": {
+        "x": -0.45,
+        "y": 0.0
+      },
+      "color": "#ef4444"
+    },
+    {
+      "L1_id": "INT-W200",
+      "L1_name": "번아웃 완화 시도",
+      "centroid": {
+        "x": 0.45,
+        "y": 0.0
+      },
+      "color": "#10b981"
+    }
+  ]
+}
