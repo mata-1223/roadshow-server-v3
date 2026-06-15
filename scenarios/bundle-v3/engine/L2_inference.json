@@ -570,13 +570,16 @@
         "INT-B1420"
       ],
       "current_bundle_benefit": [
-        "INT-B2110"
+        "INT-B2110",
+        "INT-B2320",
+        "INT-B2330"
       ],
       "promotion_benefit": [
         "INT-B2220"
       ],
       "card_benefit": [
-        "INT-B2230"
+        "INT-B2230",
+        "INT-B2310"
       ],
       "membership_benefit": [
         "INT-B2320"
@@ -603,7 +606,8 @@
         "INT-B4120"
       ],
       "long_term_benefit": [
-        "INT-B4210"
+        "INT-B4210",
+        "INT-B1230"
       ],
       "penalty": [
         "INT-B4320",
