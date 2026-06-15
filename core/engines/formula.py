@@ -15,8 +15,10 @@ design 문서 `engines-layered-config-design.md` §5 규약 구현.
                               (x = features[n], 없으면 d; clip=[lo,hi] 면 x 선-clamp, null=무경계 → min/max 단방향)
   • {"feat": n, "threshold": [[t,v],...], "default": d}        → x>=t 인 첫 v, 없으면 d (내림차순 가정)
   • {"boost": {"feat": n, "scale": s, "cap": c [, "mult": m]}} → min(x*s*m, c*m)
-  • {"if": <cond>, "then": c [, "else": e]}                    → cond면 c, 아니면 e(기본 0)
+  • {"if": <cond>, "then": <node> [, "else": <node>]}          → cond면 then, 아니면 else(기본 0). then/else는 식 노드.
+  • {"switch": [{"if": <cond>, "then": <node>}, ...] [, "else": <node>]} → 첫 매칭 then, 없으면 else (if-elif-else)
   cond: {"feat": n, "in": [...]} | {"gte"|"gt"|"lte"|"lt"|"eq": v}
+        | {"all": [<cond>,...]} | {"any": [<cond>,...]} | {"not": <cond>}   (복합 조건)
 
 설계 규약: 시나리오 차이(수식)는 spec, 평가 메커니즘은 여기 한 곳.
 """
@@ -32,6 +34,12 @@ def _load_py(ref: str):
 
 
 def _cond(spec: dict, features: dict) -> bool:
+    if "all" in spec:
+        return all(_cond(c, features) for c in spec["all"])
+    if "any" in spec:
+        return any(_cond(c, features) for c in spec["any"])
+    if "not" in spec:
+        return not _cond(spec["not"], features)
     feat = spec["feat"]
     if "in" in spec:
         return features.get(feat) in spec["in"]
@@ -73,8 +81,15 @@ def eval_formula(node: Any, features: dict) -> float:
         mult = b.get("mult", 1.0)
         return min(x * b["scale"] * mult, b["cap"] * mult)
 
+    if "switch" in node:
+        for case in node["switch"]:
+            if _cond(case["if"], features):
+                return eval_formula(case["then"], features)
+        return eval_formula(node.get("else", 0.0), features)
+
     if "if" in node:
-        return float(node["then"]) if _cond(node["if"], features) else float(node.get("else", 0.0))
+        branch = node["then"] if _cond(node["if"], features) else node.get("else", 0.0)
+        return eval_formula(branch, features)
 
     if "feat" in node and "threshold" in node:
         x = g(features, node["feat"], node.get("default", 0.0))

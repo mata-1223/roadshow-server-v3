@@ -114,6 +114,88 @@ def custom_formula(features):
 SPEC_PY = {"py": "scripts.test_eval_formula:custom_formula"}
 
 
+# ══════════════ 확장 노드: 복합 조건 / 분기 식 (cs 룰 6종) ══════════════
+PBM = 1.5  # PATTERN_BOOST_MULTIPLIER
+def _boost(f, key, scale, cap):
+    return min(float(f.get(key, 0)) * scale * PBM, cap * PBM)
+
+# 7. _rule_1340: AND 조건 (cs.py:537)
+def ref_1340(f):
+    return 0.55 if f.get("결합 여부", False) and int(f.get("가족 회선 수", 1)) >= 2 else 0.20
+SPEC_1340 = {
+    "if": {"all": [{"feat": "결합 여부", "gte": 1}, {"feat": "가족 회선 수", "gte": 2}]},
+    "then": 0.55, "else": 0.20,
+}
+
+# 8. _rule_3110: AND + bool not (cs.py:645)
+def ref_3110(f):
+    if float(f.get("미납 금액", 0)) > 0 and not f.get("자동납부 등록 여부", True):
+        return 0.70
+    return 0.0
+SPEC_3110 = {
+    "if": {"all": [{"feat": "미납 금액", "gt": 0}, {"feat": "자동납부 등록 여부", "eq": False}]},
+    "then": 0.70, "else": 0.0,
+}
+
+# 9. _rule_5140: AND + then이 식(boost+clamp) (cs.py:710)
+def ref_5140(f):
+    bundle = str(f.get("결합 형태", "none"))
+    if bundle in ("home", "full") and float(f.get("품질 만족도", 1)) <= 0.4:
+        return min(0.55 + _boost(f, "quality_action_count", 0.10, 0.25), 0.95)
+    return 0.05
+SPEC_5140 = {
+    "if": {"all": [{"feat": "결합 형태", "in": ["home", "full"]}, {"feat": "품질 만족도", "lte": 0.4}]},
+    "then": {"clamp": [0, 0.95], "terms": [
+        0.55, {"boost": {"feat": "quality_action_count", "scale": 0.10, "cap": 0.25, "mult": PBM}}]},
+    "else": 0.05,
+}
+
+# 10. _rule_6130: then이 affine 식 (cs.py:?)
+def ref_6130(f):
+    family = int(f.get("가족 회선 수", 1))
+    rem = float(f.get("잔여 데이터 비율", 1))
+    if family >= 2:
+        return 0.30 + (1 - rem) * 0.3
+    return 0.05
+SPEC_6130 = {
+    "if": {"feat": "가족 회선 수", "gte": 2},
+    "then": {"terms": [0.30, {"feat": "잔여 데이터 비율", "linear": [-0.3, 0.3]}]},
+    "else": 0.05,
+}
+
+# 11. _rule_2240: 중첩 분기 → switch (cs.py:?)
+def ref_2240(f):
+    if f.get("결합 여부"):
+        return 0.20
+    return 0.45 if int(f.get("가족 회선 수", 1)) >= 2 else 0.20
+SPEC_2240 = {
+    "switch": [
+        {"if": {"feat": "결합 여부", "gte": 1}, "then": 0.20},
+        {"if": {"feat": "가족 회선 수", "gte": 2}, "then": 0.45},
+    ],
+    "else": 0.20,
+}
+
+# 12. _rule_2120: OR 조건 + 분기마다 다른 식 (cs.py:563)
+def ref_2120(f):
+    upsell = float(f.get("업셀 적합도 Score", 0))
+    fee = float(f.get("요금제 월정액", 0))
+    tier = str(f.get("요금제 구간", ""))
+    is_5g_like = tier in ("premium", "mid") or fee >= 55000
+    if is_5g_like:
+        return min(0.20 + _boost(f, "product_explore_count", 0.04, 0.10), 0.40)
+    base = min(upsell * 0.7 + 0.15, 0.70)
+    return min(base + _boost(f, "product_explore_count", 0.08, 0.20), 0.95)
+SPEC_2120 = {
+    "if": {"any": [{"feat": "요금제 구간", "in": ["premium", "mid"]}, {"feat": "요금제 월정액", "gte": 55000}]},
+    "then": {"clamp": [0, 0.40], "terms": [
+        0.20, {"boost": {"feat": "product_explore_count", "scale": 0.04, "cap": 0.10, "mult": PBM}}]},
+    "else": {"clamp": [0, 0.95], "terms": [
+        {"clamp": [0, 0.70], "value": {"terms": [{"feat": "업셀 적합도 Score", "linear": [0.7, 0]}, 0.15]}},
+        {"boost": {"feat": "product_explore_count", "scale": 0.08, "cap": 0.20, "mult": PBM}}]},
+}
+
+
 def _rand_feats(rng):
     return {
         "family_line_count":        rng.choice([1, 2, 3]),
@@ -126,6 +208,19 @@ def _rand_feats(rng):
         "churn_page_view_count":    rng.choice([0, 1, 2, 3, 5]),
         "Bundle Opportunity Index": round(rng.uniform(0, 100), 2),
         "x":                        rng.randint(0, 10),
+        # 확장 노드 테스트용
+        "결합 여부":                 rng.choice([0, 1]),
+        "가족 회선 수":              rng.choice([1, 2, 3, 4, 5]),
+        "미납 금액":                 rng.choice([0, 0, 12000, 50000]),
+        "자동납부 등록 여부":         rng.choice([True, False]),
+        "결합 형태":                 rng.choice(["none", "mobile_only", "home", "full"]),
+        "품질 만족도":               round(rng.uniform(0, 1), 4),
+        "quality_action_count":     rng.choice([0, 1, 2, 3, 5]),
+        "잔여 데이터 비율":           round(rng.uniform(0, 1), 4),
+        "업셀 적합도 Score":          round(rng.uniform(0, 1), 4),
+        "요금제 월정액":             rng.choice([35000, 55000, 80000, 100000]),
+        "요금제 구간":               rng.choice(["premium", "mid", "standard", "lite"]),
+        "product_explore_count":    rng.choice([0, 1, 2, 4]),
     }
 
 
@@ -139,13 +234,20 @@ def main():
         check("boost",       ref_boost(f),       SPEC_BOOST,       f, exact=True)
         check("b1110",       ref_b1110(f),        SPEC_B1110,       f)
         check("py_escape",   custom_formula(f),  SPEC_PY,          f, exact=True)
+        # 확장 노드 (복합 조건 / 분기 식)
+        check("rule_1340",   ref_1340(f),  SPEC_1340, f, exact=True)
+        check("rule_3110",   ref_3110(f),  SPEC_3110, f, exact=True)
+        check("rule_5140",   ref_5140(f),  SPEC_5140, f)             # then에 affine 없음 → 사실상 exact지만 boost*1.5 안전 tol
+        check("rule_6130",   ref_6130(f),  SPEC_6130, f)             # affine 변환 → tol
+        check("rule_2240",   ref_2240(f),  SPEC_2240, f, exact=True)
+        check("rule_2120",   ref_2120(f),  SPEC_2120, f)             # affine(upsell*0.7) 변환 → tol
 
     if _fails:
         print(f"❌ {len(_fails)}건 불일치 (최대 10건):")
         for e in _fails[:10]:
             print("  " + e)
         sys.exit(1)
-    print("✅ eval_formula 등가성 통과 — 6개 수식 패턴 × 2000 무작위 케이스")
+    print("✅ eval_formula 등가성 통과 — 12개 수식 패턴(복합조건·분기 포함) × 2000 무작위 케이스")
 
 
 if __name__ == "__main__":
