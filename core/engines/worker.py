@@ -13,7 +13,7 @@ from pathlib import Path
 from typing import Any
 
 from core.engines import config, common, extract
-from core.engines.common import clamp, clamp01, g
+from core.engines.common import clamp01, g
 from core.extractor import get_extractor
 from core.engines.base import ScenarioEngine
 from models import sklearn_model
@@ -26,44 +26,9 @@ _MODEL_PREFIX = "worker-v3__"
 # 2.2 Batch Context Feature Builder
 # ─────────────────────────────────────────────────────────────
 def build_batch_features(answers: dict[str, str]) -> dict[str, Any]:
-    survey = config.get_survey("worker-v3")
-
-    base: dict[str, Any] = {}
-    for q in survey["questions"]:
-        code = answers.get(q["id"])
-        if code is None:
-            continue
-        opt = next((o for o in q["options"] if o["code"] == code), None)
-        if opt:
-            base.update(opt.get("features", {}))
-
-    plan_tier   = float(base.get("plan_tier", 2))
-    tenure      = float(base.get("tenure_group", 2))
-    offwork     = float(base.get("offwork_time", 2))
-    overtime    = float(base.get("overtime_freq", 1))
-    move        = float(base.get("move_pattern", 1))
-    weekend_out = float(base.get("weekend_out", 2))
-    social      = float(base.get("social_contact", 3))
-    night_phone = float(base.get("night_phone_usage", 1))
-
-    fatigue = clamp(((offwork - 1) / 3 * 50) + ((overtime - 1) / 3 * 50))
-    isolation = clamp(((2 - move) * 25) + ((3 - weekend_out) / 2 * 35) + ((4 - social) / 3 * 40))
-    retention = clamp(((5 - plan_tier) / 4 * 60) + ((tenure - 1) / 4 * 40))
-    sleep = clamp(((night_phone - 1) / 2 * 70) + ((offwork - 1) / 3 * 30))
-
-    idx = {
-        "Fatigue Load Index":      round(fatigue, 2),
-        "Isolation Tendency Index": round(isolation, 2),
-        "Retention Value Index":   round(retention, 2),
-        "Sleep Disturbance Index": round(sleep, 2),
-    }
-    score = {
-        "Burnout Deep Score":       round(0.4 * fatigue + 0.3 * isolation + 0.3 * sleep, 2),
-        "Recovery Motivation Score": round(0.6 * fatigue + 0.4 * isolation, 2),
-        "Digital Escape Score":     round(0.7 * sleep + 0.3 * isolation, 2),
-        "Retention Value Score":    round(retention, 2),
-    }
-    return {**base, **idx, **score}
+    # 설문 → Base, Index/Score 파생은 L1_feature.json:batch_builder (선언형) → extract 평가.
+    base = extract.survey_base(config.get_survey("worker-v3"), answers)
+    return extract.run_batch_builder(base, config.get_batch_builder("worker-v3"))
 
 
 # ─────────────────────────────────────────────────────────────

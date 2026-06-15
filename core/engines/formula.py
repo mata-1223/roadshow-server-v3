@@ -11,8 +11,9 @@ design 문서 `engines-layered-config-design.md` §5 규약 구현.
   • {"clamp": [lo,hi], "terms":[...]}  → clamp(Σ terms, lo, hi)
   • {"clamp": [lo,hi], "value": <node>} → clamp(eval(node), lo, hi)
   • {"terms": [...]}          → Σ eval(term)
-  • {"feat": n, "linear": [a,b] [, "default": d] [, "clip": [lo,hi]]} → a*x + b
-                              (x = features[n], 없으면 d; clip=[lo,hi] 면 x 선-clamp, null=무경계 → min/max 단방향)
+  • {"feat": n, "linear": [a,b] [, "default": d] [, "clip": [lo,hi]] [, "div": k] [, "mul": m]}
+        → ((a*x + b) / k) * m   (div/mul은 순서대로, 원본 연산순서 재현용 — float 1:1)
+        (x = features[n], 없으면 d; clip=[lo,hi] 면 x 선-clamp, null=무경계 → min/max 단방향)
   • {"feat": n, "threshold": [[t,v],...], "default": d}        → x>=t 인 첫 v, 없으면 d (내림차순 가정)
   • {"boost": {"feat": n, "scale": s, "cap": c [, "mult": m]}} → min(x*s*m, c*m)
   • {"if": <cond>, "then": <node> [, "else": <node>]}          → cond면 then, 아니면 else(기본 0). then/else는 식 노드.
@@ -107,6 +108,11 @@ def eval_formula(node: Any, features: dict) -> float:
                 x = max(lo, x)
             if hi is not None:
                 x = min(hi, x)
-        return a * x + b
+        v = a * x + b
+        if "div" in node:                  # 원본 연산순서 재현: (a*x+b)/div*mul
+            v = v / node["div"]
+        if "mul" in node:
+            v = v * node["mul"]
+        return v
 
     raise ValueError(f"unknown formula node: {node!r}")

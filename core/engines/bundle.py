@@ -12,7 +12,7 @@ from pathlib import Path
 from typing import Any
 
 from core.engines import config, common, extract
-from core.engines.common import clamp, clamp01, g
+from core.engines.common import clamp01, g
 from core.extractor import get_extractor
 from core.engines.base import ScenarioEngine
 from models import sklearn_model
@@ -25,82 +25,9 @@ _MODEL_PREFIX = "bundle-v3__"
 # 2.2 Batch Context Feature Builder
 # ─────────────────────────────────────────────────────────────
 def build_batch_features(answers: dict[str, str]) -> dict[str, Any]:
-    survey = config.get_survey("bundle-v3")
-
-    base: dict[str, Any] = {}
-    for q in survey["questions"]:
-        code = answers.get(q["id"])
-        if code is None:
-            continue
-        opt = next((o for o in q["options"] if o["code"] == code), None)
-        if opt:
-            base.update(opt.get("features", {}))
-
-    # 기본값
-    plan_tier        = float(base.get("plan_tier", 2))
-    plan_bill_level  = float(base.get("plan_bill_level", plan_tier))
-    family_line      = float(base.get("family_line_count", 1))
-    sub_service      = float(base.get("subscribed_service_count", 1))
-    household_change = float(base.get("household_change", 0))
-    tenure_group     = float(base.get("tenure_group", 2))
-    contract_status  = float(base.get("contract_status", 1))
-    monthly_bill     = float(base.get("monthly_bill_level", plan_bill_level))
-    benefit_util     = float(base.get("benefit_utilization", 2))
-    content_view     = float(base.get("content_view_mode", 3))
-    dissat           = str(base.get("dissatisfaction_factor", "없음"))
-
-    # Ratio / Delta
-    service_coverage_ratio = round(sub_service / 3.0, 4)
-    non_mobile_cost_gap    = monthly_bill - plan_bill_level
-    base["service_coverage_ratio"] = service_coverage_ratio
-    base["non_mobile_cost_gap"]    = non_mobile_cost_gap
-
-    # ── Index (0~100) ────────────────────────────────────────
-    bundle_opp = clamp(
-        ((family_line - 1) / 3 * 50)
-        + ((1 - service_coverage_ratio) * 30)
-        + (household_change / 2 * 20)
-    )
-    benefit_opt = clamp(
-        (min(non_mobile_cost_gap, 3) / 3 * 40)
-        + ((2 - benefit_util) * 35)
-        + ((25 if dissat in ("통신비", "혜택") else 0))
-    )
-    home_expand = clamp(
-        ((1 - service_coverage_ratio) * 50)
-        + (content_view / 3 * 30)
-        + (20 if household_change >= 1 else 0)
-    )
-    retention_ready = clamp(
-        ((tenure_group - 1) / 2 * 40)
-        + (contract_status / 2 * 60)
-    )
-    churn_risk = clamp(
-        (50 if dissat != "없음" else 0)
-        + (contract_status / 2 * 30)
-        + (min(non_mobile_cost_gap, 3) / 3 * 20)
-    )
-    benefit_engage = clamp(benefit_util / 2 * 100)
-
-    idx = {
-        "Bundle Opportunity Index":     round(bundle_opp, 2),
-        "Benefit Optimization Index":   round(benefit_opt, 2),
-        "Home Service Expansion Index": round(home_expand, 2),
-        "Retention Readiness Index":    round(retention_ready, 2),
-        "Churn Risk Index":             round(churn_risk, 2),
-        "Benefit Engagement Index":     round(benefit_engage, 2),
-    }
-
-    # ── Score (0~100) ────────────────────────────────────────
-    score = {
-        "Acquisition Score":         round(0.7 * bundle_opp + 0.3 * home_expand, 2),
-        "Benefit Optimization Score": round(0.7 * benefit_opt + 0.3 * (100 - benefit_engage), 2),
-        "Service Expansion Score":   round(0.7 * home_expand + 0.3 * bundle_opp, 2),
-        "Retention Score":           round(0.8 * retention_ready + 0.2 * benefit_engage, 2),
-        "Churn Defense Score":       round(0.7 * churn_risk + 0.3 * benefit_opt, 2),
-    }
-
-    return {**base, **idx, **score}
+    # 설문 → Base, Index/Score 파생은 L1_feature.json:batch_builder (선언형) → extract 평가.
+    base = extract.survey_base(config.get_survey("bundle-v3"), answers)
+    return extract.run_batch_builder(base, config.get_batch_builder("bundle-v3"))
 
 
 # ─────────────────────────────────────────────────────────────

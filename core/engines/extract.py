@@ -30,6 +30,47 @@ last_event_type / last_entity 는 항상 포함.
 """
 from typing import Any
 
+from core.engines.formula import eval_formula
+
+
+# ── [1a] Batch Builder (설문 → Base + 파생 Index/Score) ──────────
+def survey_base(survey: dict, answers: dict[str, str]) -> dict[str, Any]:
+    """설문 답변 → 선택 옵션의 features 병합 (Base)."""
+    base: dict[str, Any] = {}
+    for q in survey["questions"]:
+        code = answers.get(q["id"])
+        if code is None:
+            continue
+        opt = next((o for o in q["options"] if o["code"] == code), None)
+        if opt:
+            base.update(opt.get("features", {}))
+    return base
+
+
+def run_batch_builder(base: dict[str, Any], spec: dict) -> dict[str, Any]:
+    """
+    base → steps 순차 평가 → Index/Score 파생.
+
+    step: {"name", "formula", "round"?, "intermediate"?}
+      - formula = eval_formula spec, 직전까지 누적된 feats 참조
+      - round 있으면 반올림
+      - intermediate=true 면 최종 출력에서 제외 (Score가 참조하는 raw Index 용)
+    """
+    feats = dict(base)
+    for k, v in spec.get("defaults", {}).items():
+        feats.setdefault(k, v)                 # 없는 키만 (base.get(k, default) 의미)
+    drop: list[str] = []
+    for step in spec.get("steps", []):
+        v = eval_formula(step["formula"], feats)
+        if "round" in step:
+            v = round(v, step["round"])
+        feats[step["name"]] = v
+        if step.get("intermediate"):
+            drop.append(step["name"])
+    for n in drop:
+        feats.pop(n, None)
+    return feats
+
 
 # ── 이벤트 필터 ─────────────────────────────────────────────────
 def _filter(events: list[dict], filt: dict | None) -> list[dict]:
