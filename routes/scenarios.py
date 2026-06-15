@@ -16,6 +16,7 @@ _SCENARIO_DIR = Path(__file__).parent.parent / "scenarios"
 
 @router.get("/{scenario_id}")
 async def get_scenario(scenario_id: str) -> dict:
+    """시나리오 메타(intents/survey/behaviors/actions)를 config 레이어에서 재조립 — FE 계약."""
     try:
         return {
             "scenario_id": scenario_id,

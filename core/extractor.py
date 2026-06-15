@@ -10,6 +10,7 @@ from typing import Any
 
 
 def _now() -> datetime:
+    """현재 UTC 시각 (이벤트 타임스탬프·window 컷오프 기준)."""
     return datetime.utcnow()
 
 
@@ -20,7 +21,7 @@ class BehavioralPatternExtractor:
     시연 시: WebSocket 세션 단위로 인스턴스 보존, 매 행동마다 add_event() 호출
     """
 
-    def __init__(self):
+    def __init__(self) -> None:
         self._events_by_session: dict[str, list[dict[str, Any]]] = {}
 
     def add_event(
@@ -30,6 +31,7 @@ class BehavioralPatternExtractor:
         entity: str,
         occurred_at: datetime | None = None,
     ) -> None:
+        """세션에 행동 이벤트 1건 누적 (occurred_at 미지정 시 현재 UTC)."""
         ts = occurred_at or _now()
         self._events_by_session.setdefault(session_id, []).append({
             "event_type":  event_type,
@@ -48,6 +50,7 @@ class BehavioralPatternExtractor:
         return [e for e in events if e["occurred_at"] >= cutoff]
 
     def reset(self, session_id: str) -> None:
+        """세션의 누적 이벤트 제거."""
         self._events_by_session.pop(session_id, None)
 
 
@@ -56,6 +59,7 @@ _extractor: BehavioralPatternExtractor | None = None
 
 
 def get_extractor() -> BehavioralPatternExtractor:
+    """공유 이벤트 저장소 싱글톤."""
     global _extractor
     if _extractor is None:
         _extractor = BehavioralPatternExtractor()

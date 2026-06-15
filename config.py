@@ -1,9 +1,11 @@
 from __future__ import annotations
+"""앱 환경 설정 (env/.env override). settings 싱글톤으로 전역 사용."""
 from pydantic_settings import BaseSettings
 from functools import lru_cache
 
 
 class Settings(BaseSettings):
+    """환경변수·.env로 주입되는 앱 설정 (서버/DB/MLflow/추론/CORS)."""
     ENV: str = "local"
     PORT: int = 3002
     RELOAD: bool = True
@@ -33,6 +35,7 @@ class Settings(BaseSettings):
 
 @lru_cache
 def get_settings() -> Settings:
+    """Settings 싱글톤(캐시)."""
     return Settings()
 
 

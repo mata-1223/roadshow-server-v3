@@ -23,13 +23,14 @@ class DuckDBExecutor:
     멀티스레드 환경에서 쓰기 lock 보호.
     """
 
-    def __init__(self, db_path: str):
+    def __init__(self, db_path: str) -> None:
         self._db_path = db_path
         self._conn = duckdb.connect(db_path)
         self._lock = threading.RLock()
         logger.info(f"DuckDB connected: {db_path}")
 
     def execute(self, sql: str, params: Iterable[Any] | None = None) -> None:
+        """SQL 1건 실행 (lock 보호)."""
         with self._lock:
             if params is None:
                 self._conn.execute(sql)
@@ -37,10 +38,12 @@ class DuckDBExecutor:
                 self._conn.execute(sql, list(params))
 
     def executemany(self, sql: str, rows: list[list[Any]]) -> None:
+        """다중 행 일괄 실행 (lock 보호)."""
         with self._lock:
             self._conn.executemany(sql, rows)
 
     def to_pandas(self, sql: str, params: Iterable[Any] | None = None) -> pd.DataFrame:
+        """SELECT 결과를 DataFrame으로 반환."""
         with self._lock:
             if params is None:
                 return self._conn.execute(sql).df()
@@ -48,18 +51,21 @@ class DuckDBExecutor:
                 return self._conn.execute(sql, list(params)).df()
 
     def fetchone(self, sql: str, params: Iterable[Any] | None = None) -> tuple | None:
+        """첫 행 1건 반환 (없으면 None)."""
         with self._lock:
             if params is None:
                 return self._conn.execute(sql).fetchone()
             return self._conn.execute(sql, list(params)).fetchone()
 
     def fetchall(self, sql: str, params: Iterable[Any] | None = None) -> list[tuple]:
+        """전체 행 반환."""
         with self._lock:
             if params is None:
                 return self._conn.execute(sql).fetchall()
             return self._conn.execute(sql, list(params)).fetchall()
 
     def close(self) -> None:
+        """connection 종료."""
         with self._lock:
             self._conn.close()
 
@@ -68,6 +74,7 @@ _executor: DuckDBExecutor | None = None
 
 
 def get_executor() -> DuckDBExecutor:
+    """DuckDB Executor 싱글톤."""
     global _executor
     if _executor is None:
         _executor = DuckDBExecutor(settings.DB_PATH)

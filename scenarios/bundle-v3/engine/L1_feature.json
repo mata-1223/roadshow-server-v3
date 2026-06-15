@@ -1,7 +1,85 @@
 {
-  "_note": "L1 처리 config는 Phase 2에서 채움. 현재 Index/Score·event·pattern 수식은 Python 엔진(core/engines/*)에 있음.",
+  "_note": "L1 처리 config. pattern/event = 선언형 추출 spec (core/engines/extract.py가 평가). batch_builder/preprocessing은 Phase 3 후속.",
   "preprocessing": {},
-  "batch_builder": {},
-  "event": {},
-  "pattern": {}
+  "batch_builder": {
+    "steps": [
+      { "name": "service_coverage_ratio", "round": 4,
+        "formula": { "feat": "subscribed_service_count", "default": 1, "linear": [1, 0], "div": 3 } },
+      { "name": "non_mobile_cost_gap",
+        "formula": { "terms": [
+          { "feat": "monthly_bill_level", "default": 2, "linear": [1, 0] },
+          { "feat": "plan_bill_level", "default": 2, "linear": [-1, 0] } ] } },
+
+      { "name": "_BOI", "intermediate": true, "formula": { "clamp": [0, 100], "terms": [
+        { "feat": "family_line_count", "default": 1, "linear": [1, -1], "div": 3, "mul": 50 },
+        { "feat": "service_coverage_ratio", "linear": [-1, 1], "mul": 30 },
+        { "feat": "household_change", "default": 0, "linear": [1, 0], "div": 2, "mul": 20 } ] } },
+      { "name": "_BENOPT", "intermediate": true, "formula": { "clamp": [0, 100], "terms": [
+        { "feat": "non_mobile_cost_gap", "clip": [null, 3], "linear": [1, 0], "div": 3, "mul": 40 },
+        { "feat": "benefit_utilization", "default": 2, "linear": [-1, 2], "mul": 35 },
+        { "if": { "feat": "dissatisfaction_factor", "in": ["통신비", "혜택"] }, "then": 25 } ] } },
+      { "name": "_HOME", "intermediate": true, "formula": { "clamp": [0, 100], "terms": [
+        { "feat": "service_coverage_ratio", "linear": [-1, 1], "mul": 50 },
+        { "feat": "content_view_mode", "default": 3, "linear": [1, 0], "div": 3, "mul": 30 },
+        { "if": { "feat": "household_change", "gte": 1 }, "then": 20 } ] } },
+      { "name": "_RET", "intermediate": true, "formula": { "clamp": [0, 100], "terms": [
+        { "feat": "tenure_group", "default": 2, "linear": [1, -1], "div": 2, "mul": 40 },
+        { "feat": "contract_status", "default": 1, "linear": [1, 0], "div": 2, "mul": 60 } ] } },
+      { "name": "_CHURN", "intermediate": true, "formula": { "clamp": [0, 100], "terms": [
+        { "if": { "not": { "feat": "dissatisfaction_factor", "eq": "없음" } }, "then": 50 },
+        { "feat": "contract_status", "default": 1, "linear": [1, 0], "div": 2, "mul": 30 },
+        { "feat": "non_mobile_cost_gap", "clip": [null, 3], "linear": [1, 0], "div": 3, "mul": 20 } ] } },
+      { "name": "_BENENG", "intermediate": true,
+        "formula": { "clamp": [0, 100], "value": { "feat": "benefit_utilization", "default": 2, "linear": [1, 0], "div": 2, "mul": 100 } } },
+
+      { "name": "Bundle Opportunity Index",     "round": 2, "formula": { "feat": "_BOI",    "linear": [1, 0] } },
+      { "name": "Benefit Optimization Index",   "round": 2, "formula": { "feat": "_BENOPT", "linear": [1, 0] } },
+      { "name": "Home Service Expansion Index", "round": 2, "formula": { "feat": "_HOME",   "linear": [1, 0] } },
+      { "name": "Retention Readiness Index",    "round": 2, "formula": { "feat": "_RET",    "linear": [1, 0] } },
+      { "name": "Churn Risk Index",             "round": 2, "formula": { "feat": "_CHURN",  "linear": [1, 0] } },
+      { "name": "Benefit Engagement Index",     "round": 2, "formula": { "feat": "_BENENG", "linear": [1, 0] } },
+
+      { "name": "Acquisition Score",          "round": 2, "formula": { "terms": [
+        { "feat": "_BOI", "linear": [0.7, 0] }, { "feat": "_HOME", "linear": [0.3, 0] } ] } },
+      { "name": "Benefit Optimization Score", "round": 2, "formula": { "terms": [
+        { "feat": "_BENOPT", "linear": [0.7, 0] }, { "feat": "_BENENG", "linear": [-1, 100], "mul": 0.3 } ] } },
+      { "name": "Service Expansion Score",    "round": 2, "formula": { "terms": [
+        { "feat": "_HOME", "linear": [0.7, 0] }, { "feat": "_BOI", "linear": [0.3, 0] } ] } },
+      { "name": "Retention Score",            "round": 2, "formula": { "terms": [
+        { "feat": "_RET", "linear": [0.8, 0] }, { "feat": "_BENENG", "linear": [0.2, 0] } ] } },
+      { "name": "Churn Defense Score",        "round": 2, "formula": { "terms": [
+        { "feat": "_CHURN", "linear": [0.7, 0] }, { "feat": "_BENOPT", "linear": [0.3, 0] } ] } }
+    ]
+  },
+  "pattern": {
+    "window_seconds": 300,
+    "filter": { "exclude": ["navigate_back", "app_exit"] },
+    "fields": [
+      { "name": "explored_entity_count_5m",   "source": "distinct_entity" },
+      { "name": "comparison_action_count_5m", "source": "type_count", "key": "comparison_action" },
+      { "name": "decision_action_count_5m",   "source": "type_count", "key": "decision_action" },
+      { "name": "churn_action_count_5m",       "source": "type_count", "key": "churn_action" },
+      { "name": "action_intensity_5m",         "source": "total" },
+      { "name": "support_entry_count_5m",      "source": "type_count", "key": "support_entry" },
+      { "name": "repeated_entity_count_5m",    "source": "repeated_max" },
+      { "name": "dominant_entity_5m",          "source": "dominant_entity" },
+      { "name": "entity_transition_pattern",   "source": "recent_join", "field": "entity", "n": 3 },
+      { "name": "last_entity",                 "source": "last_entity" },
+      { "name": "entity_focus_ratio_5m",       "source": "focus_ratio", "round": 4 }
+    ]
+  },
+  "event": {
+    "trigger_by_entity": {
+      "support_consult":    "support_entry",
+      "bundle_apply":       "bundle_apply_submit",
+      "renewal_consult":    "renewal_consult_submit",
+      "competitor_compare": "competitor_compare_entry",
+      "mnp":                "mnp_benefit_check",
+      "penalty":            "termination_penalty_check"
+    },
+    "flags": [
+      { "name": "is_churn_signal", "when": { "event_type_eq": "churn_action" } },
+      { "name": "is_decision",     "when": { "event_type_eq": "decision_action" } }
+    ]
+  }
 }

@@ -21,7 +21,8 @@ from typing import Any
 from core.engines import config
 
 @lru_cache(maxsize=None)
-def load_scenario_intents(scenario_id):
+def load_scenario_intents(scenario_id: str) -> tuple[dict, ...]:
+    """[L0] taxonomy → intent 메타 튜플(캐시). 각 dict: id/name/L1·L2/inference_type/features."""
     data = config.get_taxonomy(scenario_id)
     return tuple({ "id": i["id"],
                   "name": i["name"],
@@ -34,7 +35,8 @@ def load_scenario_intents(scenario_id):
                    )
 
 @lru_cache(maxsize=None)
-def load_behavior_intent_map(scenario_id):
+def load_behavior_intent_map(scenario_id: str) -> tuple[tuple[str, tuple[str, ...]], ...]:
+    """[L2] 행동 entity → 직접 신호 intent 매핑을 해시 가능한 튜플로(캐시)."""
     m = config.get_behavior_signals(scenario_id)
     return tuple((k, tuple(v)) for k, v in m.items())
 
@@ -49,31 +51,39 @@ class ScenarioEngine:
 
     # ── Feature 생성 ──────────────────────────────────────────
     def build_batch_features(self, answers: dict[str, str]) -> dict[str, Any]:
+        """[L1] 설문 답변 → Batch Context Feature(Base/Index/Score)."""
         raise NotImplementedError
 
     def empty_pattern_features(self) -> dict[str, Any]:
+        """행동 없음 상태의 Pattern Feature(0/빈값)."""
         raise NotImplementedError
 
     def empty_event_features(self) -> dict[str, Any]:
+        """행동 없음 상태의 Event Feature(0/빈값)."""
         raise NotImplementedError
 
     def pattern_features(self, session_id: str) -> dict[str, Any]:
-        """공유 extractor 저장소의 세션 이벤트 → Pattern Feature (시나리오 전용 계산)."""
+        """[L1] 공유 extractor 저장소의 세션 이벤트 → Pattern Feature (시나리오 전용 계산)."""
         raise NotImplementedError
 
     def event_features(self, session_id: str) -> dict[str, Any]:
+        """[L1] 세션 최신 이벤트 → Event Feature(트리거 플래그 등)."""
         raise NotImplementedError
 
     # ── Intent 추론 ───────────────────────────────────────────
     def rule_predict(self, intent_id: str, features: dict[str, Any]) -> float:
+        """[L2a] Rule Intent 점수(0~1)."""
         raise NotImplementedError
 
     def model_predict(self, intent_id: str, features: dict[str, Any]) -> float:
+        """[L2b] Model Intent 점수(0~1)."""
         raise NotImplementedError
 
     # ── 카탈로그 / 매핑 ───────────────────────────────────────
     def intents(self) -> list[dict]:
+        """[L0] intent 카탈로그(메타 dict 리스트)."""
         return [dict(i) for i in load_scenario_intents(self.scenario_id)]
 
     def behavior_intent_map(self) -> dict[str, list[str]]:
+        """[L2] 행동 entity → 직접 신호 intent 매핑."""
         return {k: list(v) for k, v in load_behavior_intent_map(self.scenario_id)}

@@ -28,6 +28,7 @@ logger = logging.getLogger(__name__)
 
 @router.websocket("/ws")
 async def websocket_endpoint(websocket: WebSocket) -> None:
+    """WS 엔드포인트: JOIN으로 세션 결합 후 BEHAVIOR 메시지를 받아 재추론 Push."""
     session_id: str | None = None
 
     try:
@@ -86,6 +87,7 @@ async def _handle_behavior(
     survey_answers: dict[str, str],
     msg: dict,
 ) -> None:
+    """BEHAVIOR 처리: 이벤트 로그·extractor 적재 → 재추론 → Intent Score·Context 저장 → INTENT_UPDATE Push."""
     behavior_id = msg.get("behavior_id")
     event_type  = msg.get("event_type")
     entity      = msg.get("entity")
@@ -176,6 +178,7 @@ async def _handle_behavior(
 
 
 def _load_session_answers(session_id: str) -> dict[str, str]:
+    """세션의 설문 답변을 DB에서 로드 ({question_id: answer_code})."""
     ex = get_executor()
     df = ex.to_pandas(
         "SELECT question_id, answer_code FROM survey_answers WHERE session_id = ?",
