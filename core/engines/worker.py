@@ -12,7 +12,7 @@ import json
 from pathlib import Path
 from typing import Any
 
-from core.engines import config, common
+from core.engines import config, common, extract
 from core.engines.common import clamp, clamp01, g
 from core.extractor import get_extractor
 from core.engines.base import ScenarioEngine
@@ -69,42 +69,25 @@ def build_batch_features(answers: dict[str, str]) -> dict[str, Any]:
 # ─────────────────────────────────────────────────────────────
 # 3.3 Behavioral Pattern Extractor (app_open)
 # ─────────────────────────────────────────────────────────────
+# 필드 정의는 L1_feature.json(pattern), 평가는 core.engines.extract. event는 미생성({}).
 def empty_pattern_features() -> dict[str, Any]:
-    return {
-        "launch_entity_count_5m":   0,
-        "action_intensity_5m":      0,
-        "dominant_entity_5m":       "",
-        "entity_transition_pattern": "",
-        "last_entity":              "",
-    }
+    return extract.pattern_from_spec([], config.get_pattern_spec("worker-v3"))
 
 
 def pattern_features(session_id: str) -> dict[str, Any]:
-    events = get_extractor().events_within(session_id, window_seconds=300)
-    real = [e for e in events if e["event_type"] == "app_open"]
-    if not real:
-        return empty_pattern_features()
-    entity_counts: dict[str, int] = {}
-    for e in real:
-        entity_counts[e["entity"]] = entity_counts.get(e["entity"], 0) + 1
-    dominant = max(entity_counts.items(), key=lambda kv: kv[1])[0]
-    recent = real[-3:]
-    return {
-        "launch_entity_count_5m":   len(entity_counts),
-        "action_intensity_5m":      len(real),
-        "dominant_entity_5m":       dominant,
-        "entity_transition_pattern": "→".join(e["entity"] for e in recent),
-        "last_entity":              real[-1]["entity"],
-    }
+    spec = config.get_pattern_spec("worker-v3")
+    events = get_extractor().events_within(session_id, window_seconds=spec.get("window_seconds", 300))
+    return extract.pattern_from_spec(extract._filter(events, spec.get("filter")), spec)
 
 
-# 3.2 Event Feature 미생성 → 빈 dict
 def empty_event_features() -> dict[str, Any]:
-    return {}
+    return extract.event_from_spec(None, config.get_event_spec("worker-v3"))
 
 
 def event_features(session_id: str) -> dict[str, Any]:
-    return {}
+    events = get_extractor()._events_by_session.get(session_id, [])
+    last = events[-1] if events else None
+    return extract.event_from_spec(last, config.get_event_spec("worker-v3"))
 
 
 # ─────────────────────────────────────────────────────────────

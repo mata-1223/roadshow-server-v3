@@ -24,6 +24,10 @@ def get_behaviors(sid):
     return load_layer(sid, "input")["behavior_catalog"]
 def get_behavior_signals(sid):
     return load_layer(sid, "L2_inference")["ranker"]["behavior_signals"]
+def get_pattern_spec(sid):
+    return load_layer(sid, "L1_feature").get("pattern", {})
+def get_event_spec(sid):
+    return load_layer(sid, "L1_feature").get("event", {})
 def get_probability_temperature(sid):
     # calibrator: raw score → 확률 softmax 온도(작을수록 상위 Intent 집중)
     return load_layer(sid, "L2_inference")["calibrator"]["probability_temperature"]

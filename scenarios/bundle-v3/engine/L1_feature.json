@@ -1,7 +1,36 @@
 {
-  "_note": "L1 처리 config는 Phase 2에서 채움. 현재 Index/Score·event·pattern 수식은 Python 엔진(core/engines/*)에 있음.",
+  "_note": "L1 처리 config. pattern/event = 선언형 추출 spec (core/engines/extract.py가 평가). batch_builder/preprocessing은 Phase 3 후속.",
   "preprocessing": {},
   "batch_builder": {},
-  "event": {},
-  "pattern": {}
+  "pattern": {
+    "window_seconds": 300,
+    "filter": { "exclude": ["navigate_back", "app_exit"] },
+    "fields": [
+      { "name": "explored_entity_count_5m",   "source": "distinct_entity" },
+      { "name": "comparison_action_count_5m", "source": "type_count", "key": "comparison_action" },
+      { "name": "decision_action_count_5m",   "source": "type_count", "key": "decision_action" },
+      { "name": "churn_action_count_5m",       "source": "type_count", "key": "churn_action" },
+      { "name": "action_intensity_5m",         "source": "total" },
+      { "name": "support_entry_count_5m",      "source": "type_count", "key": "support_entry" },
+      { "name": "repeated_entity_count_5m",    "source": "repeated_max" },
+      { "name": "dominant_entity_5m",          "source": "dominant_entity" },
+      { "name": "entity_transition_pattern",   "source": "recent_join", "field": "entity", "n": 3 },
+      { "name": "last_entity",                 "source": "last_entity" },
+      { "name": "entity_focus_ratio_5m",       "source": "focus_ratio", "round": 4 }
+    ]
+  },
+  "event": {
+    "trigger_by_entity": {
+      "support_consult":    "support_entry",
+      "bundle_apply":       "bundle_apply_submit",
+      "renewal_consult":    "renewal_consult_submit",
+      "competitor_compare": "competitor_compare_entry",
+      "mnp":                "mnp_benefit_check",
+      "penalty":            "termination_penalty_check"
+    },
+    "flags": [
+      { "name": "is_churn_signal", "when": { "event_type_eq": "churn_action" } },
+      { "name": "is_decision",     "when": { "event_type_eq": "decision_action" } }
+    ]
+  }
 }

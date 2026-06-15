@@ -11,7 +11,7 @@ from __future__ import annotations
 from pathlib import Path
 from typing import Any
 
-from core.engines import config, common
+from core.engines import config, common, extract
 from core.engines.common import clamp, clamp01, g
 from core.extractor import get_extractor
 from core.engines.base import ScenarioEngine
@@ -106,89 +106,25 @@ def build_batch_features(answers: dict[str, str]) -> dict[str, Any]:
 # ─────────────────────────────────────────────────────────────
 # 3.3 Behavioral Pattern Extractor
 # ─────────────────────────────────────────────────────────────
+# entity 맵·필드 정의는 L1_feature.json(pattern/event), 평가는 core.engines.extract.
 def empty_pattern_features() -> dict[str, Any]:
-    return {
-        "explored_entity_count_5m":   0,
-        "comparison_action_count_5m": 0,
-        "decision_action_count_5m":   0,
-        "churn_action_count_5m":      0,
-        "action_intensity_5m":        0,
-        "support_entry_count_5m":     0,
-        "repeated_entity_count_5m":   0,
-        "dominant_entity_5m":         "",
-        "entity_transition_pattern":  "",
-        "last_entity":                "",
-        "entity_focus_ratio_5m":      0.0,
-    }
+    return extract.pattern_from_spec([], config.get_pattern_spec("bundle-v3"))
 
 
 def pattern_features(session_id: str) -> dict[str, Any]:
-    events = get_extractor().events_within(session_id, window_seconds=300)
-    real = [e for e in events if e["event_type"] not in ("navigate_back", "app_exit")]
-    if not real:
-        return empty_pattern_features()
-
-    entity_counts: dict[str, int] = {}
-    type_counts: dict[str, int] = {}
-    for e in real:
-        entity_counts[e["entity"]] = entity_counts.get(e["entity"], 0) + 1
-        type_counts[e["event_type"]] = type_counts.get(e["event_type"], 0) + 1
-
-    total = len(real)
-    dominant = max(entity_counts.items(), key=lambda kv: kv[1])[0]
-    dom_count = entity_counts[dominant]
-    recent = real[-3:]
-
-    return {
-        "explored_entity_count_5m":   len(entity_counts),
-        "comparison_action_count_5m": type_counts.get("comparison_action", 0),
-        "decision_action_count_5m":   type_counts.get("decision_action", 0),
-        "churn_action_count_5m":      type_counts.get("churn_action", 0),
-        "action_intensity_5m":        total,
-        "support_entry_count_5m":     type_counts.get("support_entry", 0),
-        "repeated_entity_count_5m":   max(entity_counts.values()),
-        "dominant_entity_5m":         dominant,
-        "entity_transition_pattern":  "→".join(e["entity"] for e in recent),
-        "last_entity":                real[-1]["entity"],
-        "entity_focus_ratio_5m":      round(dom_count / total, 4),
-    }
-
-
-# ─────────────────────────────────────────────────────────────
-# 3.2 Event Feature Extractor (단일 클릭 즉시 대응 Trigger)
-# ─────────────────────────────────────────────────────────────
-# entity → Trigger Action 플래그
-_TRIGGER_BY_ENTITY = {
-    "support_consult":     "support_entry",
-    "bundle_apply":        "bundle_apply_submit",
-    "renewal_consult":     "renewal_consult_submit",
-    "competitor_compare":  "competitor_compare_entry",
-    "mnp":                 "mnp_benefit_check",
-    "penalty":             "termination_penalty_check",
-}
-_TRIGGER_FLAGS = list(set(_TRIGGER_BY_ENTITY.values()))
+    spec = config.get_pattern_spec("bundle-v3")
+    events = get_extractor().events_within(session_id, window_seconds=spec.get("window_seconds", 300))
+    return extract.pattern_from_spec(extract._filter(events, spec.get("filter")), spec)
 
 
 def empty_event_features() -> dict[str, Any]:
-    d = {f: 0 for f in _TRIGGER_FLAGS}
-    d.update({"last_event_type": "", "last_entity": "", "is_churn_signal": 0, "is_decision": 0})
-    return d
+    return extract.event_from_spec(None, config.get_event_spec("bundle-v3"))
 
 
 def event_features(session_id: str) -> dict[str, Any]:
     events = get_extractor()._events_by_session.get(session_id, [])
-    if not events:
-        return empty_event_features()
-    last = events[-1]
-    out = empty_event_features()
-    out["last_event_type"] = last["event_type"]
-    out["last_entity"]     = last["entity"]
-    trigger = _TRIGGER_BY_ENTITY.get(last["entity"])
-    if trigger:
-        out[trigger] = 1
-    out["is_churn_signal"] = 1 if last["event_type"] == "churn_action" else 0
-    out["is_decision"]     = 1 if last["event_type"] == "decision_action" else 0
-    return out
+    last = events[-1] if events else None
+    return extract.event_from_spec(last, config.get_event_spec("bundle-v3"))
 
 
 # ─────────────────────────────────────────────────────────────

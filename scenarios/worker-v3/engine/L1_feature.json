@@ -1,7 +1,17 @@
 {
-  "_note": "L1 처리 config는 Phase 2에서 채움. 현재 Index/Score·event·pattern 수식은 Python 엔진(core/engines/*)에 있음.",
+  "_note": "L1 처리 config. pattern = 선언형 추출 spec (core/engines/extract.py가 평가). event는 미생성({}). batch_builder/preprocessing은 Phase 3 후속.",
   "preprocessing": {},
   "batch_builder": {},
-  "event": {},
-  "pattern": {}
+  "pattern": {
+    "window_seconds": 300,
+    "filter": { "include": ["app_open"] },
+    "fields": [
+      { "name": "launch_entity_count_5m",     "source": "distinct_entity" },
+      { "name": "action_intensity_5m",        "source": "total" },
+      { "name": "dominant_entity_5m",          "source": "dominant_entity" },
+      { "name": "entity_transition_pattern",   "source": "recent_join", "field": "entity", "n": 3 },
+      { "name": "last_entity",                 "source": "last_entity" }
+    ]
+  },
+  "event": {}
 }

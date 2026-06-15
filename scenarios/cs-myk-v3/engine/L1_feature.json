@@ -1,7 +1,74 @@
 {
-  "_note": "L1 처리 config는 Phase 2에서 채움. 현재 Index/Score·event·pattern 수식은 Python 엔진(core/engines/*)에 있음.",
+  "_note": "L1 처리 config. pattern/event = 선언형 추출 spec (core/engines/extract.py가 평가). batch_builder/preprocessing은 Phase 3 후속.",
   "preprocessing": {},
   "batch_builder": {},
-  "event": {},
-  "pattern": {}
+  "pattern": {
+    "window_seconds": 300,
+    "entity_groups": {
+      "data_usage":          ["data_view"],
+      "billing":             ["billing_view"],
+      "subscription_info":   ["subscription_view"],
+      "benefit_membership":  ["benefit_view"],
+      "product_explore":     ["product_view"],
+      "customer_support":    ["support_view"],
+      "data_topup_button":   ["data_topup"],
+      "plan_change_button":  ["plan_change"],
+      "quality_diagnosis":   ["quality_action", "wifi_diag", "speed_test"],
+      "family_bundle":       ["family_bundle"],
+      "penalty_calc":        ["churn_view", "penalty_view"],
+      "confirm_button":      ["confirm"],
+      "coupon_use":          ["coupon_use"],
+      "chatbot":             ["support_entry"],
+      "call_support":        ["support_entry"],
+      "cancel_page":         ["churn_view", "cancel_view"]
+    },
+    "fields": [
+      { "name": "repeated_entity_count_5m", "source": "repeated_max" },
+      { "name": "support_entry_count_5m",   "source": "group_count", "key": "support_entry" },
+      { "name": "billing_page_view_count",  "source": "group_count", "key": "billing_view" },
+      { "name": "product_explore_count",    "source": "group_count", "key": "product_view" },
+      { "name": "benefit_explore_count",    "source": "group_count", "key": "benefit_view" },
+      { "name": "churn_page_view_count",    "source": "group_count", "key": "churn_view" },
+      { "name": "quality_action_count",     "source": "group_count", "key": "quality_action" },
+      { "name": "last_3_events",            "source": "recent_join", "field": "event_type", "n": 3 },
+      { "name": "WiFi 진단 실행",           "source": "group_count", "key": "wifi_diag" },
+      { "name": "속도 측정 실행",           "source": "group_count", "key": "speed_test" },
+      { "name": "장애 페이지 체류",         "source": "group_count", "key": "support_view", "mult": 60 },
+      { "name": "가족 결합 관련 행동",      "source": "group_count", "key": "family_bundle", "binary": true },
+      { "name": "위약금 조회 행동",         "source": "group_count", "key": "penalty_view", "binary": true },
+      { "name": "해지 페이지 진입",         "source": "group_count", "key": "cancel_view", "binary": true },
+      { "name": "mnp_benefit_check",        "source": "const", "value": 0 },
+      { "name": "할인 페이지 체류",         "source": "group_count", "key": "benefit_view", "mult": 30 }
+    ]
+  },
+  "event": {
+    "page_field": "current_page",
+    "page_default": "unknown",
+    "entity_page_map": {
+      "data_usage":         "data",
+      "billing":            "billing",
+      "subscription_info":  "subscription",
+      "benefit_membership": "benefit",
+      "product_explore":    "product",
+      "customer_support":   "support",
+      "data_topup_button":  "data",
+      "plan_change_button": "product",
+      "quality_diagnosis":  "support",
+      "family_bundle":      "subscription",
+      "penalty_calc":       "churn",
+      "confirm_button":     "confirm",
+      "coupon_use":         "benefit",
+      "chatbot":            "support",
+      "call_support":       "support",
+      "cancel_page":        "churn"
+    },
+    "flags": [
+      { "name": "is_click",         "when": { "event_type_eq": "click" } },
+      { "name": "is_page_view",     "when": { "event_type_eq": "page_view" } },
+      { "name": "is_support_entry", "when": { "event_type_eq": "support_entry" } },
+      { "name": "is_churn_signal",  "when": { "entity_in": ["penalty_calc", "cancel_page"] } },
+      { "name": "is_confirm",       "when": { "entity_eq": "confirm_button" } }
+    ],
+    "timestamp_field": "last_event_at"
+  }
 }

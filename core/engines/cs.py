@@ -4,11 +4,10 @@ CS(cs-myk-v3) Scenario Engine — self-contained.
 builder / pattern / event / rules 를 모두 inline (bundle/worker와 동형).
 공통은 common(오케스트레이션)·sklearn_model(raw)·core.extractor(공유 저장소)에 위임.
 """
-from datetime import datetime
 from pathlib import Path
 from typing import Any, Callable
 
-from core.engines import config, common
+from core.engines import config, common, extract
 from core.extractor import get_extractor
 from core.engines.base import ScenarioEngine
 from models import sklearn_model
@@ -306,143 +305,26 @@ def build_batch_features(survey_answers: dict[str, str]) -> dict[str, Any]:
     return {**base, **delta, **ratio, **index, **score}
 
 
-# ═════════════════ [1c] Behavioral Pattern Extractor ═════════════════
-# ── Entity → 카운트 그룹 매핑 ─────────────────────────────────
-_ENTITY_GROUP = {
-    "data_usage":          ["data_view"],
-    "billing":             ["billing_view"],
-    "subscription_info":   ["subscription_view"],
-    "benefit_membership":  ["benefit_view"],
-    "product_explore":     ["product_view"],
-    "customer_support":    ["support_view"],
-    "data_topup_button":   ["data_topup"],
-    "plan_change_button":  ["plan_change"],
-    "quality_diagnosis":   ["quality_action", "wifi_diag", "speed_test"],
-    "family_bundle":       ["family_bundle"],
-    "penalty_calc":        ["churn_view", "penalty_view"],
-    "confirm_button":      ["confirm"],
-    "coupon_use":          ["coupon_use"],
-    "chatbot":             ["support_entry"],
-    "call_support":        ["support_entry"],
-    "cancel_page":         ["churn_view", "cancel_view"],
-}
-
-
+# ═════════════════ [1c]/[1b] Pattern·Event Extractor (선언형) ═════════════════
+# entity 그룹 맵·필드 정의는 L1_feature.json(pattern/event), 평가는 core.engines.extract.
 def empty_pattern_features() -> dict[str, Any]:
-    return {
-        "repeated_entity_count_5m": 0,
-        "support_entry_count_5m":   0,
-        "billing_page_view_count":  0,
-        "product_explore_count":    0,
-        "benefit_explore_count":    0,
-        "churn_page_view_count":    0,
-        "quality_action_count":     0,
-        "last_3_events":            "",
-        "WiFi 진단 실행":           0,
-        "속도 측정 실행":           0,
-        "장애 페이지 체류":         0,
-        "가족 결합 관련 행동":      0,
-        "위약금 조회 행동":         0,
-        "해지 페이지 진입":         0,
-        "mnp_benefit_check":        0,
-        "할인 페이지 체류":         0,
-    }
+    return extract.pattern_from_spec([], config.get_pattern_spec("cs-myk-v3"))
 
 
 def pattern_features(session_id: str) -> dict[str, Any]:
-    events = get_extractor().events_within(session_id, window_seconds=300)
-
-    group_counts: dict[str, int] = {}
-    for ev in events:
-        for group in _ENTITY_GROUP.get(ev["entity"], []):
-            group_counts[group] = group_counts.get(group, 0) + 1
-
-    entity_counts: dict[str, int] = {}
-    for ev in events:
-        entity_counts[ev["entity"]] = entity_counts.get(ev["entity"], 0) + 1
-    repeated_max = max(entity_counts.values()) if entity_counts else 0
-
-    recent_3 = events[-3:] if events else []
-    last_3_events = "→".join(e["event_type"] for e in recent_3)
-
-    return {
-        "repeated_entity_count_5m": repeated_max,
-        "support_entry_count_5m":   group_counts.get("support_entry", 0),
-        "billing_page_view_count":  group_counts.get("billing_view", 0),
-        "product_explore_count":    group_counts.get("product_view", 0),
-        "benefit_explore_count":    group_counts.get("benefit_view", 0),
-        "churn_page_view_count":    group_counts.get("churn_view", 0),
-        "quality_action_count":     group_counts.get("quality_action", 0),
-        "last_3_events":            last_3_events,
-        "WiFi 진단 실행":           group_counts.get("wifi_diag", 0),
-        "속도 측정 실행":           group_counts.get("speed_test", 0),
-        "장애 페이지 체류":         group_counts.get("support_view", 0) * 60,
-        "가족 결합 관련 행동":      1 if group_counts.get("family_bundle", 0) > 0 else 0,
-        "위약금 조회 행동":         1 if group_counts.get("penalty_view", 0) > 0 else 0,
-        "해지 페이지 진입":         1 if group_counts.get("cancel_view", 0) > 0 else 0,
-        "mnp_benefit_check":        0,
-        "할인 페이지 체류":         group_counts.get("benefit_view", 0) * 30,
-    }
-
-
-# ═════════════════ [1b] Event Feature Extractor ═════════════════
-# Entity 마지막 진입 → 현재 화면 카테고리
-_ENTITY_TO_PAGE = {
-    "data_usage":         "data",
-    "billing":            "billing",
-    "subscription_info":  "subscription",
-    "benefit_membership": "benefit",
-    "product_explore":    "product",
-    "customer_support":   "support",
-    "data_topup_button":  "data",
-    "plan_change_button": "product",
-    "quality_diagnosis":  "support",
-    "family_bundle":      "subscription",
-    "penalty_calc":       "churn",
-    "confirm_button":     "confirm",
-    "coupon_use":         "benefit",
-    "chatbot":            "support",
-    "call_support":       "support",
-    "cancel_page":        "churn",
-}
-
-
-def _extract_event(event_type: str, entity: str, occurred_at: datetime | None = None) -> dict[str, Any]:
-    """단일 이벤트 → Event Feature dict."""
-    ts = occurred_at or datetime.now()
-    return {
-        "last_event_type":  event_type,
-        "last_entity":      entity,
-        "current_page":     _ENTITY_TO_PAGE.get(entity, "unknown"),
-        "is_click":         1 if event_type == "click" else 0,
-        "is_page_view":     1 if event_type == "page_view" else 0,
-        "is_support_entry": 1 if event_type == "support_entry" else 0,
-        "is_churn_signal":  1 if entity in ("penalty_calc", "cancel_page") else 0,
-        "is_confirm":       1 if entity == "confirm_button" else 0,
-        "last_event_at":    ts.isoformat(),
-    }
+    spec = config.get_pattern_spec("cs-myk-v3")
+    events = get_extractor().events_within(session_id, window_seconds=spec.get("window_seconds", 300))
+    return extract.pattern_from_spec(extract._filter(events, spec.get("filter")), spec)
 
 
 def empty_event_features() -> dict[str, Any]:
-    return {
-        "last_event_type":  "",
-        "last_entity":      "",
-        "current_page":     "",
-        "is_click":         0,
-        "is_page_view":     0,
-        "is_support_entry": 0,
-        "is_churn_signal":  0,
-        "is_confirm":       0,
-        "last_event_at":    "",
-    }
+    return extract.event_from_spec(None, config.get_event_spec("cs-myk-v3"))
 
 
 def event_features(session_id: str) -> dict[str, Any]:
     events = get_extractor()._events_by_session.get(session_id, [])
-    if not events:
-        return empty_event_features()
-    last = events[-1]
-    return _extract_event(last["event_type"], last["entity"], last.get("occurred_at"))
+    last = events[-1] if events else None
+    return extract.event_from_spec(last, config.get_event_spec("cs-myk-v3"))
 
 
 # ═════════════════ [2a] Rule-Based Intent Trigger ═════════════════
