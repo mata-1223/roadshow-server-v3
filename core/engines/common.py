@@ -9,7 +9,18 @@ from __future__ import annotations
 시나리오 차이(training_data/ranges/scale/invert)와 predictive_model(예측 모델 구현)은 인자로 주입한다.
 특정 구현(sklearn/torch…)에 의존하지 않는다 — predictive_model은 models.get_predictive_model로 호출자가 해결.
 """
+import math
 from typing import Any
+
+
+def recenter_logodds(p: float, base: float, strength: float = 1.0, eps: float = 1e-6) -> float:
+    """base-rate 부분 보정: logit(p) - strength·logit(base) → sigmoid.
+    strength=1 완전 재중심화(p=base→0.5), 0 무보정. 독립 분류기를 base rate 기준으로 비교 가능하게."""
+    if base <= 0.0 or base >= 1.0 or strength <= 0.0:
+        return p
+    p = min(max(p, eps), 1.0 - eps)
+    z = math.log(p / (1.0 - p)) - strength * math.log(base / (1.0 - base))
+    return 1.0 / (1.0 + math.exp(-z))
 
 
 # ── micro-helper ──────────────────────────────────────────────

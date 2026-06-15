@@ -878,7 +878,9 @@
     "scale": 0.55,
     "heuristic_fallback": true,
     "train": {
-      "class_weight": "balanced"
-    }
+      "class_weight": null
+    },
+    "calibration": "base_rate_logodds",
+    "calibration_strength": 0.6
   }
 }
