@@ -12,8 +12,7 @@ import json
 from pathlib import Path
 from typing import Any
 
-from core.engines import config, common, extract
-from core.engines.common import clamp01, g
+from core.engines import config, common, extract, formula
 from core.extractor import get_extractor
 from core.engines.base import ScenarioEngine
 from models import sklearn_model
@@ -58,29 +57,12 @@ def event_features(session_id: str) -> dict[str, Any]:
 # ─────────────────────────────────────────────────────────────
 # Rule-Based Intent Trigger (Rule-Based Method)
 # ─────────────────────────────────────────────────────────────
-RULES = {
-    # 수면 회피 / 야간 자극 추구
-    "INT-W130": lambda f: clamp01(0.10 + g(f, "Sleep Disturbance Index") / 100 * 0.5
-                                   + g(f, "Digital Escape Score") / 100 * 0.25),
-    # 즉각 스트레스 해소
-    "INT-W210": lambda f: clamp01(0.10 + g(f, "Burnout Deep Score") / 100 * 0.45
-                                   + g(f, "Fatigue Load Index") / 100 * 0.2),
-    # 일탈·환경 전환 욕구
-    "INT-W220": lambda f: clamp01(0.08 + g(f, "Recovery Motivation Score") / 100 * 0.4
-                                   + g(f, "Isolation Tendency Index") / 100 * 0.2),
-    # 신체 회복 시도
-    "INT-W230": lambda f: clamp01(0.08 + g(f, "Recovery Motivation Score") / 100 * 0.35
-                                   + (0.12 if g(f, "weekend_out") >= 2 else 0)),
-    # 심리·감정 회복
-    "INT-W240": lambda f: clamp01(0.08 + g(f, "Recovery Motivation Score") / 100 * 0.35
-                                   + g(f, "Isolation Tendency Index") / 100 * 0.25),
-    # 일상 회복
-    "INT-W250": lambda f: clamp01(0.08 + g(f, "Recovery Motivation Score") / 100 * 0.3
-                                   + (0.15 if g(f, "social_contact") >= 3 else 0)),
-}
+# 룰 수식 = L2_inference.json:rule (선언형) → formula.eval_formula + clamp01.
+_RULE_SPEC = config.get_rule_spec("worker-v3")
+
 
 def rule_predict(intent_id: str, features: dict[str, Any]) -> float:
-    return common.rule_predict(RULES, intent_id, features)
+    return formula.rule_predict(_RULE_SPEC, intent_id, features)
 
 
 # ─────────────────────────────────────────────────────────────

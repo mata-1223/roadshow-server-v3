@@ -1,4 +1,31 @@
 {
+  "rule": {
+    "INT-B1110": { "terms": [0.20, { "feat": "Bundle Opportunity Index", "linear": [1, 0], "div": 100, "mul": 0.55 }, { "if": { "feat": "family_line_count", "gte": 2 }, "then": 0.1 }] },
+    "INT-B1120": { "terms": [0.15, { "feat": "service_coverage_ratio", "default": 1, "linear": [-1, 1], "mul": 0.6 }, { "feat": "Bundle Opportunity Index", "linear": [1, 0], "div": 100, "mul": 0.2 }] },
+    "INT-B1130": { "terms": [0.20, { "feat": "Bundle Opportunity Index", "linear": [1, 0], "div": 100, "mul": 0.4 }] },
+    "INT-B1410": { "terms": [0.10, { "feat": "Acquisition Score", "linear": [1, 0], "div": 100, "mul": 0.6 }] },
+    "INT-B1420": { "terms": [0.10, { "feat": "Acquisition Score", "linear": [1, 0], "div": 100, "mul": 0.5 }] },
+    "INT-B2110": { "terms": [0.20, { "feat": "Benefit Engagement Index", "linear": [1, 0], "div": 100, "mul": 0.4 }, { "if": { "feat": "benefit_utilization", "gte": 2 }, "then": 0.15 }] },
+    "INT-B2210": { "terms": [0.15, { "feat": "Benefit Optimization Index", "linear": [1, 0], "div": 100, "mul": 0.6 }] },
+    "INT-B2230": { "terms": [0.15, { "feat": "Benefit Optimization Index", "linear": [1, 0], "div": 100, "mul": 0.4 }, { "feat": "non_mobile_cost_gap", "clip": [null, 3], "linear": [1, 0], "div": 3, "mul": 0.2 }] },
+    "INT-B2340": { "terms": [0.15, { "terms": [1, { "feat": "benefit_utilization", "default": 2, "linear": [-1, 0], "div": 3 }], "mul": 0.5 }, { "feat": "Benefit Engagement Index", "linear": [-1, 100], "div": 100, "mul": 0.2 }] },
+    "INT-B3110": { "terms": [0.15, { "feat": "family_line_count", "linear": [1, -1], "div": 2, "mul": 0.5 }, { "feat": "Bundle Opportunity Index", "linear": [1, 0], "div": 100, "mul": 0.25 }] },
+    "INT-B3120": { "terms": [0.15, { "feat": "Home Service Expansion Index", "linear": [1, 0], "div": 100, "mul": 0.55 }] },
+    "INT-B3130": { "terms": [0.15, { "feat": "Home Service Expansion Index", "linear": [1, 0], "div": 100, "mul": 0.35 }, { "feat": "content_view_mode", "linear": [1, 0], "div": 4, "mul": 0.25 }] },
+    "INT-B3150": { "terms": [0.10, { "feat": "Home Service Expansion Index", "linear": [1, 0], "div": 100, "mul": 0.4 }, { "if": { "feat": "household_change", "gte": 1 }, "then": 0.2 }] },
+    "INT-B3330": { "terms": [0.10, { "if": { "feat": "household_change", "gte": 1 }, "then": 0.4 }, { "feat": "family_line_count", "linear": [1, -1], "div": 2, "mul": 0.2 }] },
+    "INT-B3340": { "terms": [0.10, { "if": { "feat": "household_change", "gte": 1 }, "then": 0.35 }] },
+    "INT-B4110": { "terms": [0.15, { "feat": "contract_status", "linear": [1, 0], "div": 3, "mul": 0.4 }, { "feat": "Retention Readiness Index", "linear": [1, 0], "div": 100, "mul": 0.3 }] },
+    "INT-B4210": { "terms": [0.10, { "feat": "tenure_group", "linear": [1, -1], "div": 2, "mul": 0.45 }, { "feat": "Retention Readiness Index", "linear": [1, 0], "div": 100, "mul": 0.25 }] },
+    "INT-B4320": { "terms": [0.10, { "feat": "Churn Risk Index", "linear": [1, 0], "div": 100, "mul": 0.4 }, { "if": { "feat": "contract_status", "gte": 3 }, "then": 0.15 }] },
+    "INT-B5120": { "terms": [0.10, { "feat": "Churn Risk Index", "linear": [1, 0], "div": 100, "mul": 0.5 }] },
+    "INT-B5310": { "terms": [0.05, { "if": { "feat": "dissatisfaction_factor", "eq": "인터넷 품질" }, "then": 0.55 }, { "feat": "Churn Risk Index", "linear": [1, 0], "div": 100, "mul": 0.15 }] },
+    "INT-B5320": { "terms": [0.05, { "if": { "feat": "dissatisfaction_factor", "eq": "IPTV 품질" }, "then": 0.55 }, { "feat": "Churn Risk Index", "linear": [1, 0], "div": 100, "mul": 0.15 }] },
+    "INT-B5410": { "terms": [0.05, { "feat": "Churn Risk Index", "linear": [1, 0], "div": 100, "mul": 0.6 }] },
+    "INT-B5420": { "terms": [0.05, { "feat": "Churn Risk Index", "linear": [1, 0], "div": 100, "mul": 0.45 }, { "if": { "feat": "contract_status", "gte": 2 }, "then": 0.15 }] },
+    "INT-B5430": { "terms": [0.05, { "feat": "Churn Risk Index", "linear": [1, 0], "div": 100, "mul": 0.5 }] },
+    "INT-B5440": { "terms": [0.05, { "feat": "Churn Risk Index", "linear": [1, 0], "div": 100, "mul": 0.4 }] }
+  },
   "ranker": {
     "behavior_signals": {
       "bundle_eligibility": [

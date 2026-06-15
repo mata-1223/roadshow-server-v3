@@ -26,12 +26,20 @@ design 문서 `engines-layered-config-design.md` §5 규약 구현.
 from importlib import import_module
 from typing import Any
 
-from core.engines.common import g, clamp
+from core.engines.common import g, clamp, clamp01
 
 
 def _load_py(ref: str):
     mod_name, _, fn_name = ref.partition(":")
     return getattr(import_module(mod_name), fn_name)
+
+
+def rule_predict(rules_spec: dict, intent_id: str, features: dict) -> float:
+    """[L2a] 선언형 룰: spec 평가 후 clamp01. 미등록 intent는 0.05 baseline."""
+    spec = rules_spec.get(intent_id)
+    if spec is None:
+        return 0.05
+    return clamp01(eval_formula(spec, features))
 
 
 def _cond(spec: dict, features: dict) -> bool:

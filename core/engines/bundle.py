@@ -11,8 +11,7 @@ from __future__ import annotations
 from pathlib import Path
 from typing import Any
 
-from core.engines import config, common, extract
-from core.engines.common import clamp01, g
+from core.engines import config, common, extract, formula
 from core.extractor import get_extractor
 from core.engines.base import ScenarioEngine
 from models import sklearn_model
@@ -57,56 +56,12 @@ def event_features(session_id: str) -> dict[str, Any]:
 # ─────────────────────────────────────────────────────────────
 # Rule-Based Intent Trigger (Rule-Based Method)
 # ─────────────────────────────────────────────────────────────
-RULES = {
-    # ── 가입 확대 ──
-    "INT-B1110": lambda f: clamp01(0.20 + g(f, "Bundle Opportunity Index") / 100 * 0.55
-                                    + (0.1 if g(f, "family_line_count") >= 2 else 0)),
-    "INT-B1120": lambda f: clamp01(0.15 + (1 - g(f, "service_coverage_ratio", 1)) * 0.6
-                                    + g(f, "Bundle Opportunity Index") / 100 * 0.2),
-    "INT-B1130": lambda f: clamp01(0.20 + g(f, "Bundle Opportunity Index") / 100 * 0.4),
-    "INT-B1410": lambda f: clamp01(0.10 + g(f, "Acquisition Score") / 100 * 0.6),
-    "INT-B1420": lambda f: clamp01(0.10 + g(f, "Acquisition Score") / 100 * 0.5),
-    # ── 할인 최적화 ──
-    "INT-B2110": lambda f: clamp01(0.20 + g(f, "Benefit Engagement Index") / 100 * 0.4
-                                    + (0.15 if g(f, "benefit_utilization") >= 2 else 0)),
-    "INT-B2210": lambda f: clamp01(0.15 + g(f, "Benefit Optimization Index") / 100 * 0.6),
-    "INT-B2230": lambda f: clamp01(0.15 + g(f, "Benefit Optimization Index") / 100 * 0.4
-                                    + min(g(f, "non_mobile_cost_gap"), 3) / 3 * 0.2),
-    "INT-B2340": lambda f: clamp01(0.15 + (1 - g(f, "benefit_utilization", 2) / 3) * 0.5
-                                    + (100 - g(f, "Benefit Engagement Index")) / 100 * 0.2),
-    # ── 회선/서비스 확장 ──
-    "INT-B3110": lambda f: clamp01(0.15 + (g(f, "family_line_count") - 1) / 2 * 0.5
-                                    + g(f, "Bundle Opportunity Index") / 100 * 0.25),
-    "INT-B3120": lambda f: clamp01(0.15 + g(f, "Home Service Expansion Index") / 100 * 0.55),
-    "INT-B3130": lambda f: clamp01(0.15 + g(f, "Home Service Expansion Index") / 100 * 0.35
-                                    + g(f, "content_view_mode") / 4 * 0.25),
-    "INT-B3150": lambda f: clamp01(0.10 + g(f, "Home Service Expansion Index") / 100 * 0.4
-                                    + (0.2 if g(f, "household_change") >= 1 else 0)),
-    "INT-B3330": lambda f: clamp01(0.10 + (0.4 if g(f, "household_change") >= 1 else 0)
-                                    + (g(f, "family_line_count") - 1) / 2 * 0.2),
-    "INT-B3340": lambda f: clamp01(0.10 + (0.35 if g(f, "household_change") >= 1 else 0)),
-    # ── 유지/락인 ──
-    "INT-B4110": lambda f: clamp01(0.15 + g(f, "contract_status") / 3 * 0.4
-                                    + g(f, "Retention Readiness Index") / 100 * 0.3),
-    "INT-B4210": lambda f: clamp01(0.10 + (g(f, "tenure_group") - 1) / 2 * 0.45
-                                    + g(f, "Retention Readiness Index") / 100 * 0.25),
-    "INT-B4320": lambda f: clamp01(0.10 + g(f, "Churn Risk Index") / 100 * 0.4
-                                    + (0.15 if g(f, "contract_status") >= 3 else 0)),
-    # ── 이탈 검토 ──
-    "INT-B5120": lambda f: clamp01(0.10 + g(f, "Churn Risk Index") / 100 * 0.5),
-    "INT-B5310": lambda f: clamp01(0.05 + (0.55 if f.get("dissatisfaction_factor") == "인터넷 품질" else 0)
-                                    + g(f, "Churn Risk Index") / 100 * 0.15),
-    "INT-B5320": lambda f: clamp01(0.05 + (0.55 if f.get("dissatisfaction_factor") == "IPTV 품질" else 0)
-                                    + g(f, "Churn Risk Index") / 100 * 0.15),
-    "INT-B5410": lambda f: clamp01(0.05 + g(f, "Churn Risk Index") / 100 * 0.6),
-    "INT-B5420": lambda f: clamp01(0.05 + g(f, "Churn Risk Index") / 100 * 0.45
-                                    + (0.15 if g(f, "contract_status") >= 2 else 0)),
-    "INT-B5430": lambda f: clamp01(0.05 + g(f, "Churn Risk Index") / 100 * 0.5),
-    "INT-B5440": lambda f: clamp01(0.05 + g(f, "Churn Risk Index") / 100 * 0.4),
-}
+# 룰 수식 = L2_inference.json:rule (선언형) → formula.eval_formula + clamp01.
+_RULE_SPEC = config.get_rule_spec("bundle-v3")
+
 
 def rule_predict(intent_id: str, features: dict[str, Any]) -> float:
-    return common.rule_predict(RULES, intent_id, features)
+    return formula.rule_predict(_RULE_SPEC, intent_id, features)
 
 
 

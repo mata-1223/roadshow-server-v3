@@ -26,6 +26,8 @@ def get_behavior_signals(sid):
     return load_layer(sid, "L2_inference")["ranker"]["behavior_signals"]
 def get_batch_builder(sid):
     return load_layer(sid, "L1_feature").get("batch_builder", {})
+def get_rule_spec(sid):
+    return load_layer(sid, "L2_inference").get("rule", {})
 def get_pattern_spec(sid):
     return load_layer(sid, "L1_feature").get("pattern", {})
 def get_event_spec(sid):

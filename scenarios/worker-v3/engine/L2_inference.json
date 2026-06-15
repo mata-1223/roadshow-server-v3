@@ -1,4 +1,12 @@
 {
+  "rule": {
+    "INT-W130": { "terms": [0.10, { "feat": "Sleep Disturbance Index", "linear": [1, 0], "div": 100, "mul": 0.5 }, { "feat": "Digital Escape Score", "linear": [1, 0], "div": 100, "mul": 0.25 }] },
+    "INT-W210": { "terms": [0.10, { "feat": "Burnout Deep Score", "linear": [1, 0], "div": 100, "mul": 0.45 }, { "feat": "Fatigue Load Index", "linear": [1, 0], "div": 100, "mul": 0.2 }] },
+    "INT-W220": { "terms": [0.08, { "feat": "Recovery Motivation Score", "linear": [1, 0], "div": 100, "mul": 0.4 }, { "feat": "Isolation Tendency Index", "linear": [1, 0], "div": 100, "mul": 0.2 }] },
+    "INT-W230": { "terms": [0.08, { "feat": "Recovery Motivation Score", "linear": [1, 0], "div": 100, "mul": 0.35 }, { "if": { "feat": "weekend_out", "gte": 2 }, "then": 0.12 }] },
+    "INT-W240": { "terms": [0.08, { "feat": "Recovery Motivation Score", "linear": [1, 0], "div": 100, "mul": 0.35 }, { "feat": "Isolation Tendency Index", "linear": [1, 0], "div": 100, "mul": 0.25 }] },
+    "INT-W250": { "terms": [0.08, { "feat": "Recovery Motivation Score", "linear": [1, 0], "div": 100, "mul": 0.3 }, { "if": { "feat": "social_contact", "gte": 3 }, "then": 0.15 }] }
+  },
   "ranker": {
     "behavior_signals": {
       "music": [
