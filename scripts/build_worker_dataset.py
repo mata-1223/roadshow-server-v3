@@ -15,7 +15,7 @@ from pathlib import Path
 
 sys.path.insert(0, str(Path(__file__).parent.parent))
 
-from core.engines import config, worker  # noqa: E402
+from core.engines import config, get_engine  # noqa: E402
 from scripts._dataset_common import (  # noqa: E402
     parse_args, build_samples, app_action_resolver, write_dataset, print_label_stats,
 )
@@ -105,7 +105,7 @@ def main():
     entity_intents = config.get_behavior_signals(SCENARIO_ID)
 
     rows = build_samples(
-        n=args.n, seed=args.seed, personas=PERSONAS, engine=worker,
+        n=args.n, seed=args.seed, personas=PERSONAS, engine=get_engine(SCENARIO_ID),
         seq_key="app_seqs", action_resolver=app_action_resolver,
         entity_intents=entity_intents, cust_prefix="WC",
     )

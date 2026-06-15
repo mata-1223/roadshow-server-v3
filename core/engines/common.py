@@ -79,6 +79,7 @@ def model_predict(
     ranges: dict,
     scale: float,
     invert: frozenset = frozenset(),
+    train_params: dict | None = None,
 ) -> float:
     """학습된 predictive_model.predict 우선, 없으면 휴리스틱 폴백. 구현은 호출자가 주입(sklearn/torch…)."""
     def heur():
@@ -89,7 +90,8 @@ def model_predict(
         return heur()
     try:
         p = predictive_model.predict(intent_id, features, training_data=training_data,
-                                     dataset_path=dataset_path, model_prefix=model_prefix)
+                                     dataset_path=dataset_path, model_prefix=model_prefix,
+                                     train_params=train_params)
         return p if p > 0.0 else heur()
     except Exception:
         return heur()

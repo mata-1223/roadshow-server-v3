@@ -67,6 +67,7 @@ class GenericEngine(ScenarioEngine):
         m = config.get_model_spec(self.scenario_id)
         predictive_model = models.get_predictive_model(m.get("predictive_model", "sklearn"))  # sklearn/torch… config 선택
         training_data = m.get("training_data", {})
+        train_params = m.get("train")     # 학습 하이퍼파라미터(class_weight/C), 없으면 backend 기본
         if m.get("heuristic_fallback"):
             invert = frozenset(tuple(x) for x in m.get("invert", []))
             return common.model_predict(
@@ -76,6 +77,7 @@ class GenericEngine(ScenarioEngine):
                 dataset_path=self._dataset_path,
                 model_prefix=self._model_prefix,
                 ranges=m.get("ranges", {}), scale=m.get("scale", 0.5), invert=invert,
+                train_params=train_params,
             )
         # 휴리스틱 폴백 없이 predictive_model 직접 (cs: 충분한 학습 데이터)
         return predictive_model.predict(
@@ -83,4 +85,5 @@ class GenericEngine(ScenarioEngine):
             training_data=training_data,
             dataset_path=self._dataset_path,
             model_prefix=self._model_prefix,
+            train_params=train_params,
         )
