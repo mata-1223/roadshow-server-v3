@@ -674,15 +674,13 @@
       "INT-B1220": {
         "features": [
           "Benefit Engagement Index",
-          "content_view_mode",
-          "explored_entity_count_5m"
+          "content_view_mode"
         ]
       },
       "INT-B1230": {
         "features": [
           "plan_tier",
-          "Benefit Engagement Index",
-          "explored_entity_count_5m"
+          "Benefit Engagement Index"
         ]
       },
       "INT-B1310": {
@@ -695,36 +693,31 @@
       "INT-B1430": {
         "features": [
           "Acquisition Score",
-          "Bundle Opportunity Index",
-          "action_intensity_5m"
+          "Bundle Opportunity Index"
         ]
       },
       "INT-B2220": {
         "features": [
           "Benefit Optimization Index",
-          "benefit_utilization",
-          "explored_entity_count_5m"
+          "benefit_utilization"
         ]
       },
       "INT-B2310": {
         "features": [
           "Benefit Engagement Index",
-          "content_view_mode",
-          "explored_entity_count_5m"
+          "content_view_mode"
         ]
       },
       "INT-B2320": {
         "features": [
           "Benefit Engagement Index",
-          "benefit_utilization",
-          "explored_entity_count_5m"
+          "benefit_utilization"
         ]
       },
       "INT-B2330": {
         "features": [
           "Benefit Engagement Index",
-          "content_view_mode",
-          "explored_entity_count_5m"
+          "content_view_mode"
         ]
       },
       "INT-B3140": {
@@ -737,29 +730,25 @@
       "INT-B3210": {
         "features": [
           "plan_tier",
-          "Service Expansion Score",
-          "explored_entity_count_5m"
+          "Service Expansion Score"
         ]
       },
       "INT-B3220": {
         "features": [
           "plan_tier",
-          "Service Expansion Score",
-          "explored_entity_count_5m"
+          "Service Expansion Score"
         ]
       },
       "INT-B3230": {
         "features": [
           "plan_tier",
-          "Service Expansion Score",
-          "explored_entity_count_5m"
+          "Service Expansion Score"
         ]
       },
       "INT-B3240": {
         "features": [
           "plan_tier",
-          "Service Expansion Score",
-          "explored_entity_count_5m"
+          "Service Expansion Score"
         ]
       },
       "INT-B3310": {
@@ -772,15 +761,13 @@
       "INT-B3320": {
         "features": [
           "family_line_count",
-          "household_change",
-          "explored_entity_count_5m"
+          "household_change"
         ]
       },
       "INT-B3350": {
         "features": [
           "household_change",
-          "family_line_count",
-          "explored_entity_count_5m"
+          "family_line_count"
         ]
       },
       "INT-B4120": {
