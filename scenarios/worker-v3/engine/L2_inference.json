@@ -1,11 +1,139 @@
 {
   "rule": {
-    "INT-W130": { "terms": [0.10, { "feat": "Sleep Disturbance Index", "linear": [1, 0], "div": 100, "mul": 0.5 }, { "feat": "Digital Escape Score", "linear": [1, 0], "div": 100, "mul": 0.25 }] },
-    "INT-W210": { "terms": [0.10, { "feat": "Burnout Deep Score", "linear": [1, 0], "div": 100, "mul": 0.45 }, { "feat": "Fatigue Load Index", "linear": [1, 0], "div": 100, "mul": 0.2 }] },
-    "INT-W220": { "terms": [0.08, { "feat": "Recovery Motivation Score", "linear": [1, 0], "div": 100, "mul": 0.4 }, { "feat": "Isolation Tendency Index", "linear": [1, 0], "div": 100, "mul": 0.2 }] },
-    "INT-W230": { "terms": [0.08, { "feat": "Recovery Motivation Score", "linear": [1, 0], "div": 100, "mul": 0.35 }, { "if": { "feat": "weekend_out", "gte": 2 }, "then": 0.12 }] },
-    "INT-W240": { "terms": [0.08, { "feat": "Recovery Motivation Score", "linear": [1, 0], "div": 100, "mul": 0.35 }, { "feat": "Isolation Tendency Index", "linear": [1, 0], "div": 100, "mul": 0.25 }] },
-    "INT-W250": { "terms": [0.08, { "feat": "Recovery Motivation Score", "linear": [1, 0], "div": 100, "mul": 0.3 }, { "if": { "feat": "social_contact", "gte": 3 }, "then": 0.15 }] }
+    "INT-W130": {
+      "terms": [
+        0.1,
+        {
+          "feat": "Sleep Disturbance Index",
+          "linear": [
+            1,
+            0
+          ],
+          "div": 100,
+          "mul": 0.5
+        },
+        {
+          "feat": "Digital Escape Score",
+          "linear": [
+            1,
+            0
+          ],
+          "div": 100,
+          "mul": 0.25
+        }
+      ]
+    },
+    "INT-W210": {
+      "terms": [
+        0.1,
+        {
+          "feat": "Burnout Deep Score",
+          "linear": [
+            1,
+            0
+          ],
+          "div": 100,
+          "mul": 0.45
+        },
+        {
+          "feat": "Fatigue Load Index",
+          "linear": [
+            1,
+            0
+          ],
+          "div": 100,
+          "mul": 0.2
+        }
+      ]
+    },
+    "INT-W220": {
+      "terms": [
+        0.08,
+        {
+          "feat": "Recovery Motivation Score",
+          "linear": [
+            1,
+            0
+          ],
+          "div": 100,
+          "mul": 0.4
+        },
+        {
+          "feat": "Isolation Tendency Index",
+          "linear": [
+            1,
+            0
+          ],
+          "div": 100,
+          "mul": 0.2
+        }
+      ]
+    },
+    "INT-W230": {
+      "terms": [
+        0.08,
+        {
+          "feat": "Recovery Motivation Score",
+          "linear": [
+            1,
+            0
+          ],
+          "div": 100,
+          "mul": 0.35
+        },
+        {
+          "if": {
+            "feat": "weekend_out",
+            "gte": 2
+          },
+          "then": 0.12
+        }
+      ]
+    },
+    "INT-W240": {
+      "terms": [
+        0.08,
+        {
+          "feat": "Recovery Motivation Score",
+          "linear": [
+            1,
+            0
+          ],
+          "div": 100,
+          "mul": 0.35
+        },
+        {
+          "feat": "Isolation Tendency Index",
+          "linear": [
+            1,
+            0
+          ],
+          "div": 100,
+          "mul": 0.25
+        }
+      ]
+    },
+    "INT-W250": {
+      "terms": [
+        0.08,
+        {
+          "feat": "Recovery Motivation Score",
+          "linear": [
+            1,
+            0
+          ],
+          "div": 100,
+          "mul": 0.3
+        },
+        {
+          "if": {
+            "feat": "social_contact",
+            "gte": 3
+          },
+          "then": 0.15
+        }
+      ]
+    }
   },
   "ranker": {
     "behavior_signals": {
@@ -49,5 +177,48 @@
   },
   "calibrator": {
     "probability_temperature": 0.15
+  },
+  "model": {
+    "training_data": {
+      "INT-W110": {
+        "features": [
+          "Burnout Deep Score",
+          "Isolation Tendency Index",
+          "Sleep Disturbance Index"
+        ]
+      },
+      "INT-W120": {
+        "features": [
+          "Fatigue Load Index",
+          "Burnout Deep Score",
+          "offwork_time"
+        ]
+      },
+      "INT-W140": {
+        "features": [
+          "Fatigue Load Index",
+          "Isolation Tendency Index",
+          "weekend_out"
+        ]
+      }
+    },
+    "ranges": {
+      "offwork_time": [
+        1.0,
+        4.0
+      ],
+      "weekend_out": [
+        1.0,
+        3.0
+      ]
+    },
+    "scale": 0.7,
+    "invert": [
+      [
+        "INT-W140",
+        "weekend_out"
+      ]
+    ],
+    "heuristic_fallback": true
   }
 }

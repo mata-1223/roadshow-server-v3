@@ -30,7 +30,7 @@ last_event_type / last_entity 는 항상 포함.
 """
 from typing import Any
 
-from core.engines.formula import eval_formula
+from core.engines.formula import eval_formula, _load_py
 
 
 # ── [1a] Batch Builder (설문 → Base + 파생 Index/Score) ──────────
@@ -55,10 +55,14 @@ def run_batch_builder(base: dict[str, Any], spec: dict) -> dict[str, Any]:
       - formula = eval_formula spec, 직전까지 누적된 feats 참조
       - round 있으면 반올림
       - intermediate=true 면 최종 출력에서 제외 (Score가 참조하는 raw Index 용)
+
+    defaults: 없는 키만 채움(base.get(k, default)). pre_hook: 불규칙 Python 격리("mod:fn", feats→추가 dict).
     """
     feats = dict(base)
     for k, v in spec.get("defaults", {}).items():
         feats.setdefault(k, v)                 # 없는 키만 (base.get(k, default) 의미)
+    if "pre_hook" in spec:                      # 선언형 불가 로직 격리 (defaults 후, steps 전)
+        feats.update(_load_py(spec["pre_hook"])(feats))
     drop: list[str] = []
     for step in spec.get("steps", []):
         v = eval_formula(step["formula"], feats)

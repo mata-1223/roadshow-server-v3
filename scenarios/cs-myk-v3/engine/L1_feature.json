@@ -1,8 +1,10 @@
 {
   "_note": "L1 처리 config. pattern/event = 선언형 추출 spec (core/engines/extract.py가 평가). batch_builder/preprocessing은 Phase 3 후속.",
   "preprocessing": {},
-  "_batch_note": "base(proxy 추정·자동납부/등급 시뮬)·가족결합비중은 불규칙 → cs.py Python(escape). 아래는 delta/index/score 선언형.",
+  "_batch_note": "proxy 추정·자동납부/등급·구성비는 불규칙 → pre_hook(core.engines.hooks:cs_base) Python escape. 아래 steps는 delta/index/score 선언형.",
   "batch_builder": {
+    "defaults": { "미납 금액": 0, "납부 지연 횟수": 0, "자동납부 등록 여부": true, "부가서비스 수": 1, "미사용 쿠폰 수": 3 },
+    "pre_hook": "core.engines.hooks:cs_base",
     "steps": [
       { "name": "_tenure_pct", "intermediate": true,
         "formula": { "clamp": [0, 1.0], "value": { "feat": "가입 개월 수", "default": 24, "linear": [1, 0], "div": 84 } } },
