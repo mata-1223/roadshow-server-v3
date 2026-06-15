@@ -24,12 +24,13 @@ design 문서 `engines-layered-config-design.md` §5 규약 구현.
 설계 규약: 시나리오 차이(수식)는 spec, 평가 메커니즘은 여기 한 곳.
 """
 from importlib import import_module
-from typing import Any
+from typing import Any, Callable
 
 from core.engines.common import g, clamp, clamp01
 
 
-def _load_py(ref: str):
+def _load_py(ref: str) -> Callable[..., Any]:
+    """"module.path:function" 문자열 → 임포트한 콜러블 (py escape / pre_hook 해석)."""
     mod_name, _, fn_name = ref.partition(":")
     return getattr(import_module(mod_name), fn_name)
 
@@ -43,6 +44,7 @@ def rule_predict(rules_spec: dict, intent_id: str, features: dict) -> float:
 
 
 def _cond(spec: dict, features: dict) -> bool:
+    """조건 spec 평가 → bool. 복합(all/any/not) + 비교(in/gte/gt/lte/lt/eq)."""
     if "all" in spec:
         return all(_cond(c, features) for c in spec["all"])
     if "any" in spec:
@@ -78,6 +80,7 @@ def eval_formula(node: Any, features: dict) -> float:
 
 
 def _raw(node: dict, features: dict) -> float:
+    """노드 타입별 원시값 계산 (div/mul 후처리 전). eval_formula 내부용."""
     if "py" in node:
         return float(_load_py(node["py"])(features))
 

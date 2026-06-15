@@ -23,11 +23,13 @@ EPS = 1e-9
 _fails: list[str] = []
 
 
-def _approx(a, b, tol=EPS) -> bool:
+def _approx(a: float, b: float, tol: float = EPS) -> bool:
+    """두 값이 tol 이내로 근사한지 (affine 연산순서 ULP 허용용)."""
     return abs(a - b) <= tol
 
 
-def check(name, ref, spec, feats, *, exact=False):
+def check(name: str, ref: float, spec, feats: dict, *, exact: bool = False) -> None:
+    """eval_formula(spec) 결과를 기준값 ref와 대조. exact면 ==, 아니면 근사. 불일치는 _fails에 누적."""
     got = eval_formula(spec, feats)
     ok = (got == ref) if exact else _approx(got, ref)
     if not ok:
@@ -36,7 +38,7 @@ def check(name, ref, spec, feats, *, exact=False):
 
 # ── 1. bundle: Bundle Opportunity Index (affine 합 + clamp) ──────
 # 원식(bundle.py:59): clamp( (fl-1)/3*50 + (1-scr)*30 + hc/2*20 )
-def ref_bundle_opp(f):
+def ref_bundle_opp(f: dict) -> float:
     fl  = float(f.get("family_line_count", 1))
     scr = float(f.get("service_coverage_ratio", 0.0))
     hc  = float(f.get("household_change", 0))
@@ -53,7 +55,7 @@ SPEC_BUNDLE_OPP = {
 
 # ── 2. bundle: Benefit Optimization Index (min/clip + 조건) ──────
 # 원식(bundle.py:64): clamp( min(gap,3)/3*40 + (2-bu)*35 + (25 if dissat in (통신비,혜택) else 0) )
-def ref_benefit_opt(f):
+def ref_benefit_opt(f: dict) -> float:
     gap = float(f.get("non_mobile_cost_gap", 0))
     bu  = float(f.get("benefit_utilization", 2))
     dissat = str(f.get("dissatisfaction_factor", "없음"))
@@ -70,7 +72,7 @@ SPEC_BENEFIT_OPT = {
 
 # ── 3. cs: _rule_1110 (다분기 threshold) ────────────────────────
 # 원식(cs.py:478): rate>=.85→.65 / >=.65→.45 / >=.40→.25 / else .10
-def ref_rule_1110(f):
+def ref_rule_1110(f: dict) -> float:
     rate = float(f.get("데이터 사용률", 0))
     if rate >= 0.85: return 0.65
     if rate >= 0.65: return 0.45
@@ -86,7 +88,7 @@ SPEC_RULE_1110 = {
 # ── 4. cs: _pattern_boost (boost, mult=1.5) ─────────────────────
 # 원식(cs.py:452): min(v*scale*1.5, cap*1.5)
 PBM = 1.5
-def ref_boost(f):
+def ref_boost(f: dict) -> float:
     v = float(f.get("churn_page_view_count", 0))
     return min(v * 0.12 * PBM, 0.30 * PBM)
 
@@ -94,7 +96,7 @@ SPEC_BOOST = {"boost": {"feat": "churn_page_view_count", "scale": 0.12, "cap": 0
 
 # ── 5. bundle: 룰 INT-B1110 (affine + clamp01 + 조건) ────────────
 # 원식(bundle.py:199): clamp01(0.20 + BOI/100*0.55 + (0.1 if fl>=2 else 0))
-def ref_b1110(f):
+def ref_b1110(f: dict) -> float:
     boi = float(f.get("Bundle Opportunity Index", 0))
     fl  = float(f.get("family_line_count", 0))
     return clamp01(0.20 + boi / 100 * 0.55 + (0.1 if fl >= 2 else 0))
@@ -109,18 +111,20 @@ SPEC_B1110 = {
 }
 
 # ── 6. py escape hatch ──────────────────────────────────────────
-def custom_formula(features):
+def custom_formula(features: dict) -> float:
+    """py escape 검증용 콜러블 (spec {"py": "...:custom_formula"}에서 호출)."""
     return features.get("x", 0) * 2 + 1
 SPEC_PY = {"py": "scripts.test_eval_formula:custom_formula"}
 
 
 # ══════════════ 확장 노드: 복합 조건 / 분기 식 (cs 룰 6종) ══════════════
 PBM = 1.5  # PATTERN_BOOST_MULTIPLIER
-def _boost(f, key, scale, cap):
+def _boost(f: dict, key: str, scale: float, cap: float) -> float:
+    """cs _pattern_boost 재현(×PBM): min(v*scale*PBM, cap*PBM)."""
     return min(float(f.get(key, 0)) * scale * PBM, cap * PBM)
 
 # 7. _rule_1340: AND 조건 (cs.py:537)
-def ref_1340(f):
+def ref_1340(f: dict) -> float:
     return 0.55 if f.get("결합 여부", False) and int(f.get("가족 회선 수", 1)) >= 2 else 0.20
 SPEC_1340 = {
     "if": {"all": [{"feat": "결합 여부", "gte": 1}, {"feat": "가족 회선 수", "gte": 2}]},
@@ -128,7 +132,7 @@ SPEC_1340 = {
 }
 
 # 8. _rule_3110: AND + bool not (cs.py:645)
-def ref_3110(f):
+def ref_3110(f: dict) -> float:
     if float(f.get("미납 금액", 0)) > 0 and not f.get("자동납부 등록 여부", True):
         return 0.70
     return 0.0
@@ -138,7 +142,7 @@ SPEC_3110 = {
 }
 
 # 9. _rule_5140: AND + then이 식(boost+clamp) (cs.py:710)
-def ref_5140(f):
+def ref_5140(f: dict) -> float:
     bundle = str(f.get("결합 형태", "none"))
     if bundle in ("home", "full") and float(f.get("품질 만족도", 1)) <= 0.4:
         return min(0.55 + _boost(f, "quality_action_count", 0.10, 0.25), 0.95)
@@ -151,7 +155,7 @@ SPEC_5140 = {
 }
 
 # 10. _rule_6130: then이 affine 식 (cs.py:?)
-def ref_6130(f):
+def ref_6130(f: dict) -> float:
     family = int(f.get("가족 회선 수", 1))
     rem = float(f.get("잔여 데이터 비율", 1))
     if family >= 2:
@@ -164,7 +168,7 @@ SPEC_6130 = {
 }
 
 # 11. _rule_2240: 중첩 분기 → switch (cs.py:?)
-def ref_2240(f):
+def ref_2240(f: dict) -> float:
     if f.get("결합 여부"):
         return 0.20
     return 0.45 if int(f.get("가족 회선 수", 1)) >= 2 else 0.20
@@ -177,7 +181,7 @@ SPEC_2240 = {
 }
 
 # 12. _rule_2120: OR 조건 + 분기마다 다른 식 (cs.py:563)
-def ref_2120(f):
+def ref_2120(f: dict) -> float:
     upsell = float(f.get("업셀 적합도 Score", 0))
     fee = float(f.get("요금제 월정액", 0))
     tier = str(f.get("요금제 구간", ""))
@@ -196,7 +200,8 @@ SPEC_2120 = {
 }
 
 
-def _rand_feats(rng):
+def _rand_feats(rng: random.Random) -> dict:
+    """등가성 대조용 무작위 feature dict 생성."""
     return {
         "family_line_count":        rng.choice([1, 2, 3]),
         "service_coverage_ratio":   round(rng.uniform(0, 1), 4),
@@ -224,7 +229,8 @@ def _rand_feats(rng):
     }
 
 
-def main():
+def main() -> None:
+    """6+6 수식 패턴을 2000개 무작위 케이스로 eval_formula ≡ 원식 대조 (실패 시 exit 1)."""
     rng = random.Random(42)
     for _ in range(2000):
         f = _rand_feats(rng)

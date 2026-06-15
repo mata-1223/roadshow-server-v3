@@ -160,6 +160,7 @@ def _load_or_train(
     dataset_path: Path,
     model_prefix: str,
 ) -> Pipeline | None:
+    """캐시→MLflow Registry 로드, 없으면 train_and_register. (프로세스 캐시로 1회만 로드/학습)"""
     cache_key = f"{model_prefix}{intent_id}"
     if cache_key in _model_cache:
         return _model_cache[cache_key]

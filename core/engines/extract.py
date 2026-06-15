@@ -78,6 +78,7 @@ def run_batch_builder(base: dict[str, Any], spec: dict) -> dict[str, Any]:
 
 # ── 이벤트 필터 ─────────────────────────────────────────────────
 def _filter(events: list[dict], filt: dict | None) -> list[dict]:
+    """이벤트 목록을 filter spec으로 거른다. {exclude:[...]} | {include:[...]} | None(전체)."""
     if not filt:
         return list(events)
     if "exclude" in filt:
@@ -90,7 +91,8 @@ def _filter(events: list[dict], filt: dict | None) -> list[dict]:
 
 
 # ── 집계 ────────────────────────────────────────────────────────
-def _aggregate(events: list[dict], spec: dict) -> dict:
+def _aggregate(events: list[dict], spec: dict) -> dict[str, Any]:
+    """이벤트 → 집계 컨텍스트(entity/type/group 카운트, total, dominant, events)."""
     entity_counts: dict[str, int] = {}
     type_counts: dict[str, int] = {}
     group_counts: dict[str, int] = {}
@@ -113,7 +115,9 @@ def _aggregate(events: list[dict], spec: dict) -> dict:
     }
 
 
-def _field_value(fld: dict, ctx: dict) -> Any:
+def _field_value(fld: dict, ctx: dict[str, Any]) -> Any:
+    """pattern 필드 1개 계산: source(group_count/type_count/distinct_entity/repeated_max/total/
+    dominant_entity/last_entity/focus_ratio/recent_join/const) + 변환(mult/binary)."""
     src = fld["source"]
 
     # 문자열/특수 반환 (변환 미적용)
@@ -154,12 +158,14 @@ def _field_value(fld: dict, ctx: dict) -> Any:
 
 
 def pattern_from_spec(events: list[dict], spec: dict) -> dict[str, Any]:
+    """[1c] 이벤트 + pattern spec → Behavioral Pattern Feature dict. (events=[] → empty와 동일)"""
     ctx = _aggregate(events, spec)
     return {fld["name"]: _field_value(fld, ctx) for fld in spec.get("fields", [])}
 
 
 # ── event ───────────────────────────────────────────────────────
 def _flag_match(when: dict, ev: dict) -> bool:
+    """event 플래그 조건 평가 → bool. event_type_eq / entity_in / entity_eq."""
     if "event_type_eq" in when:
         return ev["event_type"] == when["event_type_eq"]
     if "entity_in" in when:
@@ -170,6 +176,7 @@ def _flag_match(when: dict, ev: dict) -> bool:
 
 
 def event_from_spec(last_event: dict | None, spec: dict | None) -> dict[str, Any]:
+    """[1b] 최신 이벤트 + event spec → Event Feature dict. (last_event=None → empty와 동일, spec 없으면 {})"""
     if not spec:                       # worker: event feature 미생성
         return {}
     out: dict[str, Any] = {

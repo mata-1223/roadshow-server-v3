@@ -26,6 +26,7 @@ logger = logging.getLogger(__name__)
 
 @asynccontextmanager
 async def lifespan(app: FastAPI):
+    """앱 수명주기: 기동 시 DB 초기화(스키마+카탈로그 시드), 종료 로깅."""
     logger.info(f"Starting roadshow-server-v3 (scenario={settings.SCENARIO_ID})")
     init_db()
     logger.info(f"DB initialized: {settings.DB_PATH}")
@@ -62,6 +63,7 @@ app.include_router(ws_router)
 
 @app.get("/health")
 async def health() -> dict:
+    """헬스 체크 — 상태·시나리오·환경."""
     return {
         "status":      "ok",
         "scenario_id": settings.SCENARIO_ID,

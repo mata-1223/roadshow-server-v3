@@ -9,7 +9,7 @@ import json
 import logging
 
 from config import settings
-from data.executor import get_executor
+from data.executor import get_executor, DuckDBExecutor
 from core.engines import config, available_scenarios
 
 logger = logging.getLogger(__name__)
@@ -31,7 +31,8 @@ def seed_catalogs() -> None:
         _seed_one(ex, sid)
 
 
-def _seed_one(ex, scenario_id: str) -> None:
+def _seed_one(ex: DuckDBExecutor, scenario_id: str) -> None:
+    """한 시나리오의 메타·Intent·Action·Behavior 카탈로그를 catalog_* 테이블에 적재."""
     # ── 시나리오 메타 ────────────────────────────────────────
     taxonomy = config.get_taxonomy(scenario_id)
     description = config.load_layer(scenario_id, "input").get("description", "")

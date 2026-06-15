@@ -37,7 +37,8 @@ _ROUND = 6
 
 
 # ── 정규화 (부동소수·타입 안정화) ───────────────────────────────
-def _norm(v):
+def _norm(v: object) -> object:
+    """비교 안정화: float는 _ROUND 자리 반올림, 그 외(bool 포함)는 그대로."""
     if isinstance(v, float):
         return round(v, _ROUND)
     if isinstance(v, bool):
@@ -46,6 +47,7 @@ def _norm(v):
 
 
 def _norm_dict(d: dict) -> dict:
+    """dict를 키 정렬·값 정규화하고 휘발성 키(_VOLATILE_KEYS)는 제외."""
     return {k: _norm(v) for k, v in sorted(d.items()) if k not in _VOLATILE_KEYS}
 
 
@@ -64,6 +66,7 @@ def _unique_answers(scenario_id: str) -> list[dict]:
 
 
 def _scores_snapshot(scenario_id: str) -> list[dict]:
+    """중복 제거된 survey_answers마다 infer_batch → {answers, intent별 final_score}."""
     out = []
     for ans in _unique_answers(scenario_id):
         _, scores = infer_batch(ans, scenario_id)
@@ -86,6 +89,7 @@ def _synthetic_sequence(scenario_id: str) -> list[tuple[str, str]]:
 
 
 def _features_snapshot(scenario_id: str) -> dict:
+    """합성 이벤트 시퀀스를 주입해 empty/pattern/event Feature dict를 스냅샷(타임스탬프 제외)."""
     engine = get_engine(scenario_id)
     ext = get_extractor()
     session = f"__snapshot__{scenario_id}"
@@ -105,6 +109,7 @@ def _features_snapshot(scenario_id: str) -> dict:
 
 # ── 스냅샷 빌드 ─────────────────────────────────────────────────
 def _build(scenario_id: str) -> dict:
+    """한 시나리오의 전체 스냅샷(scores + features) 생성."""
     return {
         "scenario_id": scenario_id,
         "scores": _scores_snapshot(scenario_id),
@@ -114,6 +119,7 @@ def _build(scenario_id: str) -> dict:
 
 # ── diff ────────────────────────────────────────────────────────
 def _diff(old: dict, new: dict, scenario_id: str) -> list[str]:
+    """baseline(old) vs 현재(new) 스냅샷 비교 → 불일치 메시지 리스트(빈 리스트면 무손상)."""
     errs: list[str] = []
 
     # features
@@ -140,6 +146,7 @@ def _diff(old: dict, new: dict, scenario_id: str) -> list[str]:
 
 # ── main ────────────────────────────────────────────────────────
 def main() -> None:
+    """--save: baseline 저장 / --check: baseline 대비 검증(불일치 시 exit 1)."""
     ap = argparse.ArgumentParser()
     g = ap.add_mutually_exclusive_group(required=True)
     g.add_argument("--save", action="store_true", help="baseline 저장")
