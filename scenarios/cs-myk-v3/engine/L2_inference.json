@@ -127,7 +127,7 @@
         "gt": 0
       },
       "then": 0.8,
-      "else": 0.05
+      "else": 0.18
     },
     "INT-1250": {
       "if": {
@@ -605,20 +605,28 @@
       "default": 0.05
     },
     "INT-3110": {
-      "if": {
-        "all": [
-          {
-            "feat": "미납 금액",
-            "gt": 0
+      "clamp": [
+        0,
+        0.75
+      ],
+      "terms": [
+        0.18,
+        {
+          "if": {
+            "all": [
+              {
+                "feat": "미납 금액",
+                "gt": 0
+              },
+              {
+                "feat": "자동납부 등록 여부",
+                "eq": false
+              }
+            ]
           },
-          {
-            "feat": "자동납부 등록 여부",
-            "eq": false
-          }
-        ]
-      },
-      "then": 0.7,
-      "else": 0.0
+          "then": 0.55
+        }
+      ]
     },
     "INT-3120": {
       "feat": "납부 지연 횟수",
@@ -632,7 +640,7 @@
           0.4
         ]
       ],
-      "default": 0.1
+      "default": 0.2
     },
     "INT-3140": 0.15,
     "INT-3240": {
@@ -950,7 +958,7 @@
               "then": 0.35
             }
           ],
-          "else": 0.1
+          "else": 0.2
         },
         {
           "boost": {
@@ -974,7 +982,7 @@
             "gte": 1
           },
           "then": 0.3,
-          "else": 0.1
+          "else": 0.2
         },
         {
           "boost": {
@@ -2432,6 +2440,7 @@
         ]
       }
     },
-    "heuristic_fallback": false
+    "heuristic_fallback": false,
+    "output_scale": 0.85
   }
 }

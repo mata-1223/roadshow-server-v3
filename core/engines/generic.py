@@ -110,4 +110,6 @@ class GenericEngine(ScenarioEngine):
             )
         if m.get("calibration") == "base_rate_logodds":   # 분류기 간 비교 가능하게 base-rate 재중심화
             p = common.recenter_logodds(p, self._base_rate(intent_id), m.get("calibration_strength", 1.0))
+        if m.get("output_scale"):     # 모델 과확신 톤다운 → 행동이 anchor를 덮을 여지 확보
+            p *= m["output_scale"]
         return p
