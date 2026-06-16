@@ -208,14 +208,17 @@
               "then": 50
             },
             {
-              "feat": "contract_status",
-              "default": 1,
-              "linear": [
-                1,
-                0
+              "switch": [
+                {
+                  "if": { "feat": "contract_status", "gte": 3 },
+                  "then": 45
+                },
+                {
+                  "if": { "feat": "contract_status", "gte": 2 },
+                  "then": 10
+                }
               ],
-              "div": 2,
-              "mul": 30
+              "else": 20
             },
             {
               "feat": "non_mobile_cost_gap",
