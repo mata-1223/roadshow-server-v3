@@ -36,7 +36,10 @@ def _node_label(node: Any) -> str:
         return f"조건: {c0.get('feat', '')}"
     if "clamp" in node and "value" in node:
         return _node_label(node["value"])
-    if "terms" in node:
+    if "terms" in node:                        # 중첩 항 → 첫 feature 항으로 대표
+        for t in node["terms"]:
+            if not isinstance(t, (int, float, bool)):
+                return _node_label(t)
         return "복합 항"
     return "항"
 
@@ -56,6 +59,11 @@ def _node_feat(node: Any) -> str | None:
         return (node["switch"] or [{}])[0].get("if", {}).get("feat")
     if "clamp" in node and "value" in node:
         return _node_feat(node["value"])
+    if "terms" in node:
+        for t in node["terms"]:
+            f = _node_feat(t)
+            if f:
+                return f
     return None
 
 
@@ -133,7 +141,26 @@ FEATURE_LABELS = {
     "Sleep Disturbance Index": "수면 방해", "Burnout Deep Score": "번아웃 정도",
     "Recovery Motivation Score": "회복 동기", "Fatigue Load Index": "피로 누적",
     "Digital Escape Score": "디지털 도피 성향", "Retention Value Index": "유지 가치",
-    "Benefit Engagement Index": "혜택 활용도",
+    "Benefit Engagement Index": "혜택 참여도",
+    # bundle 모델 Index/Score
+    "Bundle Opportunity Index": "결합 기회 지수", "Home Service Expansion Index": "홈 서비스 확장 지수",
+    "Benefit Optimization Index": "혜택 최적화 지수", "Benefit Optimization Score": "혜택 최적화 점수",
+    "Service Expansion Score": "서비스 확장 점수", "Acquisition Score": "신규 획득 점수",
+    "Retention Readiness Index": "유지 준비 지수", "Retention Value Index": "유지 가치 지수",
+    "Retention Value Score": "유지 가치 점수", "Retention Score": "유지 점수",
+    "Churn Defense Score": "이탈 방어 점수",
+    # 행동/이벤트 윈도우 feature (상담사 [상황]에 등장)
+    "churn_action_count_5m": "최근 해지 관련 행동", "comparison_action_count_5m": "최근 비교 행동",
+    "decision_action_count_5m": "최근 가입·결정 행동", "entity_focus_ratio_5m": "특정 메뉴 집중도",
+    "WiFi 진단 실행": "WiFi 진단 실행", "속도 측정 실행": "속도 측정 실행",
+    "장애 페이지 체류": "장애 페이지 체류", "할인 페이지 체류": "할인 페이지 조회",
+    "가족 결합 관련 행동": "가족 결합 페이지 조회",
+    # 프로필 snake_case
+    "benefit_utilization": "혜택 활용도", "content_view_mode": "콘텐츠 이용 형태",
+    "family_line_count": "가족 회선 수", "household_change": "가구 변화", "offwork_time": "퇴근 시간",
+    "overtime_freq": "야근 빈도", "plan_tier": "요금제 등급", "plan_bill_level": "요금제 금액대",
+    "monthly_bill_level": "월 요금 수준", "service_coverage_ratio": "서비스 커버리지 비율",
+    "tenure_group": "가입 기간대", "age_group": "연령대", "subscribed_service_count": "가입 부가서비스 수",
 }
 
 
@@ -159,7 +186,7 @@ def _situation_text(intent_name: str, r: dict) -> str:
     else:
         head = f"이 고객은 {' · '.join(labels)} 측면이 두드러져 '{intent_name}' 의도가 추론되었습니다"
     note = r.get("behavior_note")
-    return f"{head}. (이번 {note})" if note else head + "."
+    return f"{head} ({note})." if note else head + "."
 
 
 def attach_reasoning(engine, features: dict, top_items: list[dict], top: int = 3) -> None:
