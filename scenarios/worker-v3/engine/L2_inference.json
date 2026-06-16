@@ -193,9 +193,10 @@
       ]
     },
     "action_signal": {
-      "scale": 0.26,
-      "cap": 0.82,
-      "decay": 0.72
+      "scale": 0.45,
+      "cap": 0.85,
+      "decay": 0.72,
+      "boost_mode": "headroom"
     }
   },
   "calibrator": {

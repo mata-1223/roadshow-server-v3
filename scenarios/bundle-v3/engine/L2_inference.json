@@ -652,9 +652,10 @@
       "session_end": []
     },
     "action_signal": {
-      "scale": 0.28,
-      "cap": 0.55,
-      "decay": 0.6
+      "scale": 0.48,
+      "cap": 0.9,
+      "decay": 0.6,
+      "boost_mode": "headroom"
     }
   },
   "calibrator": {
@@ -873,6 +874,7 @@
       "class_weight": null
     },
     "calibration": "base_rate_logodds",
-    "calibration_strength": 0.6
+    "calibration_strength": 0.6,
+    "output_scale": 0.85
   }
 }
