@@ -20,6 +20,7 @@ PROBABILITY_TEMPERATURE = 0.15
 
 from config import settings
 from core.engines import get_engine, config
+from core.engines.base import ScenarioEngine
 from core.extractor import get_extractor
 
 logger = logging.getLogger(__name__)
@@ -81,6 +82,7 @@ def _action_intent_signals(
 
 @dataclass
 class IntentScore:
+    """단일 intent의 baseline·final 점수와 순위 변화(행동 반영 전후)."""
     intent_id:       str
     intent_name:     str
     L1_id:           str
@@ -157,8 +159,8 @@ def infer_with_behavior(
     return batch_features, scores
 
 
-def _score_all(features: dict[str, Any], engine) -> dict[str, float]:
-    """모든 Intent에 대해 점수만 산출 (intent_id → score)."""
+def _score_all(features: dict[str, Any], engine: ScenarioEngine) -> dict[str, float]:
+    """모든 Intent에 대해 점수만 산출 (intent_id → score). 타입별 rule/model 분기."""
     f = dict(features)
     if isinstance(f.get("결합 여부"), bool):
         f["결합 여부"] = 1 if f["결합 여부"] else 0
@@ -175,6 +177,7 @@ def _score_all(features: dict[str, Any], engine) -> dict[str, float]:
 
 
 def _rank_map(raw: dict[str, float]) -> dict[str, int]:
+    """intent_id → 점수 내림차순 순위(1-기반)."""
     ordered = sorted(raw.items(), key=lambda kv: kv[1], reverse=True)
     return {iid: i for i, (iid, _) in enumerate(ordered, start=1)}
 
@@ -182,8 +185,9 @@ def _rank_map(raw: dict[str, float]) -> dict[str, int]:
 def _to_intent_scores(
     baseline_raw: dict[str, float],
     final_raw: dict[str, float],
-    engine,
+    engine: ScenarioEngine,
 ) -> list[IntentScore]:
+    """baseline·final raw 점수 → IntentScore 리스트(델타·순위변화 채워 final 내림차순 정렬)."""
     baseline_ranks = _rank_map(baseline_raw)
     final_ranks    = _rank_map(final_raw)
 
@@ -312,6 +316,7 @@ def to_customer_context_json(
     scores: list[IntentScore],
     batch_features: dict[str, Any],
 ) -> dict[str, Any]:
+    """세션·단계·전체 intent 점수를 Customer Context JSON(저장/조회용)으로 직렬화."""
     intents = []
     for s in scores:
         intents.append({

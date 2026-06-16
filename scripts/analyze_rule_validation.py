@@ -23,7 +23,9 @@ sys.path.insert(0, str(Path(__file__).parent.parent))
 
 from data.executor import init_db, get_executor  # noqa: E402
 from data.seed import load_intents_catalog       # noqa: E402
-from core.engines import cs, common              # noqa: E402
+from core.engines import config, formula         # noqa: E402
+
+_CS_RULE_SPEC = config.get_rule_spec("cs-myk-v3")
 
 
 def _load_dataset(path: Path) -> list[dict]:
@@ -39,7 +41,7 @@ def _score_with_rules(features: dict, intents: list[dict]) -> dict[str, float]:
     for intent in intents:
         if intent["inference_type"] != "Rule":
             continue
-        out[intent["id"]] = common.rule_predict(cs.RULES, intent["id"], f)
+        out[intent["id"]] = formula.rule_predict(_CS_RULE_SPEC, intent["id"], f)
     return out
 
 
@@ -127,7 +129,7 @@ def main() -> None:
     print("\n" + "=" * 72)
     print("  Rule 정의 통계")
     print("=" * 72)
-    defined = len(cs.RULES)
+    defined = len(_CS_RULE_SPEC)
     rule_n = len(rule_intent_ids)
     print(f"\n  Rule Intent 총: {rule_n} (Model 제외)")
     print(f"  명시적 Rule 함수 정의: {defined}개")

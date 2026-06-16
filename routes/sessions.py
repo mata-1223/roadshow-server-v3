@@ -22,20 +22,24 @@ router = APIRouter()
 
 
 class CreateSessionResponse(BaseModel):
+    """세션 생성 응답."""
     session_id:  str
     scenario_id: str
 
 
 class SurveySubmission(BaseModel):
+    """설문 제출 본문 ({question_id: answer_code})."""
     answers: dict[str, str]  # {"Q1": "A", ...}
 
 
 class CreateSessionRequest(BaseModel):
+    """세션 생성 요청 (scenario_id 미지정 시 기본 시나리오)."""
     scenario_id: Optional[str] = None
 
 
 @router.post("", response_model=CreateSessionResponse)
 async def create_session(req: Optional[CreateSessionRequest] = None) -> CreateSessionResponse:
+    """새 세션 생성 (scenario_id 검증 후 sessions에 적재)."""
     from core.engines import available_scenarios
     scenario_id = (req.scenario_id if req and req.scenario_id else None) or settings.SCENARIO_ID
     if scenario_id not in available_scenarios():
@@ -55,6 +59,7 @@ async def create_session(req: Optional[CreateSessionRequest] = None) -> CreateSe
 
 @router.post("/{session_id}/survey")
 async def submit_survey(session_id: str, submission: SurveySubmission) -> dict[str, Any]:
+    """설문 제출 → baseline Intent 추론·적재 → Top-N·확률 분포 응답."""
     ex = get_executor()
 
     # 세션 검증 + scenario_id 조회
