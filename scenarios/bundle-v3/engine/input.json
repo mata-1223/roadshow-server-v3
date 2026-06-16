@@ -450,7 +450,7 @@
         },
         {
           "id": "1-E",
-          "name": "전환·이탈 검토",
+          "name": "이탈 검토",
           "event_type": "page_view",
           "entity": "competitor_explore"
         }
@@ -535,6 +535,12 @@
             "name": "홈WiFi 조회",
             "event_type": "action_select",
             "entity": "wifi"
+          },
+          {
+            "id": "2-C5",
+            "name": "인터넷 신규가입 혜택 조회",
+            "event_type": "action_select",
+            "entity": "internet_signup_benefit"
           }
         ],
         "1-D": [
@@ -569,12 +575,6 @@
             "name": "번호이동 혜택 조회",
             "event_type": "churn_action",
             "entity": "mnp"
-          },
-          {
-            "id": "2-E3",
-            "name": "인터넷 신규가입 혜택 조회",
-            "event_type": "action_select",
-            "entity": "internet_signup_benefit"
           },
           {
             "id": "2-E4",
