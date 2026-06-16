@@ -1526,9 +1526,9 @@
       "session_end": []
     },
     "action_signal": {
-      "scale": 0.28,
-      "cap": 0.55,
-      "decay": 0.6
+      "scale": 0.4,
+      "cap": 0.82,
+      "decay": 0.62
     }
   },
   "calibrator": {
