@@ -50,22 +50,29 @@
       "terms": [
         0.08,
         {
+          "feat": "Fatigue Load Index",
+          "linear": [
+            1,
+            0
+          ],
+          "div": 100,
+          "mul": 0.35
+        },
+        {
           "feat": "Recovery Motivation Score",
           "linear": [
             1,
             0
           ],
           "div": 100,
-          "mul": 0.4
+          "mul": 0.15
         },
         {
-          "feat": "Isolation Tendency Index",
-          "linear": [
-            1,
-            0
-          ],
-          "div": 100,
-          "mul": 0.2
+          "if": {
+            "feat": "move_pattern",
+            "gte": 2
+          },
+          "then": 0.2
         }
       ]
     },
@@ -79,14 +86,21 @@
             0
           ],
           "div": 100,
-          "mul": 0.35
+          "mul": 0.3
         },
         {
           "if": {
             "feat": "weekend_out",
             "gte": 2
           },
-          "then": 0.12
+          "then": 0.18
+        },
+        {
+          "if": {
+            "feat": "night_phone_usage",
+            "lte": 2
+          },
+          "then": 0.1
         }
       ]
     },
@@ -94,28 +108,33 @@
       "terms": [
         0.08,
         {
-          "feat": "Recovery Motivation Score",
-          "linear": [
-            1,
-            0
-          ],
-          "div": 100,
-          "mul": 0.35
-        },
-        {
           "feat": "Isolation Tendency Index",
           "linear": [
             1,
             0
           ],
           "div": 100,
-          "mul": 0.25
+          "mul": 0.45
+        },
+        {
+          "if": {
+            "feat": "social_contact",
+            "lte": 2
+          },
+          "then": 0.2
         }
       ]
     },
     "INT-W250": {
       "terms": [
-        0.08,
+        0.1,
+        {
+          "if": {
+            "feat": "social_contact",
+            "gte": 3
+          },
+          "then": 0.35
+        },
         {
           "feat": "Recovery Motivation Score",
           "linear": [
@@ -123,14 +142,7 @@
             0
           ],
           "div": 100,
-          "mul": 0.3
-        },
-        {
-          "if": {
-            "feat": "social_contact",
-            "gte": 3
-          },
-          "then": 0.15
+          "mul": 0.15
         }
       ]
     }
