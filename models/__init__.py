@@ -3,7 +3,7 @@ from __future__ import annotations
 Predictive Model 레지스트리 (ML/DL 구현 교체 지점).
 
 predictive_model = 아래 인터페이스를 만족하는 객체/모듈 (시나리오 무관):
-    predict(intent_id, features, *, training_data, dataset_path, model_prefix) -> float
+    predict(intent_id, features, *, training_data, dataset_path, model_prefix, train_params=None) -> float
 
 - "predictive_model"은 ML(sklearn)·DL(torch 등)을 아우르는 [2b] 예측 모델 구현을 가리킨다.
 - config L2.model.predictive_model 로 선택 (없으면 "sklearn").
@@ -15,9 +15,13 @@ from typing import Any, Protocol
 
 
 class PredictiveModel(Protocol):
-    """예측 모델 구현 인터페이스 (sklearn/torch… 공통). intent별 0~1 점수를 반환."""
+    """예측 모델 구현 인터페이스 (sklearn/torch… 공통). intent별 0~1 점수를 반환.
+
+    train_params: 학습 하이퍼파라미터(config L2.model.train). 미사용 구현은 무시 가능.
+    """
     def predict(self, intent_id: str, features: dict[str, Any], *,
-                training_data: dict, dataset_path, model_prefix: str) -> float: ...
+                training_data: dict, dataset_path, model_prefix: str,
+                train_params: dict | None = None) -> float: ...
 
 
 _PREDICTIVE_MODELS: dict[str, Any] = {}
