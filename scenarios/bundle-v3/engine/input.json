@@ -8,7 +8,7 @@
       {
         "id": "Q1",
         "block": "objective_fact",
-        "dimension": "인구통계",
+        "dimension": "성별",
         "question": "성별을 알려주세요",
         "options": [
           {
@@ -30,7 +30,7 @@
       {
         "id": "Q2",
         "block": "objective_fact",
-        "dimension": "인구통계",
+        "dimension": "연령대",
         "question": "연령대를 알려주세요",
         "options": [
           {
@@ -79,11 +79,11 @@
         "id": "Q3",
         "block": "objective_fact",
         "dimension": "요금제",
-        "question": "현재 사용 중인 요금제는 무엇인가요?",
+        "question": "현재 사용 중인 월 요금제 금액대는?",
         "options": [
           {
             "code": "A",
-            "label": "알뜰폰",
+            "label": "3만원 이하",
             "features": {
               "plan_tier": 1,
               "plan_bill_level": 1
@@ -91,7 +91,7 @@
           },
           {
             "code": "B",
-            "label": "5G 슬림 / LTE",
+            "label": "3~5만원",
             "features": {
               "plan_tier": 2,
               "plan_bill_level": 2
@@ -99,7 +99,7 @@
           },
           {
             "code": "C",
-            "label": "5G 심플 / 베이직",
+            "label": "6~8만원",
             "features": {
               "plan_tier": 3,
               "plan_bill_level": 3
@@ -107,7 +107,7 @@
           },
           {
             "code": "D",
-            "label": "5G 스페셜 / 초이스",
+            "label": "9만원 이상",
             "features": {
               "plan_tier": 4,
               "plan_bill_level": 4
@@ -450,7 +450,7 @@
         },
         {
           "id": "1-E",
-          "name": "타사 혜택 비교",
+          "name": "이탈 검토",
           "event_type": "page_view",
           "entity": "competitor_explore"
         }
@@ -535,6 +535,12 @@
             "name": "홈WiFi 조회",
             "event_type": "action_select",
             "entity": "wifi"
+          },
+          {
+            "id": "2-C5",
+            "name": "인터넷 신규가입 혜택 조회",
+            "event_type": "action_select",
+            "entity": "internet_signup_benefit"
           }
         ],
         "1-D": [
@@ -565,22 +571,10 @@
         ],
         "1-E": [
           {
-            "id": "2-E1",
-            "name": "타사 결합 할인 비교",
-            "event_type": "churn_action",
-            "entity": "competitor_compare"
-          },
-          {
             "id": "2-E2",
             "name": "번호이동 혜택 조회",
             "event_type": "churn_action",
             "entity": "mnp"
-          },
-          {
-            "id": "2-E3",
-            "name": "인터넷 신규가입 혜택 조회",
-            "event_type": "action_select",
-            "entity": "internet_signup_benefit"
           },
           {
             "id": "2-E4",

@@ -614,9 +614,6 @@
         "INT-B5410",
         "INT-B5420"
       ],
-      "competitor_compare": [
-        "INT-B5110"
-      ],
       "mnp": [
         "INT-B5120",
         "INT-B5440"
@@ -644,7 +641,6 @@
         "INT-B4210"
       ],
       "competitor_explore": [
-        "INT-B5110",
         "INT-B5410",
         "INT-B5420"
       ],
@@ -783,14 +779,6 @@
         "features": [
           "non_mobile_cost_gap",
           "Retention Readiness Index",
-          "comparison_action_count_5m"
-        ]
-      },
-      "INT-B5110": {
-        "features": [
-          "Churn Risk Index",
-          "non_mobile_cost_gap",
-          "churn_action_count_5m",
           "comparison_action_count_5m"
         ]
       },

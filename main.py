@@ -30,6 +30,9 @@ async def lifespan(app: FastAPI):
     logger.info(f"Starting roadshow-server-v3 (scenario={settings.SCENARIO_ID})")
     init_db()
     logger.info(f"DB initialized: {settings.DB_PATH}")
+    if settings.WARMUP_ON_START:                  # 배포 후 첫 설문 없이 모델 준비
+        from core.warmup import warmup_models
+        warmup_models()
     yield
     logger.info("Shutting down roadshow-server-v3")
 
