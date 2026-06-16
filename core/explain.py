@@ -185,8 +185,7 @@ def _situation_text(intent_name: str, r: dict) -> str:
         head = f"고객 응답을 종합해 '{intent_name}' 의도가 추론되었습니다"
     else:
         head = f"이 고객은 {' · '.join(labels)} 측면이 두드러져 '{intent_name}' 의도가 추론되었습니다"
-    note = r.get("behavior_note")
-    return f"{head} ({note})." if note else head + "."
+    return head + "."   # 순위 변동(behavior_note)은 상담사 [상황]에서 제외
 
 
 def attach_reasoning(engine, features: dict, top_items: list[dict], top: int = 3) -> None:

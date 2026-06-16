@@ -8,7 +8,7 @@
       {
         "id": "Q1",
         "block": "objective_fact",
-        "dimension": "인구통계",
+        "dimension": "성별",
         "question": "성별을 알려주세요",
         "options": [
           {
@@ -30,7 +30,7 @@
       {
         "id": "Q2",
         "block": "objective_fact",
-        "dimension": "인구통계",
+        "dimension": "연령대",
         "question": "연령대를 알려주세요",
         "options": [
           {
