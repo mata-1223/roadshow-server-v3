@@ -154,13 +154,16 @@
         "INT-W240"
       ],
       "sns": [
-        "INT-W130"
+        "INT-W130",
+        "INT-W140"
       ],
       "ott": [
-        "INT-W130"
+        "INT-W130",
+        "INT-W140"
       ],
       "delivery": [
-        "INT-W210"
+        "INT-W210",
+        "INT-W120"
       ],
       "shopping": [
         "INT-W210"

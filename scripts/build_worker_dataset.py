@@ -106,6 +106,7 @@ def main():
 
     rows = build_samples(
         n=args.n, seed=args.seed, personas=PERSONAS, engine=get_engine(SCENARIO_ID),
+        behavior_labels=False,
         seq_key="app_seqs", action_resolver=app_action_resolver,
         entity_intents=entity_intents, cust_prefix="WC",
     )
