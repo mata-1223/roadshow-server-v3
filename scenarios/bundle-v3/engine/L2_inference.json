@@ -614,9 +614,6 @@
         "INT-B5410",
         "INT-B5420"
       ],
-      "competitor_compare": [
-        "INT-B5110"
-      ],
       "mnp": [
         "INT-B5120",
         "INT-B5440"
@@ -644,7 +641,6 @@
         "INT-B4210"
       ],
       "competitor_explore": [
-        "INT-B5110",
         "INT-B5410",
         "INT-B5420"
       ],
@@ -652,9 +648,10 @@
       "session_end": []
     },
     "action_signal": {
-      "scale": 0.28,
-      "cap": 0.55,
-      "decay": 0.6
+      "scale": 0.48,
+      "cap": 0.9,
+      "decay": 0.6,
+      "boost_mode": "headroom"
     }
   },
   "calibrator": {
@@ -785,14 +782,6 @@
           "comparison_action_count_5m"
         ]
       },
-      "INT-B5110": {
-        "features": [
-          "Churn Risk Index",
-          "non_mobile_cost_gap",
-          "churn_action_count_5m",
-          "comparison_action_count_5m"
-        ]
-      },
       "INT-B5210": {
         "features": [
           "Churn Risk Index",
@@ -873,6 +862,7 @@
       "class_weight": null
     },
     "calibration": "base_rate_logodds",
-    "calibration_strength": 0.6
+    "calibration_strength": 0.6,
+    "output_scale": 0.85
   }
 }

@@ -36,10 +36,12 @@ def _load_py(ref: str) -> Callable[..., Any]:
 
 
 def rule_predict(rules_spec: dict, intent_id: str, features: dict) -> float:
-    """[L2a] 선언형 룰: spec 평가 후 clamp01. 미등록 intent는 0.05 baseline."""
+    """[L2a] 선언형 룰: spec 평가 후 clamp01.
+    미등록 intent는 baseline 반환 — 시나리오가 rule spec에 "_default"(메타키)를 주면 그 값,
+    없으면 0.05. (bundle/worker는 미지정 → 0.05 유지)"""
     spec = rules_spec.get(intent_id)
     if spec is None:
-        return 0.05
+        return rules_spec.get("_default", 0.05)
     return clamp01(eval_formula(spec, features))
 
 

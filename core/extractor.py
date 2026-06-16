@@ -49,6 +49,11 @@ class BehavioralPatternExtractor:
         cutoff = _now() - timedelta(seconds=window_seconds)
         return [e for e in events if e["occurred_at"] >= cutoff]
 
+    def recent_events(self, session_id: str, n: int) -> list[dict[str, Any]]:
+        """세션의 최근 n개 이벤트 (클릭 기반 윈도우). n<=0이면 전체."""
+        events = self._events_by_session.get(session_id, [])
+        return events[-n:] if n and n > 0 else list(events)
+
     def reset(self, session_id: str) -> None:
         """세션의 누적 이벤트 제거."""
         self._events_by_session.pop(session_id, None)

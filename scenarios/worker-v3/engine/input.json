@@ -73,32 +73,32 @@
         "id": "Q2",
         "block": "objective_fact",
         "dimension": "요금제",
-        "question": "요금제는 어떤 걸 사용하고 계신가요?",
+        "question": "월 요금제 금액대는 어떻게 되시나요?",
         "options": [
           {
             "code": "A",
-            "label": "5G 초이스/스페셜 (9만원↑)",
+            "label": "9만원 이상",
             "features": {
               "plan_tier": 1
             }
           },
           {
             "code": "B",
-            "label": "5G 베이직/심플 (6~8만원)",
+            "label": "6~8만원",
             "features": {
               "plan_tier": 2
             }
           },
           {
             "code": "C",
-            "label": "5G 슬림 (3~5만원)",
+            "label": "3~5만원",
             "features": {
               "plan_tier": 3
             }
           },
           {
             "code": "D",
-            "label": "요고 (3~7만원)",
+            "label": "3~7만원",
             "features": {
               "plan_tier": 4
             }

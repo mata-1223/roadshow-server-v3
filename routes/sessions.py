@@ -114,6 +114,12 @@ async def submit_survey(session_id: str, submission: SurveySubmission) -> dict[s
                ["initial", session_id])
 
     top_items, others = to_topn_with_others(intent_scores, top_n=settings.TOP_N_INTENT, scenario_id=scenario_id)
+    # 추론 이유(reasoning) 첨부 — 설문만이므로 pattern/event는 빈 상태
+    from core.engines import get_engine
+    from core import explain as _explain
+    _eng = get_engine(scenario_id)
+    _combined = {**batch_features, **_eng.empty_pattern_features(), **_eng.empty_event_features()}
+    _explain.attach_reasoning(_eng, _combined, top_items)
     all_probabilities = to_probability_dict(intent_scores, scenario_id=scenario_id)
 
     return {

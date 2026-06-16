@@ -36,8 +36,8 @@ PERSONAS = [
     {
         "id": "W2", "name": "번아웃 심화·에너지 소진 (무기력)", "weight": 0.13,
         "answer_dist": {"Q1": {"C": 0.4, "D": 0.3, "E": 0.3}, "Q2": {"A": 0.3, "B": 0.7}, "Q3": {"C": 0.5, "D": 0.5},
-                        "Q4": {"C": 0.4, "D": 0.6}, "Q5": {"C": 0.5, "D": 0.5}, "Q6": {"A": 0.8, "B": 0.2},
-                        "Q7": {"A": 0.7, "B": 0.3}, "Q8": {"A": 0.5, "B": 0.5}, "Q9": {"B": 0.5, "C": 0.5}},
+                        "Q4": {"C": 0.4, "D": 0.6}, "Q5": {"C": 0.5, "D": 0.5}, "Q6": {"A": 0.7, "B": 0.3},
+                        "Q7": {"A": 0.4, "B": 0.4, "C": 0.2}, "Q8": {"A": 0.2, "B": 0.4, "C": 0.4}, "Q9": {"B": 0.5, "C": 0.5}},
         "app_seqs": [["delivery"], ["delivery", "ott"], ["ott", "delivery"]],
         "expected_intents": ["INT-W120", "INT-W210"],
     },
@@ -106,6 +106,7 @@ def main():
 
     rows = build_samples(
         n=args.n, seed=args.seed, personas=PERSONAS, engine=get_engine(SCENARIO_ID),
+        behavior_labels=False,
         seq_key="app_seqs", action_resolver=app_action_resolver,
         entity_intents=entity_intents, cust_prefix="WC",
     )
