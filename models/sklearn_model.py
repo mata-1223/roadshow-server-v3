@@ -124,7 +124,7 @@ def train_and_register(
     extracted = _extract_from_dataset(intent_id, feature_names, seed, dataset_path)
     if extracted is not None:
         X, y = extracted
-        data_source = "persona_dataset"
+        data_source = "seed_dataset"
     elif "X" in data and "y" in data:
         X, y = data["X"], data["y"]
         data_source = "domain_knowledge"
