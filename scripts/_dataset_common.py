@@ -100,8 +100,8 @@ def build_samples(
         event = engine.event_features(sid) if actions else {}
         ex.reset(sid)
 
-        # 양성 라벨: persona extra_intents (+ behavior_labels=True면 행동 신호 intent도)
-        positives = set(persona["extra_intents"])
+        # 양성 라벨: persona expected_intents (+ behavior_labels=True면 행동 신호 intent도)
+        positives = set(persona["expected_intents"])
         if behavior_labels:
             for a in actions:
                 positives.update(entity_intents.get(a["entity"], []))

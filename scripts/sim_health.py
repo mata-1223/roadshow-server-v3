@@ -2,7 +2,7 @@ from __future__ import annotations
 """
 결합(bundle-v3) 분포 건전성 + 페르소나 유사도 기반 off-persona 평가.
 
-페르소나 기대치(extra_intents)에 의존하지 않는 보조 지표:
+페르소나 기대치(expected_intents)에 의존하지 않는 보조 지표:
 
 [A] 분포 건전성 — 무작위 프로필에서
     - top1_diversity : top-1 intent가 얼마나 다양한가 (1 intent 독점=불건전). HHI(낮을수록 다양).

@@ -3,11 +3,11 @@ from __future__ import annotations
 결합(bundle-v3) Intent 분포 시뮬레이터 (로직 고도화용).
 
 각 페르소나가 설문(대표 답변)에 응답하고 대표 행동 시퀀스를 수행했을 때,
-기대 intent(extra_intents)가 상위 분포에 뜨는지 점수화해 "납득 가능한 분포"인지 평가한다.
+기대 intent(expected_intents)가 상위 분포에 뜨는지 점수화해 "납득 가능한 분포"인지 평가한다.
 
 지표:
-  - cov@5 / cov@10 : extra_intents 중 final top-5/top-10에 든 비율
-  - avg_rank       : extra_intents의 평균 final 순위 (낮을수록 좋음)
+  - cov@5 / cov@10 : expected_intents 중 final top-5/top-10에 든 비율
+  - avg_rank       : expected_intents의 평균 final 순위 (낮을수록 좋음)
   - 페르소나별 + 전체 평균
 
 실행: python scripts/sim_bundle.py [--behavior]   (--behavior: 대표 행동 시퀀스까지 반영)
@@ -69,7 +69,7 @@ def run(use_behavior: bool, k: int = 40, seed: int = 7) -> None:
 
     p_cov5, p_cov10, rank_all = [], [], []
     for p in PERSONAS:
-        expected = p["extra_intents"]
+        expected = p["expected_intents"]
         c5s, c10s, rks = [], [], []
         for j in range(k):
             answers = _sample_answers(p["answer_dist"], rng)
