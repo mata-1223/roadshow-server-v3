@@ -11,7 +11,7 @@
 
 실행:
     cd roadshow-server-v3
-    python scripts/build_persona_dataset.py --n 500 --seed 42
+    python scripts/build_cs_dataset.py --n 500 --seed 42
 """
 from __future__ import annotations
 

@@ -2,7 +2,7 @@
 """
 결합(bundle-v3) 페르소나 기반 시드 데이터셋 생성.
 
-CS의 build_persona_dataset.py와 동일 구조이나 결합 엔진/행동/매핑을 사용한다.
+CS의 build_cs_dataset.py와 동일 구조이나 결합 엔진/행동/매핑을 사용한다.
   1. 8개 결합 페르소나 정의 (답변 분포·선호 행동 시퀀스·expected_intents)
   2. 가중치 샘플링 → 설문 답변·batch/pattern/event feature·양성 Intent 라벨 생성
   3. scenarios/bundle-v3/seed_dataset.json 적재
