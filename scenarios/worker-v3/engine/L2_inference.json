@@ -127,13 +127,20 @@
     },
     "INT-W250": {
       "terms": [
-        0.1,
+        0.12,
         {
           "if": {
             "feat": "social_contact",
             "gte": 3
           },
-          "then": 0.35
+          "then": 0.32
+        },
+        {
+          "if": {
+            "feat": "social_contact",
+            "gte": 4
+          },
+          "then": 0.1
         },
         {
           "feat": "Recovery Motivation Score",
@@ -142,7 +149,7 @@
             0
           ],
           "div": 100,
-          "mul": 0.15
+          "mul": 0.16
         }
       ]
     }
@@ -172,7 +179,8 @@
         "INT-W220"
       ],
       "exercise": [
-        "INT-W230"
+        "INT-W230",
+        "INT-W250"
       ],
       "mental_recovery": [
         "INT-W240"
@@ -185,9 +193,9 @@
       ]
     },
     "action_signal": {
-      "scale": 0.28,
-      "cap": 0.55,
-      "decay": 0.6
+      "scale": 0.26,
+      "cap": 0.82,
+      "decay": 0.72
     }
   },
   "calibrator": {
