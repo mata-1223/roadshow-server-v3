@@ -79,11 +79,11 @@
         "id": "Q3",
         "block": "objective_fact",
         "dimension": "요금제",
-        "question": "현재 사용 중인 요금제는 무엇인가요?",
+        "question": "현재 사용 중인 월 요금제 금액대는?",
         "options": [
           {
             "code": "A",
-            "label": "알뜰폰",
+            "label": "3만원 이하",
             "features": {
               "plan_tier": 1,
               "plan_bill_level": 1
@@ -91,7 +91,7 @@
           },
           {
             "code": "B",
-            "label": "5G 슬림 / LTE",
+            "label": "3~5만원",
             "features": {
               "plan_tier": 2,
               "plan_bill_level": 2
@@ -99,7 +99,7 @@
           },
           {
             "code": "C",
-            "label": "5G 심플 / 베이직",
+            "label": "6~8만원",
             "features": {
               "plan_tier": 3,
               "plan_bill_level": 3
@@ -107,7 +107,7 @@
           },
           {
             "code": "D",
-            "label": "5G 스페셜 / 초이스",
+            "label": "9만원 이상",
             "features": {
               "plan_tier": 4,
               "plan_bill_level": 4

@@ -59,10 +59,21 @@ def _node_feat(node: Any) -> str | None:
     return None
 
 
-def _fmt_value(v: Any) -> str | None:
-    """feature 현재값 표시 문자열."""
+# 코드값 feature → 실제 의미 (코드가 아닌 실제값 표시)
+VALUE_LABELS = {
+    "contract_status": {1: "약정 없음", 2: "약정 잔여 6개월+", 3: "약정 만료 임박"},
+    "고객 등급": {"Gold": "골드", "Silver": "실버", "Bronze": "브론즈", "VIP": "VIP", "Green": "그린"},
+}
+
+
+def _fmt_value(feat: str | None, v: Any) -> str | None:
+    """feature 현재값 표시 문자열. 코드값(contract_status 등)은 실제 의미로 변환."""
     if v is None:
         return None
+    if feat in VALUE_LABELS:
+        key = int(v) if isinstance(v, (int, float)) and float(v).is_integer() else v
+        if key in VALUE_LABELS[feat]:
+            return VALUE_LABELS[feat][key]
     if isinstance(v, bool):
         return "예" if v else "아니오"
     if isinstance(v, (int, float)):
@@ -71,7 +82,7 @@ def _fmt_value(v: Any) -> str | None:
 
 
 def explain_rule(scenario_id: str, intent_id: str, features: dict, top: int = 3) -> list[dict]:
-    """rule spec의 top-level 항별 기여도 → |기여| 상위 top개. 상수(기본 점수)는 제외, feature 현재값 포함."""
+    """rule spec의 top-level 항별 기여도 → |기여| 상위 top개. 상수(기본 점수) 제외, 한글 라벨·실제값 포함."""
     spec = config.get_rule_spec(scenario_id).get(intent_id)
     if spec is None:
         return []
@@ -84,16 +95,21 @@ def explain_rule(scenario_id: str, intent_id: str, features: dict, top: int = 3)
         if abs(val) < 1e-9:
             continue
         feat = _node_feat(t)
-        out.append({"label": _node_label(t), "contribution": round(val, 4),
+        out.append({"label": _label_ko(_node_label(t)), "contribution": round(val, 4),
                     "direction": "up" if val >= 0 else "down",
-                    "value": _fmt_value(features.get(feat)) if feat else None})
+                    "value": _fmt_value(feat, features.get(feat)) if feat else None})
     return sorted(out, key=lambda o: -abs(o["contribution"]))[:top]
 
 
 def explain_intent(engine, intent_id: str, features: dict, inference_type: str, top: int = 3) -> dict:
-    """intent 1개의 추론 이유. inference_type에 따라 rule/model 분해."""
+    """intent 1개의 추론 이유. inference_type에 따라 rule/model 분해. 라벨 한글화·코드값 변환."""
     if inference_type == "Model":
-        return {"type": "Model", "factors": engine.explain_model(intent_id, features, top=top)}
+        factors = engine.explain_model(intent_id, features, top=top)
+        for f in factors:                          # 모델 feature명 → 한글, 코드값 → 실제값
+            feat = f.get("label", "")
+            f["value"] = _fmt_value(feat, f.get("value"))
+            f["label"] = _label_ko(feat)
+        return {"type": "Model", "factors": factors}
     return {"type": "Rule", "factors": explain_rule(engine.scenario_id, intent_id, features, top=top)}
 
 
