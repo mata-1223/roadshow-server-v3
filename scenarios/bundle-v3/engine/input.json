@@ -450,7 +450,7 @@
         },
         {
           "id": "1-E",
-          "name": "타사 혜택 비교",
+          "name": "전환·이탈 검토",
           "event_type": "page_view",
           "entity": "competitor_explore"
         }
@@ -564,12 +564,6 @@
           }
         ],
         "1-E": [
-          {
-            "id": "2-E1",
-            "name": "타사 결합 할인 비교",
-            "event_type": "churn_action",
-            "entity": "competitor_compare"
-          },
           {
             "id": "2-E2",
             "name": "번호이동 혜택 조회",
