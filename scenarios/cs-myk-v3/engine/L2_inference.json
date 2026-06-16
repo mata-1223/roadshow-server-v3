@@ -1406,7 +1406,8 @@
           ]
         }
       ]
-    }
+    },
+    "_default": 0.0
   },
   "ranker": {
     "behavior_signals": {
