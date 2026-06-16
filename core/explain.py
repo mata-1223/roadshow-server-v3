@@ -41,22 +41,52 @@ def _node_label(node: Any) -> str:
     return "항"
 
 
+def _node_feat(node: Any) -> str | None:
+    """rule 항이 참조하는 feature 키 (현재값 조회용)."""
+    if not isinstance(node, dict):
+        return None
+    if "feat" in node:
+        return node["feat"]
+    if "boost" in node:
+        return node["boost"].get("feat")
+    if "if" in node:
+        c = node["if"]
+        return c.get("feat") or (c.get("all") or c.get("any") or [{}])[0].get("feat")
+    if "switch" in node:
+        return (node["switch"] or [{}])[0].get("if", {}).get("feat")
+    if "clamp" in node and "value" in node:
+        return _node_feat(node["value"])
+    return None
+
+
+def _fmt_value(v: Any) -> str | None:
+    """feature 현재값 표시 문자열."""
+    if v is None:
+        return None
+    if isinstance(v, bool):
+        return "예" if v else "아니오"
+    if isinstance(v, (int, float)):
+        return f"{v:.2f}".rstrip("0").rstrip(".")
+    return str(v)
+
+
 def explain_rule(scenario_id: str, intent_id: str, features: dict, top: int = 3) -> list[dict]:
-    """rule spec의 top-level 항별 기여도 → |기여| 상위 top개."""
+    """rule spec의 top-level 항별 기여도 → |기여| 상위 top개. 상수(기본 점수)는 제외, feature 현재값 포함."""
     spec = config.get_rule_spec(scenario_id).get(intent_id)
     if spec is None:
         return []
-    terms = spec["terms"] if isinstance(spec, dict) and "terms" in spec else None
-    if terms is None:                          # 단일 노드 룰 (if/threshold/feat 등)
-        return [{"label": _node_label(spec), "contribution": round(float(eval_formula(spec, features)), 4),
-                 "direction": "up"}]
+    terms = spec["terms"] if isinstance(spec, dict) and "terms" in spec else [spec]
     out = []
     for t in terms:
+        if isinstance(t, (int, float, bool)):     # 상수 항(기본 점수) 제외
+            continue
         val = float(eval_formula(t, features))
         if abs(val) < 1e-9:
             continue
+        feat = _node_feat(t)
         out.append({"label": _node_label(t), "contribution": round(val, 4),
-                    "direction": "up" if val >= 0 else "down"})
+                    "direction": "up" if val >= 0 else "down",
+                    "value": _fmt_value(features.get(feat)) if feat else None})
     return sorted(out, key=lambda o: -abs(o["contribution"]))[:top]
 
 
@@ -72,6 +102,9 @@ def attach_reasoning(engine, features: dict, top_items: list[dict], top: int = 3
     features는 추론에 쓰인 결합 feature(batch+pattern+event)."""
     for it in top_items:
         r = explain_intent(engine, it["intent_id"], features, it.get("inference_type", "Rule"), top=top)
-        if it.get("rank_change", 0) and it["rank_change"] > 0:   # 행동으로 상승
-            r["behavior_note"] = f"최근 행동으로 순위 +{it['rank_change']} 상승"
+        rc = it.get("rank_change", 0)
+        if rc and rc > 0:
+            r["behavior_note"] = f"최근 행동으로 {rc}위 상승"
+        elif rc and rc < 0:
+            r["behavior_note"] = f"최근 행동으로 {abs(rc)}위 하락"
         it["reasoning"] = r
