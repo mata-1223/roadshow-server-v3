@@ -511,7 +511,7 @@
         "1-A": [
           {
             "id": "2-A1",
-            "name": "데이터 충전 버튼 클릭",
+            "name": "데이터 충전·상품 둘러보기",
             "event_type": "click",
             "entity": "data_topup_button"
           },
@@ -577,7 +577,7 @@
           },
           {
             "id": "2-D2",
-            "name": "멤버십 등급 혜택 조회",
+            "name": "멤버십·제휴 혜택 둘러보기",
             "event_type": "page_view",
             "entity": "membership_tier"
           },
@@ -603,7 +603,7 @@
           },
           {
             "id": "2-E3",
-            "name": "가족 결합 회선 추가 페이지",
+            "name": "가족 결합·회선 관리",
             "event_type": "page_view",
             "entity": "family_bundle"
           }

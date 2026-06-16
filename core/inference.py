@@ -55,6 +55,16 @@ def _resolve_action_signal(scenario_id: str | None) -> tuple[float, float, float
     return ACTION_SIGNAL_SCALE, ACTION_SIGNAL_CAP, ACTION_SIGNAL_DECAY
 
 
+def _resolve_boost_mode(scenario_id: str | None) -> str:
+    """행동 boost 합성 방식. config L2.ranker.action_signal.boost_mode (없으면 'additive')."""
+    if scenario_id is not None:
+        try:
+            return config.get_action_signal(scenario_id).get("boost_mode", "additive")
+        except (KeyError, FileNotFoundError):
+            pass
+    return "additive"
+
+
 def _action_intent_signals(
     events: list[dict],
     behavior_map: dict[str, list[str]],
@@ -149,11 +159,16 @@ def infer_with_behavior(
 
     # 행동이 직접 가리키는 Intent를 끌어올림 (final 에만 적용 → Δ·rank_change가 행동에 귀속)
     scale, cap, decay = _resolve_action_signal(scenario_id)
+    boost_mode = _resolve_boost_mode(scenario_id)   # "additive"(기본) | "headroom"
     behavior_map = engine.behavior_intent_map()
     for iid, cnt in _action_intent_signals(events, behavior_map, decay=decay).items():
         if iid in final_raw:
             boost = min(cnt * scale, cap)
-            final_raw[iid] = min(final_raw[iid] + boost, 0.97)
+            if boost_mode == "headroom":
+                # 헤드룸 비례 가산: 천장(0.97) 다중 동점 방지 + base 순서 보존
+                final_raw[iid] = final_raw[iid] + boost * (1.0 - final_raw[iid])
+            else:
+                final_raw[iid] = min(final_raw[iid] + boost, 0.97)
 
     scores = _to_intent_scores(baseline_raw, final_raw, engine)
     return batch_features, scores

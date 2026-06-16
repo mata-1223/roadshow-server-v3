@@ -60,7 +60,11 @@ class GenericEngine(ScenarioEngine):
     def pattern_features(self, session_id: str) -> dict[str, Any]:
         """세션의 윈도우 내 이벤트 → L1.pattern spec으로 Pattern Feature."""
         spec = config.get_pattern_spec(self.scenario_id)
-        events = get_extractor().events_within(session_id, window_seconds=spec.get("window_seconds", 300))
+        ext = get_extractor()
+        if spec.get("window_events"):       # 클릭 기반 윈도우 (최근 N 이벤트)
+            events = ext.recent_events(session_id, spec["window_events"])
+        else:                               # 시간 기반 윈도우 (최근 window_seconds 초)
+            events = ext.events_within(session_id, window_seconds=spec.get("window_seconds", 300))
         return extract.pattern_from_spec(extract._filter(events, spec.get("filter")), spec)
 
     def empty_event_features(self) -> dict[str, Any]:
@@ -106,4 +110,6 @@ class GenericEngine(ScenarioEngine):
             )
         if m.get("calibration") == "base_rate_logodds":   # 분류기 간 비교 가능하게 base-rate 재중심화
             p = common.recenter_logodds(p, self._base_rate(intent_id), m.get("calibration_strength", 1.0))
+        if m.get("output_scale"):     # 모델 과확신 톤다운 → 행동이 anchor를 덮을 여지 확보
+            p *= m["output_scale"]
         return p
