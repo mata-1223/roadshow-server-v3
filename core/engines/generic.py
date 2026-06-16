@@ -60,7 +60,11 @@ class GenericEngine(ScenarioEngine):
     def pattern_features(self, session_id: str) -> dict[str, Any]:
         """세션의 윈도우 내 이벤트 → L1.pattern spec으로 Pattern Feature."""
         spec = config.get_pattern_spec(self.scenario_id)
-        events = get_extractor().events_within(session_id, window_seconds=spec.get("window_seconds", 300))
+        ext = get_extractor()
+        if spec.get("window_events"):       # 클릭 기반 윈도우 (최근 N 이벤트)
+            events = ext.recent_events(session_id, spec["window_events"])
+        else:                               # 시간 기반 윈도우 (최근 window_seconds 초)
+            events = ext.events_within(session_id, window_seconds=spec.get("window_seconds", 300))
         return extract.pattern_from_spec(extract._filter(events, spec.get("filter")), spec)
 
     def empty_event_features(self) -> dict[str, Any]:

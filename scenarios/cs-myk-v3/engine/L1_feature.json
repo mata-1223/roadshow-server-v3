@@ -650,7 +650,8 @@
         "key": "benefit_view",
         "mult": 30
       }
-    ]
+    ],
+    "window_events": 5
   },
   "event": {
     "page_field": "current_page",
