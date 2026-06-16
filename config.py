@@ -9,6 +9,7 @@ class Settings(BaseSettings):
     ENV: str = "local"
     PORT: int = 3002
     RELOAD: bool = True
+    WARMUP_ON_START: bool = True   # 기동 시 전 시나리오 모델 학습·등록(없으면)
 
     SCENARIO_ID: str = "cs-myk-v3"
 
