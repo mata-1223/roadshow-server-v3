@@ -60,7 +60,7 @@ PERSONAS = [
             ["1-E", "2-E1"], ["1-E", "2-E2"], ["1-A", "2-A2"],
             ["1-D", "2-D2"], ["1-E", "2-E3"],
         ],
-        "expected_intents": ["INT-4310", "INT-4320", "INT-4330", "INT-2130"],
+        "expected_intents": ["INT-2130", "INT-2320", "INT-1110", "INT-2310"],
     },
     {
         "id": "P2",
@@ -111,7 +111,7 @@ PERSONAS = [
             ["1-B", "2-B2"], ["1-B", "2-B3"], ["1-F", "2-F3"],
             ["1-A", "2-A3"], ["1-C", "2-C1"],
         ],
-        "expected_intents": ["INT-2150", "INT-2420", "INT-1240", "INT-5330", "INT-3110"],
+        "expected_intents": ["INT-2150", "INT-2420", "INT-1120", "INT-1320", "INT-5330"],
     },
     {
         "id": "P4",
@@ -212,7 +212,7 @@ PERSONAS = [
             ["1-D", "2-D2"], ["1-D", "2-D3"], ["1-E", "2-E1"],
             ["1-A", "2-A1"],
         ],
-        "expected_intents": ["INT-4310", "INT-2310", "INT-2410", "INT-1410"],
+        "expected_intents": ["INT-2310", "INT-2410", "INT-1410", "INT-2130"],
     },
     {
         "id": "P8",
@@ -287,7 +287,7 @@ PERSONAS = [
             ["1-D", "2-D2"], ["1-D", "2-D1"], ["1-D", "2-D3"],
             ["1-E", "2-E2"],
         ],
-        "expected_intents": ["INT-1440", "INT-4240", "INT-4220", "INT-4230", "INT-4320"],
+        "expected_intents": ["INT-1440", "INT-4240", "INT-4220", "INT-4230", "INT-4210"],
     },
 ]
 
