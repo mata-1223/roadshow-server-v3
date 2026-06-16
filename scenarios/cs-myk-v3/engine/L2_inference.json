@@ -764,27 +764,34 @@
           },
           {
             "feat": "고객 가치 Index",
-            "gte": 85
+            "gte": 65
           }
         ]
       },
       "then": {
         "clamp": [
           0,
-          0.7
+          0.72
         ],
         "terms": [
-          0.32,
+          0.34,
           {
             "feat": "멤버십 활용도",
             "linear": [
-              0.45,
+              0.42,
               0
             ]
+          },
+          {
+            "if": {
+              "feat": "나이",
+              "gte": 40
+            },
+            "then": 0.06
           }
         ]
       },
-      "else": 0.12
+      "else": 0.1
     },
     "INT-4230": {
       "if": {
@@ -795,27 +802,27 @@
           },
           {
             "feat": "고객 가치 Index",
-            "gte": 85
+            "gte": 65
           }
         ]
       },
       "then": {
         "clamp": [
           0,
-          0.7
+          0.72
         ],
         "terms": [
-          0.32,
+          0.3,
           {
             "feat": "멤버십 활용도",
             "linear": [
-              0.45,
+              0.5,
               0
             ]
           }
         ]
       },
-      "else": 0.12
+      "else": 0.1
     },
     "INT-4240": {
       "if": {
@@ -1526,9 +1533,10 @@
       "session_end": []
     },
     "action_signal": {
-      "scale": 0.4,
-      "cap": 0.82,
-      "decay": 0.62
+      "scale": 0.45,
+      "cap": 0.9,
+      "decay": 0.62,
+      "boost_mode": "headroom"
     }
   },
   "calibrator": {
