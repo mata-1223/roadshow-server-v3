@@ -113,3 +113,12 @@ class GenericEngine(ScenarioEngine):
         if m.get("output_scale"):     # 모델 과확신 톤다운 → 행동이 anchor를 덮을 여지 확보
             p *= m["output_scale"]
         return p
+
+    def explain_model(self, intent_id: str, features: dict[str, Any], top: int = 3) -> list[dict]:
+        """Model intent 추론 기여도(feature별). predictive_model.explain에 위임."""
+        m = config.get_model_spec(self.scenario_id)
+        pm = models.get_predictive_model(m.get("predictive_model", "sklearn"))
+        if not hasattr(pm, "explain"):
+            return []
+        return pm.explain(intent_id, features, training_data=m.get("training_data", {}),
+                          dataset_path=self._dataset_path, model_prefix=self._model_prefix, top=top)

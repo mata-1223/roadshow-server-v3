@@ -163,6 +163,12 @@ async def _handle_behavior(
 
     top_n_cnt = settings.TOP_N_INTENT
     top_items, others = to_topn_with_others(intent_scores, top_n=top_n_cnt, scenario_id=scenario_id)
+    # 추론 이유(reasoning) 첨부 — 결합 feature(batch+누적 pattern+최신 event)
+    from core.engines import get_engine
+    from core import explain as _explain
+    _eng = get_engine(scenario_id)
+    _combined = {**batch_features, **_eng.pattern_features(session_id), **_eng.event_features(session_id)}
+    _explain.attach_reasoning(_eng, _combined, top_items)
     all_probabilities = to_probability_dict(intent_scores, scenario_id=scenario_id)
 
     await websocket.send_json({

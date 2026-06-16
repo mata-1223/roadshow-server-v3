@@ -213,6 +213,34 @@ def predict(
     return float(proba)
 
 
+def explain(
+    intent_id: str,
+    features: dict[str, Any],
+    training_data: dict,
+    dataset_path: Path,
+    model_prefix: str,
+    top: int = 3,
+) -> list[dict]:
+    """Model 추론 기여도 분해. 선형 파이프라인(StandardScaler+LogisticRegression):
+    기여_i = coef_i × ((x_i - mean_i)/scale_i). |기여| 상위 top개 반환."""
+    pipe = _load_or_train(intent_id, training_data, dataset_path, model_prefix)
+    if pipe is None or intent_id not in training_data:
+        return []
+    feats = training_data[intent_id]["features"]
+    x = np.array([float(features.get(n, 0.0)) for n in feats])
+    try:
+        scaler = pipe.named_steps["scaler"]
+        lr = pipe.named_steps["lr"]
+        xs = (x - scaler.mean_) / scaler.scale_
+        contrib = lr.coef_[0] * xs
+    except Exception:
+        return []
+    items = sorted(zip(feats, contrib, x), key=lambda t: -abs(t[1]))[:top]
+    return [{"label": n, "contribution": round(float(c), 4),
+             "direction": "up" if c >= 0 else "down", "value": round(float(v), 2)}
+            for n, c, v in items]
+
+
 def train_all(
     training_data: dict,
     dataset_path: Path,
