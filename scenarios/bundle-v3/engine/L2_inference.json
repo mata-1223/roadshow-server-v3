@@ -210,7 +210,7 @@
             0
           ],
           "div": 100,
-          "mul": 0.55
+          "mul": 0.7
         }
       ]
     },
@@ -224,22 +224,13 @@
             0
           ],
           "div": 100,
-          "mul": 0.35
-        },
-        {
-          "feat": "content_view_mode",
-          "linear": [
-            1,
-            0
-          ],
-          "div": 4,
-          "mul": 0.25
+          "mul": 0.55
         }
       ]
     },
     "INT-B3150": {
       "terms": [
-        0.1,
+        0.15,
         {
           "feat": "Home Service Expansion Index",
           "linear": [
@@ -247,14 +238,7 @@
             0
           ],
           "div": 100,
-          "mul": 0.4
-        },
-        {
-          "if": {
-            "feat": "household_change",
-            "gte": 1
-          },
-          "then": 0.2
+          "mul": 0.5
         }
       ]
     },
@@ -311,6 +295,17 @@
           ],
           "div": 100,
           "mul": 0.3
+        },
+        {
+          "if": {
+            "feat": "dissatisfaction_factor",
+            "in": [
+              "인터넷 품질",
+              "IPTV 품질",
+              "모바일 데이터 품질"
+            ]
+          },
+          "then": -0.2
         }
       ]
     },
@@ -334,6 +329,17 @@
           ],
           "div": 100,
           "mul": 0.25
+        },
+        {
+          "if": {
+            "feat": "dissatisfaction_factor",
+            "in": [
+              "인터넷 품질",
+              "IPTV 품질",
+              "모바일 데이터 품질"
+            ]
+          },
+          "then": -0.15
         }
       ]
     },
@@ -368,7 +374,18 @@
             0
           ],
           "div": 100,
-          "mul": 0.5
+          "mul": 0.4
+        },
+        {
+          "if": {
+            "feat": "dissatisfaction_factor",
+            "in": [
+              "인터넷 품질",
+              "IPTV 품질",
+              "모바일 데이터 품질"
+            ]
+          },
+          "then": 0.25
         }
       ]
     },
@@ -424,7 +441,18 @@
             0
           ],
           "div": 100,
-          "mul": 0.6
+          "mul": 0.45
+        },
+        {
+          "if": {
+            "feat": "dissatisfaction_factor",
+            "in": [
+              "인터넷 품질",
+              "IPTV 품질",
+              "모바일 데이터 품질"
+            ]
+          },
+          "then": 0.3
         }
       ]
     },
@@ -438,14 +466,25 @@
             0
           ],
           "div": 100,
-          "mul": 0.45
+          "mul": 0.4
+        },
+        {
+          "if": {
+            "feat": "dissatisfaction_factor",
+            "in": [
+              "인터넷 품질",
+              "IPTV 품질",
+              "모바일 데이터 품질"
+            ]
+          },
+          "then": 0.25
         },
         {
           "if": {
             "feat": "contract_status",
             "gte": 2
           },
-          "then": 0.15
+          "then": 0.1
         }
       ]
     },
@@ -459,7 +498,18 @@
             0
           ],
           "div": 100,
-          "mul": 0.5
+          "mul": 0.4
+        },
+        {
+          "if": {
+            "feat": "dissatisfaction_factor",
+            "in": [
+              "인터넷 품질",
+              "IPTV 품질",
+              "모바일 데이터 품질"
+            ]
+          },
+          "then": 0.25
         }
       ]
     },
@@ -473,7 +523,18 @@
             0
           ],
           "div": 100,
-          "mul": 0.4
+          "mul": 0.35
+        },
+        {
+          "if": {
+            "feat": "dissatisfaction_factor",
+            "in": [
+              "인터넷 품질",
+              "IPTV 품질",
+              "모바일 데이터 품질"
+            ]
+          },
+          "then": 0.3
         }
       ]
     }
@@ -509,13 +570,16 @@
         "INT-B1420"
       ],
       "current_bundle_benefit": [
-        "INT-B2110"
+        "INT-B2110",
+        "INT-B2320",
+        "INT-B2330"
       ],
       "promotion_benefit": [
         "INT-B2220"
       ],
       "card_benefit": [
-        "INT-B2230"
+        "INT-B2230",
+        "INT-B2310"
       ],
       "membership_benefit": [
         "INT-B2320"
@@ -542,7 +606,8 @@
         "INT-B4120"
       ],
       "long_term_benefit": [
-        "INT-B4210"
+        "INT-B4210",
+        "INT-B1230"
       ],
       "penalty": [
         "INT-B4320",
@@ -570,7 +635,8 @@
         "INT-B1120",
         "INT-B3120",
         "INT-B3130",
-        "INT-B3140"
+        "INT-B3140",
+        "INT-B3150"
       ],
       "contract_benefit_check": [
         "INT-B4110",
@@ -608,15 +674,13 @@
       "INT-B1220": {
         "features": [
           "Benefit Engagement Index",
-          "content_view_mode",
-          "explored_entity_count_5m"
+          "content_view_mode"
         ]
       },
       "INT-B1230": {
         "features": [
           "plan_tier",
-          "Benefit Engagement Index",
-          "explored_entity_count_5m"
+          "Benefit Engagement Index"
         ]
       },
       "INT-B1310": {
@@ -629,36 +693,31 @@
       "INT-B1430": {
         "features": [
           "Acquisition Score",
-          "Bundle Opportunity Index",
-          "action_intensity_5m"
+          "Bundle Opportunity Index"
         ]
       },
       "INT-B2220": {
         "features": [
           "Benefit Optimization Index",
-          "benefit_utilization",
-          "explored_entity_count_5m"
+          "benefit_utilization"
         ]
       },
       "INT-B2310": {
         "features": [
           "Benefit Engagement Index",
-          "content_view_mode",
-          "explored_entity_count_5m"
+          "content_view_mode"
         ]
       },
       "INT-B2320": {
         "features": [
           "Benefit Engagement Index",
-          "benefit_utilization",
-          "explored_entity_count_5m"
+          "benefit_utilization"
         ]
       },
       "INT-B2330": {
         "features": [
           "Benefit Engagement Index",
-          "content_view_mode",
-          "explored_entity_count_5m"
+          "content_view_mode"
         ]
       },
       "INT-B3140": {
@@ -671,29 +730,25 @@
       "INT-B3210": {
         "features": [
           "plan_tier",
-          "Service Expansion Score",
-          "explored_entity_count_5m"
+          "Service Expansion Score"
         ]
       },
       "INT-B3220": {
         "features": [
           "plan_tier",
-          "Service Expansion Score",
-          "explored_entity_count_5m"
+          "Service Expansion Score"
         ]
       },
       "INT-B3230": {
         "features": [
           "plan_tier",
-          "Service Expansion Score",
-          "explored_entity_count_5m"
+          "Service Expansion Score"
         ]
       },
       "INT-B3240": {
         "features": [
           "plan_tier",
-          "Service Expansion Score",
-          "explored_entity_count_5m"
+          "Service Expansion Score"
         ]
       },
       "INT-B3310": {
@@ -706,15 +761,13 @@
       "INT-B3320": {
         "features": [
           "family_line_count",
-          "household_change",
-          "explored_entity_count_5m"
+          "household_change"
         ]
       },
       "INT-B3350": {
         "features": [
           "household_change",
-          "family_line_count",
-          "explored_entity_count_5m"
+          "family_line_count"
         ]
       },
       "INT-B4120": {
@@ -815,6 +868,11 @@
       ]
     },
     "scale": 0.55,
-    "heuristic_fallback": true
+    "heuristic_fallback": true,
+    "train": {
+      "class_weight": null
+    },
+    "calibration": "base_rate_logodds",
+    "calibration_strength": 0.6
   }
 }

@@ -77,6 +77,7 @@ def build_samples(
     action_resolver: Callable[[list[str]], list[dict]],
     entity_intents: dict[str, list[str]],
     cust_prefix: str,                  # "C" | "BC" | "WC"
+    behavior_labels: bool = True,      # False면 모델 라벨에 행동 신호 intent 제외 (행동→intent는 ranker 담당)
 ) -> list[dict]:
     rng = random.Random(seed)
     ex = get_extractor()
@@ -99,10 +100,11 @@ def build_samples(
         event = engine.event_features(sid) if actions else {}
         ex.reset(sid)
 
-        # 양성 라벨: 행동 entity 매핑 + persona extra_intents
-        positives = set(persona["extra_intents"])
-        for a in actions:
-            positives.update(entity_intents.get(a["entity"], []))
+        # 양성 라벨: persona expected_intents (+ behavior_labels=True면 행동 신호 intent도)
+        positives = set(persona["expected_intents"])
+        if behavior_labels:
+            for a in actions:
+                positives.update(entity_intents.get(a["entity"], []))
         labels = {iid: 1 for iid in sorted(positives)}   # 정렬 → 결정적 키 순서
 
         rows.append({

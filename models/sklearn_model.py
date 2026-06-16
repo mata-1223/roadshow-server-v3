@@ -29,15 +29,17 @@ _model_cache: dict[str, Any] = {}
 
 # ── Public API ────────────────────────────────────────────────
 
-def _train_pipeline(X: list, y: list, seed: int = 42) -> Pipeline:
-    """StandardScaler + LogisticRegression 학습 (seed 고정)"""
+def _train_pipeline(X: list, y: list, seed: int = 42, train_params: dict | None = None) -> Pipeline:
+    """StandardScaler + LogisticRegression 학습 (seed 고정).
+    train_params(시나리오 config L2.model.train): class_weight / C override. 기본 balanced·C=1.0."""
+    tp = train_params or {}
     pipe = Pipeline([
         ("scaler", StandardScaler()),
         ("lr", LogisticRegression(
             random_state=seed,
             max_iter=500,
-            C=1.0,
-            class_weight="balanced",
+            C=tp.get("C", 1.0),
+            class_weight=tp.get("class_weight", "balanced"),
         )),
     ])
     pipe.fit(np.array(X, dtype=float), np.array(y))
@@ -100,6 +102,7 @@ def train_and_register(
     dataset_path: Path,
     model_prefix: str,
     seed: int = 42,
+    train_params: dict | None = None,
 ) -> Pipeline | None:
     """
     Intent의 학습 데이터로 모델 학습 + MLflow 등록.
@@ -121,14 +124,14 @@ def train_and_register(
     extracted = _extract_from_dataset(intent_id, feature_names, seed, dataset_path)
     if extracted is not None:
         X, y = extracted
-        data_source = "persona_dataset"
+        data_source = "seed_dataset"
     elif "X" in data and "y" in data:
         X, y = data["X"], data["y"]
         data_source = "domain_knowledge"
     else:
         return None
 
-    pipe = _train_pipeline(X, y, seed=seed)
+    pipe = _train_pipeline(X, y, seed=seed, train_params=train_params)
 
     mlflow.set_tracking_uri(settings.MLFLOW_URI)
     with mlflow.start_run(run_name=f"{model_name}_init"):
@@ -159,6 +162,7 @@ def _load_or_train(
     training_data: dict,
     dataset_path: Path,
     model_prefix: str,
+    train_params: dict | None = None,
 ) -> Pipeline | None:
     """캐시→MLflow Registry 로드, 없으면 train_and_register. (프로세스 캐시로 1회만 로드/학습)"""
     cache_key = f"{model_prefix}{intent_id}"
@@ -176,6 +180,7 @@ def _load_or_train(
         pipe = train_and_register(
             intent_id, training_data=training_data,
             dataset_path=dataset_path, model_prefix=model_prefix,
+            train_params=train_params,
         )
 
     _model_cache[cache_key] = pipe
@@ -188,14 +193,16 @@ def predict(
     training_data: dict,
     dataset_path: Path,
     model_prefix: str,
+    train_params: dict | None = None,
 ) -> float:
     """
     Intent ID에 대해 Model 기반 Score 추론.
 
     features dict에서 학습에 사용된 피처들을 순서대로 추출. 누락된 피처는 0.0으로 처리.
     training_data/dataset_path/model_prefix는 시나리오 엔진이 제공한다.
+    train_params: 학습 하이퍼파라미터(class_weight/C) — 시나리오 config L2.model.train.
     """
-    pipe = _load_or_train(intent_id, training_data, dataset_path, model_prefix)
+    pipe = _load_or_train(intent_id, training_data, dataset_path, model_prefix, train_params)
     if pipe is None:
         return 0.0
 

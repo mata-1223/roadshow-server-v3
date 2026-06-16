@@ -11,7 +11,7 @@
 
 실행:
     cd roadshow-server-v3
-    python scripts/build_persona_dataset.py --n 500 --seed 42
+    python scripts/build_cs_dataset.py --n 500 --seed 42
 """
 from __future__ import annotations
 
@@ -21,7 +21,7 @@ from pathlib import Path
 
 sys.path.insert(0, str(Path(__file__).parent.parent))
 
-from core.engines import config, cs  # noqa: E402
+from core.engines import config, get_engine  # noqa: E402
 from scripts._dataset_common import (  # noqa: E402
     parse_args, build_samples, tree_action_resolver, write_dataset, print_label_stats,
 )
@@ -34,7 +34,7 @@ SCENARIO_DIR = Path(__file__).parent.parent / "scenarios" / SCENARIO_ID
 #   weight        : 전체 데이터셋에서 차지하는 비율
 #   answer_dist   : {question_id: {answer_code: weight}}
 #   action_seqs   : 선호 행동 시퀀스 후보들 (각각 [behavior_id, ...])
-#   extra_intents : 행동 매핑 외에 활성으로 표시할 Intent (도메인 지식)
+#   expected_intents : 행동 매핑 외에 활성으로 표시할 Intent (도메인 지식)
 # ─────────────────────────────────────────────────────────────
 PERSONAS = [
     {
@@ -60,7 +60,7 @@ PERSONAS = [
             ["1-E", "2-E1"], ["1-E", "2-E2"], ["1-A", "2-A2"],
             ["1-D", "2-D2"], ["1-E", "2-E3"],
         ],
-        "extra_intents": ["INT-4310", "INT-4320", "INT-4330", "INT-2130"],
+        "expected_intents": ["INT-4310", "INT-4320", "INT-4330", "INT-2130"],
     },
     {
         "id": "P2",
@@ -86,7 +86,7 @@ PERSONAS = [
             ["1-B", "2-B1", "BACK", "1-C", "2-C2"],
             ["1-F", "2-F3"],
         ],
-        "extra_intents": ["INT-7110", "INT-7120", "INT-7310", "INT-5410", "INT-3210"],
+        "expected_intents": ["INT-7110", "INT-7120", "INT-7310", "INT-5410", "INT-3210"],
     },
     {
         "id": "P3",
@@ -111,7 +111,7 @@ PERSONAS = [
             ["1-B", "2-B2"], ["1-B", "2-B3"], ["1-F", "2-F3"],
             ["1-A", "2-A3"], ["1-C", "2-C1"],
         ],
-        "extra_intents": ["INT-2150", "INT-2420", "INT-1240", "INT-5330", "INT-3110"],
+        "expected_intents": ["INT-2150", "INT-2420", "INT-1240", "INT-5330", "INT-3110"],
     },
     {
         "id": "P4",
@@ -136,7 +136,7 @@ PERSONAS = [
             ["1-A", "2-A3"], ["1-E", "2-E2"], ["1-E", "2-E3"],
             ["1-D", "2-D2"],
         ],
-        "extra_intents": ["INT-2140", "INT-2540", "INT-1140", "INT-2410"],
+        "expected_intents": ["INT-2140", "INT-2540", "INT-1140", "INT-2410"],
     },
     {
         "id": "P5",
@@ -161,7 +161,7 @@ PERSONAS = [
             ["1-E", "2-E3"], ["1-C", "2-C1"], ["1-D", "2-D1"],
             ["1-D", "2-D2"],
         ],
-        "extra_intents": ["INT-6110", "INT-6120", "INT-6210", "INT-4210", "INT-1340"],
+        "expected_intents": ["INT-6110", "INT-6120", "INT-6210", "INT-4210", "INT-1340"],
     },
     {
         "id": "P6",
@@ -187,7 +187,7 @@ PERSONAS = [
             ["1-C", "2-C2", "BACK", "1-C", "2-C3"],
             ["1-B", "2-B1", "BACK", "1-C", "2-C2", "EXIT"],
         ],
-        "extra_intents": ["INT-7110", "INT-7120", "INT-7130", "INT-7210", "INT-7310"],
+        "expected_intents": ["INT-7110", "INT-7120", "INT-7130", "INT-7210", "INT-7310"],
     },
     {
         "id": "P7",
@@ -212,7 +212,7 @@ PERSONAS = [
             ["1-D", "2-D2"], ["1-D", "2-D3"], ["1-E", "2-E1"],
             ["1-A", "2-A1"],
         ],
-        "extra_intents": ["INT-4310", "INT-2310", "INT-2410", "INT-1410"],
+        "expected_intents": ["INT-4310", "INT-2310", "INT-2410", "INT-1410"],
     },
     {
         "id": "P8",
@@ -237,7 +237,7 @@ PERSONAS = [
             ["1-E", "2-E2"], ["1-C", "2-C1"], ["1-E", "2-E2", "BACK", "1-D", "2-D1"],
             ["1-A", "2-A1"],
         ],
-        "extra_intents": ["INT-2410", "INT-2440", "INT-2530", "INT-1330", "INT-2110"],
+        "expected_intents": ["INT-2410", "INT-2440", "INT-2530", "INT-1330", "INT-2110"],
     },
     {
         "id": "P9",
@@ -262,7 +262,7 @@ PERSONAS = [
             ["1-E", "2-E1"], ["1-D", "2-D1"], ["1-B", "2-B1"],
             ["1-D", "2-D3"],
         ],
-        "extra_intents": ["INT-7310", "INT-2150", "INT-4110", "INT-4120", "INT-7340"],
+        "expected_intents": ["INT-7310", "INT-2150", "INT-4110", "INT-4120", "INT-7340"],
     },
     {
         "id": "P10",
@@ -287,7 +287,7 @@ PERSONAS = [
             ["1-D", "2-D2"], ["1-D", "2-D1"], ["1-D", "2-D3"],
             ["1-E", "2-E2"],
         ],
-        "extra_intents": ["INT-1440", "INT-4240", "INT-4220", "INT-4230", "INT-4320"],
+        "expected_intents": ["INT-1440", "INT-4240", "INT-4220", "INT-4230", "INT-4320"],
     },
 ]
 
@@ -301,7 +301,7 @@ def main() -> None:
     behaviors = config.get_behaviors(SCENARIO_ID)
 
     rows = build_samples(
-        n=args.n, seed=args.seed, personas=PERSONAS, engine=cs,
+        n=args.n, seed=args.seed, personas=PERSONAS, engine=get_engine(SCENARIO_ID),
         seq_key="action_seqs", action_resolver=tree_action_resolver(behaviors),
         entity_intents=config.get_behavior_signals(SCENARIO_ID),   # 단일 소스(bundle/worker와 동일)
         cust_prefix="C",

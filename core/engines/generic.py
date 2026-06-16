@@ -11,6 +11,8 @@ cs/bundle/worker 전용 엔진을 대체. 모든 시나리오 차이는 config(i
   L2 model         : models.get_predictive_model(config.model.predictive_model)로 구현 해결 →
                      heuristic_fallback 면 common.model_predict, 아니면 predictive_model.predict 직접
 """
+import json
+from collections import Counter
 from pathlib import Path
 from typing import Any
 
@@ -29,6 +31,20 @@ class GenericEngine(ScenarioEngine):
         super().__init__(scenario_id)
         self._dataset_path = _SCENARIOS / scenario_id / "seed_dataset.json"
         self._model_prefix = f"{scenario_id}__"
+        self._base_rates: dict[str, float] | None = None   # lazy (calibration용)
+
+    def _base_rate(self, intent_id: str) -> float:
+        """seed_dataset의 intent별 양성 라벨 비율(캐시). base-rate 보정용."""
+        if self._base_rates is None:
+            self._base_rates = {}
+            if self._dataset_path.exists():
+                samples = json.loads(self._dataset_path.read_text(encoding="utf-8")).get("samples", [])
+                n = len(samples) or 1
+                c: Counter = Counter()
+                for s in samples:
+                    c.update(s.get("intent_labels", {}).keys())
+                self._base_rates = {iid: cnt / n for iid, cnt in c.items()}
+        return self._base_rates.get(intent_id, 0.0)
 
     # ── [1a] Batch ────────────────────────────────────────────
     def build_batch_features(self, answers: dict[str, str]) -> dict[str, Any]:
@@ -67,20 +83,27 @@ class GenericEngine(ScenarioEngine):
         m = config.get_model_spec(self.scenario_id)
         predictive_model = models.get_predictive_model(m.get("predictive_model", "sklearn"))  # sklearn/torch… config 선택
         training_data = m.get("training_data", {})
+        train_params = m.get("train")     # 학습 하이퍼파라미터(class_weight/C), 없으면 backend 기본
         if m.get("heuristic_fallback"):
             invert = frozenset(tuple(x) for x in m.get("invert", []))
-            return common.model_predict(
+            p = common.model_predict(
                 intent_id, features,
                 predictive_model=predictive_model,
                 training_data=training_data,
                 dataset_path=self._dataset_path,
                 model_prefix=self._model_prefix,
                 ranges=m.get("ranges", {}), scale=m.get("scale", 0.5), invert=invert,
+                train_params=train_params,
             )
-        # 휴리스틱 폴백 없이 predictive_model 직접 (cs: 충분한 학습 데이터)
-        return predictive_model.predict(
-            intent_id, features,
-            training_data=training_data,
-            dataset_path=self._dataset_path,
-            model_prefix=self._model_prefix,
-        )
+        else:
+            # 휴리스틱 폴백 없이 predictive_model 직접 (cs: 충분한 학습 데이터)
+            p = predictive_model.predict(
+                intent_id, features,
+                training_data=training_data,
+                dataset_path=self._dataset_path,
+                model_prefix=self._model_prefix,
+                train_params=train_params,
+            )
+        if m.get("calibration") == "base_rate_logodds":   # 분류기 간 비교 가능하게 base-rate 재중심화
+            p = common.recenter_logodds(p, self._base_rate(intent_id), m.get("calibration_strength", 1.0))
+        return p
