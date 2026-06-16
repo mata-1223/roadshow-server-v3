@@ -509,7 +509,7 @@
     ]
   },
   "pattern": {
-    "window_seconds": 300,
+    "window_seconds": 30,
     "entity_groups": {
       "data_usage": [
         "data_view"
