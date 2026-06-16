@@ -356,11 +356,13 @@
       "intent_labels": {
         "INT-1410": 1,
         "INT-1430": 1,
+        "INT-1440": 1,
         "INT-2130": 1,
         "INT-2310": 1,
         "INT-2410": 1,
         "INT-4120": 1,
-        "INT-4140": 1
+        "INT-4140": 1,
+        "INT-4240": 1
       }
     },
     {
@@ -484,13 +486,15 @@
         "INT-1330": 1,
         "INT-1410": 1,
         "INT-1430": 1,
+        "INT-1440": 1,
         "INT-2110": 1,
         "INT-2130": 1,
         "INT-2410": 1,
         "INT-2420": 1,
         "INT-2440": 1,
         "INT-2530": 1,
-        "INT-4110": 1
+        "INT-4110": 1,
+        "INT-4240": 1
       }
     },
     {
@@ -841,13 +845,15 @@
         "INT-1330": 1,
         "INT-1410": 1,
         "INT-1430": 1,
+        "INT-1440": 1,
         "INT-2110": 1,
         "INT-2130": 1,
         "INT-2410": 1,
         "INT-2420": 1,
         "INT-2440": 1,
         "INT-2530": 1,
-        "INT-4110": 1
+        "INT-4110": 1,
+        "INT-4240": 1
       }
     },
     {
@@ -955,11 +961,13 @@
       "intent_labels": {
         "INT-1410": 1,
         "INT-1430": 1,
+        "INT-1440": 1,
         "INT-2130": 1,
         "INT-2310": 1,
         "INT-2410": 1,
         "INT-4120": 1,
-        "INT-4140": 1
+        "INT-4140": 1,
+        "INT-4240": 1
       }
     },
     {
@@ -1297,6 +1305,9 @@
         "INT-2130": 1,
         "INT-2310": 1,
         "INT-2410": 1,
+        "INT-4210": 1,
+        "INT-4220": 1,
+        "INT-4230": 1,
         "INT-4240": 1
       }
     },
@@ -1405,10 +1416,12 @@
       "intent_labels": {
         "INT-1410": 1,
         "INT-1430": 1,
+        "INT-1440": 1,
         "INT-2150": 1,
         "INT-4110": 1,
         "INT-4120": 1,
         "INT-4140": 1,
+        "INT-4240": 1,
         "INT-7310": 1,
         "INT-7340": 1
       }
@@ -1875,9 +1888,9 @@
         "INT-2110": 1,
         "INT-2130": 1,
         "INT-2240": 1,
-        "INT-4210": 1,
         "INT-6110": 1,
         "INT-6120": 1,
+        "INT-6140": 1,
         "INT-6210": 1
       }
     },
@@ -1986,10 +1999,12 @@
       "intent_labels": {
         "INT-1410": 1,
         "INT-1430": 1,
+        "INT-1440": 1,
         "INT-2150": 1,
         "INT-4110": 1,
         "INT-4120": 1,
         "INT-4140": 1,
+        "INT-4240": 1,
         "INT-7310": 1,
         "INT-7340": 1
       }
@@ -2214,11 +2229,13 @@
       "intent_labels": {
         "INT-1410": 1,
         "INT-1430": 1,
+        "INT-1440": 1,
         "INT-2130": 1,
         "INT-2310": 1,
         "INT-2410": 1,
         "INT-4120": 1,
-        "INT-4140": 1
+        "INT-4140": 1,
+        "INT-4240": 1
       }
     },
     {
@@ -2440,9 +2457,9 @@
         "INT-2110": 1,
         "INT-2130": 1,
         "INT-2240": 1,
-        "INT-4210": 1,
         "INT-6110": 1,
         "INT-6120": 1,
+        "INT-6140": 1,
         "INT-6210": 1
       }
     },
@@ -3718,6 +3735,9 @@
         "INT-2140": 1,
         "INT-2410": 1,
         "INT-2540": 1,
+        "INT-4210": 1,
+        "INT-4220": 1,
+        "INT-4230": 1,
         "INT-4240": 1
       }
     },
@@ -4053,12 +4073,16 @@
       ],
       "intent_labels": {
         "INT-1110": 1,
+        "INT-1340": 1,
         "INT-2110": 1,
         "INT-2130": 1,
         "INT-2240": 1,
         "INT-2310": 1,
         "INT-2320": 1,
-        "INT-6110": 1
+        "INT-6110": 1,
+        "INT-6120": 1,
+        "INT-6140": 1,
+        "INT-6210": 1
       }
     },
     {
@@ -4171,6 +4195,9 @@
         "INT-2130": 1,
         "INT-2310": 1,
         "INT-2320": 1,
+        "INT-4210": 1,
+        "INT-4220": 1,
+        "INT-4230": 1,
         "INT-4240": 1
       }
     },
@@ -4279,11 +4306,13 @@
       "intent_labels": {
         "INT-1410": 1,
         "INT-1430": 1,
+        "INT-1440": 1,
         "INT-2130": 1,
         "INT-2310": 1,
         "INT-2410": 1,
         "INT-4120": 1,
-        "INT-4140": 1
+        "INT-4140": 1,
+        "INT-4240": 1
       }
     },
     {
@@ -4506,6 +4535,9 @@
         "INT-2130": 1,
         "INT-2310": 1,
         "INT-2320": 1,
+        "INT-4210": 1,
+        "INT-4220": 1,
+        "INT-4230": 1,
         "INT-4240": 1
       }
     },
@@ -5538,13 +5570,15 @@
         "INT-1330": 1,
         "INT-1410": 1,
         "INT-1430": 1,
+        "INT-1440": 1,
         "INT-2110": 1,
         "INT-2130": 1,
         "INT-2410": 1,
         "INT-2420": 1,
         "INT-2440": 1,
         "INT-2530": 1,
-        "INT-4110": 1
+        "INT-4110": 1,
+        "INT-4240": 1
       }
     },
     {
@@ -6854,53 +6888,70 @@
       },
       "pattern_features": {
         "WiFi 진단 실행": 0,
-        "benefit_explore_count": 1,
+        "benefit_explore_count": 0,
         "billing_page_view_count": 0,
         "churn_page_view_count": 0,
-        "last_3_events": "page_view→page_view",
+        "last_3_events": "navigate_back→page_view→click",
         "mnp_benefit_check": 0,
-        "product_explore_count": 0,
+        "product_explore_count": 1,
         "quality_action_count": 0,
         "repeated_entity_count_5m": 1,
         "support_entry_count_5m": 0,
-        "가족 결합 관련 행동": 0,
+        "가족 결합 관련 행동": 1,
         "속도 측정 실행": 0,
         "위약금 조회 행동": 0,
         "장애 페이지 체류": 0,
-        "할인 페이지 체류": 30,
+        "할인 페이지 체류": 0,
         "해지 페이지 진입": 0
       },
       "event_features": {
-        "current_page": "unknown",
+        "current_page": "product",
         "is_churn_signal": 0,
-        "is_click": 0,
+        "is_click": 1,
         "is_confirm": 0,
-        "is_page_view": 1,
+        "is_page_view": 0,
         "is_support_entry": 0,
-        "last_entity": "membership_tier",
-        "last_event_type": "page_view"
+        "last_entity": "plan_change_button",
+        "last_event_type": "click"
       },
       "actions": [
         {
-          "behavior_id": "1-D",
+          "behavior_id": "1-E",
           "event_type": "page_view",
-          "entity": "benefit_membership"
+          "entity": "product_explore"
         },
         {
-          "behavior_id": "2-D2",
+          "behavior_id": "2-E3",
           "event_type": "page_view",
-          "entity": "membership_tier"
+          "entity": "family_bundle"
+        },
+        {
+          "behavior_id": "BACK",
+          "event_type": "navigate_back",
+          "entity": "back_to_step1"
+        },
+        {
+          "behavior_id": "1-C",
+          "event_type": "page_view",
+          "entity": "subscription_info"
+        },
+        {
+          "behavior_id": "2-C1",
+          "event_type": "click",
+          "entity": "plan_change_button"
         }
       ],
       "intent_labels": {
+        "INT-1310": 1,
+        "INT-1330": 1,
         "INT-1340": 1,
-        "INT-1410": 1,
-        "INT-1430": 1,
-        "INT-1440": 1,
-        "INT-4210": 1,
-        "INT-4240": 1,
+        "INT-2110": 1,
+        "INT-2130": 1,
+        "INT-2240": 1,
+        "INT-3210": 1,
         "INT-6110": 1,
         "INT-6120": 1,
+        "INT-6140": 1,
         "INT-6210": 1
       }
     },
@@ -7013,6 +7064,9 @@
         "INT-2130": 1,
         "INT-2310": 1,
         "INT-2410": 1,
+        "INT-4210": 1,
+        "INT-4220": 1,
+        "INT-4230": 1,
         "INT-4240": 1
       }
     },
@@ -7362,13 +7416,15 @@
         "INT-1330": 1,
         "INT-1410": 1,
         "INT-1430": 1,
+        "INT-1440": 1,
         "INT-2110": 1,
         "INT-2130": 1,
         "INT-2410": 1,
         "INT-2420": 1,
         "INT-2440": 1,
         "INT-2530": 1,
-        "INT-4110": 1
+        "INT-4110": 1,
+        "INT-4240": 1
       }
     },
     {
@@ -7586,10 +7642,12 @@
       "intent_labels": {
         "INT-1410": 1,
         "INT-1430": 1,
+        "INT-1440": 1,
         "INT-2150": 1,
         "INT-4110": 1,
         "INT-4120": 1,
         "INT-4140": 1,
+        "INT-4240": 1,
         "INT-7310": 1,
         "INT-7340": 1
       }
@@ -8108,53 +8166,70 @@
       },
       "pattern_features": {
         "WiFi 진단 실행": 0,
-        "benefit_explore_count": 1,
+        "benefit_explore_count": 0,
         "billing_page_view_count": 0,
         "churn_page_view_count": 0,
-        "last_3_events": "page_view→page_view",
+        "last_3_events": "navigate_back→page_view→click",
         "mnp_benefit_check": 0,
-        "product_explore_count": 0,
+        "product_explore_count": 1,
         "quality_action_count": 0,
         "repeated_entity_count_5m": 1,
         "support_entry_count_5m": 0,
-        "가족 결합 관련 행동": 0,
+        "가족 결합 관련 행동": 1,
         "속도 측정 실행": 0,
         "위약금 조회 행동": 0,
         "장애 페이지 체류": 0,
-        "할인 페이지 체류": 30,
+        "할인 페이지 체류": 0,
         "해지 페이지 진입": 0
       },
       "event_features": {
-        "current_page": "unknown",
+        "current_page": "product",
         "is_churn_signal": 0,
-        "is_click": 0,
+        "is_click": 1,
         "is_confirm": 0,
-        "is_page_view": 1,
+        "is_page_view": 0,
         "is_support_entry": 0,
-        "last_entity": "membership_tier",
-        "last_event_type": "page_view"
+        "last_entity": "plan_change_button",
+        "last_event_type": "click"
       },
       "actions": [
         {
-          "behavior_id": "1-D",
+          "behavior_id": "1-E",
           "event_type": "page_view",
-          "entity": "benefit_membership"
+          "entity": "product_explore"
         },
         {
-          "behavior_id": "2-D2",
+          "behavior_id": "2-E3",
           "event_type": "page_view",
-          "entity": "membership_tier"
+          "entity": "family_bundle"
+        },
+        {
+          "behavior_id": "BACK",
+          "event_type": "navigate_back",
+          "entity": "back_to_step1"
+        },
+        {
+          "behavior_id": "1-C",
+          "event_type": "page_view",
+          "entity": "subscription_info"
+        },
+        {
+          "behavior_id": "2-C1",
+          "event_type": "click",
+          "entity": "plan_change_button"
         }
       ],
       "intent_labels": {
+        "INT-1310": 1,
+        "INT-1330": 1,
         "INT-1340": 1,
-        "INT-1410": 1,
-        "INT-1430": 1,
-        "INT-1440": 1,
-        "INT-4210": 1,
-        "INT-4240": 1,
+        "INT-2110": 1,
+        "INT-2130": 1,
+        "INT-2240": 1,
+        "INT-3210": 1,
         "INT-6110": 1,
         "INT-6120": 1,
+        "INT-6140": 1,
         "INT-6210": 1
       }
     },
@@ -8268,6 +8343,9 @@
         "INT-2140": 1,
         "INT-2410": 1,
         "INT-2540": 1,
+        "INT-4210": 1,
+        "INT-4220": 1,
+        "INT-4230": 1,
         "INT-4240": 1
       }
     },
@@ -9051,6 +9129,9 @@
         "INT-2130": 1,
         "INT-2310": 1,
         "INT-2320": 1,
+        "INT-4210": 1,
+        "INT-4220": 1,
+        "INT-4230": 1,
         "INT-4240": 1
       }
     },
@@ -9399,13 +9480,15 @@
         "INT-1330": 1,
         "INT-1410": 1,
         "INT-1430": 1,
+        "INT-1440": 1,
         "INT-2110": 1,
         "INT-2130": 1,
         "INT-2410": 1,
         "INT-2420": 1,
         "INT-2440": 1,
         "INT-2530": 1,
-        "INT-4110": 1
+        "INT-4110": 1,
+        "INT-4240": 1
       }
     },
     {
@@ -9702,13 +9785,13 @@
         "benefit_explore_count": 1,
         "billing_page_view_count": 0,
         "churn_page_view_count": 0,
-        "last_3_events": "page_view→click",
+        "last_3_events": "navigate_back→page_view→page_view",
         "mnp_benefit_check": 0,
-        "product_explore_count": 0,
+        "product_explore_count": 1,
         "quality_action_count": 0,
         "repeated_entity_count_5m": 1,
         "support_entry_count_5m": 0,
-        "가족 결합 관련 행동": 0,
+        "가족 결합 관련 행동": 1,
         "속도 측정 실행": 0,
         "위약금 조회 행동": 0,
         "장애 페이지 체류": 0,
@@ -9716,14 +9799,14 @@
         "해지 페이지 진입": 0
       },
       "event_features": {
-        "current_page": "benefit",
+        "current_page": "subscription",
         "is_churn_signal": 0,
-        "is_click": 1,
+        "is_click": 0,
         "is_confirm": 0,
-        "is_page_view": 0,
+        "is_page_view": 1,
         "is_support_entry": 0,
-        "last_entity": "coupon_use",
-        "last_event_type": "click"
+        "last_entity": "family_bundle",
+        "last_event_type": "page_view"
       },
       "actions": [
         {
@@ -9732,19 +9815,41 @@
           "entity": "benefit_membership"
         },
         {
-          "behavior_id": "2-D1",
-          "event_type": "click",
-          "entity": "coupon_use"
+          "behavior_id": "2-D2",
+          "event_type": "page_view",
+          "entity": "membership_tier"
+        },
+        {
+          "behavior_id": "BACK",
+          "event_type": "navigate_back",
+          "entity": "back_to_step1"
+        },
+        {
+          "behavior_id": "1-E",
+          "event_type": "page_view",
+          "entity": "product_explore"
+        },
+        {
+          "behavior_id": "2-E3",
+          "event_type": "page_view",
+          "entity": "family_bundle"
         }
       ],
       "intent_labels": {
         "INT-1340": 1,
         "INT-1410": 1,
         "INT-1430": 1,
-        "INT-4110": 1,
+        "INT-1440": 1,
+        "INT-2110": 1,
+        "INT-2130": 1,
+        "INT-2240": 1,
         "INT-4210": 1,
+        "INT-4220": 1,
+        "INT-4230": 1,
+        "INT-4240": 1,
         "INT-6110": 1,
         "INT-6120": 1,
+        "INT-6140": 1,
         "INT-6210": 1
       }
     },
@@ -9972,6 +10077,9 @@
         "INT-2130": 1,
         "INT-2310": 1,
         "INT-2320": 1,
+        "INT-4210": 1,
+        "INT-4220": 1,
+        "INT-4230": 1,
         "INT-4240": 1
       }
     },
@@ -10874,6 +10982,9 @@
         "INT-2130": 1,
         "INT-2310": 1,
         "INT-2320": 1,
+        "INT-4210": 1,
+        "INT-4220": 1,
+        "INT-4230": 1,
         "INT-4240": 1
       }
     },
@@ -10987,6 +11098,9 @@
         "INT-2130": 1,
         "INT-2310": 1,
         "INT-2320": 1,
+        "INT-4210": 1,
+        "INT-4220": 1,
+        "INT-4230": 1,
         "INT-4240": 1
       }
     },
@@ -11756,13 +11870,13 @@
         "benefit_explore_count": 1,
         "billing_page_view_count": 0,
         "churn_page_view_count": 0,
-        "last_3_events": "page_view→click",
+        "last_3_events": "navigate_back→page_view→page_view",
         "mnp_benefit_check": 0,
-        "product_explore_count": 0,
+        "product_explore_count": 1,
         "quality_action_count": 0,
         "repeated_entity_count_5m": 1,
         "support_entry_count_5m": 0,
-        "가족 결합 관련 행동": 0,
+        "가족 결합 관련 행동": 1,
         "속도 측정 실행": 0,
         "위약금 조회 행동": 0,
         "장애 페이지 체류": 0,
@@ -11770,14 +11884,14 @@
         "해지 페이지 진입": 0
       },
       "event_features": {
-        "current_page": "benefit",
+        "current_page": "subscription",
         "is_churn_signal": 0,
-        "is_click": 1,
+        "is_click": 0,
         "is_confirm": 0,
-        "is_page_view": 0,
+        "is_page_view": 1,
         "is_support_entry": 0,
-        "last_entity": "coupon_use",
-        "last_event_type": "click"
+        "last_entity": "family_bundle",
+        "last_event_type": "page_view"
       },
       "actions": [
         {
@@ -11786,19 +11900,41 @@
           "entity": "benefit_membership"
         },
         {
-          "behavior_id": "2-D1",
-          "event_type": "click",
-          "entity": "coupon_use"
+          "behavior_id": "2-D2",
+          "event_type": "page_view",
+          "entity": "membership_tier"
+        },
+        {
+          "behavior_id": "BACK",
+          "event_type": "navigate_back",
+          "entity": "back_to_step1"
+        },
+        {
+          "behavior_id": "1-E",
+          "event_type": "page_view",
+          "entity": "product_explore"
+        },
+        {
+          "behavior_id": "2-E3",
+          "event_type": "page_view",
+          "entity": "family_bundle"
         }
       ],
       "intent_labels": {
         "INT-1340": 1,
         "INT-1410": 1,
         "INT-1430": 1,
-        "INT-4110": 1,
+        "INT-1440": 1,
+        "INT-2110": 1,
+        "INT-2130": 1,
+        "INT-2240": 1,
         "INT-4210": 1,
+        "INT-4220": 1,
+        "INT-4230": 1,
+        "INT-4240": 1,
         "INT-6110": 1,
         "INT-6120": 1,
+        "INT-6140": 1,
         "INT-6210": 1
       }
     },
@@ -12019,9 +12155,11 @@
       "intent_labels": {
         "INT-1410": 1,
         "INT-1430": 1,
+        "INT-1440": 1,
         "INT-2150": 1,
         "INT-4110": 1,
         "INT-4120": 1,
+        "INT-4240": 1,
         "INT-7310": 1,
         "INT-7340": 1
       }
@@ -12245,11 +12383,13 @@
       "intent_labels": {
         "INT-1410": 1,
         "INT-1430": 1,
+        "INT-1440": 1,
         "INT-2130": 1,
         "INT-2310": 1,
         "INT-2410": 1,
         "INT-4120": 1,
-        "INT-4140": 1
+        "INT-4140": 1,
+        "INT-4240": 1
       }
     },
     {
@@ -12475,6 +12615,9 @@
         "INT-2130": 1,
         "INT-2310": 1,
         "INT-2320": 1,
+        "INT-4210": 1,
+        "INT-4220": 1,
+        "INT-4230": 1,
         "INT-4240": 1
       }
     },
@@ -13265,11 +13408,13 @@
       "intent_labels": {
         "INT-1410": 1,
         "INT-1430": 1,
+        "INT-1440": 1,
         "INT-2130": 1,
         "INT-2310": 1,
         "INT-2410": 1,
         "INT-4120": 1,
-        "INT-4140": 1
+        "INT-4140": 1,
+        "INT-4240": 1
       }
     },
     {
@@ -13377,11 +13522,13 @@
       "intent_labels": {
         "INT-1410": 1,
         "INT-1430": 1,
+        "INT-1440": 1,
         "INT-2130": 1,
         "INT-2310": 1,
         "INT-2410": 1,
         "INT-4120": 1,
-        "INT-4140": 1
+        "INT-4140": 1,
+        "INT-4240": 1
       }
     },
     {
@@ -13488,13 +13635,17 @@
       ],
       "intent_labels": {
         "INT-1140": 1,
+        "INT-1340": 1,
         "INT-2110": 1,
         "INT-2130": 1,
         "INT-2140": 1,
         "INT-2240": 1,
         "INT-2410": 1,
         "INT-2540": 1,
-        "INT-6110": 1
+        "INT-6110": 1,
+        "INT-6120": 1,
+        "INT-6140": 1,
+        "INT-6210": 1
       }
     },
     {
@@ -13561,53 +13712,70 @@
       },
       "pattern_features": {
         "WiFi 진단 실행": 0,
-        "benefit_explore_count": 1,
+        "benefit_explore_count": 0,
         "billing_page_view_count": 0,
         "churn_page_view_count": 0,
-        "last_3_events": "page_view→page_view",
+        "last_3_events": "navigate_back→page_view→click",
         "mnp_benefit_check": 0,
-        "product_explore_count": 0,
+        "product_explore_count": 1,
         "quality_action_count": 0,
         "repeated_entity_count_5m": 1,
         "support_entry_count_5m": 0,
-        "가족 결합 관련 행동": 0,
+        "가족 결합 관련 행동": 1,
         "속도 측정 실행": 0,
         "위약금 조회 행동": 0,
         "장애 페이지 체류": 0,
-        "할인 페이지 체류": 30,
+        "할인 페이지 체류": 0,
         "해지 페이지 진입": 0
       },
       "event_features": {
-        "current_page": "unknown",
+        "current_page": "product",
         "is_churn_signal": 0,
-        "is_click": 0,
+        "is_click": 1,
         "is_confirm": 0,
-        "is_page_view": 1,
+        "is_page_view": 0,
         "is_support_entry": 0,
-        "last_entity": "membership_tier",
-        "last_event_type": "page_view"
+        "last_entity": "plan_change_button",
+        "last_event_type": "click"
       },
       "actions": [
         {
-          "behavior_id": "1-D",
+          "behavior_id": "1-E",
           "event_type": "page_view",
-          "entity": "benefit_membership"
+          "entity": "product_explore"
         },
         {
-          "behavior_id": "2-D2",
+          "behavior_id": "2-E3",
           "event_type": "page_view",
-          "entity": "membership_tier"
+          "entity": "family_bundle"
+        },
+        {
+          "behavior_id": "BACK",
+          "event_type": "navigate_back",
+          "entity": "back_to_step1"
+        },
+        {
+          "behavior_id": "1-C",
+          "event_type": "page_view",
+          "entity": "subscription_info"
+        },
+        {
+          "behavior_id": "2-C1",
+          "event_type": "click",
+          "entity": "plan_change_button"
         }
       ],
       "intent_labels": {
+        "INT-1310": 1,
+        "INT-1330": 1,
         "INT-1340": 1,
-        "INT-1410": 1,
-        "INT-1430": 1,
-        "INT-1440": 1,
-        "INT-4210": 1,
-        "INT-4240": 1,
+        "INT-2110": 1,
+        "INT-2130": 1,
+        "INT-2240": 1,
+        "INT-3210": 1,
         "INT-6110": 1,
         "INT-6120": 1,
+        "INT-6140": 1,
         "INT-6210": 1
       }
     },
@@ -14283,6 +14451,9 @@
         "INT-2140": 1,
         "INT-2410": 1,
         "INT-2540": 1,
+        "INT-4210": 1,
+        "INT-4220": 1,
+        "INT-4230": 1,
         "INT-4240": 1
       }
     },
@@ -14353,13 +14524,13 @@
         "benefit_explore_count": 1,
         "billing_page_view_count": 0,
         "churn_page_view_count": 0,
-        "last_3_events": "page_view→click",
+        "last_3_events": "navigate_back→page_view→page_view",
         "mnp_benefit_check": 0,
-        "product_explore_count": 0,
+        "product_explore_count": 1,
         "quality_action_count": 0,
         "repeated_entity_count_5m": 1,
         "support_entry_count_5m": 0,
-        "가족 결합 관련 행동": 0,
+        "가족 결합 관련 행동": 1,
         "속도 측정 실행": 0,
         "위약금 조회 행동": 0,
         "장애 페이지 체류": 0,
@@ -14367,14 +14538,14 @@
         "해지 페이지 진입": 0
       },
       "event_features": {
-        "current_page": "benefit",
+        "current_page": "subscription",
         "is_churn_signal": 0,
-        "is_click": 1,
+        "is_click": 0,
         "is_confirm": 0,
-        "is_page_view": 0,
+        "is_page_view": 1,
         "is_support_entry": 0,
-        "last_entity": "coupon_use",
-        "last_event_type": "click"
+        "last_entity": "family_bundle",
+        "last_event_type": "page_view"
       },
       "actions": [
         {
@@ -14383,19 +14554,41 @@
           "entity": "benefit_membership"
         },
         {
-          "behavior_id": "2-D1",
-          "event_type": "click",
-          "entity": "coupon_use"
+          "behavior_id": "2-D2",
+          "event_type": "page_view",
+          "entity": "membership_tier"
+        },
+        {
+          "behavior_id": "BACK",
+          "event_type": "navigate_back",
+          "entity": "back_to_step1"
+        },
+        {
+          "behavior_id": "1-E",
+          "event_type": "page_view",
+          "entity": "product_explore"
+        },
+        {
+          "behavior_id": "2-E3",
+          "event_type": "page_view",
+          "entity": "family_bundle"
         }
       ],
       "intent_labels": {
         "INT-1340": 1,
         "INT-1410": 1,
         "INT-1430": 1,
-        "INT-4110": 1,
+        "INT-1440": 1,
+        "INT-2110": 1,
+        "INT-2130": 1,
+        "INT-2240": 1,
         "INT-4210": 1,
+        "INT-4220": 1,
+        "INT-4230": 1,
+        "INT-4240": 1,
         "INT-6110": 1,
         "INT-6120": 1,
+        "INT-6140": 1,
         "INT-6210": 1
       }
     },
@@ -14504,11 +14697,13 @@
       "intent_labels": {
         "INT-1410": 1,
         "INT-1430": 1,
+        "INT-1440": 1,
         "INT-2130": 1,
         "INT-2310": 1,
         "INT-2410": 1,
         "INT-4120": 1,
-        "INT-4140": 1
+        "INT-4140": 1,
+        "INT-4240": 1
       }
     },
     {
@@ -14578,13 +14773,13 @@
         "benefit_explore_count": 1,
         "billing_page_view_count": 0,
         "churn_page_view_count": 0,
-        "last_3_events": "page_view→click",
+        "last_3_events": "navigate_back→page_view→page_view",
         "mnp_benefit_check": 0,
-        "product_explore_count": 0,
+        "product_explore_count": 1,
         "quality_action_count": 0,
         "repeated_entity_count_5m": 1,
         "support_entry_count_5m": 0,
-        "가족 결합 관련 행동": 0,
+        "가족 결합 관련 행동": 1,
         "속도 측정 실행": 0,
         "위약금 조회 행동": 0,
         "장애 페이지 체류": 0,
@@ -14592,14 +14787,14 @@
         "해지 페이지 진입": 0
       },
       "event_features": {
-        "current_page": "benefit",
+        "current_page": "subscription",
         "is_churn_signal": 0,
-        "is_click": 1,
+        "is_click": 0,
         "is_confirm": 0,
-        "is_page_view": 0,
+        "is_page_view": 1,
         "is_support_entry": 0,
-        "last_entity": "coupon_use",
-        "last_event_type": "click"
+        "last_entity": "family_bundle",
+        "last_event_type": "page_view"
       },
       "actions": [
         {
@@ -14608,19 +14803,41 @@
           "entity": "benefit_membership"
         },
         {
-          "behavior_id": "2-D1",
-          "event_type": "click",
-          "entity": "coupon_use"
+          "behavior_id": "2-D2",
+          "event_type": "page_view",
+          "entity": "membership_tier"
+        },
+        {
+          "behavior_id": "BACK",
+          "event_type": "navigate_back",
+          "entity": "back_to_step1"
+        },
+        {
+          "behavior_id": "1-E",
+          "event_type": "page_view",
+          "entity": "product_explore"
+        },
+        {
+          "behavior_id": "2-E3",
+          "event_type": "page_view",
+          "entity": "family_bundle"
         }
       ],
       "intent_labels": {
         "INT-1340": 1,
         "INT-1410": 1,
         "INT-1430": 1,
-        "INT-4110": 1,
+        "INT-1440": 1,
+        "INT-2110": 1,
+        "INT-2130": 1,
+        "INT-2240": 1,
         "INT-4210": 1,
+        "INT-4220": 1,
+        "INT-4230": 1,
+        "INT-4240": 1,
         "INT-6110": 1,
         "INT-6120": 1,
+        "INT-6140": 1,
         "INT-6210": 1
       }
     },
@@ -14952,10 +15169,12 @@
       "intent_labels": {
         "INT-1410": 1,
         "INT-1430": 1,
+        "INT-1440": 1,
         "INT-2150": 1,
         "INT-4110": 1,
         "INT-4120": 1,
         "INT-4140": 1,
+        "INT-4240": 1,
         "INT-7310": 1,
         "INT-7340": 1
       }
@@ -15064,12 +15283,16 @@
       ],
       "intent_labels": {
         "INT-1110": 1,
+        "INT-1340": 1,
         "INT-2110": 1,
         "INT-2130": 1,
         "INT-2240": 1,
         "INT-2310": 1,
         "INT-2320": 1,
-        "INT-6110": 1
+        "INT-6110": 1,
+        "INT-6120": 1,
+        "INT-6140": 1,
+        "INT-6210": 1
       }
     },
     {
@@ -15287,12 +15510,16 @@
       ],
       "intent_labels": {
         "INT-1110": 1,
+        "INT-1340": 1,
         "INT-2110": 1,
         "INT-2130": 1,
         "INT-2240": 1,
         "INT-2310": 1,
         "INT-2320": 1,
-        "INT-6110": 1
+        "INT-6110": 1,
+        "INT-6120": 1,
+        "INT-6140": 1,
+        "INT-6210": 1
       }
     },
     {
@@ -15474,13 +15701,13 @@
         "benefit_explore_count": 0,
         "billing_page_view_count": 0,
         "churn_page_view_count": 0,
-        "last_3_events": "page_view→click",
+        "last_3_events": "page_view→page_view→page_view",
         "mnp_benefit_check": 0,
-        "product_explore_count": 0,
+        "product_explore_count": 1,
         "quality_action_count": 0,
-        "repeated_entity_count_5m": 1,
+        "repeated_entity_count_5m": 2,
         "support_entry_count_5m": 0,
-        "가족 결합 관련 행동": 0,
+        "가족 결합 관련 행동": 1,
         "속도 측정 실행": 0,
         "위약금 조회 행동": 0,
         "장애 페이지 체류": 0,
@@ -15488,36 +15715,40 @@
         "해지 페이지 진입": 0
       },
       "event_features": {
-        "current_page": "product",
+        "current_page": "subscription",
         "is_churn_signal": 0,
-        "is_click": 1,
+        "is_click": 0,
         "is_confirm": 0,
-        "is_page_view": 0,
+        "is_page_view": 1,
         "is_support_entry": 0,
-        "last_entity": "plan_change_button",
-        "last_event_type": "click"
+        "last_entity": "family_bundle",
+        "last_event_type": "page_view"
       },
       "actions": [
         {
-          "behavior_id": "1-C",
+          "behavior_id": "1-E",
           "event_type": "page_view",
-          "entity": "subscription_info"
+          "entity": "product_explore"
         },
         {
-          "behavior_id": "2-C1",
-          "event_type": "click",
-          "entity": "plan_change_button"
+          "behavior_id": "2-E3",
+          "event_type": "page_view",
+          "entity": "family_bundle"
+        },
+        {
+          "behavior_id": "2-E3",
+          "event_type": "page_view",
+          "entity": "family_bundle"
         }
       ],
       "intent_labels": {
-        "INT-1310": 1,
-        "INT-1330": 1,
         "INT-1340": 1,
         "INT-2110": 1,
-        "INT-3210": 1,
-        "INT-4210": 1,
+        "INT-2130": 1,
+        "INT-2240": 1,
         "INT-6110": 1,
         "INT-6120": 1,
+        "INT-6140": 1,
         "INT-6210": 1
       }
     },
@@ -15642,13 +15873,15 @@
         "INT-1330": 1,
         "INT-1410": 1,
         "INT-1430": 1,
+        "INT-1440": 1,
         "INT-2110": 1,
         "INT-2130": 1,
         "INT-2410": 1,
         "INT-2420": 1,
         "INT-2440": 1,
         "INT-2530": 1,
-        "INT-4110": 1
+        "INT-4110": 1,
+        "INT-4240": 1
       }
     },
     {
@@ -16209,11 +16442,13 @@
       "intent_labels": {
         "INT-1410": 1,
         "INT-1430": 1,
+        "INT-1440": 1,
         "INT-2130": 1,
         "INT-2310": 1,
         "INT-2410": 1,
         "INT-4120": 1,
-        "INT-4140": 1
+        "INT-4140": 1,
+        "INT-4240": 1
       }
     },
     {
@@ -16392,53 +16627,70 @@
       },
       "pattern_features": {
         "WiFi 진단 실행": 0,
-        "benefit_explore_count": 1,
+        "benefit_explore_count": 0,
         "billing_page_view_count": 0,
         "churn_page_view_count": 0,
-        "last_3_events": "page_view→page_view",
+        "last_3_events": "navigate_back→page_view→click",
         "mnp_benefit_check": 0,
-        "product_explore_count": 0,
+        "product_explore_count": 1,
         "quality_action_count": 0,
         "repeated_entity_count_5m": 1,
         "support_entry_count_5m": 0,
-        "가족 결합 관련 행동": 0,
+        "가족 결합 관련 행동": 1,
         "속도 측정 실행": 0,
         "위약금 조회 행동": 0,
         "장애 페이지 체류": 0,
-        "할인 페이지 체류": 30,
+        "할인 페이지 체류": 0,
         "해지 페이지 진입": 0
       },
       "event_features": {
-        "current_page": "unknown",
+        "current_page": "product",
         "is_churn_signal": 0,
-        "is_click": 0,
+        "is_click": 1,
         "is_confirm": 0,
-        "is_page_view": 1,
+        "is_page_view": 0,
         "is_support_entry": 0,
-        "last_entity": "membership_tier",
-        "last_event_type": "page_view"
+        "last_entity": "plan_change_button",
+        "last_event_type": "click"
       },
       "actions": [
         {
-          "behavior_id": "1-D",
+          "behavior_id": "1-E",
           "event_type": "page_view",
-          "entity": "benefit_membership"
+          "entity": "product_explore"
         },
         {
-          "behavior_id": "2-D2",
+          "behavior_id": "2-E3",
           "event_type": "page_view",
-          "entity": "membership_tier"
+          "entity": "family_bundle"
+        },
+        {
+          "behavior_id": "BACK",
+          "event_type": "navigate_back",
+          "entity": "back_to_step1"
+        },
+        {
+          "behavior_id": "1-C",
+          "event_type": "page_view",
+          "entity": "subscription_info"
+        },
+        {
+          "behavior_id": "2-C1",
+          "event_type": "click",
+          "entity": "plan_change_button"
         }
       ],
       "intent_labels": {
+        "INT-1310": 1,
+        "INT-1330": 1,
         "INT-1340": 1,
-        "INT-1410": 1,
-        "INT-1430": 1,
-        "INT-1440": 1,
-        "INT-4210": 1,
-        "INT-4240": 1,
+        "INT-2110": 1,
+        "INT-2130": 1,
+        "INT-2240": 1,
+        "INT-3210": 1,
         "INT-6110": 1,
         "INT-6120": 1,
+        "INT-6140": 1,
         "INT-6210": 1
       }
     },
@@ -16506,53 +16758,70 @@
       },
       "pattern_features": {
         "WiFi 진단 실행": 0,
-        "benefit_explore_count": 1,
+        "benefit_explore_count": 0,
         "billing_page_view_count": 0,
         "churn_page_view_count": 0,
-        "last_3_events": "page_view→page_view",
+        "last_3_events": "navigate_back→page_view→click",
         "mnp_benefit_check": 0,
-        "product_explore_count": 0,
+        "product_explore_count": 1,
         "quality_action_count": 0,
         "repeated_entity_count_5m": 1,
         "support_entry_count_5m": 0,
-        "가족 결합 관련 행동": 0,
+        "가족 결합 관련 행동": 1,
         "속도 측정 실행": 0,
         "위약금 조회 행동": 0,
         "장애 페이지 체류": 0,
-        "할인 페이지 체류": 30,
+        "할인 페이지 체류": 0,
         "해지 페이지 진입": 0
       },
       "event_features": {
-        "current_page": "unknown",
+        "current_page": "product",
         "is_churn_signal": 0,
-        "is_click": 0,
+        "is_click": 1,
         "is_confirm": 0,
-        "is_page_view": 1,
+        "is_page_view": 0,
         "is_support_entry": 0,
-        "last_entity": "membership_tier",
-        "last_event_type": "page_view"
+        "last_entity": "plan_change_button",
+        "last_event_type": "click"
       },
       "actions": [
         {
-          "behavior_id": "1-D",
+          "behavior_id": "1-E",
           "event_type": "page_view",
-          "entity": "benefit_membership"
+          "entity": "product_explore"
         },
         {
-          "behavior_id": "2-D2",
+          "behavior_id": "2-E3",
           "event_type": "page_view",
-          "entity": "membership_tier"
+          "entity": "family_bundle"
+        },
+        {
+          "behavior_id": "BACK",
+          "event_type": "navigate_back",
+          "entity": "back_to_step1"
+        },
+        {
+          "behavior_id": "1-C",
+          "event_type": "page_view",
+          "entity": "subscription_info"
+        },
+        {
+          "behavior_id": "2-C1",
+          "event_type": "click",
+          "entity": "plan_change_button"
         }
       ],
       "intent_labels": {
+        "INT-1310": 1,
+        "INT-1330": 1,
         "INT-1340": 1,
-        "INT-1410": 1,
-        "INT-1430": 1,
-        "INT-1440": 1,
-        "INT-4210": 1,
-        "INT-4240": 1,
+        "INT-2110": 1,
+        "INT-2130": 1,
+        "INT-2240": 1,
+        "INT-3210": 1,
         "INT-6110": 1,
         "INT-6120": 1,
+        "INT-6140": 1,
         "INT-6210": 1
       }
     },
@@ -16677,13 +16946,15 @@
         "INT-1330": 1,
         "INT-1410": 1,
         "INT-1430": 1,
+        "INT-1440": 1,
         "INT-2110": 1,
         "INT-2130": 1,
         "INT-2410": 1,
         "INT-2420": 1,
         "INT-2440": 1,
         "INT-2530": 1,
-        "INT-4110": 1
+        "INT-4110": 1,
+        "INT-4240": 1
       }
     },
     {
@@ -16791,10 +17062,12 @@
       "intent_labels": {
         "INT-1410": 1,
         "INT-1430": 1,
+        "INT-1440": 1,
         "INT-2150": 1,
         "INT-4110": 1,
         "INT-4120": 1,
         "INT-4140": 1,
+        "INT-4240": 1,
         "INT-7310": 1,
         "INT-7340": 1
       }
@@ -17150,12 +17423,16 @@
       ],
       "intent_labels": {
         "INT-1110": 1,
+        "INT-1340": 1,
         "INT-2110": 1,
         "INT-2130": 1,
         "INT-2240": 1,
         "INT-2310": 1,
         "INT-2320": 1,
-        "INT-6110": 1
+        "INT-6110": 1,
+        "INT-6120": 1,
+        "INT-6140": 1,
+        "INT-6210": 1
       }
     },
     {
@@ -17225,13 +17502,13 @@
         "benefit_explore_count": 0,
         "billing_page_view_count": 0,
         "churn_page_view_count": 0,
-        "last_3_events": "page_view→click",
+        "last_3_events": "page_view→page_view→page_view",
         "mnp_benefit_check": 0,
-        "product_explore_count": 0,
+        "product_explore_count": 1,
         "quality_action_count": 0,
-        "repeated_entity_count_5m": 1,
+        "repeated_entity_count_5m": 2,
         "support_entry_count_5m": 0,
-        "가족 결합 관련 행동": 0,
+        "가족 결합 관련 행동": 1,
         "속도 측정 실행": 0,
         "위약금 조회 행동": 0,
         "장애 페이지 체류": 0,
@@ -17239,36 +17516,40 @@
         "해지 페이지 진입": 0
       },
       "event_features": {
-        "current_page": "product",
+        "current_page": "subscription",
         "is_churn_signal": 0,
-        "is_click": 1,
+        "is_click": 0,
         "is_confirm": 0,
-        "is_page_view": 0,
+        "is_page_view": 1,
         "is_support_entry": 0,
-        "last_entity": "plan_change_button",
-        "last_event_type": "click"
+        "last_entity": "family_bundle",
+        "last_event_type": "page_view"
       },
       "actions": [
         {
-          "behavior_id": "1-C",
+          "behavior_id": "1-E",
           "event_type": "page_view",
-          "entity": "subscription_info"
+          "entity": "product_explore"
         },
         {
-          "behavior_id": "2-C1",
-          "event_type": "click",
-          "entity": "plan_change_button"
+          "behavior_id": "2-E3",
+          "event_type": "page_view",
+          "entity": "family_bundle"
+        },
+        {
+          "behavior_id": "2-E3",
+          "event_type": "page_view",
+          "entity": "family_bundle"
         }
       ],
       "intent_labels": {
-        "INT-1310": 1,
-        "INT-1330": 1,
         "INT-1340": 1,
         "INT-2110": 1,
-        "INT-3210": 1,
-        "INT-4210": 1,
+        "INT-2130": 1,
+        "INT-2240": 1,
         "INT-6110": 1,
         "INT-6120": 1,
+        "INT-6140": 1,
         "INT-6210": 1
       }
     },
@@ -17565,13 +17846,13 @@
         "benefit_explore_count": 0,
         "billing_page_view_count": 0,
         "churn_page_view_count": 0,
-        "last_3_events": "page_view→click",
+        "last_3_events": "page_view→page_view→page_view",
         "mnp_benefit_check": 0,
-        "product_explore_count": 0,
+        "product_explore_count": 1,
         "quality_action_count": 0,
-        "repeated_entity_count_5m": 1,
+        "repeated_entity_count_5m": 2,
         "support_entry_count_5m": 0,
-        "가족 결합 관련 행동": 0,
+        "가족 결합 관련 행동": 1,
         "속도 측정 실행": 0,
         "위약금 조회 행동": 0,
         "장애 페이지 체류": 0,
@@ -17579,36 +17860,40 @@
         "해지 페이지 진입": 0
       },
       "event_features": {
-        "current_page": "product",
+        "current_page": "subscription",
         "is_churn_signal": 0,
-        "is_click": 1,
+        "is_click": 0,
         "is_confirm": 0,
-        "is_page_view": 0,
+        "is_page_view": 1,
         "is_support_entry": 0,
-        "last_entity": "plan_change_button",
-        "last_event_type": "click"
+        "last_entity": "family_bundle",
+        "last_event_type": "page_view"
       },
       "actions": [
         {
-          "behavior_id": "1-C",
+          "behavior_id": "1-E",
           "event_type": "page_view",
-          "entity": "subscription_info"
+          "entity": "product_explore"
         },
         {
-          "behavior_id": "2-C1",
-          "event_type": "click",
-          "entity": "plan_change_button"
+          "behavior_id": "2-E3",
+          "event_type": "page_view",
+          "entity": "family_bundle"
+        },
+        {
+          "behavior_id": "2-E3",
+          "event_type": "page_view",
+          "entity": "family_bundle"
         }
       ],
       "intent_labels": {
-        "INT-1310": 1,
-        "INT-1330": 1,
         "INT-1340": 1,
         "INT-2110": 1,
-        "INT-3210": 1,
-        "INT-4210": 1,
+        "INT-2130": 1,
+        "INT-2240": 1,
         "INT-6110": 1,
         "INT-6120": 1,
+        "INT-6140": 1,
         "INT-6210": 1
       }
     },
@@ -17717,11 +18002,13 @@
       "intent_labels": {
         "INT-1410": 1,
         "INT-1430": 1,
+        "INT-1440": 1,
         "INT-2130": 1,
         "INT-2310": 1,
         "INT-2410": 1,
         "INT-4120": 1,
-        "INT-4140": 1
+        "INT-4140": 1,
+        "INT-4240": 1
       }
     },
     {
@@ -17833,6 +18120,9 @@
         "INT-2130": 1,
         "INT-2310": 1,
         "INT-2410": 1,
+        "INT-4210": 1,
+        "INT-4220": 1,
+        "INT-4230": 1,
         "INT-4240": 1
       }
     },
@@ -17940,12 +18230,16 @@
       ],
       "intent_labels": {
         "INT-1110": 1,
+        "INT-1340": 1,
         "INT-2110": 1,
         "INT-2130": 1,
         "INT-2240": 1,
         "INT-2310": 1,
         "INT-2320": 1,
-        "INT-6110": 1
+        "INT-6110": 1,
+        "INT-6120": 1,
+        "INT-6140": 1,
+        "INT-6210": 1
       }
     },
     {
@@ -18015,13 +18309,13 @@
         "benefit_explore_count": 0,
         "billing_page_view_count": 0,
         "churn_page_view_count": 0,
-        "last_3_events": "page_view→click",
+        "last_3_events": "page_view→page_view→page_view",
         "mnp_benefit_check": 0,
-        "product_explore_count": 0,
+        "product_explore_count": 1,
         "quality_action_count": 0,
-        "repeated_entity_count_5m": 1,
+        "repeated_entity_count_5m": 2,
         "support_entry_count_5m": 0,
-        "가족 결합 관련 행동": 0,
+        "가족 결합 관련 행동": 1,
         "속도 측정 실행": 0,
         "위약금 조회 행동": 0,
         "장애 페이지 체류": 0,
@@ -18029,36 +18323,40 @@
         "해지 페이지 진입": 0
       },
       "event_features": {
-        "current_page": "product",
+        "current_page": "subscription",
         "is_churn_signal": 0,
-        "is_click": 1,
+        "is_click": 0,
         "is_confirm": 0,
-        "is_page_view": 0,
+        "is_page_view": 1,
         "is_support_entry": 0,
-        "last_entity": "plan_change_button",
-        "last_event_type": "click"
+        "last_entity": "family_bundle",
+        "last_event_type": "page_view"
       },
       "actions": [
         {
-          "behavior_id": "1-C",
+          "behavior_id": "1-E",
           "event_type": "page_view",
-          "entity": "subscription_info"
+          "entity": "product_explore"
         },
         {
-          "behavior_id": "2-C1",
-          "event_type": "click",
-          "entity": "plan_change_button"
+          "behavior_id": "2-E3",
+          "event_type": "page_view",
+          "entity": "family_bundle"
+        },
+        {
+          "behavior_id": "2-E3",
+          "event_type": "page_view",
+          "entity": "family_bundle"
         }
       ],
       "intent_labels": {
-        "INT-1310": 1,
-        "INT-1330": 1,
         "INT-1340": 1,
         "INT-2110": 1,
-        "INT-3210": 1,
-        "INT-4210": 1,
+        "INT-2130": 1,
+        "INT-2240": 1,
         "INT-6110": 1,
         "INT-6120": 1,
+        "INT-6140": 1,
         "INT-6210": 1
       }
     },
@@ -18281,10 +18579,12 @@
       "intent_labels": {
         "INT-1410": 1,
         "INT-1430": 1,
+        "INT-1440": 1,
         "INT-2150": 1,
         "INT-4110": 1,
         "INT-4120": 1,
         "INT-4140": 1,
+        "INT-4240": 1,
         "INT-7310": 1,
         "INT-7340": 1
       }
@@ -18356,13 +18656,13 @@
         "benefit_explore_count": 1,
         "billing_page_view_count": 0,
         "churn_page_view_count": 0,
-        "last_3_events": "page_view→click",
+        "last_3_events": "navigate_back→page_view→page_view",
         "mnp_benefit_check": 0,
-        "product_explore_count": 0,
+        "product_explore_count": 1,
         "quality_action_count": 0,
         "repeated_entity_count_5m": 1,
         "support_entry_count_5m": 0,
-        "가족 결합 관련 행동": 0,
+        "가족 결합 관련 행동": 1,
         "속도 측정 실행": 0,
         "위약금 조회 행동": 0,
         "장애 페이지 체류": 0,
@@ -18370,14 +18670,14 @@
         "해지 페이지 진입": 0
       },
       "event_features": {
-        "current_page": "benefit",
+        "current_page": "subscription",
         "is_churn_signal": 0,
-        "is_click": 1,
+        "is_click": 0,
         "is_confirm": 0,
-        "is_page_view": 0,
+        "is_page_view": 1,
         "is_support_entry": 0,
-        "last_entity": "coupon_use",
-        "last_event_type": "click"
+        "last_entity": "family_bundle",
+        "last_event_type": "page_view"
       },
       "actions": [
         {
@@ -18386,19 +18686,41 @@
           "entity": "benefit_membership"
         },
         {
-          "behavior_id": "2-D1",
-          "event_type": "click",
-          "entity": "coupon_use"
+          "behavior_id": "2-D2",
+          "event_type": "page_view",
+          "entity": "membership_tier"
+        },
+        {
+          "behavior_id": "BACK",
+          "event_type": "navigate_back",
+          "entity": "back_to_step1"
+        },
+        {
+          "behavior_id": "1-E",
+          "event_type": "page_view",
+          "entity": "product_explore"
+        },
+        {
+          "behavior_id": "2-E3",
+          "event_type": "page_view",
+          "entity": "family_bundle"
         }
       ],
       "intent_labels": {
         "INT-1340": 1,
         "INT-1410": 1,
         "INT-1430": 1,
-        "INT-4110": 1,
+        "INT-1440": 1,
+        "INT-2110": 1,
+        "INT-2130": 1,
+        "INT-2240": 1,
         "INT-4210": 1,
+        "INT-4220": 1,
+        "INT-4230": 1,
+        "INT-4240": 1,
         "INT-6110": 1,
         "INT-6120": 1,
+        "INT-6140": 1,
         "INT-6210": 1
       }
     },
@@ -18469,13 +18791,13 @@
         "benefit_explore_count": 0,
         "billing_page_view_count": 0,
         "churn_page_view_count": 0,
-        "last_3_events": "page_view→click",
+        "last_3_events": "page_view→page_view→page_view",
         "mnp_benefit_check": 0,
-        "product_explore_count": 0,
+        "product_explore_count": 1,
         "quality_action_count": 0,
-        "repeated_entity_count_5m": 1,
+        "repeated_entity_count_5m": 2,
         "support_entry_count_5m": 0,
-        "가족 결합 관련 행동": 0,
+        "가족 결합 관련 행동": 1,
         "속도 측정 실행": 0,
         "위약금 조회 행동": 0,
         "장애 페이지 체류": 0,
@@ -18483,36 +18805,40 @@
         "해지 페이지 진입": 0
       },
       "event_features": {
-        "current_page": "product",
+        "current_page": "subscription",
         "is_churn_signal": 0,
-        "is_click": 1,
+        "is_click": 0,
         "is_confirm": 0,
-        "is_page_view": 0,
+        "is_page_view": 1,
         "is_support_entry": 0,
-        "last_entity": "plan_change_button",
-        "last_event_type": "click"
+        "last_entity": "family_bundle",
+        "last_event_type": "page_view"
       },
       "actions": [
         {
-          "behavior_id": "1-C",
+          "behavior_id": "1-E",
           "event_type": "page_view",
-          "entity": "subscription_info"
+          "entity": "product_explore"
         },
         {
-          "behavior_id": "2-C1",
-          "event_type": "click",
-          "entity": "plan_change_button"
+          "behavior_id": "2-E3",
+          "event_type": "page_view",
+          "entity": "family_bundle"
+        },
+        {
+          "behavior_id": "2-E3",
+          "event_type": "page_view",
+          "entity": "family_bundle"
         }
       ],
       "intent_labels": {
-        "INT-1310": 1,
-        "INT-1330": 1,
         "INT-1340": 1,
         "INT-2110": 1,
-        "INT-3210": 1,
-        "INT-4210": 1,
+        "INT-2130": 1,
+        "INT-2240": 1,
         "INT-6110": 1,
         "INT-6120": 1,
+        "INT-6140": 1,
         "INT-6210": 1
       }
     },
@@ -18961,11 +19287,13 @@
       "intent_labels": {
         "INT-1410": 1,
         "INT-1430": 1,
+        "INT-1440": 1,
         "INT-2130": 1,
         "INT-2310": 1,
         "INT-2410": 1,
         "INT-4120": 1,
-        "INT-4140": 1
+        "INT-4140": 1,
+        "INT-4240": 1
       }
     },
     {
@@ -19316,13 +19644,15 @@
         "INT-1330": 1,
         "INT-1410": 1,
         "INT-1430": 1,
+        "INT-1440": 1,
         "INT-2110": 1,
         "INT-2130": 1,
         "INT-2410": 1,
         "INT-2420": 1,
         "INT-2440": 1,
         "INT-2530": 1,
-        "INT-4110": 1
+        "INT-4110": 1,
+        "INT-4240": 1
       }
     },
     {
@@ -19435,6 +19765,9 @@
         "INT-2140": 1,
         "INT-2410": 1,
         "INT-2540": 1,
+        "INT-4210": 1,
+        "INT-4220": 1,
+        "INT-4230": 1,
         "INT-4240": 1
       }
     },
@@ -19789,6 +20122,9 @@
         "INT-2140": 1,
         "INT-2410": 1,
         "INT-2540": 1,
+        "INT-4210": 1,
+        "INT-4220": 1,
+        "INT-4230": 1,
         "INT-4240": 1
       }
     },
@@ -19901,6 +20237,9 @@
         "INT-2130": 1,
         "INT-2310": 1,
         "INT-2410": 1,
+        "INT-4210": 1,
+        "INT-4220": 1,
+        "INT-4230": 1,
         "INT-4240": 1
       }
     },
@@ -20376,6 +20715,9 @@
         "INT-2140": 1,
         "INT-2410": 1,
         "INT-2540": 1,
+        "INT-4210": 1,
+        "INT-4220": 1,
+        "INT-4230": 1,
         "INT-4240": 1
       }
     },
@@ -21163,6 +21505,9 @@
         "INT-2140": 1,
         "INT-2410": 1,
         "INT-2540": 1,
+        "INT-4210": 1,
+        "INT-4220": 1,
+        "INT-4230": 1,
         "INT-4240": 1
       }
     },
@@ -21844,6 +22189,9 @@
         "INT-2130": 1,
         "INT-2310": 1,
         "INT-2320": 1,
+        "INT-4210": 1,
+        "INT-4220": 1,
+        "INT-4230": 1,
         "INT-4240": 1
       }
     },
@@ -22313,6 +22661,9 @@
         "INT-2130": 1,
         "INT-2310": 1,
         "INT-2320": 1,
+        "INT-4210": 1,
+        "INT-4220": 1,
+        "INT-4230": 1,
         "INT-4240": 1
       }
     },
@@ -22535,9 +22886,9 @@
         "INT-2110": 1,
         "INT-2130": 1,
         "INT-2240": 1,
-        "INT-4210": 1,
         "INT-6110": 1,
         "INT-6120": 1,
+        "INT-6140": 1,
         "INT-6210": 1
       }
     },
@@ -22651,6 +23002,9 @@
         "INT-2130": 1,
         "INT-2310": 1,
         "INT-2320": 1,
+        "INT-4210": 1,
+        "INT-4220": 1,
+        "INT-4230": 1,
         "INT-4240": 1
       }
     },
@@ -22871,9 +23225,11 @@
       "intent_labels": {
         "INT-1410": 1,
         "INT-1430": 1,
+        "INT-1440": 1,
         "INT-2150": 1,
         "INT-4110": 1,
         "INT-4120": 1,
+        "INT-4240": 1,
         "INT-7310": 1,
         "INT-7340": 1
       }
@@ -23931,6 +24287,9 @@
         "INT-2140": 1,
         "INT-2410": 1,
         "INT-2540": 1,
+        "INT-4210": 1,
+        "INT-4220": 1,
+        "INT-4230": 1,
         "INT-4240": 1
       }
     },
@@ -24381,6 +24740,9 @@
         "INT-2130": 1,
         "INT-2310": 1,
         "INT-2410": 1,
+        "INT-4210": 1,
+        "INT-4220": 1,
+        "INT-4230": 1,
         "INT-4240": 1
       }
     },
@@ -24581,13 +24943,13 @@
         "benefit_explore_count": 0,
         "billing_page_view_count": 0,
         "churn_page_view_count": 0,
-        "last_3_events": "page_view→click",
+        "last_3_events": "page_view→page_view→page_view",
         "mnp_benefit_check": 0,
-        "product_explore_count": 0,
+        "product_explore_count": 1,
         "quality_action_count": 0,
-        "repeated_entity_count_5m": 1,
+        "repeated_entity_count_5m": 2,
         "support_entry_count_5m": 0,
-        "가족 결합 관련 행동": 0,
+        "가족 결합 관련 행동": 1,
         "속도 측정 실행": 0,
         "위약금 조회 행동": 0,
         "장애 페이지 체류": 0,
@@ -24595,36 +24957,40 @@
         "해지 페이지 진입": 0
       },
       "event_features": {
-        "current_page": "product",
+        "current_page": "subscription",
         "is_churn_signal": 0,
-        "is_click": 1,
+        "is_click": 0,
         "is_confirm": 0,
-        "is_page_view": 0,
+        "is_page_view": 1,
         "is_support_entry": 0,
-        "last_entity": "plan_change_button",
-        "last_event_type": "click"
+        "last_entity": "family_bundle",
+        "last_event_type": "page_view"
       },
       "actions": [
         {
-          "behavior_id": "1-C",
+          "behavior_id": "1-E",
           "event_type": "page_view",
-          "entity": "subscription_info"
+          "entity": "product_explore"
         },
         {
-          "behavior_id": "2-C1",
-          "event_type": "click",
-          "entity": "plan_change_button"
+          "behavior_id": "2-E3",
+          "event_type": "page_view",
+          "entity": "family_bundle"
+        },
+        {
+          "behavior_id": "2-E3",
+          "event_type": "page_view",
+          "entity": "family_bundle"
         }
       ],
       "intent_labels": {
-        "INT-1310": 1,
-        "INT-1330": 1,
         "INT-1340": 1,
         "INT-2110": 1,
-        "INT-3210": 1,
-        "INT-4210": 1,
+        "INT-2130": 1,
+        "INT-2240": 1,
         "INT-6110": 1,
         "INT-6120": 1,
+        "INT-6140": 1,
         "INT-6210": 1
       }
     },
@@ -24936,13 +25302,13 @@
         "benefit_explore_count": 0,
         "billing_page_view_count": 0,
         "churn_page_view_count": 0,
-        "last_3_events": "page_view→click",
+        "last_3_events": "page_view→page_view→page_view",
         "mnp_benefit_check": 0,
-        "product_explore_count": 0,
+        "product_explore_count": 1,
         "quality_action_count": 0,
-        "repeated_entity_count_5m": 1,
+        "repeated_entity_count_5m": 2,
         "support_entry_count_5m": 0,
-        "가족 결합 관련 행동": 0,
+        "가족 결합 관련 행동": 1,
         "속도 측정 실행": 0,
         "위약금 조회 행동": 0,
         "장애 페이지 체류": 0,
@@ -24950,36 +25316,40 @@
         "해지 페이지 진입": 0
       },
       "event_features": {
-        "current_page": "product",
+        "current_page": "subscription",
         "is_churn_signal": 0,
-        "is_click": 1,
+        "is_click": 0,
         "is_confirm": 0,
-        "is_page_view": 0,
+        "is_page_view": 1,
         "is_support_entry": 0,
-        "last_entity": "plan_change_button",
-        "last_event_type": "click"
+        "last_entity": "family_bundle",
+        "last_event_type": "page_view"
       },
       "actions": [
         {
-          "behavior_id": "1-C",
+          "behavior_id": "1-E",
           "event_type": "page_view",
-          "entity": "subscription_info"
+          "entity": "product_explore"
         },
         {
-          "behavior_id": "2-C1",
-          "event_type": "click",
-          "entity": "plan_change_button"
+          "behavior_id": "2-E3",
+          "event_type": "page_view",
+          "entity": "family_bundle"
+        },
+        {
+          "behavior_id": "2-E3",
+          "event_type": "page_view",
+          "entity": "family_bundle"
         }
       ],
       "intent_labels": {
-        "INT-1310": 1,
-        "INT-1330": 1,
         "INT-1340": 1,
         "INT-2110": 1,
-        "INT-3210": 1,
-        "INT-4210": 1,
+        "INT-2130": 1,
+        "INT-2240": 1,
         "INT-6110": 1,
         "INT-6120": 1,
+        "INT-6140": 1,
         "INT-6210": 1
       }
     },
@@ -25088,9 +25458,11 @@
       "intent_labels": {
         "INT-1410": 1,
         "INT-1430": 1,
+        "INT-1440": 1,
         "INT-2150": 1,
         "INT-4110": 1,
         "INT-4120": 1,
+        "INT-4240": 1,
         "INT-7310": 1,
         "INT-7340": 1
       }
@@ -25319,6 +25691,9 @@
         "INT-2130": 1,
         "INT-2310": 1,
         "INT-2410": 1,
+        "INT-4210": 1,
+        "INT-4220": 1,
+        "INT-4230": 1,
         "INT-4240": 1
       }
     },
@@ -25389,13 +25764,13 @@
         "benefit_explore_count": 0,
         "billing_page_view_count": 0,
         "churn_page_view_count": 0,
-        "last_3_events": "page_view→click",
+        "last_3_events": "page_view→page_view→page_view",
         "mnp_benefit_check": 0,
-        "product_explore_count": 0,
+        "product_explore_count": 1,
         "quality_action_count": 0,
-        "repeated_entity_count_5m": 1,
+        "repeated_entity_count_5m": 2,
         "support_entry_count_5m": 0,
-        "가족 결합 관련 행동": 0,
+        "가족 결합 관련 행동": 1,
         "속도 측정 실행": 0,
         "위약금 조회 행동": 0,
         "장애 페이지 체류": 0,
@@ -25403,36 +25778,40 @@
         "해지 페이지 진입": 0
       },
       "event_features": {
-        "current_page": "product",
+        "current_page": "subscription",
         "is_churn_signal": 0,
-        "is_click": 1,
+        "is_click": 0,
         "is_confirm": 0,
-        "is_page_view": 0,
+        "is_page_view": 1,
         "is_support_entry": 0,
-        "last_entity": "plan_change_button",
-        "last_event_type": "click"
+        "last_entity": "family_bundle",
+        "last_event_type": "page_view"
       },
       "actions": [
         {
-          "behavior_id": "1-C",
+          "behavior_id": "1-E",
           "event_type": "page_view",
-          "entity": "subscription_info"
+          "entity": "product_explore"
         },
         {
-          "behavior_id": "2-C1",
-          "event_type": "click",
-          "entity": "plan_change_button"
+          "behavior_id": "2-E3",
+          "event_type": "page_view",
+          "entity": "family_bundle"
+        },
+        {
+          "behavior_id": "2-E3",
+          "event_type": "page_view",
+          "entity": "family_bundle"
         }
       ],
       "intent_labels": {
-        "INT-1310": 1,
-        "INT-1330": 1,
         "INT-1340": 1,
         "INT-2110": 1,
-        "INT-3210": 1,
-        "INT-4210": 1,
+        "INT-2130": 1,
+        "INT-2240": 1,
         "INT-6110": 1,
         "INT-6120": 1,
+        "INT-6140": 1,
         "INT-6210": 1
       }
     },
@@ -25652,13 +26031,17 @@
       ],
       "intent_labels": {
         "INT-1140": 1,
+        "INT-1340": 1,
         "INT-2110": 1,
         "INT-2130": 1,
         "INT-2140": 1,
         "INT-2240": 1,
         "INT-2410": 1,
         "INT-2540": 1,
-        "INT-6110": 1
+        "INT-6110": 1,
+        "INT-6120": 1,
+        "INT-6140": 1,
+        "INT-6210": 1
       }
     },
     {
@@ -25994,6 +26377,9 @@
         "INT-2130": 1,
         "INT-2310": 1,
         "INT-2410": 1,
+        "INT-4210": 1,
+        "INT-4220": 1,
+        "INT-4230": 1,
         "INT-4240": 1
       }
     },
@@ -26554,6 +26940,9 @@
         "INT-2140": 1,
         "INT-2410": 1,
         "INT-2540": 1,
+        "INT-4210": 1,
+        "INT-4220": 1,
+        "INT-4230": 1,
         "INT-4240": 1
       }
     },
@@ -26678,13 +27067,15 @@
         "INT-1330": 1,
         "INT-1410": 1,
         "INT-1430": 1,
+        "INT-1440": 1,
         "INT-2110": 1,
         "INT-2130": 1,
         "INT-2410": 1,
         "INT-2420": 1,
         "INT-2440": 1,
         "INT-2530": 1,
-        "INT-4110": 1
+        "INT-4110": 1,
+        "INT-4240": 1
       }
     },
     {
@@ -27285,13 +27676,15 @@
         "INT-1330": 1,
         "INT-1410": 1,
         "INT-1430": 1,
+        "INT-1440": 1,
         "INT-2110": 1,
         "INT-2130": 1,
         "INT-2410": 1,
         "INT-2420": 1,
         "INT-2440": 1,
         "INT-2530": 1,
-        "INT-4110": 1
+        "INT-4110": 1,
+        "INT-4240": 1
       }
     },
     {
@@ -27403,6 +27796,9 @@
         "INT-2130": 1,
         "INT-2310": 1,
         "INT-2410": 1,
+        "INT-4210": 1,
+        "INT-4220": 1,
+        "INT-4230": 1,
         "INT-4240": 1
       }
     },
@@ -27623,9 +28019,11 @@
       "intent_labels": {
         "INT-1410": 1,
         "INT-1430": 1,
+        "INT-1440": 1,
         "INT-2150": 1,
         "INT-4110": 1,
         "INT-4120": 1,
+        "INT-4240": 1,
         "INT-7310": 1,
         "INT-7340": 1
       }
@@ -28109,13 +28507,15 @@
         "INT-1330": 1,
         "INT-1410": 1,
         "INT-1430": 1,
+        "INT-1440": 1,
         "INT-2110": 1,
         "INT-2130": 1,
         "INT-2410": 1,
         "INT-2420": 1,
         "INT-2440": 1,
         "INT-2530": 1,
-        "INT-4110": 1
+        "INT-4110": 1,
+        "INT-4240": 1
       }
     },
     {
@@ -28335,11 +28735,13 @@
       "intent_labels": {
         "INT-1410": 1,
         "INT-1430": 1,
+        "INT-1440": 1,
         "INT-2130": 1,
         "INT-2310": 1,
         "INT-2410": 1,
         "INT-4120": 1,
-        "INT-4140": 1
+        "INT-4140": 1,
+        "INT-4240": 1
       }
     },
     {
@@ -28863,13 +29265,13 @@
         "benefit_explore_count": 0,
         "billing_page_view_count": 0,
         "churn_page_view_count": 0,
-        "last_3_events": "page_view→click",
+        "last_3_events": "page_view→page_view→page_view",
         "mnp_benefit_check": 0,
-        "product_explore_count": 0,
+        "product_explore_count": 1,
         "quality_action_count": 0,
-        "repeated_entity_count_5m": 1,
+        "repeated_entity_count_5m": 2,
         "support_entry_count_5m": 0,
-        "가족 결합 관련 행동": 0,
+        "가족 결합 관련 행동": 1,
         "속도 측정 실행": 0,
         "위약금 조회 행동": 0,
         "장애 페이지 체류": 0,
@@ -28877,36 +29279,40 @@
         "해지 페이지 진입": 0
       },
       "event_features": {
-        "current_page": "product",
+        "current_page": "subscription",
         "is_churn_signal": 0,
-        "is_click": 1,
+        "is_click": 0,
         "is_confirm": 0,
-        "is_page_view": 0,
+        "is_page_view": 1,
         "is_support_entry": 0,
-        "last_entity": "plan_change_button",
-        "last_event_type": "click"
+        "last_entity": "family_bundle",
+        "last_event_type": "page_view"
       },
       "actions": [
         {
-          "behavior_id": "1-C",
+          "behavior_id": "1-E",
           "event_type": "page_view",
-          "entity": "subscription_info"
+          "entity": "product_explore"
         },
         {
-          "behavior_id": "2-C1",
-          "event_type": "click",
-          "entity": "plan_change_button"
+          "behavior_id": "2-E3",
+          "event_type": "page_view",
+          "entity": "family_bundle"
+        },
+        {
+          "behavior_id": "2-E3",
+          "event_type": "page_view",
+          "entity": "family_bundle"
         }
       ],
       "intent_labels": {
-        "INT-1310": 1,
-        "INT-1330": 1,
         "INT-1340": 1,
         "INT-2110": 1,
-        "INT-3210": 1,
-        "INT-4210": 1,
+        "INT-2130": 1,
+        "INT-2240": 1,
         "INT-6110": 1,
         "INT-6120": 1,
+        "INT-6140": 1,
         "INT-6210": 1
       }
     },
@@ -29086,53 +29492,70 @@
       },
       "pattern_features": {
         "WiFi 진단 실행": 0,
-        "benefit_explore_count": 1,
+        "benefit_explore_count": 0,
         "billing_page_view_count": 0,
         "churn_page_view_count": 0,
-        "last_3_events": "page_view→page_view",
+        "last_3_events": "navigate_back→page_view→click",
         "mnp_benefit_check": 0,
-        "product_explore_count": 0,
+        "product_explore_count": 1,
         "quality_action_count": 0,
         "repeated_entity_count_5m": 1,
         "support_entry_count_5m": 0,
-        "가족 결합 관련 행동": 0,
+        "가족 결합 관련 행동": 1,
         "속도 측정 실행": 0,
         "위약금 조회 행동": 0,
         "장애 페이지 체류": 0,
-        "할인 페이지 체류": 30,
+        "할인 페이지 체류": 0,
         "해지 페이지 진입": 0
       },
       "event_features": {
-        "current_page": "unknown",
+        "current_page": "product",
         "is_churn_signal": 0,
-        "is_click": 0,
+        "is_click": 1,
         "is_confirm": 0,
-        "is_page_view": 1,
+        "is_page_view": 0,
         "is_support_entry": 0,
-        "last_entity": "membership_tier",
-        "last_event_type": "page_view"
+        "last_entity": "plan_change_button",
+        "last_event_type": "click"
       },
       "actions": [
         {
-          "behavior_id": "1-D",
+          "behavior_id": "1-E",
           "event_type": "page_view",
-          "entity": "benefit_membership"
+          "entity": "product_explore"
         },
         {
-          "behavior_id": "2-D2",
+          "behavior_id": "2-E3",
           "event_type": "page_view",
-          "entity": "membership_tier"
+          "entity": "family_bundle"
+        },
+        {
+          "behavior_id": "BACK",
+          "event_type": "navigate_back",
+          "entity": "back_to_step1"
+        },
+        {
+          "behavior_id": "1-C",
+          "event_type": "page_view",
+          "entity": "subscription_info"
+        },
+        {
+          "behavior_id": "2-C1",
+          "event_type": "click",
+          "entity": "plan_change_button"
         }
       ],
       "intent_labels": {
+        "INT-1310": 1,
+        "INT-1330": 1,
         "INT-1340": 1,
-        "INT-1410": 1,
-        "INT-1430": 1,
-        "INT-1440": 1,
-        "INT-4210": 1,
-        "INT-4240": 1,
+        "INT-2110": 1,
+        "INT-2130": 1,
+        "INT-2240": 1,
+        "INT-3210": 1,
         "INT-6110": 1,
         "INT-6120": 1,
+        "INT-6140": 1,
         "INT-6210": 1
       }
     },
@@ -29315,13 +29738,13 @@
         "benefit_explore_count": 0,
         "billing_page_view_count": 0,
         "churn_page_view_count": 0,
-        "last_3_events": "page_view→click",
+        "last_3_events": "page_view→page_view→page_view",
         "mnp_benefit_check": 0,
-        "product_explore_count": 0,
+        "product_explore_count": 1,
         "quality_action_count": 0,
-        "repeated_entity_count_5m": 1,
+        "repeated_entity_count_5m": 2,
         "support_entry_count_5m": 0,
-        "가족 결합 관련 행동": 0,
+        "가족 결합 관련 행동": 1,
         "속도 측정 실행": 0,
         "위약금 조회 행동": 0,
         "장애 페이지 체류": 0,
@@ -29329,36 +29752,40 @@
         "해지 페이지 진입": 0
       },
       "event_features": {
-        "current_page": "product",
+        "current_page": "subscription",
         "is_churn_signal": 0,
-        "is_click": 1,
+        "is_click": 0,
         "is_confirm": 0,
-        "is_page_view": 0,
+        "is_page_view": 1,
         "is_support_entry": 0,
-        "last_entity": "plan_change_button",
-        "last_event_type": "click"
+        "last_entity": "family_bundle",
+        "last_event_type": "page_view"
       },
       "actions": [
         {
-          "behavior_id": "1-C",
+          "behavior_id": "1-E",
           "event_type": "page_view",
-          "entity": "subscription_info"
+          "entity": "product_explore"
         },
         {
-          "behavior_id": "2-C1",
-          "event_type": "click",
-          "entity": "plan_change_button"
+          "behavior_id": "2-E3",
+          "event_type": "page_view",
+          "entity": "family_bundle"
+        },
+        {
+          "behavior_id": "2-E3",
+          "event_type": "page_view",
+          "entity": "family_bundle"
         }
       ],
       "intent_labels": {
-        "INT-1310": 1,
-        "INT-1330": 1,
         "INT-1340": 1,
         "INT-2110": 1,
-        "INT-3210": 1,
-        "INT-4210": 1,
+        "INT-2130": 1,
+        "INT-2240": 1,
         "INT-6110": 1,
         "INT-6120": 1,
+        "INT-6140": 1,
         "INT-6210": 1
       }
     },
@@ -29765,53 +30192,70 @@
       },
       "pattern_features": {
         "WiFi 진단 실행": 0,
-        "benefit_explore_count": 1,
+        "benefit_explore_count": 0,
         "billing_page_view_count": 0,
         "churn_page_view_count": 0,
-        "last_3_events": "page_view→page_view",
+        "last_3_events": "navigate_back→page_view→click",
         "mnp_benefit_check": 0,
-        "product_explore_count": 0,
+        "product_explore_count": 1,
         "quality_action_count": 0,
         "repeated_entity_count_5m": 1,
         "support_entry_count_5m": 0,
-        "가족 결합 관련 행동": 0,
+        "가족 결합 관련 행동": 1,
         "속도 측정 실행": 0,
         "위약금 조회 행동": 0,
         "장애 페이지 체류": 0,
-        "할인 페이지 체류": 30,
+        "할인 페이지 체류": 0,
         "해지 페이지 진입": 0
       },
       "event_features": {
-        "current_page": "unknown",
+        "current_page": "product",
         "is_churn_signal": 0,
-        "is_click": 0,
+        "is_click": 1,
         "is_confirm": 0,
-        "is_page_view": 1,
+        "is_page_view": 0,
         "is_support_entry": 0,
-        "last_entity": "membership_tier",
-        "last_event_type": "page_view"
+        "last_entity": "plan_change_button",
+        "last_event_type": "click"
       },
       "actions": [
         {
-          "behavior_id": "1-D",
+          "behavior_id": "1-E",
           "event_type": "page_view",
-          "entity": "benefit_membership"
+          "entity": "product_explore"
         },
         {
-          "behavior_id": "2-D2",
+          "behavior_id": "2-E3",
           "event_type": "page_view",
-          "entity": "membership_tier"
+          "entity": "family_bundle"
+        },
+        {
+          "behavior_id": "BACK",
+          "event_type": "navigate_back",
+          "entity": "back_to_step1"
+        },
+        {
+          "behavior_id": "1-C",
+          "event_type": "page_view",
+          "entity": "subscription_info"
+        },
+        {
+          "behavior_id": "2-C1",
+          "event_type": "click",
+          "entity": "plan_change_button"
         }
       ],
       "intent_labels": {
+        "INT-1310": 1,
+        "INT-1330": 1,
         "INT-1340": 1,
-        "INT-1410": 1,
-        "INT-1430": 1,
-        "INT-1440": 1,
-        "INT-4210": 1,
-        "INT-4240": 1,
+        "INT-2110": 1,
+        "INT-2130": 1,
+        "INT-2240": 1,
+        "INT-3210": 1,
         "INT-6110": 1,
         "INT-6120": 1,
+        "INT-6140": 1,
         "INT-6210": 1
       }
     },
@@ -29924,6 +30368,9 @@
         "INT-2130": 1,
         "INT-2310": 1,
         "INT-2410": 1,
+        "INT-4210": 1,
+        "INT-4220": 1,
+        "INT-4230": 1,
         "INT-4240": 1
       }
     },
@@ -30037,6 +30484,9 @@
         "INT-2140": 1,
         "INT-2410": 1,
         "INT-2540": 1,
+        "INT-4210": 1,
+        "INT-4220": 1,
+        "INT-4230": 1,
         "INT-4240": 1
       }
     },
@@ -30938,9 +31388,9 @@
         "INT-2110": 1,
         "INT-2130": 1,
         "INT-2240": 1,
-        "INT-4210": 1,
         "INT-6110": 1,
         "INT-6120": 1,
+        "INT-6140": 1,
         "INT-6210": 1
       }
     },
@@ -31702,13 +32152,13 @@
         "benefit_explore_count": 1,
         "billing_page_view_count": 0,
         "churn_page_view_count": 0,
-        "last_3_events": "page_view→click",
+        "last_3_events": "navigate_back→page_view→page_view",
         "mnp_benefit_check": 0,
-        "product_explore_count": 0,
+        "product_explore_count": 1,
         "quality_action_count": 0,
         "repeated_entity_count_5m": 1,
         "support_entry_count_5m": 0,
-        "가족 결합 관련 행동": 0,
+        "가족 결합 관련 행동": 1,
         "속도 측정 실행": 0,
         "위약금 조회 행동": 0,
         "장애 페이지 체류": 0,
@@ -31716,14 +32166,14 @@
         "해지 페이지 진입": 0
       },
       "event_features": {
-        "current_page": "benefit",
+        "current_page": "subscription",
         "is_churn_signal": 0,
-        "is_click": 1,
+        "is_click": 0,
         "is_confirm": 0,
-        "is_page_view": 0,
+        "is_page_view": 1,
         "is_support_entry": 0,
-        "last_entity": "coupon_use",
-        "last_event_type": "click"
+        "last_entity": "family_bundle",
+        "last_event_type": "page_view"
       },
       "actions": [
         {
@@ -31732,19 +32182,41 @@
           "entity": "benefit_membership"
         },
         {
-          "behavior_id": "2-D1",
-          "event_type": "click",
-          "entity": "coupon_use"
+          "behavior_id": "2-D2",
+          "event_type": "page_view",
+          "entity": "membership_tier"
+        },
+        {
+          "behavior_id": "BACK",
+          "event_type": "navigate_back",
+          "entity": "back_to_step1"
+        },
+        {
+          "behavior_id": "1-E",
+          "event_type": "page_view",
+          "entity": "product_explore"
+        },
+        {
+          "behavior_id": "2-E3",
+          "event_type": "page_view",
+          "entity": "family_bundle"
         }
       ],
       "intent_labels": {
         "INT-1340": 1,
         "INT-1410": 1,
         "INT-1430": 1,
-        "INT-4110": 1,
+        "INT-1440": 1,
+        "INT-2110": 1,
+        "INT-2130": 1,
+        "INT-2240": 1,
         "INT-4210": 1,
+        "INT-4220": 1,
+        "INT-4230": 1,
+        "INT-4240": 1,
         "INT-6110": 1,
         "INT-6120": 1,
+        "INT-6140": 1,
         "INT-6210": 1
       }
     },
@@ -31970,6 +32442,9 @@
         "INT-2130": 1,
         "INT-2310": 1,
         "INT-2410": 1,
+        "INT-4210": 1,
+        "INT-4220": 1,
+        "INT-4230": 1,
         "INT-4240": 1
       }
     },
@@ -32078,11 +32553,13 @@
       "intent_labels": {
         "INT-1410": 1,
         "INT-1430": 1,
+        "INT-1440": 1,
         "INT-2130": 1,
         "INT-2310": 1,
         "INT-2410": 1,
         "INT-4120": 1,
-        "INT-4140": 1
+        "INT-4140": 1,
+        "INT-4240": 1
       }
     },
     {
@@ -32192,9 +32669,9 @@
         "INT-2110": 1,
         "INT-2130": 1,
         "INT-2240": 1,
-        "INT-4210": 1,
         "INT-6110": 1,
         "INT-6120": 1,
+        "INT-6140": 1,
         "INT-6210": 1
       }
     },
@@ -32379,13 +32856,13 @@
         "benefit_explore_count": 1,
         "billing_page_view_count": 0,
         "churn_page_view_count": 0,
-        "last_3_events": "page_view→click",
+        "last_3_events": "navigate_back→page_view→page_view",
         "mnp_benefit_check": 0,
-        "product_explore_count": 0,
+        "product_explore_count": 1,
         "quality_action_count": 0,
         "repeated_entity_count_5m": 1,
         "support_entry_count_5m": 0,
-        "가족 결합 관련 행동": 0,
+        "가족 결합 관련 행동": 1,
         "속도 측정 실행": 0,
         "위약금 조회 행동": 0,
         "장애 페이지 체류": 0,
@@ -32393,14 +32870,14 @@
         "해지 페이지 진입": 0
       },
       "event_features": {
-        "current_page": "benefit",
+        "current_page": "subscription",
         "is_churn_signal": 0,
-        "is_click": 1,
+        "is_click": 0,
         "is_confirm": 0,
-        "is_page_view": 0,
+        "is_page_view": 1,
         "is_support_entry": 0,
-        "last_entity": "coupon_use",
-        "last_event_type": "click"
+        "last_entity": "family_bundle",
+        "last_event_type": "page_view"
       },
       "actions": [
         {
@@ -32409,19 +32886,41 @@
           "entity": "benefit_membership"
         },
         {
-          "behavior_id": "2-D1",
-          "event_type": "click",
-          "entity": "coupon_use"
+          "behavior_id": "2-D2",
+          "event_type": "page_view",
+          "entity": "membership_tier"
+        },
+        {
+          "behavior_id": "BACK",
+          "event_type": "navigate_back",
+          "entity": "back_to_step1"
+        },
+        {
+          "behavior_id": "1-E",
+          "event_type": "page_view",
+          "entity": "product_explore"
+        },
+        {
+          "behavior_id": "2-E3",
+          "event_type": "page_view",
+          "entity": "family_bundle"
         }
       ],
       "intent_labels": {
         "INT-1340": 1,
         "INT-1410": 1,
         "INT-1430": 1,
-        "INT-4110": 1,
+        "INT-1440": 1,
+        "INT-2110": 1,
+        "INT-2130": 1,
+        "INT-2240": 1,
         "INT-4210": 1,
+        "INT-4220": 1,
+        "INT-4230": 1,
+        "INT-4240": 1,
         "INT-6110": 1,
         "INT-6120": 1,
+        "INT-6140": 1,
         "INT-6210": 1
       }
     },
@@ -32659,13 +33158,15 @@
         "INT-1330": 1,
         "INT-1410": 1,
         "INT-1430": 1,
+        "INT-1440": 1,
         "INT-2110": 1,
         "INT-2130": 1,
         "INT-2410": 1,
         "INT-2420": 1,
         "INT-2440": 1,
         "INT-2530": 1,
-        "INT-4110": 1
+        "INT-4110": 1,
+        "INT-4240": 1
       }
     },
     {
@@ -32789,13 +33290,15 @@
         "INT-1330": 1,
         "INT-1410": 1,
         "INT-1430": 1,
+        "INT-1440": 1,
         "INT-2110": 1,
         "INT-2130": 1,
         "INT-2410": 1,
         "INT-2420": 1,
         "INT-2440": 1,
         "INT-2530": 1,
-        "INT-4110": 1
+        "INT-4110": 1,
+        "INT-4240": 1
       }
     },
     {
@@ -33133,6 +33636,9 @@
         "INT-2130": 1,
         "INT-2310": 1,
         "INT-2410": 1,
+        "INT-4210": 1,
+        "INT-4220": 1,
+        "INT-4230": 1,
         "INT-4240": 1
       }
     },
@@ -33580,12 +34086,16 @@
       ],
       "intent_labels": {
         "INT-1110": 1,
+        "INT-1340": 1,
         "INT-2110": 1,
         "INT-2130": 1,
         "INT-2240": 1,
         "INT-2310": 1,
         "INT-2320": 1,
-        "INT-6110": 1
+        "INT-6110": 1,
+        "INT-6120": 1,
+        "INT-6140": 1,
+        "INT-6210": 1
       }
     },
     {
@@ -34370,9 +34880,9 @@
         "INT-2110": 1,
         "INT-2130": 1,
         "INT-2240": 1,
-        "INT-4210": 1,
         "INT-6110": 1,
         "INT-6120": 1,
+        "INT-6140": 1,
         "INT-6210": 1
       }
     },
@@ -34550,53 +35060,70 @@
       },
       "pattern_features": {
         "WiFi 진단 실행": 0,
-        "benefit_explore_count": 1,
+        "benefit_explore_count": 0,
         "billing_page_view_count": 0,
         "churn_page_view_count": 0,
-        "last_3_events": "page_view→page_view",
+        "last_3_events": "navigate_back→page_view→click",
         "mnp_benefit_check": 0,
-        "product_explore_count": 0,
+        "product_explore_count": 1,
         "quality_action_count": 0,
         "repeated_entity_count_5m": 1,
         "support_entry_count_5m": 0,
-        "가족 결합 관련 행동": 0,
+        "가족 결합 관련 행동": 1,
         "속도 측정 실행": 0,
         "위약금 조회 행동": 0,
         "장애 페이지 체류": 0,
-        "할인 페이지 체류": 30,
+        "할인 페이지 체류": 0,
         "해지 페이지 진입": 0
       },
       "event_features": {
-        "current_page": "unknown",
+        "current_page": "product",
         "is_churn_signal": 0,
-        "is_click": 0,
+        "is_click": 1,
         "is_confirm": 0,
-        "is_page_view": 1,
+        "is_page_view": 0,
         "is_support_entry": 0,
-        "last_entity": "membership_tier",
-        "last_event_type": "page_view"
+        "last_entity": "plan_change_button",
+        "last_event_type": "click"
       },
       "actions": [
         {
-          "behavior_id": "1-D",
+          "behavior_id": "1-E",
           "event_type": "page_view",
-          "entity": "benefit_membership"
+          "entity": "product_explore"
         },
         {
-          "behavior_id": "2-D2",
+          "behavior_id": "2-E3",
           "event_type": "page_view",
-          "entity": "membership_tier"
+          "entity": "family_bundle"
+        },
+        {
+          "behavior_id": "BACK",
+          "event_type": "navigate_back",
+          "entity": "back_to_step1"
+        },
+        {
+          "behavior_id": "1-C",
+          "event_type": "page_view",
+          "entity": "subscription_info"
+        },
+        {
+          "behavior_id": "2-C1",
+          "event_type": "click",
+          "entity": "plan_change_button"
         }
       ],
       "intent_labels": {
+        "INT-1310": 1,
+        "INT-1330": 1,
         "INT-1340": 1,
-        "INT-1410": 1,
-        "INT-1430": 1,
-        "INT-1440": 1,
-        "INT-4210": 1,
-        "INT-4240": 1,
+        "INT-2110": 1,
+        "INT-2130": 1,
+        "INT-2240": 1,
+        "INT-3210": 1,
         "INT-6110": 1,
         "INT-6120": 1,
+        "INT-6140": 1,
         "INT-6210": 1
       }
     },
@@ -34704,12 +35231,16 @@
       ],
       "intent_labels": {
         "INT-1110": 1,
+        "INT-1340": 1,
         "INT-2110": 1,
         "INT-2130": 1,
         "INT-2240": 1,
         "INT-2310": 1,
         "INT-2320": 1,
-        "INT-6110": 1
+        "INT-6110": 1,
+        "INT-6120": 1,
+        "INT-6140": 1,
+        "INT-6210": 1
       }
     },
     {
@@ -35157,13 +35688,13 @@
         "benefit_explore_count": 0,
         "billing_page_view_count": 0,
         "churn_page_view_count": 0,
-        "last_3_events": "page_view→click",
+        "last_3_events": "page_view→page_view→page_view",
         "mnp_benefit_check": 0,
-        "product_explore_count": 0,
+        "product_explore_count": 1,
         "quality_action_count": 0,
-        "repeated_entity_count_5m": 1,
+        "repeated_entity_count_5m": 2,
         "support_entry_count_5m": 0,
-        "가족 결합 관련 행동": 0,
+        "가족 결합 관련 행동": 1,
         "속도 측정 실행": 0,
         "위약금 조회 행동": 0,
         "장애 페이지 체류": 0,
@@ -35171,36 +35702,40 @@
         "해지 페이지 진입": 0
       },
       "event_features": {
-        "current_page": "product",
+        "current_page": "subscription",
         "is_churn_signal": 0,
-        "is_click": 1,
+        "is_click": 0,
         "is_confirm": 0,
-        "is_page_view": 0,
+        "is_page_view": 1,
         "is_support_entry": 0,
-        "last_entity": "plan_change_button",
-        "last_event_type": "click"
+        "last_entity": "family_bundle",
+        "last_event_type": "page_view"
       },
       "actions": [
         {
-          "behavior_id": "1-C",
+          "behavior_id": "1-E",
           "event_type": "page_view",
-          "entity": "subscription_info"
+          "entity": "product_explore"
         },
         {
-          "behavior_id": "2-C1",
-          "event_type": "click",
-          "entity": "plan_change_button"
+          "behavior_id": "2-E3",
+          "event_type": "page_view",
+          "entity": "family_bundle"
+        },
+        {
+          "behavior_id": "2-E3",
+          "event_type": "page_view",
+          "entity": "family_bundle"
         }
       ],
       "intent_labels": {
-        "INT-1310": 1,
-        "INT-1330": 1,
         "INT-1340": 1,
         "INT-2110": 1,
-        "INT-3210": 1,
-        "INT-4210": 1,
+        "INT-2130": 1,
+        "INT-2240": 1,
         "INT-6110": 1,
         "INT-6120": 1,
+        "INT-6140": 1,
         "INT-6210": 1
       }
     },
@@ -35271,13 +35806,13 @@
         "benefit_explore_count": 1,
         "billing_page_view_count": 0,
         "churn_page_view_count": 0,
-        "last_3_events": "page_view→click",
+        "last_3_events": "navigate_back→page_view→page_view",
         "mnp_benefit_check": 0,
-        "product_explore_count": 0,
+        "product_explore_count": 1,
         "quality_action_count": 0,
         "repeated_entity_count_5m": 1,
         "support_entry_count_5m": 0,
-        "가족 결합 관련 행동": 0,
+        "가족 결합 관련 행동": 1,
         "속도 측정 실행": 0,
         "위약금 조회 행동": 0,
         "장애 페이지 체류": 0,
@@ -35285,14 +35820,14 @@
         "해지 페이지 진입": 0
       },
       "event_features": {
-        "current_page": "benefit",
+        "current_page": "subscription",
         "is_churn_signal": 0,
-        "is_click": 1,
+        "is_click": 0,
         "is_confirm": 0,
-        "is_page_view": 0,
+        "is_page_view": 1,
         "is_support_entry": 0,
-        "last_entity": "coupon_use",
-        "last_event_type": "click"
+        "last_entity": "family_bundle",
+        "last_event_type": "page_view"
       },
       "actions": [
         {
@@ -35301,19 +35836,41 @@
           "entity": "benefit_membership"
         },
         {
-          "behavior_id": "2-D1",
-          "event_type": "click",
-          "entity": "coupon_use"
+          "behavior_id": "2-D2",
+          "event_type": "page_view",
+          "entity": "membership_tier"
+        },
+        {
+          "behavior_id": "BACK",
+          "event_type": "navigate_back",
+          "entity": "back_to_step1"
+        },
+        {
+          "behavior_id": "1-E",
+          "event_type": "page_view",
+          "entity": "product_explore"
+        },
+        {
+          "behavior_id": "2-E3",
+          "event_type": "page_view",
+          "entity": "family_bundle"
         }
       ],
       "intent_labels": {
         "INT-1340": 1,
         "INT-1410": 1,
         "INT-1430": 1,
-        "INT-4110": 1,
+        "INT-1440": 1,
+        "INT-2110": 1,
+        "INT-2130": 1,
+        "INT-2240": 1,
         "INT-4210": 1,
+        "INT-4220": 1,
+        "INT-4230": 1,
+        "INT-4240": 1,
         "INT-6110": 1,
         "INT-6120": 1,
+        "INT-6140": 1,
         "INT-6210": 1
       }
     },
@@ -35534,9 +36091,11 @@
       "intent_labels": {
         "INT-1410": 1,
         "INT-1430": 1,
+        "INT-1440": 1,
         "INT-2150": 1,
         "INT-4110": 1,
         "INT-4120": 1,
+        "INT-4240": 1,
         "INT-7310": 1,
         "INT-7340": 1
       }
@@ -35948,13 +36507,13 @@
         "benefit_explore_count": 1,
         "billing_page_view_count": 0,
         "churn_page_view_count": 0,
-        "last_3_events": "page_view→click",
+        "last_3_events": "navigate_back→page_view→page_view",
         "mnp_benefit_check": 0,
-        "product_explore_count": 0,
+        "product_explore_count": 1,
         "quality_action_count": 0,
         "repeated_entity_count_5m": 1,
         "support_entry_count_5m": 0,
-        "가족 결합 관련 행동": 0,
+        "가족 결합 관련 행동": 1,
         "속도 측정 실행": 0,
         "위약금 조회 행동": 0,
         "장애 페이지 체류": 0,
@@ -35962,14 +36521,14 @@
         "해지 페이지 진입": 0
       },
       "event_features": {
-        "current_page": "benefit",
+        "current_page": "subscription",
         "is_churn_signal": 0,
-        "is_click": 1,
+        "is_click": 0,
         "is_confirm": 0,
-        "is_page_view": 0,
+        "is_page_view": 1,
         "is_support_entry": 0,
-        "last_entity": "coupon_use",
-        "last_event_type": "click"
+        "last_entity": "family_bundle",
+        "last_event_type": "page_view"
       },
       "actions": [
         {
@@ -35978,19 +36537,41 @@
           "entity": "benefit_membership"
         },
         {
-          "behavior_id": "2-D1",
-          "event_type": "click",
-          "entity": "coupon_use"
+          "behavior_id": "2-D2",
+          "event_type": "page_view",
+          "entity": "membership_tier"
+        },
+        {
+          "behavior_id": "BACK",
+          "event_type": "navigate_back",
+          "entity": "back_to_step1"
+        },
+        {
+          "behavior_id": "1-E",
+          "event_type": "page_view",
+          "entity": "product_explore"
+        },
+        {
+          "behavior_id": "2-E3",
+          "event_type": "page_view",
+          "entity": "family_bundle"
         }
       ],
       "intent_labels": {
         "INT-1340": 1,
         "INT-1410": 1,
         "INT-1430": 1,
-        "INT-4110": 1,
+        "INT-1440": 1,
+        "INT-2110": 1,
+        "INT-2130": 1,
+        "INT-2240": 1,
         "INT-4210": 1,
+        "INT-4220": 1,
+        "INT-4230": 1,
+        "INT-4240": 1,
         "INT-6110": 1,
         "INT-6120": 1,
+        "INT-6140": 1,
         "INT-6210": 1
       }
     },
@@ -36344,6 +36925,9 @@
         "INT-2130": 1,
         "INT-2310": 1,
         "INT-2410": 1,
+        "INT-4210": 1,
+        "INT-4220": 1,
+        "INT-4230": 1,
         "INT-4240": 1
       }
     },
@@ -36659,13 +37243,13 @@
         "benefit_explore_count": 1,
         "billing_page_view_count": 0,
         "churn_page_view_count": 0,
-        "last_3_events": "page_view→click",
+        "last_3_events": "navigate_back→page_view→page_view",
         "mnp_benefit_check": 0,
-        "product_explore_count": 0,
+        "product_explore_count": 1,
         "quality_action_count": 0,
         "repeated_entity_count_5m": 1,
         "support_entry_count_5m": 0,
-        "가족 결합 관련 행동": 0,
+        "가족 결합 관련 행동": 1,
         "속도 측정 실행": 0,
         "위약금 조회 행동": 0,
         "장애 페이지 체류": 0,
@@ -36673,14 +37257,14 @@
         "해지 페이지 진입": 0
       },
       "event_features": {
-        "current_page": "benefit",
+        "current_page": "subscription",
         "is_churn_signal": 0,
-        "is_click": 1,
+        "is_click": 0,
         "is_confirm": 0,
-        "is_page_view": 0,
+        "is_page_view": 1,
         "is_support_entry": 0,
-        "last_entity": "coupon_use",
-        "last_event_type": "click"
+        "last_entity": "family_bundle",
+        "last_event_type": "page_view"
       },
       "actions": [
         {
@@ -36689,19 +37273,41 @@
           "entity": "benefit_membership"
         },
         {
-          "behavior_id": "2-D1",
-          "event_type": "click",
-          "entity": "coupon_use"
+          "behavior_id": "2-D2",
+          "event_type": "page_view",
+          "entity": "membership_tier"
+        },
+        {
+          "behavior_id": "BACK",
+          "event_type": "navigate_back",
+          "entity": "back_to_step1"
+        },
+        {
+          "behavior_id": "1-E",
+          "event_type": "page_view",
+          "entity": "product_explore"
+        },
+        {
+          "behavior_id": "2-E3",
+          "event_type": "page_view",
+          "entity": "family_bundle"
         }
       ],
       "intent_labels": {
         "INT-1340": 1,
         "INT-1410": 1,
         "INT-1430": 1,
-        "INT-4110": 1,
+        "INT-1440": 1,
+        "INT-2110": 1,
+        "INT-2130": 1,
+        "INT-2240": 1,
         "INT-4210": 1,
+        "INT-4220": 1,
+        "INT-4230": 1,
+        "INT-4240": 1,
         "INT-6110": 1,
         "INT-6120": 1,
+        "INT-6140": 1,
         "INT-6210": 1
       }
     },
@@ -36902,13 +37508,13 @@
         "benefit_explore_count": 0,
         "billing_page_view_count": 0,
         "churn_page_view_count": 0,
-        "last_3_events": "page_view→click",
+        "last_3_events": "page_view→page_view→page_view",
         "mnp_benefit_check": 0,
-        "product_explore_count": 0,
+        "product_explore_count": 1,
         "quality_action_count": 0,
-        "repeated_entity_count_5m": 1,
+        "repeated_entity_count_5m": 2,
         "support_entry_count_5m": 0,
-        "가족 결합 관련 행동": 0,
+        "가족 결합 관련 행동": 1,
         "속도 측정 실행": 0,
         "위약금 조회 행동": 0,
         "장애 페이지 체류": 0,
@@ -36916,36 +37522,40 @@
         "해지 페이지 진입": 0
       },
       "event_features": {
-        "current_page": "product",
+        "current_page": "subscription",
         "is_churn_signal": 0,
-        "is_click": 1,
+        "is_click": 0,
         "is_confirm": 0,
-        "is_page_view": 0,
+        "is_page_view": 1,
         "is_support_entry": 0,
-        "last_entity": "plan_change_button",
-        "last_event_type": "click"
+        "last_entity": "family_bundle",
+        "last_event_type": "page_view"
       },
       "actions": [
         {
-          "behavior_id": "1-C",
+          "behavior_id": "1-E",
           "event_type": "page_view",
-          "entity": "subscription_info"
+          "entity": "product_explore"
         },
         {
-          "behavior_id": "2-C1",
-          "event_type": "click",
-          "entity": "plan_change_button"
+          "behavior_id": "2-E3",
+          "event_type": "page_view",
+          "entity": "family_bundle"
+        },
+        {
+          "behavior_id": "2-E3",
+          "event_type": "page_view",
+          "entity": "family_bundle"
         }
       ],
       "intent_labels": {
-        "INT-1310": 1,
-        "INT-1330": 1,
         "INT-1340": 1,
         "INT-2110": 1,
-        "INT-3210": 1,
-        "INT-4210": 1,
+        "INT-2130": 1,
+        "INT-2240": 1,
         "INT-6110": 1,
         "INT-6120": 1,
+        "INT-6140": 1,
         "INT-6210": 1
       }
     },
@@ -37391,12 +38001,16 @@
       ],
       "intent_labels": {
         "INT-1110": 1,
+        "INT-1340": 1,
         "INT-2110": 1,
         "INT-2130": 1,
         "INT-2240": 1,
         "INT-2310": 1,
         "INT-2320": 1,
-        "INT-6110": 1
+        "INT-6110": 1,
+        "INT-6120": 1,
+        "INT-6140": 1,
+        "INT-6210": 1
       }
     },
     {
@@ -37506,9 +38120,9 @@
         "INT-2110": 1,
         "INT-2130": 1,
         "INT-2240": 1,
-        "INT-4210": 1,
         "INT-6110": 1,
         "INT-6120": 1,
+        "INT-6140": 1,
         "INT-6210": 1
       }
     },
@@ -37730,11 +38344,13 @@
       "intent_labels": {
         "INT-1410": 1,
         "INT-1430": 1,
+        "INT-1440": 1,
         "INT-2130": 1,
         "INT-2310": 1,
         "INT-2410": 1,
         "INT-4120": 1,
-        "INT-4140": 1
+        "INT-4140": 1,
+        "INT-4240": 1
       }
     },
     {
@@ -37842,11 +38458,13 @@
       "intent_labels": {
         "INT-1410": 1,
         "INT-1430": 1,
+        "INT-1440": 1,
         "INT-2130": 1,
         "INT-2310": 1,
         "INT-2410": 1,
         "INT-4120": 1,
-        "INT-4140": 1
+        "INT-4140": 1,
+        "INT-4240": 1
       }
     },
     {
@@ -38196,12 +38814,16 @@
       ],
       "intent_labels": {
         "INT-1110": 1,
+        "INT-1340": 1,
         "INT-2110": 1,
         "INT-2130": 1,
         "INT-2240": 1,
         "INT-2310": 1,
         "INT-2320": 1,
-        "INT-6110": 1
+        "INT-6110": 1,
+        "INT-6120": 1,
+        "INT-6140": 1,
+        "INT-6210": 1
       }
     },
     {
@@ -38311,9 +38933,9 @@
         "INT-2110": 1,
         "INT-2130": 1,
         "INT-2240": 1,
-        "INT-4210": 1,
         "INT-6110": 1,
         "INT-6120": 1,
+        "INT-6140": 1,
         "INT-6210": 1
       }
     },
@@ -38950,13 +39572,13 @@
         "benefit_explore_count": 1,
         "billing_page_view_count": 0,
         "churn_page_view_count": 0,
-        "last_3_events": "page_view→click",
+        "last_3_events": "navigate_back→page_view→page_view",
         "mnp_benefit_check": 0,
-        "product_explore_count": 0,
+        "product_explore_count": 1,
         "quality_action_count": 0,
         "repeated_entity_count_5m": 1,
         "support_entry_count_5m": 0,
-        "가족 결합 관련 행동": 0,
+        "가족 결합 관련 행동": 1,
         "속도 측정 실행": 0,
         "위약금 조회 행동": 0,
         "장애 페이지 체류": 0,
@@ -38964,14 +39586,14 @@
         "해지 페이지 진입": 0
       },
       "event_features": {
-        "current_page": "benefit",
+        "current_page": "subscription",
         "is_churn_signal": 0,
-        "is_click": 1,
+        "is_click": 0,
         "is_confirm": 0,
-        "is_page_view": 0,
+        "is_page_view": 1,
         "is_support_entry": 0,
-        "last_entity": "coupon_use",
-        "last_event_type": "click"
+        "last_entity": "family_bundle",
+        "last_event_type": "page_view"
       },
       "actions": [
         {
@@ -38980,19 +39602,41 @@
           "entity": "benefit_membership"
         },
         {
-          "behavior_id": "2-D1",
-          "event_type": "click",
-          "entity": "coupon_use"
+          "behavior_id": "2-D2",
+          "event_type": "page_view",
+          "entity": "membership_tier"
+        },
+        {
+          "behavior_id": "BACK",
+          "event_type": "navigate_back",
+          "entity": "back_to_step1"
+        },
+        {
+          "behavior_id": "1-E",
+          "event_type": "page_view",
+          "entity": "product_explore"
+        },
+        {
+          "behavior_id": "2-E3",
+          "event_type": "page_view",
+          "entity": "family_bundle"
         }
       ],
       "intent_labels": {
         "INT-1340": 1,
         "INT-1410": 1,
         "INT-1430": 1,
-        "INT-4110": 1,
+        "INT-1440": 1,
+        "INT-2110": 1,
+        "INT-2130": 1,
+        "INT-2240": 1,
         "INT-4210": 1,
+        "INT-4220": 1,
+        "INT-4230": 1,
+        "INT-4240": 1,
         "INT-6110": 1,
         "INT-6120": 1,
+        "INT-6140": 1,
         "INT-6210": 1
       }
     },
@@ -39175,13 +39819,13 @@
         "benefit_explore_count": 0,
         "billing_page_view_count": 0,
         "churn_page_view_count": 0,
-        "last_3_events": "page_view→click",
+        "last_3_events": "page_view→page_view→page_view",
         "mnp_benefit_check": 0,
-        "product_explore_count": 0,
+        "product_explore_count": 1,
         "quality_action_count": 0,
-        "repeated_entity_count_5m": 1,
+        "repeated_entity_count_5m": 2,
         "support_entry_count_5m": 0,
-        "가족 결합 관련 행동": 0,
+        "가족 결합 관련 행동": 1,
         "속도 측정 실행": 0,
         "위약금 조회 행동": 0,
         "장애 페이지 체류": 0,
@@ -39189,36 +39833,40 @@
         "해지 페이지 진입": 0
       },
       "event_features": {
-        "current_page": "product",
+        "current_page": "subscription",
         "is_churn_signal": 0,
-        "is_click": 1,
+        "is_click": 0,
         "is_confirm": 0,
-        "is_page_view": 0,
+        "is_page_view": 1,
         "is_support_entry": 0,
-        "last_entity": "plan_change_button",
-        "last_event_type": "click"
+        "last_entity": "family_bundle",
+        "last_event_type": "page_view"
       },
       "actions": [
         {
-          "behavior_id": "1-C",
+          "behavior_id": "1-E",
           "event_type": "page_view",
-          "entity": "subscription_info"
+          "entity": "product_explore"
         },
         {
-          "behavior_id": "2-C1",
-          "event_type": "click",
-          "entity": "plan_change_button"
+          "behavior_id": "2-E3",
+          "event_type": "page_view",
+          "entity": "family_bundle"
+        },
+        {
+          "behavior_id": "2-E3",
+          "event_type": "page_view",
+          "entity": "family_bundle"
         }
       ],
       "intent_labels": {
-        "INT-1310": 1,
-        "INT-1330": 1,
         "INT-1340": 1,
         "INT-2110": 1,
-        "INT-3210": 1,
-        "INT-4210": 1,
+        "INT-2130": 1,
+        "INT-2240": 1,
         "INT-6110": 1,
         "INT-6120": 1,
+        "INT-6140": 1,
         "INT-6210": 1
       }
     },
@@ -39919,13 +40567,15 @@
         "INT-1330": 1,
         "INT-1410": 1,
         "INT-1430": 1,
+        "INT-1440": 1,
         "INT-2110": 1,
         "INT-2130": 1,
         "INT-2410": 1,
         "INT-2420": 1,
         "INT-2440": 1,
         "INT-2530": 1,
-        "INT-4110": 1
+        "INT-4110": 1,
+        "INT-4240": 1
       }
     },
     {
@@ -39995,13 +40645,13 @@
         "benefit_explore_count": 1,
         "billing_page_view_count": 0,
         "churn_page_view_count": 0,
-        "last_3_events": "page_view→click",
+        "last_3_events": "navigate_back→page_view→page_view",
         "mnp_benefit_check": 0,
-        "product_explore_count": 0,
+        "product_explore_count": 1,
         "quality_action_count": 0,
         "repeated_entity_count_5m": 1,
         "support_entry_count_5m": 0,
-        "가족 결합 관련 행동": 0,
+        "가족 결합 관련 행동": 1,
         "속도 측정 실행": 0,
         "위약금 조회 행동": 0,
         "장애 페이지 체류": 0,
@@ -40009,14 +40659,14 @@
         "해지 페이지 진입": 0
       },
       "event_features": {
-        "current_page": "benefit",
+        "current_page": "subscription",
         "is_churn_signal": 0,
-        "is_click": 1,
+        "is_click": 0,
         "is_confirm": 0,
-        "is_page_view": 0,
+        "is_page_view": 1,
         "is_support_entry": 0,
-        "last_entity": "coupon_use",
-        "last_event_type": "click"
+        "last_entity": "family_bundle",
+        "last_event_type": "page_view"
       },
       "actions": [
         {
@@ -40025,19 +40675,41 @@
           "entity": "benefit_membership"
         },
         {
-          "behavior_id": "2-D1",
-          "event_type": "click",
-          "entity": "coupon_use"
+          "behavior_id": "2-D2",
+          "event_type": "page_view",
+          "entity": "membership_tier"
+        },
+        {
+          "behavior_id": "BACK",
+          "event_type": "navigate_back",
+          "entity": "back_to_step1"
+        },
+        {
+          "behavior_id": "1-E",
+          "event_type": "page_view",
+          "entity": "product_explore"
+        },
+        {
+          "behavior_id": "2-E3",
+          "event_type": "page_view",
+          "entity": "family_bundle"
         }
       ],
       "intent_labels": {
         "INT-1340": 1,
         "INT-1410": 1,
         "INT-1430": 1,
-        "INT-4110": 1,
+        "INT-1440": 1,
+        "INT-2110": 1,
+        "INT-2130": 1,
+        "INT-2240": 1,
         "INT-4210": 1,
+        "INT-4220": 1,
+        "INT-4230": 1,
+        "INT-4240": 1,
         "INT-6110": 1,
         "INT-6120": 1,
+        "INT-6140": 1,
         "INT-6210": 1
       }
     },
@@ -40148,9 +40820,9 @@
         "INT-2110": 1,
         "INT-2130": 1,
         "INT-2240": 1,
-        "INT-4210": 1,
         "INT-6110": 1,
         "INT-6120": 1,
+        "INT-6140": 1,
         "INT-6210": 1
       }
     },
@@ -40485,13 +41157,17 @@
       ],
       "intent_labels": {
         "INT-1140": 1,
+        "INT-1340": 1,
         "INT-2110": 1,
         "INT-2130": 1,
         "INT-2140": 1,
         "INT-2240": 1,
         "INT-2410": 1,
         "INT-2540": 1,
-        "INT-6110": 1
+        "INT-6110": 1,
+        "INT-6120": 1,
+        "INT-6140": 1,
+        "INT-6210": 1
       }
     },
     {
@@ -40603,6 +41279,9 @@
         "INT-2130": 1,
         "INT-2310": 1,
         "INT-2410": 1,
+        "INT-4210": 1,
+        "INT-4220": 1,
+        "INT-4230": 1,
         "INT-4240": 1
       }
     },
@@ -40716,6 +41395,9 @@
         "INT-2130": 1,
         "INT-2310": 1,
         "INT-2320": 1,
+        "INT-4210": 1,
+        "INT-4220": 1,
+        "INT-4230": 1,
         "INT-4240": 1
       }
     },
@@ -40941,9 +41623,9 @@
         "INT-2110": 1,
         "INT-2130": 1,
         "INT-2240": 1,
-        "INT-4210": 1,
         "INT-6110": 1,
         "INT-6120": 1,
+        "INT-6140": 1,
         "INT-6210": 1
       }
     },
@@ -41052,11 +41734,13 @@
       "intent_labels": {
         "INT-1410": 1,
         "INT-1430": 1,
+        "INT-1440": 1,
         "INT-2130": 1,
         "INT-2310": 1,
         "INT-2410": 1,
         "INT-4120": 1,
-        "INT-4140": 1
+        "INT-4140": 1,
+        "INT-4240": 1
       }
     },
     {
@@ -41163,12 +41847,16 @@
       ],
       "intent_labels": {
         "INT-1110": 1,
+        "INT-1340": 1,
         "INT-2110": 1,
         "INT-2130": 1,
         "INT-2240": 1,
         "INT-2310": 1,
         "INT-2320": 1,
-        "INT-6110": 1
+        "INT-6110": 1,
+        "INT-6120": 1,
+        "INT-6140": 1,
+        "INT-6210": 1
       }
     },
     {
@@ -41352,13 +42040,13 @@
         "benefit_explore_count": 0,
         "billing_page_view_count": 0,
         "churn_page_view_count": 0,
-        "last_3_events": "page_view→click",
+        "last_3_events": "page_view→page_view→page_view",
         "mnp_benefit_check": 0,
-        "product_explore_count": 0,
+        "product_explore_count": 1,
         "quality_action_count": 0,
-        "repeated_entity_count_5m": 1,
+        "repeated_entity_count_5m": 2,
         "support_entry_count_5m": 0,
-        "가족 결합 관련 행동": 0,
+        "가족 결합 관련 행동": 1,
         "속도 측정 실행": 0,
         "위약금 조회 행동": 0,
         "장애 페이지 체류": 0,
@@ -41366,36 +42054,40 @@
         "해지 페이지 진입": 0
       },
       "event_features": {
-        "current_page": "product",
+        "current_page": "subscription",
         "is_churn_signal": 0,
-        "is_click": 1,
+        "is_click": 0,
         "is_confirm": 0,
-        "is_page_view": 0,
+        "is_page_view": 1,
         "is_support_entry": 0,
-        "last_entity": "plan_change_button",
-        "last_event_type": "click"
+        "last_entity": "family_bundle",
+        "last_event_type": "page_view"
       },
       "actions": [
         {
-          "behavior_id": "1-C",
+          "behavior_id": "1-E",
           "event_type": "page_view",
-          "entity": "subscription_info"
+          "entity": "product_explore"
         },
         {
-          "behavior_id": "2-C1",
-          "event_type": "click",
-          "entity": "plan_change_button"
+          "behavior_id": "2-E3",
+          "event_type": "page_view",
+          "entity": "family_bundle"
+        },
+        {
+          "behavior_id": "2-E3",
+          "event_type": "page_view",
+          "entity": "family_bundle"
         }
       ],
       "intent_labels": {
-        "INT-1310": 1,
-        "INT-1330": 1,
         "INT-1340": 1,
         "INT-2110": 1,
-        "INT-3210": 1,
-        "INT-4210": 1,
+        "INT-2130": 1,
+        "INT-2240": 1,
         "INT-6110": 1,
         "INT-6120": 1,
+        "INT-6140": 1,
         "INT-6210": 1
       }
     },
@@ -41466,13 +42158,13 @@
         "benefit_explore_count": 1,
         "billing_page_view_count": 0,
         "churn_page_view_count": 0,
-        "last_3_events": "page_view→click",
+        "last_3_events": "navigate_back→page_view→page_view",
         "mnp_benefit_check": 0,
-        "product_explore_count": 0,
+        "product_explore_count": 1,
         "quality_action_count": 0,
         "repeated_entity_count_5m": 1,
         "support_entry_count_5m": 0,
-        "가족 결합 관련 행동": 0,
+        "가족 결합 관련 행동": 1,
         "속도 측정 실행": 0,
         "위약금 조회 행동": 0,
         "장애 페이지 체류": 0,
@@ -41480,14 +42172,14 @@
         "해지 페이지 진입": 0
       },
       "event_features": {
-        "current_page": "benefit",
+        "current_page": "subscription",
         "is_churn_signal": 0,
-        "is_click": 1,
+        "is_click": 0,
         "is_confirm": 0,
-        "is_page_view": 0,
+        "is_page_view": 1,
         "is_support_entry": 0,
-        "last_entity": "coupon_use",
-        "last_event_type": "click"
+        "last_entity": "family_bundle",
+        "last_event_type": "page_view"
       },
       "actions": [
         {
@@ -41496,19 +42188,41 @@
           "entity": "benefit_membership"
         },
         {
-          "behavior_id": "2-D1",
-          "event_type": "click",
-          "entity": "coupon_use"
+          "behavior_id": "2-D2",
+          "event_type": "page_view",
+          "entity": "membership_tier"
+        },
+        {
+          "behavior_id": "BACK",
+          "event_type": "navigate_back",
+          "entity": "back_to_step1"
+        },
+        {
+          "behavior_id": "1-E",
+          "event_type": "page_view",
+          "entity": "product_explore"
+        },
+        {
+          "behavior_id": "2-E3",
+          "event_type": "page_view",
+          "entity": "family_bundle"
         }
       ],
       "intent_labels": {
         "INT-1340": 1,
         "INT-1410": 1,
         "INT-1430": 1,
-        "INT-4110": 1,
+        "INT-1440": 1,
+        "INT-2110": 1,
+        "INT-2130": 1,
+        "INT-2240": 1,
         "INT-4210": 1,
+        "INT-4220": 1,
+        "INT-4230": 1,
+        "INT-4240": 1,
         "INT-6110": 1,
         "INT-6120": 1,
+        "INT-6140": 1,
         "INT-6210": 1
       }
     },
@@ -42065,11 +42779,13 @@
       "intent_labels": {
         "INT-1410": 1,
         "INT-1430": 1,
+        "INT-1440": 1,
         "INT-2130": 1,
         "INT-2310": 1,
         "INT-2410": 1,
         "INT-4120": 1,
-        "INT-4140": 1
+        "INT-4140": 1,
+        "INT-4240": 1
       }
     },
     {
@@ -42386,13 +43102,13 @@
         "benefit_explore_count": 1,
         "billing_page_view_count": 0,
         "churn_page_view_count": 0,
-        "last_3_events": "page_view→click",
+        "last_3_events": "navigate_back→page_view→page_view",
         "mnp_benefit_check": 0,
-        "product_explore_count": 0,
+        "product_explore_count": 1,
         "quality_action_count": 0,
         "repeated_entity_count_5m": 1,
         "support_entry_count_5m": 0,
-        "가족 결합 관련 행동": 0,
+        "가족 결합 관련 행동": 1,
         "속도 측정 실행": 0,
         "위약금 조회 행동": 0,
         "장애 페이지 체류": 0,
@@ -42400,14 +43116,14 @@
         "해지 페이지 진입": 0
       },
       "event_features": {
-        "current_page": "benefit",
+        "current_page": "subscription",
         "is_churn_signal": 0,
-        "is_click": 1,
+        "is_click": 0,
         "is_confirm": 0,
-        "is_page_view": 0,
+        "is_page_view": 1,
         "is_support_entry": 0,
-        "last_entity": "coupon_use",
-        "last_event_type": "click"
+        "last_entity": "family_bundle",
+        "last_event_type": "page_view"
       },
       "actions": [
         {
@@ -42416,19 +43132,41 @@
           "entity": "benefit_membership"
         },
         {
-          "behavior_id": "2-D1",
-          "event_type": "click",
-          "entity": "coupon_use"
+          "behavior_id": "2-D2",
+          "event_type": "page_view",
+          "entity": "membership_tier"
+        },
+        {
+          "behavior_id": "BACK",
+          "event_type": "navigate_back",
+          "entity": "back_to_step1"
+        },
+        {
+          "behavior_id": "1-E",
+          "event_type": "page_view",
+          "entity": "product_explore"
+        },
+        {
+          "behavior_id": "2-E3",
+          "event_type": "page_view",
+          "entity": "family_bundle"
         }
       ],
       "intent_labels": {
         "INT-1340": 1,
         "INT-1410": 1,
         "INT-1430": 1,
-        "INT-4110": 1,
+        "INT-1440": 1,
+        "INT-2110": 1,
+        "INT-2130": 1,
+        "INT-2240": 1,
         "INT-4210": 1,
+        "INT-4220": 1,
+        "INT-4230": 1,
+        "INT-4240": 1,
         "INT-6110": 1,
         "INT-6120": 1,
+        "INT-6140": 1,
         "INT-6210": 1
       }
     },
@@ -43286,13 +44024,13 @@
         "benefit_explore_count": 0,
         "billing_page_view_count": 0,
         "churn_page_view_count": 0,
-        "last_3_events": "page_view→click",
+        "last_3_events": "page_view→page_view→page_view",
         "mnp_benefit_check": 0,
-        "product_explore_count": 0,
+        "product_explore_count": 1,
         "quality_action_count": 0,
-        "repeated_entity_count_5m": 1,
+        "repeated_entity_count_5m": 2,
         "support_entry_count_5m": 0,
-        "가족 결합 관련 행동": 0,
+        "가족 결합 관련 행동": 1,
         "속도 측정 실행": 0,
         "위약금 조회 행동": 0,
         "장애 페이지 체류": 0,
@@ -43300,36 +44038,40 @@
         "해지 페이지 진입": 0
       },
       "event_features": {
-        "current_page": "product",
+        "current_page": "subscription",
         "is_churn_signal": 0,
-        "is_click": 1,
+        "is_click": 0,
         "is_confirm": 0,
-        "is_page_view": 0,
+        "is_page_view": 1,
         "is_support_entry": 0,
-        "last_entity": "plan_change_button",
-        "last_event_type": "click"
+        "last_entity": "family_bundle",
+        "last_event_type": "page_view"
       },
       "actions": [
         {
-          "behavior_id": "1-C",
+          "behavior_id": "1-E",
           "event_type": "page_view",
-          "entity": "subscription_info"
+          "entity": "product_explore"
         },
         {
-          "behavior_id": "2-C1",
-          "event_type": "click",
-          "entity": "plan_change_button"
+          "behavior_id": "2-E3",
+          "event_type": "page_view",
+          "entity": "family_bundle"
+        },
+        {
+          "behavior_id": "2-E3",
+          "event_type": "page_view",
+          "entity": "family_bundle"
         }
       ],
       "intent_labels": {
-        "INT-1310": 1,
-        "INT-1330": 1,
         "INT-1340": 1,
         "INT-2110": 1,
-        "INT-3210": 1,
-        "INT-4210": 1,
+        "INT-2130": 1,
+        "INT-2240": 1,
         "INT-6110": 1,
         "INT-6120": 1,
+        "INT-6140": 1,
         "INT-6210": 1
       }
     },
@@ -43437,13 +44179,17 @@
       ],
       "intent_labels": {
         "INT-1140": 1,
+        "INT-1340": 1,
         "INT-2110": 1,
         "INT-2130": 1,
         "INT-2140": 1,
         "INT-2240": 1,
         "INT-2410": 1,
         "INT-2540": 1,
-        "INT-6110": 1
+        "INT-6110": 1,
+        "INT-6120": 1,
+        "INT-6140": 1,
+        "INT-6210": 1
       }
     },
     {
@@ -44001,12 +44747,16 @@
       ],
       "intent_labels": {
         "INT-1110": 1,
+        "INT-1340": 1,
         "INT-2110": 1,
         "INT-2130": 1,
         "INT-2240": 1,
         "INT-2310": 1,
         "INT-2320": 1,
-        "INT-6110": 1
+        "INT-6110": 1,
+        "INT-6120": 1,
+        "INT-6140": 1,
+        "INT-6210": 1
       }
     },
     {
@@ -44452,9 +45202,9 @@
         "INT-2110": 1,
         "INT-2130": 1,
         "INT-2240": 1,
-        "INT-4210": 1,
         "INT-6110": 1,
         "INT-6120": 1,
+        "INT-6140": 1,
         "INT-6210": 1
       }
     },
@@ -44638,13 +45388,13 @@
         "benefit_explore_count": 0,
         "billing_page_view_count": 0,
         "churn_page_view_count": 0,
-        "last_3_events": "page_view→click",
+        "last_3_events": "page_view→page_view→page_view",
         "mnp_benefit_check": 0,
-        "product_explore_count": 0,
+        "product_explore_count": 1,
         "quality_action_count": 0,
-        "repeated_entity_count_5m": 1,
+        "repeated_entity_count_5m": 2,
         "support_entry_count_5m": 0,
-        "가족 결합 관련 행동": 0,
+        "가족 결합 관련 행동": 1,
         "속도 측정 실행": 0,
         "위약금 조회 행동": 0,
         "장애 페이지 체류": 0,
@@ -44652,36 +45402,40 @@
         "해지 페이지 진입": 0
       },
       "event_features": {
-        "current_page": "product",
+        "current_page": "subscription",
         "is_churn_signal": 0,
-        "is_click": 1,
+        "is_click": 0,
         "is_confirm": 0,
-        "is_page_view": 0,
+        "is_page_view": 1,
         "is_support_entry": 0,
-        "last_entity": "plan_change_button",
-        "last_event_type": "click"
+        "last_entity": "family_bundle",
+        "last_event_type": "page_view"
       },
       "actions": [
         {
-          "behavior_id": "1-C",
+          "behavior_id": "1-E",
           "event_type": "page_view",
-          "entity": "subscription_info"
+          "entity": "product_explore"
         },
         {
-          "behavior_id": "2-C1",
-          "event_type": "click",
-          "entity": "plan_change_button"
+          "behavior_id": "2-E3",
+          "event_type": "page_view",
+          "entity": "family_bundle"
+        },
+        {
+          "behavior_id": "2-E3",
+          "event_type": "page_view",
+          "entity": "family_bundle"
         }
       ],
       "intent_labels": {
-        "INT-1310": 1,
-        "INT-1330": 1,
         "INT-1340": 1,
         "INT-2110": 1,
-        "INT-3210": 1,
-        "INT-4210": 1,
+        "INT-2130": 1,
+        "INT-2240": 1,
         "INT-6110": 1,
         "INT-6120": 1,
+        "INT-6140": 1,
         "INT-6210": 1
       }
     },
@@ -45013,13 +45767,17 @@
       ],
       "intent_labels": {
         "INT-1140": 1,
+        "INT-1340": 1,
         "INT-2110": 1,
         "INT-2130": 1,
         "INT-2140": 1,
         "INT-2240": 1,
         "INT-2410": 1,
         "INT-2540": 1,
-        "INT-6110": 1
+        "INT-6110": 1,
+        "INT-6120": 1,
+        "INT-6140": 1,
+        "INT-6210": 1
       }
     },
     {
@@ -45314,13 +46072,13 @@
         "benefit_explore_count": 1,
         "billing_page_view_count": 0,
         "churn_page_view_count": 0,
-        "last_3_events": "page_view→click",
+        "last_3_events": "navigate_back→page_view→page_view",
         "mnp_benefit_check": 0,
-        "product_explore_count": 0,
+        "product_explore_count": 1,
         "quality_action_count": 0,
         "repeated_entity_count_5m": 1,
         "support_entry_count_5m": 0,
-        "가족 결합 관련 행동": 0,
+        "가족 결합 관련 행동": 1,
         "속도 측정 실행": 0,
         "위약금 조회 행동": 0,
         "장애 페이지 체류": 0,
@@ -45328,14 +46086,14 @@
         "해지 페이지 진입": 0
       },
       "event_features": {
-        "current_page": "benefit",
+        "current_page": "subscription",
         "is_churn_signal": 0,
-        "is_click": 1,
+        "is_click": 0,
         "is_confirm": 0,
-        "is_page_view": 0,
+        "is_page_view": 1,
         "is_support_entry": 0,
-        "last_entity": "coupon_use",
-        "last_event_type": "click"
+        "last_entity": "family_bundle",
+        "last_event_type": "page_view"
       },
       "actions": [
         {
@@ -45344,19 +46102,41 @@
           "entity": "benefit_membership"
         },
         {
-          "behavior_id": "2-D1",
-          "event_type": "click",
-          "entity": "coupon_use"
+          "behavior_id": "2-D2",
+          "event_type": "page_view",
+          "entity": "membership_tier"
+        },
+        {
+          "behavior_id": "BACK",
+          "event_type": "navigate_back",
+          "entity": "back_to_step1"
+        },
+        {
+          "behavior_id": "1-E",
+          "event_type": "page_view",
+          "entity": "product_explore"
+        },
+        {
+          "behavior_id": "2-E3",
+          "event_type": "page_view",
+          "entity": "family_bundle"
         }
       ],
       "intent_labels": {
         "INT-1340": 1,
         "INT-1410": 1,
         "INT-1430": 1,
-        "INT-4110": 1,
+        "INT-1440": 1,
+        "INT-2110": 1,
+        "INT-2130": 1,
+        "INT-2240": 1,
         "INT-4210": 1,
+        "INT-4220": 1,
+        "INT-4230": 1,
+        "INT-4240": 1,
         "INT-6110": 1,
         "INT-6120": 1,
+        "INT-6140": 1,
         "INT-6210": 1
       }
     },
@@ -46554,13 +47334,15 @@
         "INT-1330": 1,
         "INT-1410": 1,
         "INT-1430": 1,
+        "INT-1440": 1,
         "INT-2110": 1,
         "INT-2130": 1,
         "INT-2410": 1,
         "INT-2420": 1,
         "INT-2440": 1,
         "INT-2530": 1,
-        "INT-4110": 1
+        "INT-4110": 1,
+        "INT-4240": 1
       }
     },
     {
@@ -46891,11 +47673,13 @@
       "intent_labels": {
         "INT-1410": 1,
         "INT-1430": 1,
+        "INT-1440": 1,
         "INT-2130": 1,
         "INT-2310": 1,
         "INT-2410": 1,
         "INT-4120": 1,
-        "INT-4140": 1
+        "INT-4140": 1,
+        "INT-4240": 1
       }
     },
     {
@@ -46962,53 +47746,70 @@
       },
       "pattern_features": {
         "WiFi 진단 실행": 0,
-        "benefit_explore_count": 1,
+        "benefit_explore_count": 0,
         "billing_page_view_count": 0,
         "churn_page_view_count": 0,
-        "last_3_events": "page_view→page_view",
+        "last_3_events": "navigate_back→page_view→click",
         "mnp_benefit_check": 0,
-        "product_explore_count": 0,
+        "product_explore_count": 1,
         "quality_action_count": 0,
         "repeated_entity_count_5m": 1,
         "support_entry_count_5m": 0,
-        "가족 결합 관련 행동": 0,
+        "가족 결합 관련 행동": 1,
         "속도 측정 실행": 0,
         "위약금 조회 행동": 0,
         "장애 페이지 체류": 0,
-        "할인 페이지 체류": 30,
+        "할인 페이지 체류": 0,
         "해지 페이지 진입": 0
       },
       "event_features": {
-        "current_page": "unknown",
+        "current_page": "product",
         "is_churn_signal": 0,
-        "is_click": 0,
+        "is_click": 1,
         "is_confirm": 0,
-        "is_page_view": 1,
+        "is_page_view": 0,
         "is_support_entry": 0,
-        "last_entity": "membership_tier",
-        "last_event_type": "page_view"
+        "last_entity": "plan_change_button",
+        "last_event_type": "click"
       },
       "actions": [
         {
-          "behavior_id": "1-D",
+          "behavior_id": "1-E",
           "event_type": "page_view",
-          "entity": "benefit_membership"
+          "entity": "product_explore"
         },
         {
-          "behavior_id": "2-D2",
+          "behavior_id": "2-E3",
           "event_type": "page_view",
-          "entity": "membership_tier"
+          "entity": "family_bundle"
+        },
+        {
+          "behavior_id": "BACK",
+          "event_type": "navigate_back",
+          "entity": "back_to_step1"
+        },
+        {
+          "behavior_id": "1-C",
+          "event_type": "page_view",
+          "entity": "subscription_info"
+        },
+        {
+          "behavior_id": "2-C1",
+          "event_type": "click",
+          "entity": "plan_change_button"
         }
       ],
       "intent_labels": {
+        "INT-1310": 1,
+        "INT-1330": 1,
         "INT-1340": 1,
-        "INT-1410": 1,
-        "INT-1430": 1,
-        "INT-1440": 1,
-        "INT-4210": 1,
-        "INT-4240": 1,
+        "INT-2110": 1,
+        "INT-2130": 1,
+        "INT-2240": 1,
+        "INT-3210": 1,
         "INT-6110": 1,
         "INT-6120": 1,
+        "INT-6140": 1,
         "INT-6210": 1
       }
     },
@@ -47233,6 +48034,9 @@
         "INT-2130": 1,
         "INT-2310": 1,
         "INT-2410": 1,
+        "INT-4210": 1,
+        "INT-4220": 1,
+        "INT-4230": 1,
         "INT-4240": 1
       }
     },
@@ -47341,9 +48145,11 @@
       "intent_labels": {
         "INT-1410": 1,
         "INT-1430": 1,
+        "INT-1440": 1,
         "INT-2150": 1,
         "INT-4110": 1,
         "INT-4120": 1,
+        "INT-4240": 1,
         "INT-7310": 1,
         "INT-7340": 1
       }
@@ -47458,6 +48264,9 @@
         "INT-2130": 1,
         "INT-2310": 1,
         "INT-2320": 1,
+        "INT-4210": 1,
+        "INT-4220": 1,
+        "INT-4230": 1,
         "INT-4240": 1
       }
     },
@@ -47769,13 +48578,13 @@
         "benefit_explore_count": 1,
         "billing_page_view_count": 0,
         "churn_page_view_count": 0,
-        "last_3_events": "page_view→click",
+        "last_3_events": "navigate_back→page_view→page_view",
         "mnp_benefit_check": 0,
-        "product_explore_count": 0,
+        "product_explore_count": 1,
         "quality_action_count": 0,
         "repeated_entity_count_5m": 1,
         "support_entry_count_5m": 0,
-        "가족 결합 관련 행동": 0,
+        "가족 결합 관련 행동": 1,
         "속도 측정 실행": 0,
         "위약금 조회 행동": 0,
         "장애 페이지 체류": 0,
@@ -47783,14 +48592,14 @@
         "해지 페이지 진입": 0
       },
       "event_features": {
-        "current_page": "benefit",
+        "current_page": "subscription",
         "is_churn_signal": 0,
-        "is_click": 1,
+        "is_click": 0,
         "is_confirm": 0,
-        "is_page_view": 0,
+        "is_page_view": 1,
         "is_support_entry": 0,
-        "last_entity": "coupon_use",
-        "last_event_type": "click"
+        "last_entity": "family_bundle",
+        "last_event_type": "page_view"
       },
       "actions": [
         {
@@ -47799,19 +48608,41 @@
           "entity": "benefit_membership"
         },
         {
-          "behavior_id": "2-D1",
-          "event_type": "click",
-          "entity": "coupon_use"
+          "behavior_id": "2-D2",
+          "event_type": "page_view",
+          "entity": "membership_tier"
+        },
+        {
+          "behavior_id": "BACK",
+          "event_type": "navigate_back",
+          "entity": "back_to_step1"
+        },
+        {
+          "behavior_id": "1-E",
+          "event_type": "page_view",
+          "entity": "product_explore"
+        },
+        {
+          "behavior_id": "2-E3",
+          "event_type": "page_view",
+          "entity": "family_bundle"
         }
       ],
       "intent_labels": {
         "INT-1340": 1,
         "INT-1410": 1,
         "INT-1430": 1,
-        "INT-4110": 1,
+        "INT-1440": 1,
+        "INT-2110": 1,
+        "INT-2130": 1,
+        "INT-2240": 1,
         "INT-4210": 1,
+        "INT-4220": 1,
+        "INT-4230": 1,
+        "INT-4240": 1,
         "INT-6110": 1,
         "INT-6120": 1,
+        "INT-6140": 1,
         "INT-6210": 1
       }
     },
@@ -48034,9 +48865,9 @@
         "INT-2110": 1,
         "INT-2130": 1,
         "INT-2240": 1,
-        "INT-4210": 1,
         "INT-6110": 1,
         "INT-6120": 1,
+        "INT-6140": 1,
         "INT-6210": 1
       }
     },
@@ -48150,6 +48981,9 @@
         "INT-2140": 1,
         "INT-2410": 1,
         "INT-2540": 1,
+        "INT-4210": 1,
+        "INT-4220": 1,
+        "INT-4230": 1,
         "INT-4240": 1
       }
     },
@@ -48220,13 +49054,13 @@
         "benefit_explore_count": 1,
         "billing_page_view_count": 0,
         "churn_page_view_count": 0,
-        "last_3_events": "page_view→click",
+        "last_3_events": "navigate_back→page_view→page_view",
         "mnp_benefit_check": 0,
-        "product_explore_count": 0,
+        "product_explore_count": 1,
         "quality_action_count": 0,
         "repeated_entity_count_5m": 1,
         "support_entry_count_5m": 0,
-        "가족 결합 관련 행동": 0,
+        "가족 결합 관련 행동": 1,
         "속도 측정 실행": 0,
         "위약금 조회 행동": 0,
         "장애 페이지 체류": 0,
@@ -48234,14 +49068,14 @@
         "해지 페이지 진입": 0
       },
       "event_features": {
-        "current_page": "benefit",
+        "current_page": "subscription",
         "is_churn_signal": 0,
-        "is_click": 1,
+        "is_click": 0,
         "is_confirm": 0,
-        "is_page_view": 0,
+        "is_page_view": 1,
         "is_support_entry": 0,
-        "last_entity": "coupon_use",
-        "last_event_type": "click"
+        "last_entity": "family_bundle",
+        "last_event_type": "page_view"
       },
       "actions": [
         {
@@ -48250,19 +49084,41 @@
           "entity": "benefit_membership"
         },
         {
-          "behavior_id": "2-D1",
-          "event_type": "click",
-          "entity": "coupon_use"
+          "behavior_id": "2-D2",
+          "event_type": "page_view",
+          "entity": "membership_tier"
+        },
+        {
+          "behavior_id": "BACK",
+          "event_type": "navigate_back",
+          "entity": "back_to_step1"
+        },
+        {
+          "behavior_id": "1-E",
+          "event_type": "page_view",
+          "entity": "product_explore"
+        },
+        {
+          "behavior_id": "2-E3",
+          "event_type": "page_view",
+          "entity": "family_bundle"
         }
       ],
       "intent_labels": {
         "INT-1340": 1,
         "INT-1410": 1,
         "INT-1430": 1,
-        "INT-4110": 1,
+        "INT-1440": 1,
+        "INT-2110": 1,
+        "INT-2130": 1,
+        "INT-2240": 1,
         "INT-4210": 1,
+        "INT-4220": 1,
+        "INT-4230": 1,
+        "INT-4240": 1,
         "INT-6110": 1,
         "INT-6120": 1,
+        "INT-6140": 1,
         "INT-6210": 1
       }
     },
@@ -48600,6 +49456,9 @@
         "INT-2140": 1,
         "INT-2410": 1,
         "INT-2540": 1,
+        "INT-4210": 1,
+        "INT-4220": 1,
+        "INT-4230": 1,
         "INT-4240": 1
       }
     },
@@ -49045,10 +49904,12 @@
       "intent_labels": {
         "INT-1410": 1,
         "INT-1430": 1,
+        "INT-1440": 1,
         "INT-2150": 1,
         "INT-4110": 1,
         "INT-4120": 1,
         "INT-4140": 1,
+        "INT-4240": 1,
         "INT-7310": 1,
         "INT-7340": 1
       }
@@ -49723,11 +50584,13 @@
       "intent_labels": {
         "INT-1410": 1,
         "INT-1430": 1,
+        "INT-1440": 1,
         "INT-2130": 1,
         "INT-2310": 1,
         "INT-2410": 1,
         "INT-4120": 1,
-        "INT-4140": 1
+        "INT-4140": 1,
+        "INT-4240": 1
       }
     },
     {
@@ -50062,9 +50925,11 @@
       "intent_labels": {
         "INT-1410": 1,
         "INT-1430": 1,
+        "INT-1440": 1,
         "INT-2150": 1,
         "INT-4110": 1,
         "INT-4120": 1,
+        "INT-4240": 1,
         "INT-7310": 1,
         "INT-7340": 1
       }
@@ -50179,6 +51044,9 @@
         "INT-2140": 1,
         "INT-2410": 1,
         "INT-2540": 1,
+        "INT-4210": 1,
+        "INT-4220": 1,
+        "INT-4230": 1,
         "INT-4240": 1
       }
     },
@@ -51109,13 +51977,17 @@
       ],
       "intent_labels": {
         "INT-1140": 1,
+        "INT-1340": 1,
         "INT-2110": 1,
         "INT-2130": 1,
         "INT-2140": 1,
         "INT-2240": 1,
         "INT-2410": 1,
         "INT-2540": 1,
-        "INT-6110": 1
+        "INT-6110": 1,
+        "INT-6120": 1,
+        "INT-6140": 1,
+        "INT-6210": 1
       }
     },
     {
@@ -51342,6 +52214,9 @@
         "INT-2130": 1,
         "INT-2310": 1,
         "INT-2320": 1,
+        "INT-4210": 1,
+        "INT-4220": 1,
+        "INT-4230": 1,
         "INT-4240": 1
       }
     },
@@ -51673,13 +52548,17 @@
       ],
       "intent_labels": {
         "INT-1140": 1,
+        "INT-1340": 1,
         "INT-2110": 1,
         "INT-2130": 1,
         "INT-2140": 1,
         "INT-2240": 1,
         "INT-2410": 1,
         "INT-2540": 1,
-        "INT-6110": 1
+        "INT-6110": 1,
+        "INT-6120": 1,
+        "INT-6140": 1,
+        "INT-6210": 1
       }
     },
     {
@@ -51906,6 +52785,9 @@
         "INT-2130": 1,
         "INT-2310": 1,
         "INT-2320": 1,
+        "INT-4210": 1,
+        "INT-4220": 1,
+        "INT-4230": 1,
         "INT-4240": 1
       }
     },
@@ -52464,13 +53346,17 @@
       ],
       "intent_labels": {
         "INT-1140": 1,
+        "INT-1340": 1,
         "INT-2110": 1,
         "INT-2130": 1,
         "INT-2140": 1,
         "INT-2240": 1,
         "INT-2410": 1,
         "INT-2540": 1,
-        "INT-6110": 1
+        "INT-6110": 1,
+        "INT-6120": 1,
+        "INT-6140": 1,
+        "INT-6210": 1
       }
     },
     {
@@ -52653,13 +53539,13 @@
         "benefit_explore_count": 1,
         "billing_page_view_count": 0,
         "churn_page_view_count": 0,
-        "last_3_events": "page_view→click",
+        "last_3_events": "navigate_back→page_view→page_view",
         "mnp_benefit_check": 0,
-        "product_explore_count": 0,
+        "product_explore_count": 1,
         "quality_action_count": 0,
         "repeated_entity_count_5m": 1,
         "support_entry_count_5m": 0,
-        "가족 결합 관련 행동": 0,
+        "가족 결합 관련 행동": 1,
         "속도 측정 실행": 0,
         "위약금 조회 행동": 0,
         "장애 페이지 체류": 0,
@@ -52667,14 +53553,14 @@
         "해지 페이지 진입": 0
       },
       "event_features": {
-        "current_page": "benefit",
+        "current_page": "subscription",
         "is_churn_signal": 0,
-        "is_click": 1,
+        "is_click": 0,
         "is_confirm": 0,
-        "is_page_view": 0,
+        "is_page_view": 1,
         "is_support_entry": 0,
-        "last_entity": "coupon_use",
-        "last_event_type": "click"
+        "last_entity": "family_bundle",
+        "last_event_type": "page_view"
       },
       "actions": [
         {
@@ -52683,19 +53569,41 @@
           "entity": "benefit_membership"
         },
         {
-          "behavior_id": "2-D1",
-          "event_type": "click",
-          "entity": "coupon_use"
+          "behavior_id": "2-D2",
+          "event_type": "page_view",
+          "entity": "membership_tier"
+        },
+        {
+          "behavior_id": "BACK",
+          "event_type": "navigate_back",
+          "entity": "back_to_step1"
+        },
+        {
+          "behavior_id": "1-E",
+          "event_type": "page_view",
+          "entity": "product_explore"
+        },
+        {
+          "behavior_id": "2-E3",
+          "event_type": "page_view",
+          "entity": "family_bundle"
         }
       ],
       "intent_labels": {
         "INT-1340": 1,
         "INT-1410": 1,
         "INT-1430": 1,
-        "INT-4110": 1,
+        "INT-1440": 1,
+        "INT-2110": 1,
+        "INT-2130": 1,
+        "INT-2240": 1,
         "INT-4210": 1,
+        "INT-4220": 1,
+        "INT-4230": 1,
+        "INT-4240": 1,
         "INT-6110": 1,
         "INT-6120": 1,
+        "INT-6140": 1,
         "INT-6210": 1
       }
     },
@@ -53389,6 +54297,9 @@
         "INT-2140": 1,
         "INT-2410": 1,
         "INT-2540": 1,
+        "INT-4210": 1,
+        "INT-4220": 1,
+        "INT-4230": 1,
         "INT-4240": 1
       }
     },
@@ -53571,13 +54482,13 @@
         "benefit_explore_count": 1,
         "billing_page_view_count": 0,
         "churn_page_view_count": 0,
-        "last_3_events": "page_view→click",
+        "last_3_events": "navigate_back→page_view→page_view",
         "mnp_benefit_check": 0,
-        "product_explore_count": 0,
+        "product_explore_count": 1,
         "quality_action_count": 0,
         "repeated_entity_count_5m": 1,
         "support_entry_count_5m": 0,
-        "가족 결합 관련 행동": 0,
+        "가족 결합 관련 행동": 1,
         "속도 측정 실행": 0,
         "위약금 조회 행동": 0,
         "장애 페이지 체류": 0,
@@ -53585,14 +54496,14 @@
         "해지 페이지 진입": 0
       },
       "event_features": {
-        "current_page": "benefit",
+        "current_page": "subscription",
         "is_churn_signal": 0,
-        "is_click": 1,
+        "is_click": 0,
         "is_confirm": 0,
-        "is_page_view": 0,
+        "is_page_view": 1,
         "is_support_entry": 0,
-        "last_entity": "coupon_use",
-        "last_event_type": "click"
+        "last_entity": "family_bundle",
+        "last_event_type": "page_view"
       },
       "actions": [
         {
@@ -53601,19 +54512,41 @@
           "entity": "benefit_membership"
         },
         {
-          "behavior_id": "2-D1",
-          "event_type": "click",
-          "entity": "coupon_use"
+          "behavior_id": "2-D2",
+          "event_type": "page_view",
+          "entity": "membership_tier"
+        },
+        {
+          "behavior_id": "BACK",
+          "event_type": "navigate_back",
+          "entity": "back_to_step1"
+        },
+        {
+          "behavior_id": "1-E",
+          "event_type": "page_view",
+          "entity": "product_explore"
+        },
+        {
+          "behavior_id": "2-E3",
+          "event_type": "page_view",
+          "entity": "family_bundle"
         }
       ],
       "intent_labels": {
         "INT-1340": 1,
         "INT-1410": 1,
         "INT-1430": 1,
-        "INT-4110": 1,
+        "INT-1440": 1,
+        "INT-2110": 1,
+        "INT-2130": 1,
+        "INT-2240": 1,
         "INT-4210": 1,
+        "INT-4220": 1,
+        "INT-4230": 1,
+        "INT-4240": 1,
         "INT-6110": 1,
         "INT-6120": 1,
+        "INT-6140": 1,
         "INT-6210": 1
       }
     },
@@ -53953,6 +54886,9 @@
         "INT-2130": 1,
         "INT-2310": 1,
         "INT-2320": 1,
+        "INT-4210": 1,
+        "INT-4220": 1,
+        "INT-4230": 1,
         "INT-4240": 1
       }
     },
@@ -54065,6 +55001,9 @@
         "INT-2130": 1,
         "INT-2310": 1,
         "INT-2410": 1,
+        "INT-4210": 1,
+        "INT-4220": 1,
+        "INT-4230": 1,
         "INT-4240": 1
       }
     },
@@ -54302,9 +55241,11 @@
       "intent_labels": {
         "INT-1410": 1,
         "INT-1430": 1,
+        "INT-1440": 1,
         "INT-2150": 1,
         "INT-4110": 1,
         "INT-4120": 1,
+        "INT-4240": 1,
         "INT-7310": 1,
         "INT-7340": 1
       }
@@ -54526,11 +55467,13 @@
       "intent_labels": {
         "INT-1410": 1,
         "INT-1430": 1,
+        "INT-1440": 1,
         "INT-2130": 1,
         "INT-2310": 1,
         "INT-2410": 1,
         "INT-4120": 1,
-        "INT-4140": 1
+        "INT-4140": 1,
+        "INT-4240": 1
       }
     },
     {
@@ -54642,6 +55585,9 @@
         "INT-2130": 1,
         "INT-2310": 1,
         "INT-2410": 1,
+        "INT-4210": 1,
+        "INT-4220": 1,
+        "INT-4230": 1,
         "INT-4240": 1
       }
     },
@@ -54709,53 +55655,70 @@
       },
       "pattern_features": {
         "WiFi 진단 실행": 0,
-        "benefit_explore_count": 1,
+        "benefit_explore_count": 0,
         "billing_page_view_count": 0,
         "churn_page_view_count": 0,
-        "last_3_events": "page_view→page_view",
+        "last_3_events": "navigate_back→page_view→click",
         "mnp_benefit_check": 0,
-        "product_explore_count": 0,
+        "product_explore_count": 1,
         "quality_action_count": 0,
         "repeated_entity_count_5m": 1,
         "support_entry_count_5m": 0,
-        "가족 결합 관련 행동": 0,
+        "가족 결합 관련 행동": 1,
         "속도 측정 실행": 0,
         "위약금 조회 행동": 0,
         "장애 페이지 체류": 0,
-        "할인 페이지 체류": 30,
+        "할인 페이지 체류": 0,
         "해지 페이지 진입": 0
       },
       "event_features": {
-        "current_page": "unknown",
+        "current_page": "product",
         "is_churn_signal": 0,
-        "is_click": 0,
+        "is_click": 1,
         "is_confirm": 0,
-        "is_page_view": 1,
+        "is_page_view": 0,
         "is_support_entry": 0,
-        "last_entity": "membership_tier",
-        "last_event_type": "page_view"
+        "last_entity": "plan_change_button",
+        "last_event_type": "click"
       },
       "actions": [
         {
-          "behavior_id": "1-D",
+          "behavior_id": "1-E",
           "event_type": "page_view",
-          "entity": "benefit_membership"
+          "entity": "product_explore"
         },
         {
-          "behavior_id": "2-D2",
+          "behavior_id": "2-E3",
           "event_type": "page_view",
-          "entity": "membership_tier"
+          "entity": "family_bundle"
+        },
+        {
+          "behavior_id": "BACK",
+          "event_type": "navigate_back",
+          "entity": "back_to_step1"
+        },
+        {
+          "behavior_id": "1-C",
+          "event_type": "page_view",
+          "entity": "subscription_info"
+        },
+        {
+          "behavior_id": "2-C1",
+          "event_type": "click",
+          "entity": "plan_change_button"
         }
       ],
       "intent_labels": {
+        "INT-1310": 1,
+        "INT-1330": 1,
         "INT-1340": 1,
-        "INT-1410": 1,
-        "INT-1430": 1,
-        "INT-1440": 1,
-        "INT-4210": 1,
-        "INT-4240": 1,
+        "INT-2110": 1,
+        "INT-2130": 1,
+        "INT-2240": 1,
+        "INT-3210": 1,
         "INT-6110": 1,
         "INT-6120": 1,
+        "INT-6140": 1,
         "INT-6210": 1
       }
     },
@@ -54940,13 +55903,13 @@
         "benefit_explore_count": 0,
         "billing_page_view_count": 0,
         "churn_page_view_count": 0,
-        "last_3_events": "page_view→click",
+        "last_3_events": "page_view→page_view→page_view",
         "mnp_benefit_check": 0,
-        "product_explore_count": 0,
+        "product_explore_count": 1,
         "quality_action_count": 0,
-        "repeated_entity_count_5m": 1,
+        "repeated_entity_count_5m": 2,
         "support_entry_count_5m": 0,
-        "가족 결합 관련 행동": 0,
+        "가족 결합 관련 행동": 1,
         "속도 측정 실행": 0,
         "위약금 조회 행동": 0,
         "장애 페이지 체류": 0,
@@ -54954,36 +55917,40 @@
         "해지 페이지 진입": 0
       },
       "event_features": {
-        "current_page": "product",
+        "current_page": "subscription",
         "is_churn_signal": 0,
-        "is_click": 1,
+        "is_click": 0,
         "is_confirm": 0,
-        "is_page_view": 0,
+        "is_page_view": 1,
         "is_support_entry": 0,
-        "last_entity": "plan_change_button",
-        "last_event_type": "click"
+        "last_entity": "family_bundle",
+        "last_event_type": "page_view"
       },
       "actions": [
         {
-          "behavior_id": "1-C",
+          "behavior_id": "1-E",
           "event_type": "page_view",
-          "entity": "subscription_info"
+          "entity": "product_explore"
         },
         {
-          "behavior_id": "2-C1",
-          "event_type": "click",
-          "entity": "plan_change_button"
+          "behavior_id": "2-E3",
+          "event_type": "page_view",
+          "entity": "family_bundle"
+        },
+        {
+          "behavior_id": "2-E3",
+          "event_type": "page_view",
+          "entity": "family_bundle"
         }
       ],
       "intent_labels": {
-        "INT-1310": 1,
-        "INT-1330": 1,
         "INT-1340": 1,
         "INT-2110": 1,
-        "INT-3210": 1,
-        "INT-4210": 1,
+        "INT-2130": 1,
+        "INT-2240": 1,
         "INT-6110": 1,
         "INT-6120": 1,
+        "INT-6140": 1,
         "INT-6210": 1
       }
     },
@@ -55203,12 +56170,16 @@
       ],
       "intent_labels": {
         "INT-1110": 1,
+        "INT-1340": 1,
         "INT-2110": 1,
         "INT-2130": 1,
         "INT-2240": 1,
         "INT-2310": 1,
         "INT-2320": 1,
-        "INT-6110": 1
+        "INT-6110": 1,
+        "INT-6120": 1,
+        "INT-6140": 1,
+        "INT-6210": 1
       }
     },
     {
@@ -55804,13 +56775,15 @@
         "INT-1330": 1,
         "INT-1410": 1,
         "INT-1430": 1,
+        "INT-1440": 1,
         "INT-2110": 1,
         "INT-2130": 1,
         "INT-2410": 1,
         "INT-2420": 1,
         "INT-2440": 1,
         "INT-2530": 1,
-        "INT-4110": 1
+        "INT-4110": 1,
+        "INT-4240": 1
       }
     },
     {
@@ -55880,13 +56853,13 @@
         "benefit_explore_count": 1,
         "billing_page_view_count": 0,
         "churn_page_view_count": 0,
-        "last_3_events": "page_view→click",
+        "last_3_events": "navigate_back→page_view→page_view",
         "mnp_benefit_check": 0,
-        "product_explore_count": 0,
+        "product_explore_count": 1,
         "quality_action_count": 0,
         "repeated_entity_count_5m": 1,
         "support_entry_count_5m": 0,
-        "가족 결합 관련 행동": 0,
+        "가족 결합 관련 행동": 1,
         "속도 측정 실행": 0,
         "위약금 조회 행동": 0,
         "장애 페이지 체류": 0,
@@ -55894,14 +56867,14 @@
         "해지 페이지 진입": 0
       },
       "event_features": {
-        "current_page": "benefit",
+        "current_page": "subscription",
         "is_churn_signal": 0,
-        "is_click": 1,
+        "is_click": 0,
         "is_confirm": 0,
-        "is_page_view": 0,
+        "is_page_view": 1,
         "is_support_entry": 0,
-        "last_entity": "coupon_use",
-        "last_event_type": "click"
+        "last_entity": "family_bundle",
+        "last_event_type": "page_view"
       },
       "actions": [
         {
@@ -55910,19 +56883,41 @@
           "entity": "benefit_membership"
         },
         {
-          "behavior_id": "2-D1",
-          "event_type": "click",
-          "entity": "coupon_use"
+          "behavior_id": "2-D2",
+          "event_type": "page_view",
+          "entity": "membership_tier"
+        },
+        {
+          "behavior_id": "BACK",
+          "event_type": "navigate_back",
+          "entity": "back_to_step1"
+        },
+        {
+          "behavior_id": "1-E",
+          "event_type": "page_view",
+          "entity": "product_explore"
+        },
+        {
+          "behavior_id": "2-E3",
+          "event_type": "page_view",
+          "entity": "family_bundle"
         }
       ],
       "intent_labels": {
         "INT-1340": 1,
         "INT-1410": 1,
         "INT-1430": 1,
-        "INT-4110": 1,
+        "INT-1440": 1,
+        "INT-2110": 1,
+        "INT-2130": 1,
+        "INT-2240": 1,
         "INT-4210": 1,
+        "INT-4220": 1,
+        "INT-4230": 1,
+        "INT-4240": 1,
         "INT-6110": 1,
         "INT-6120": 1,
+        "INT-6140": 1,
         "INT-6210": 1
       }
     },
@@ -56616,11 +57611,13 @@
       "intent_labels": {
         "INT-1410": 1,
         "INT-1430": 1,
+        "INT-1440": 1,
         "INT-2130": 1,
         "INT-2310": 1,
         "INT-2410": 1,
         "INT-4120": 1,
-        "INT-4140": 1
+        "INT-4140": 1,
+        "INT-4240": 1
       }
     },
     {
@@ -57030,13 +58027,13 @@
         "benefit_explore_count": 1,
         "billing_page_view_count": 0,
         "churn_page_view_count": 0,
-        "last_3_events": "page_view→click",
+        "last_3_events": "navigate_back→page_view→page_view",
         "mnp_benefit_check": 0,
-        "product_explore_count": 0,
+        "product_explore_count": 1,
         "quality_action_count": 0,
         "repeated_entity_count_5m": 1,
         "support_entry_count_5m": 0,
-        "가족 결합 관련 행동": 0,
+        "가족 결합 관련 행동": 1,
         "속도 측정 실행": 0,
         "위약금 조회 행동": 0,
         "장애 페이지 체류": 0,
@@ -57044,14 +58041,14 @@
         "해지 페이지 진입": 0
       },
       "event_features": {
-        "current_page": "benefit",
+        "current_page": "subscription",
         "is_churn_signal": 0,
-        "is_click": 1,
+        "is_click": 0,
         "is_confirm": 0,
-        "is_page_view": 0,
+        "is_page_view": 1,
         "is_support_entry": 0,
-        "last_entity": "coupon_use",
-        "last_event_type": "click"
+        "last_entity": "family_bundle",
+        "last_event_type": "page_view"
       },
       "actions": [
         {
@@ -57060,19 +58057,41 @@
           "entity": "benefit_membership"
         },
         {
-          "behavior_id": "2-D1",
-          "event_type": "click",
-          "entity": "coupon_use"
+          "behavior_id": "2-D2",
+          "event_type": "page_view",
+          "entity": "membership_tier"
+        },
+        {
+          "behavior_id": "BACK",
+          "event_type": "navigate_back",
+          "entity": "back_to_step1"
+        },
+        {
+          "behavior_id": "1-E",
+          "event_type": "page_view",
+          "entity": "product_explore"
+        },
+        {
+          "behavior_id": "2-E3",
+          "event_type": "page_view",
+          "entity": "family_bundle"
         }
       ],
       "intent_labels": {
         "INT-1340": 1,
         "INT-1410": 1,
         "INT-1430": 1,
-        "INT-4110": 1,
+        "INT-1440": 1,
+        "INT-2110": 1,
+        "INT-2130": 1,
+        "INT-2240": 1,
         "INT-4210": 1,
+        "INT-4220": 1,
+        "INT-4230": 1,
+        "INT-4240": 1,
         "INT-6110": 1,
         "INT-6120": 1,
+        "INT-6140": 1,
         "INT-6210": 1
       }
     },
@@ -57649,13 +58668,15 @@
         "INT-1330": 1,
         "INT-1410": 1,
         "INT-1430": 1,
+        "INT-1440": 1,
         "INT-2110": 1,
         "INT-2130": 1,
         "INT-2410": 1,
         "INT-2420": 1,
         "INT-2440": 1,
         "INT-2530": 1,
-        "INT-4110": 1
+        "INT-4110": 1,
+        "INT-4240": 1
       }
     },
     {
@@ -57875,10 +58896,12 @@
       "intent_labels": {
         "INT-1410": 1,
         "INT-1430": 1,
+        "INT-1440": 1,
         "INT-2150": 1,
         "INT-4110": 1,
         "INT-4120": 1,
         "INT-4140": 1,
+        "INT-4240": 1,
         "INT-7310": 1,
         "INT-7340": 1
       }
@@ -58288,13 +59311,13 @@
         "benefit_explore_count": 1,
         "billing_page_view_count": 0,
         "churn_page_view_count": 0,
-        "last_3_events": "page_view→click",
+        "last_3_events": "navigate_back→page_view→page_view",
         "mnp_benefit_check": 0,
-        "product_explore_count": 0,
+        "product_explore_count": 1,
         "quality_action_count": 0,
         "repeated_entity_count_5m": 1,
         "support_entry_count_5m": 0,
-        "가족 결합 관련 행동": 0,
+        "가족 결합 관련 행동": 1,
         "속도 측정 실행": 0,
         "위약금 조회 행동": 0,
         "장애 페이지 체류": 0,
@@ -58302,14 +59325,14 @@
         "해지 페이지 진입": 0
       },
       "event_features": {
-        "current_page": "benefit",
+        "current_page": "subscription",
         "is_churn_signal": 0,
-        "is_click": 1,
+        "is_click": 0,
         "is_confirm": 0,
-        "is_page_view": 0,
+        "is_page_view": 1,
         "is_support_entry": 0,
-        "last_entity": "coupon_use",
-        "last_event_type": "click"
+        "last_entity": "family_bundle",
+        "last_event_type": "page_view"
       },
       "actions": [
         {
@@ -58318,19 +59341,41 @@
           "entity": "benefit_membership"
         },
         {
-          "behavior_id": "2-D1",
-          "event_type": "click",
-          "entity": "coupon_use"
+          "behavior_id": "2-D2",
+          "event_type": "page_view",
+          "entity": "membership_tier"
+        },
+        {
+          "behavior_id": "BACK",
+          "event_type": "navigate_back",
+          "entity": "back_to_step1"
+        },
+        {
+          "behavior_id": "1-E",
+          "event_type": "page_view",
+          "entity": "product_explore"
+        },
+        {
+          "behavior_id": "2-E3",
+          "event_type": "page_view",
+          "entity": "family_bundle"
         }
       ],
       "intent_labels": {
         "INT-1340": 1,
         "INT-1410": 1,
         "INT-1430": 1,
-        "INT-4110": 1,
+        "INT-1440": 1,
+        "INT-2110": 1,
+        "INT-2130": 1,
+        "INT-2240": 1,
         "INT-4210": 1,
+        "INT-4220": 1,
+        "INT-4230": 1,
+        "INT-4240": 1,
         "INT-6110": 1,
         "INT-6120": 1,
+        "INT-6140": 1,
         "INT-6210": 1
       }
     },
@@ -58438,12 +59483,16 @@
       ],
       "intent_labels": {
         "INT-1110": 1,
+        "INT-1340": 1,
         "INT-2110": 1,
         "INT-2130": 1,
         "INT-2240": 1,
         "INT-2310": 1,
         "INT-2320": 1,
-        "INT-6110": 1
+        "INT-6110": 1,
+        "INT-6120": 1,
+        "INT-6140": 1,
+        "INT-6210": 1
       }
     },
     {
@@ -58964,13 +60013,13 @@
         "benefit_explore_count": 0,
         "billing_page_view_count": 0,
         "churn_page_view_count": 0,
-        "last_3_events": "page_view→click",
+        "last_3_events": "page_view→page_view→page_view",
         "mnp_benefit_check": 0,
-        "product_explore_count": 0,
+        "product_explore_count": 1,
         "quality_action_count": 0,
-        "repeated_entity_count_5m": 1,
+        "repeated_entity_count_5m": 2,
         "support_entry_count_5m": 0,
-        "가족 결합 관련 행동": 0,
+        "가족 결합 관련 행동": 1,
         "속도 측정 실행": 0,
         "위약금 조회 행동": 0,
         "장애 페이지 체류": 0,
@@ -58978,36 +60027,40 @@
         "해지 페이지 진입": 0
       },
       "event_features": {
-        "current_page": "product",
+        "current_page": "subscription",
         "is_churn_signal": 0,
-        "is_click": 1,
+        "is_click": 0,
         "is_confirm": 0,
-        "is_page_view": 0,
+        "is_page_view": 1,
         "is_support_entry": 0,
-        "last_entity": "plan_change_button",
-        "last_event_type": "click"
+        "last_entity": "family_bundle",
+        "last_event_type": "page_view"
       },
       "actions": [
         {
-          "behavior_id": "1-C",
+          "behavior_id": "1-E",
           "event_type": "page_view",
-          "entity": "subscription_info"
+          "entity": "product_explore"
         },
         {
-          "behavior_id": "2-C1",
-          "event_type": "click",
-          "entity": "plan_change_button"
+          "behavior_id": "2-E3",
+          "event_type": "page_view",
+          "entity": "family_bundle"
+        },
+        {
+          "behavior_id": "2-E3",
+          "event_type": "page_view",
+          "entity": "family_bundle"
         }
       ],
       "intent_labels": {
-        "INT-1310": 1,
-        "INT-1330": 1,
         "INT-1340": 1,
         "INT-2110": 1,
-        "INT-3210": 1,
-        "INT-4210": 1,
+        "INT-2130": 1,
+        "INT-2240": 1,
         "INT-6110": 1,
         "INT-6120": 1,
+        "INT-6140": 1,
         "INT-6210": 1
       }
     },
@@ -59413,13 +60466,13 @@
         "benefit_explore_count": 1,
         "billing_page_view_count": 0,
         "churn_page_view_count": 0,
-        "last_3_events": "page_view→click",
+        "last_3_events": "navigate_back→page_view→page_view",
         "mnp_benefit_check": 0,
-        "product_explore_count": 0,
+        "product_explore_count": 1,
         "quality_action_count": 0,
         "repeated_entity_count_5m": 1,
         "support_entry_count_5m": 0,
-        "가족 결합 관련 행동": 0,
+        "가족 결합 관련 행동": 1,
         "속도 측정 실행": 0,
         "위약금 조회 행동": 0,
         "장애 페이지 체류": 0,
@@ -59427,14 +60480,14 @@
         "해지 페이지 진입": 0
       },
       "event_features": {
-        "current_page": "benefit",
+        "current_page": "subscription",
         "is_churn_signal": 0,
-        "is_click": 1,
+        "is_click": 0,
         "is_confirm": 0,
-        "is_page_view": 0,
+        "is_page_view": 1,
         "is_support_entry": 0,
-        "last_entity": "coupon_use",
-        "last_event_type": "click"
+        "last_entity": "family_bundle",
+        "last_event_type": "page_view"
       },
       "actions": [
         {
@@ -59443,19 +60496,41 @@
           "entity": "benefit_membership"
         },
         {
-          "behavior_id": "2-D1",
-          "event_type": "click",
-          "entity": "coupon_use"
+          "behavior_id": "2-D2",
+          "event_type": "page_view",
+          "entity": "membership_tier"
+        },
+        {
+          "behavior_id": "BACK",
+          "event_type": "navigate_back",
+          "entity": "back_to_step1"
+        },
+        {
+          "behavior_id": "1-E",
+          "event_type": "page_view",
+          "entity": "product_explore"
+        },
+        {
+          "behavior_id": "2-E3",
+          "event_type": "page_view",
+          "entity": "family_bundle"
         }
       ],
       "intent_labels": {
         "INT-1340": 1,
         "INT-1410": 1,
         "INT-1430": 1,
-        "INT-4110": 1,
+        "INT-1440": 1,
+        "INT-2110": 1,
+        "INT-2130": 1,
+        "INT-2240": 1,
         "INT-4210": 1,
+        "INT-4220": 1,
+        "INT-4230": 1,
+        "INT-4240": 1,
         "INT-6110": 1,
         "INT-6120": 1,
+        "INT-6140": 1,
         "INT-6210": 1
       }
     },
@@ -59678,9 +60753,9 @@
         "INT-2110": 1,
         "INT-2130": 1,
         "INT-2240": 1,
-        "INT-4210": 1,
         "INT-6110": 1,
         "INT-6120": 1,
+        "INT-6140": 1,
         "INT-6210": 1
       }
     },
@@ -59805,13 +60880,15 @@
         "INT-1330": 1,
         "INT-1410": 1,
         "INT-1430": 1,
+        "INT-1440": 1,
         "INT-2110": 1,
         "INT-2130": 1,
         "INT-2410": 1,
         "INT-2420": 1,
         "INT-2440": 1,
         "INT-2530": 1,
-        "INT-4110": 1
+        "INT-4110": 1,
+        "INT-4240": 1
       }
     },
     {
@@ -60789,13 +61866,13 @@
         "benefit_explore_count": 1,
         "billing_page_view_count": 0,
         "churn_page_view_count": 0,
-        "last_3_events": "page_view→click",
+        "last_3_events": "navigate_back→page_view→page_view",
         "mnp_benefit_check": 0,
-        "product_explore_count": 0,
+        "product_explore_count": 1,
         "quality_action_count": 0,
         "repeated_entity_count_5m": 1,
         "support_entry_count_5m": 0,
-        "가족 결합 관련 행동": 0,
+        "가족 결합 관련 행동": 1,
         "속도 측정 실행": 0,
         "위약금 조회 행동": 0,
         "장애 페이지 체류": 0,
@@ -60803,14 +61880,14 @@
         "해지 페이지 진입": 0
       },
       "event_features": {
-        "current_page": "benefit",
+        "current_page": "subscription",
         "is_churn_signal": 0,
-        "is_click": 1,
+        "is_click": 0,
         "is_confirm": 0,
-        "is_page_view": 0,
+        "is_page_view": 1,
         "is_support_entry": 0,
-        "last_entity": "coupon_use",
-        "last_event_type": "click"
+        "last_entity": "family_bundle",
+        "last_event_type": "page_view"
       },
       "actions": [
         {
@@ -60819,19 +61896,41 @@
           "entity": "benefit_membership"
         },
         {
-          "behavior_id": "2-D1",
-          "event_type": "click",
-          "entity": "coupon_use"
+          "behavior_id": "2-D2",
+          "event_type": "page_view",
+          "entity": "membership_tier"
+        },
+        {
+          "behavior_id": "BACK",
+          "event_type": "navigate_back",
+          "entity": "back_to_step1"
+        },
+        {
+          "behavior_id": "1-E",
+          "event_type": "page_view",
+          "entity": "product_explore"
+        },
+        {
+          "behavior_id": "2-E3",
+          "event_type": "page_view",
+          "entity": "family_bundle"
         }
       ],
       "intent_labels": {
         "INT-1340": 1,
         "INT-1410": 1,
         "INT-1430": 1,
-        "INT-4110": 1,
+        "INT-1440": 1,
+        "INT-2110": 1,
+        "INT-2130": 1,
+        "INT-2240": 1,
         "INT-4210": 1,
+        "INT-4220": 1,
+        "INT-4230": 1,
+        "INT-4240": 1,
         "INT-6110": 1,
         "INT-6120": 1,
+        "INT-6140": 1,
         "INT-6210": 1
       }
     },
@@ -60899,53 +61998,70 @@
       },
       "pattern_features": {
         "WiFi 진단 실행": 0,
-        "benefit_explore_count": 1,
+        "benefit_explore_count": 0,
         "billing_page_view_count": 0,
         "churn_page_view_count": 0,
-        "last_3_events": "page_view→page_view",
+        "last_3_events": "navigate_back→page_view→click",
         "mnp_benefit_check": 0,
-        "product_explore_count": 0,
+        "product_explore_count": 1,
         "quality_action_count": 0,
         "repeated_entity_count_5m": 1,
         "support_entry_count_5m": 0,
-        "가족 결합 관련 행동": 0,
+        "가족 결합 관련 행동": 1,
         "속도 측정 실행": 0,
         "위약금 조회 행동": 0,
         "장애 페이지 체류": 0,
-        "할인 페이지 체류": 30,
+        "할인 페이지 체류": 0,
         "해지 페이지 진입": 0
       },
       "event_features": {
-        "current_page": "unknown",
+        "current_page": "product",
         "is_churn_signal": 0,
-        "is_click": 0,
+        "is_click": 1,
         "is_confirm": 0,
-        "is_page_view": 1,
+        "is_page_view": 0,
         "is_support_entry": 0,
-        "last_entity": "membership_tier",
-        "last_event_type": "page_view"
+        "last_entity": "plan_change_button",
+        "last_event_type": "click"
       },
       "actions": [
         {
-          "behavior_id": "1-D",
+          "behavior_id": "1-E",
           "event_type": "page_view",
-          "entity": "benefit_membership"
+          "entity": "product_explore"
         },
         {
-          "behavior_id": "2-D2",
+          "behavior_id": "2-E3",
           "event_type": "page_view",
-          "entity": "membership_tier"
+          "entity": "family_bundle"
+        },
+        {
+          "behavior_id": "BACK",
+          "event_type": "navigate_back",
+          "entity": "back_to_step1"
+        },
+        {
+          "behavior_id": "1-C",
+          "event_type": "page_view",
+          "entity": "subscription_info"
+        },
+        {
+          "behavior_id": "2-C1",
+          "event_type": "click",
+          "entity": "plan_change_button"
         }
       ],
       "intent_labels": {
+        "INT-1310": 1,
+        "INT-1330": 1,
         "INT-1340": 1,
-        "INT-1410": 1,
-        "INT-1430": 1,
-        "INT-1440": 1,
-        "INT-4210": 1,
-        "INT-4240": 1,
+        "INT-2110": 1,
+        "INT-2130": 1,
+        "INT-2240": 1,
+        "INT-3210": 1,
         "INT-6110": 1,
         "INT-6120": 1,
+        "INT-6140": 1,
         "INT-6210": 1
       }
     },
@@ -61170,6 +62286,9 @@
         "INT-2130": 1,
         "INT-2310": 1,
         "INT-2410": 1,
+        "INT-4210": 1,
+        "INT-4220": 1,
+        "INT-4230": 1,
         "INT-4240": 1
       }
     },
@@ -61240,13 +62359,13 @@
         "benefit_explore_count": 1,
         "billing_page_view_count": 0,
         "churn_page_view_count": 0,
-        "last_3_events": "page_view→click",
+        "last_3_events": "navigate_back→page_view→page_view",
         "mnp_benefit_check": 0,
-        "product_explore_count": 0,
+        "product_explore_count": 1,
         "quality_action_count": 0,
         "repeated_entity_count_5m": 1,
         "support_entry_count_5m": 0,
-        "가족 결합 관련 행동": 0,
+        "가족 결합 관련 행동": 1,
         "속도 측정 실행": 0,
         "위약금 조회 행동": 0,
         "장애 페이지 체류": 0,
@@ -61254,14 +62373,14 @@
         "해지 페이지 진입": 0
       },
       "event_features": {
-        "current_page": "benefit",
+        "current_page": "subscription",
         "is_churn_signal": 0,
-        "is_click": 1,
+        "is_click": 0,
         "is_confirm": 0,
-        "is_page_view": 0,
+        "is_page_view": 1,
         "is_support_entry": 0,
-        "last_entity": "coupon_use",
-        "last_event_type": "click"
+        "last_entity": "family_bundle",
+        "last_event_type": "page_view"
       },
       "actions": [
         {
@@ -61270,19 +62389,41 @@
           "entity": "benefit_membership"
         },
         {
-          "behavior_id": "2-D1",
-          "event_type": "click",
-          "entity": "coupon_use"
+          "behavior_id": "2-D2",
+          "event_type": "page_view",
+          "entity": "membership_tier"
+        },
+        {
+          "behavior_id": "BACK",
+          "event_type": "navigate_back",
+          "entity": "back_to_step1"
+        },
+        {
+          "behavior_id": "1-E",
+          "event_type": "page_view",
+          "entity": "product_explore"
+        },
+        {
+          "behavior_id": "2-E3",
+          "event_type": "page_view",
+          "entity": "family_bundle"
         }
       ],
       "intent_labels": {
         "INT-1340": 1,
         "INT-1410": 1,
         "INT-1430": 1,
-        "INT-4110": 1,
+        "INT-1440": 1,
+        "INT-2110": 1,
+        "INT-2130": 1,
+        "INT-2240": 1,
         "INT-4210": 1,
+        "INT-4220": 1,
+        "INT-4230": 1,
+        "INT-4240": 1,
         "INT-6110": 1,
         "INT-6120": 1,
+        "INT-6140": 1,
         "INT-6210": 1
       }
     },
@@ -62613,13 +63754,13 @@
         "benefit_explore_count": 1,
         "billing_page_view_count": 0,
         "churn_page_view_count": 0,
-        "last_3_events": "page_view→click",
+        "last_3_events": "navigate_back→page_view→page_view",
         "mnp_benefit_check": 0,
-        "product_explore_count": 0,
+        "product_explore_count": 1,
         "quality_action_count": 0,
         "repeated_entity_count_5m": 1,
         "support_entry_count_5m": 0,
-        "가족 결합 관련 행동": 0,
+        "가족 결합 관련 행동": 1,
         "속도 측정 실행": 0,
         "위약금 조회 행동": 0,
         "장애 페이지 체류": 0,
@@ -62627,14 +63768,14 @@
         "해지 페이지 진입": 0
       },
       "event_features": {
-        "current_page": "benefit",
+        "current_page": "subscription",
         "is_churn_signal": 0,
-        "is_click": 1,
+        "is_click": 0,
         "is_confirm": 0,
-        "is_page_view": 0,
+        "is_page_view": 1,
         "is_support_entry": 0,
-        "last_entity": "coupon_use",
-        "last_event_type": "click"
+        "last_entity": "family_bundle",
+        "last_event_type": "page_view"
       },
       "actions": [
         {
@@ -62643,19 +63784,41 @@
           "entity": "benefit_membership"
         },
         {
-          "behavior_id": "2-D1",
-          "event_type": "click",
-          "entity": "coupon_use"
+          "behavior_id": "2-D2",
+          "event_type": "page_view",
+          "entity": "membership_tier"
+        },
+        {
+          "behavior_id": "BACK",
+          "event_type": "navigate_back",
+          "entity": "back_to_step1"
+        },
+        {
+          "behavior_id": "1-E",
+          "event_type": "page_view",
+          "entity": "product_explore"
+        },
+        {
+          "behavior_id": "2-E3",
+          "event_type": "page_view",
+          "entity": "family_bundle"
         }
       ],
       "intent_labels": {
         "INT-1340": 1,
         "INT-1410": 1,
         "INT-1430": 1,
-        "INT-4110": 1,
+        "INT-1440": 1,
+        "INT-2110": 1,
+        "INT-2130": 1,
+        "INT-2240": 1,
         "INT-4210": 1,
+        "INT-4220": 1,
+        "INT-4230": 1,
+        "INT-4240": 1,
         "INT-6110": 1,
         "INT-6120": 1,
+        "INT-6140": 1,
         "INT-6210": 1
       }
     },
@@ -63013,11 +64176,13 @@
       "intent_labels": {
         "INT-1410": 1,
         "INT-1430": 1,
+        "INT-1440": 1,
         "INT-2130": 1,
         "INT-2310": 1,
         "INT-2410": 1,
         "INT-4120": 1,
-        "INT-4140": 1
+        "INT-4140": 1,
+        "INT-4240": 1
       }
     },
     {
@@ -63125,11 +64290,13 @@
       "intent_labels": {
         "INT-1410": 1,
         "INT-1430": 1,
+        "INT-1440": 1,
         "INT-2130": 1,
         "INT-2310": 1,
         "INT-2410": 1,
         "INT-4120": 1,
-        "INT-4140": 1
+        "INT-4140": 1,
+        "INT-4240": 1
       }
     },
     {
@@ -63497,11 +64664,13 @@
       "intent_labels": {
         "INT-1410": 1,
         "INT-1430": 1,
+        "INT-1440": 1,
         "INT-2130": 1,
         "INT-2310": 1,
         "INT-2410": 1,
         "INT-4120": 1,
-        "INT-4140": 1
+        "INT-4140": 1,
+        "INT-4240": 1
       }
     },
     {
@@ -63608,12 +64777,16 @@
       ],
       "intent_labels": {
         "INT-1110": 1,
+        "INT-1340": 1,
         "INT-2110": 1,
         "INT-2130": 1,
         "INT-2240": 1,
         "INT-2310": 1,
         "INT-2320": 1,
-        "INT-6110": 1
+        "INT-6110": 1,
+        "INT-6120": 1,
+        "INT-6140": 1,
+        "INT-6210": 1
       }
     },
     {
@@ -64492,53 +65665,70 @@
       },
       "pattern_features": {
         "WiFi 진단 실행": 0,
-        "benefit_explore_count": 1,
+        "benefit_explore_count": 0,
         "billing_page_view_count": 0,
         "churn_page_view_count": 0,
-        "last_3_events": "page_view→page_view",
+        "last_3_events": "navigate_back→page_view→click",
         "mnp_benefit_check": 0,
-        "product_explore_count": 0,
+        "product_explore_count": 1,
         "quality_action_count": 0,
         "repeated_entity_count_5m": 1,
         "support_entry_count_5m": 0,
-        "가족 결합 관련 행동": 0,
+        "가족 결합 관련 행동": 1,
         "속도 측정 실행": 0,
         "위약금 조회 행동": 0,
         "장애 페이지 체류": 0,
-        "할인 페이지 체류": 30,
+        "할인 페이지 체류": 0,
         "해지 페이지 진입": 0
       },
       "event_features": {
-        "current_page": "unknown",
+        "current_page": "product",
         "is_churn_signal": 0,
-        "is_click": 0,
+        "is_click": 1,
         "is_confirm": 0,
-        "is_page_view": 1,
+        "is_page_view": 0,
         "is_support_entry": 0,
-        "last_entity": "membership_tier",
-        "last_event_type": "page_view"
+        "last_entity": "plan_change_button",
+        "last_event_type": "click"
       },
       "actions": [
         {
-          "behavior_id": "1-D",
+          "behavior_id": "1-E",
           "event_type": "page_view",
-          "entity": "benefit_membership"
+          "entity": "product_explore"
         },
         {
-          "behavior_id": "2-D2",
+          "behavior_id": "2-E3",
           "event_type": "page_view",
-          "entity": "membership_tier"
+          "entity": "family_bundle"
+        },
+        {
+          "behavior_id": "BACK",
+          "event_type": "navigate_back",
+          "entity": "back_to_step1"
+        },
+        {
+          "behavior_id": "1-C",
+          "event_type": "page_view",
+          "entity": "subscription_info"
+        },
+        {
+          "behavior_id": "2-C1",
+          "event_type": "click",
+          "entity": "plan_change_button"
         }
       ],
       "intent_labels": {
+        "INT-1310": 1,
+        "INT-1330": 1,
         "INT-1340": 1,
-        "INT-1410": 1,
-        "INT-1430": 1,
-        "INT-1440": 1,
-        "INT-4210": 1,
-        "INT-4240": 1,
+        "INT-2110": 1,
+        "INT-2130": 1,
+        "INT-2240": 1,
+        "INT-3210": 1,
         "INT-6110": 1,
         "INT-6120": 1,
+        "INT-6140": 1,
         "INT-6210": 1
       }
     },
@@ -64606,53 +65796,70 @@
       },
       "pattern_features": {
         "WiFi 진단 실행": 0,
-        "benefit_explore_count": 1,
+        "benefit_explore_count": 0,
         "billing_page_view_count": 0,
         "churn_page_view_count": 0,
-        "last_3_events": "page_view→page_view",
+        "last_3_events": "navigate_back→page_view→click",
         "mnp_benefit_check": 0,
-        "product_explore_count": 0,
+        "product_explore_count": 1,
         "quality_action_count": 0,
         "repeated_entity_count_5m": 1,
         "support_entry_count_5m": 0,
-        "가족 결합 관련 행동": 0,
+        "가족 결합 관련 행동": 1,
         "속도 측정 실행": 0,
         "위약금 조회 행동": 0,
         "장애 페이지 체류": 0,
-        "할인 페이지 체류": 30,
+        "할인 페이지 체류": 0,
         "해지 페이지 진입": 0
       },
       "event_features": {
-        "current_page": "unknown",
+        "current_page": "product",
         "is_churn_signal": 0,
-        "is_click": 0,
+        "is_click": 1,
         "is_confirm": 0,
-        "is_page_view": 1,
+        "is_page_view": 0,
         "is_support_entry": 0,
-        "last_entity": "membership_tier",
-        "last_event_type": "page_view"
+        "last_entity": "plan_change_button",
+        "last_event_type": "click"
       },
       "actions": [
         {
-          "behavior_id": "1-D",
+          "behavior_id": "1-E",
           "event_type": "page_view",
-          "entity": "benefit_membership"
+          "entity": "product_explore"
         },
         {
-          "behavior_id": "2-D2",
+          "behavior_id": "2-E3",
           "event_type": "page_view",
-          "entity": "membership_tier"
+          "entity": "family_bundle"
+        },
+        {
+          "behavior_id": "BACK",
+          "event_type": "navigate_back",
+          "entity": "back_to_step1"
+        },
+        {
+          "behavior_id": "1-C",
+          "event_type": "page_view",
+          "entity": "subscription_info"
+        },
+        {
+          "behavior_id": "2-C1",
+          "event_type": "click",
+          "entity": "plan_change_button"
         }
       ],
       "intent_labels": {
+        "INT-1310": 1,
+        "INT-1330": 1,
         "INT-1340": 1,
-        "INT-1410": 1,
-        "INT-1430": 1,
-        "INT-1440": 1,
-        "INT-4210": 1,
-        "INT-4240": 1,
+        "INT-2110": 1,
+        "INT-2130": 1,
+        "INT-2240": 1,
+        "INT-3210": 1,
         "INT-6110": 1,
         "INT-6120": 1,
+        "INT-6140": 1,
         "INT-6210": 1
       }
     },
@@ -65010,9 +66217,9 @@
         "INT-2110": 1,
         "INT-2130": 1,
         "INT-2240": 1,
-        "INT-4210": 1,
         "INT-6110": 1,
         "INT-6120": 1,
+        "INT-6140": 1,
         "INT-6210": 1
       }
     },
@@ -65349,9 +66556,11 @@
       "intent_labels": {
         "INT-1410": 1,
         "INT-1430": 1,
+        "INT-1440": 1,
         "INT-2150": 1,
         "INT-4110": 1,
         "INT-4120": 1,
+        "INT-4240": 1,
         "INT-7310": 1,
         "INT-7340": 1
       }
@@ -66737,6 +67946,9 @@
         "INT-2130": 1,
         "INT-2310": 1,
         "INT-2410": 1,
+        "INT-4210": 1,
+        "INT-4220": 1,
+        "INT-4230": 1,
         "INT-4240": 1
       }
     },
@@ -66861,13 +68073,15 @@
         "INT-1330": 1,
         "INT-1410": 1,
         "INT-1430": 1,
+        "INT-1440": 1,
         "INT-2110": 1,
         "INT-2130": 1,
         "INT-2410": 1,
         "INT-2420": 1,
         "INT-2440": 1,
         "INT-2530": 1,
-        "INT-4110": 1
+        "INT-4110": 1,
+        "INT-4240": 1
       }
     },
     {
@@ -66975,9 +68189,11 @@
       "intent_labels": {
         "INT-1410": 1,
         "INT-1430": 1,
+        "INT-1440": 1,
         "INT-2150": 1,
         "INT-4110": 1,
         "INT-4120": 1,
+        "INT-4240": 1,
         "INT-7310": 1,
         "INT-7340": 1
       }
@@ -67542,6 +68758,9 @@
         "INT-2130": 1,
         "INT-2310": 1,
         "INT-2320": 1,
+        "INT-4210": 1,
+        "INT-4220": 1,
+        "INT-4230": 1,
         "INT-4240": 1
       }
     },
@@ -68503,53 +69722,70 @@
       },
       "pattern_features": {
         "WiFi 진단 실행": 0,
-        "benefit_explore_count": 1,
+        "benefit_explore_count": 0,
         "billing_page_view_count": 0,
         "churn_page_view_count": 0,
-        "last_3_events": "page_view→page_view",
+        "last_3_events": "navigate_back→page_view→click",
         "mnp_benefit_check": 0,
-        "product_explore_count": 0,
+        "product_explore_count": 1,
         "quality_action_count": 0,
         "repeated_entity_count_5m": 1,
         "support_entry_count_5m": 0,
-        "가족 결합 관련 행동": 0,
+        "가족 결합 관련 행동": 1,
         "속도 측정 실행": 0,
         "위약금 조회 행동": 0,
         "장애 페이지 체류": 0,
-        "할인 페이지 체류": 30,
+        "할인 페이지 체류": 0,
         "해지 페이지 진입": 0
       },
       "event_features": {
-        "current_page": "unknown",
+        "current_page": "product",
         "is_churn_signal": 0,
-        "is_click": 0,
+        "is_click": 1,
         "is_confirm": 0,
-        "is_page_view": 1,
+        "is_page_view": 0,
         "is_support_entry": 0,
-        "last_entity": "membership_tier",
-        "last_event_type": "page_view"
+        "last_entity": "plan_change_button",
+        "last_event_type": "click"
       },
       "actions": [
         {
-          "behavior_id": "1-D",
+          "behavior_id": "1-E",
           "event_type": "page_view",
-          "entity": "benefit_membership"
+          "entity": "product_explore"
         },
         {
-          "behavior_id": "2-D2",
+          "behavior_id": "2-E3",
           "event_type": "page_view",
-          "entity": "membership_tier"
+          "entity": "family_bundle"
+        },
+        {
+          "behavior_id": "BACK",
+          "event_type": "navigate_back",
+          "entity": "back_to_step1"
+        },
+        {
+          "behavior_id": "1-C",
+          "event_type": "page_view",
+          "entity": "subscription_info"
+        },
+        {
+          "behavior_id": "2-C1",
+          "event_type": "click",
+          "entity": "plan_change_button"
         }
       ],
       "intent_labels": {
+        "INT-1310": 1,
+        "INT-1330": 1,
         "INT-1340": 1,
-        "INT-1410": 1,
-        "INT-1430": 1,
-        "INT-1440": 1,
-        "INT-4210": 1,
-        "INT-4240": 1,
+        "INT-2110": 1,
+        "INT-2130": 1,
+        "INT-2240": 1,
+        "INT-3210": 1,
         "INT-6110": 1,
         "INT-6120": 1,
+        "INT-6140": 1,
         "INT-6210": 1
       }
     },
@@ -68657,13 +69893,17 @@
       ],
       "intent_labels": {
         "INT-1140": 1,
+        "INT-1340": 1,
         "INT-2110": 1,
         "INT-2130": 1,
         "INT-2140": 1,
         "INT-2240": 1,
         "INT-2410": 1,
         "INT-2540": 1,
-        "INT-6110": 1
+        "INT-6110": 1,
+        "INT-6120": 1,
+        "INT-6140": 1,
+        "INT-6210": 1
       }
     },
     {
