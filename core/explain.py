@@ -97,9 +97,28 @@ def explain_intent(engine, intent_id: str, features: dict, inference_type: str, 
     return {"type": "Rule", "factors": explain_rule(engine.scenario_id, intent_id, features, top=top)}
 
 
+def _situation_text(intent_name: str, r: dict) -> str:
+    """상담사 콘솔 [상황]용 — 이 intent가 추론된 이유를 한 문장으로."""
+    facts = [f for f in r.get("factors", []) if f.get("label") != "기본 점수"]
+    up = [f for f in facts if f.get("direction") == "up"]   # 의도를 끌어올린 특성 우선
+    facts = up or facts
+    if not facts:
+        head = f"'{intent_name}' 의도가 추론되었습니다"
+    else:
+        parts = []
+        for f in facts[:3]:
+            v = f.get("value")
+            parts.append(f"{f['label']}({v})" if v not in (None, "") else f["label"])
+        lead = "AI 모델 분석상 " if r.get("type") == "Model" else "고객 상태상 "
+        head = f"{lead}{' · '.join(parts)} 특성으로 '{intent_name}' 의도가 추론되었습니다"
+    note = r.get("behavior_note")
+    return f"{head} ({note})" if note else head + "."
+
+
 def attach_reasoning(engine, features: dict, top_items: list[dict], top: int = 3) -> None:
     """서빙 top_items 각 항목에 reasoning 첨부 (in-place).
-    features는 추론에 쓰인 결합 feature(batch+pattern+event)."""
+    features는 추론에 쓰인 결합 feature(batch+pattern+event).
+    reasoning.situation_text: 상담사 콘솔 [상황]용 동적 추론 이유 문장."""
     for it in top_items:
         r = explain_intent(engine, it["intent_id"], features, it.get("inference_type", "Rule"), top=top)
         rc = it.get("rank_change", 0)
@@ -107,4 +126,5 @@ def attach_reasoning(engine, features: dict, top_items: list[dict], top: int = 3
             r["behavior_note"] = f"최근 행동으로 {rc}위 상승"
         elif rc and rc < 0:
             r["behavior_note"] = f"최근 행동으로 {abs(rc)}위 하락"
+        r["situation_text"] = _situation_text(it.get("intent_nm_ko", it["intent_id"]), r)
         it["reasoning"] = r
