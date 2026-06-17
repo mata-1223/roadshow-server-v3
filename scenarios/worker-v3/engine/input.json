@@ -77,28 +77,28 @@
         "options": [
           {
             "code": "A",
-            "label": "9만원 이상",
+            "label": "9만원대 이상",
             "features": {
               "plan_tier": 1
             }
           },
           {
             "code": "B",
-            "label": "6~8만원",
+            "label": "6~8만원대",
             "features": {
               "plan_tier": 2
             }
           },
           {
             "code": "C",
-            "label": "3~5만원",
+            "label": "3~5만원대",
             "features": {
               "plan_tier": 3
             }
           },
           {
             "code": "D",
-            "label": "3~7만원",
+            "label": "3만원대 미만",
             "features": {
               "plan_tier": 4
             }
