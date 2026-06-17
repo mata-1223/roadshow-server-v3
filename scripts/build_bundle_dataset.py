@@ -67,7 +67,7 @@ PERSONAS = [
             "Q11": {"A": 0.5, "B": 0.5}, "Q12": {"B": 0.4, "C": 0.4, "D": 0.2},
         },
         "action_seqs": [["1-A", "2-A1"], ["1-A", "2-A2"], ["1-A", "2-A3"], ["1-A", "2-A1", "BACK", "1-A", "2-A2"]],
-        "expected_intents": ["INT-B2210", "INT-B2230", "INT-B2340", "INT-B2110"],
+        "expected_intents": ["INT-B2210", "INT-B2340", "INT-B2110"],
     },
     {
         "id": "B4", "name": "재약정 임박 (유지/락인)", "weight": 0.12,
@@ -106,7 +106,7 @@ PERSONAS = [
             "Q11": {"B": 0.4, "F": 0.6}, "Q12": {"B": 0.4, "C": 0.6},
         },
         "action_seqs": [["1-A", "2-A2"], ["1-A", "2-A4"], ["1-D", "2-D2"], ["1-A", "2-A2", "BACK", "1-D", "2-D2"]],
-        "expected_intents": ["INT-B1230", "INT-B2310", "INT-B2320", "INT-B2330"],
+        "expected_intents": ["INT-B1230", "INT-B2310"],
     },
     {
         "id": "B7", "name": "콘텐츠 헤비 (홈서비스 확장)", "weight": 0.13,
@@ -150,7 +150,7 @@ def main():
     )
 
     write_dataset(SCENARIO_DIR / "seed_dataset.json", rows, SCENARIO_ID, len(PERSONAS), args.seed)
-    print_label_stats(rows, total=50, top_n=20)
+    print_label_stats(rows, total=43, top_n=20)
 
 
 if __name__ == "__main__":
