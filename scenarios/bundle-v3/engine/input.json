@@ -79,38 +79,34 @@
         "id": "Q3",
         "block": "objective_fact",
         "dimension": "요금제",
-        "question": "현재 사용 중인 월 요금제 금액대는?",
+        "question": "현재 사용 중인 모바일 요금제 금액대는?",
         "options": [
           {
             "code": "A",
             "label": "3만원대 미만",
             "features": {
-              "plan_tier": 1,
-              "plan_bill_level": 1
+              "plan_tier": 1
             }
           },
           {
             "code": "B",
             "label": "3~5만원대",
             "features": {
-              "plan_tier": 2,
-              "plan_bill_level": 2
+              "plan_tier": 2
             }
           },
           {
             "code": "C",
             "label": "6~8만원대",
             "features": {
-              "plan_tier": 3,
-              "plan_bill_level": 3
+              "plan_tier": 3
             }
           },
           {
             "code": "D",
             "label": "9만원대 이상",
             "features": {
-              "plan_tier": 4,
-              "plan_bill_level": 4
+              "plan_tier": 4
             }
           }
         ]
@@ -177,7 +173,7 @@
         "id": "Q6",
         "block": "objective_fact",
         "dimension": "거주환경",
-        "question": "최근 1년 내 가족 또는 거주 환경 변화가 있었나요?",
+        "question": "최근 1년 내 이사·독립·가족 구성 변화가 있으셨나요?",
         "options": [
           {
             "code": "A",
@@ -267,34 +263,43 @@
         "id": "Q9",
         "block": "usage_tendency",
         "dimension": "비용민감도",
-        "question": "현재 월 통신비는 어느 수준인가요?",
+        "question": "인터넷·IPTV 등 모바일 외 통신 서비스에 매달 얼마를 지출하시나요?",
+        "show_if": {
+          "qid": "Q5",
+          "in": [
+            "B",
+            "C"
+          ]
+        },
+        "hidden_default": "A",
+        "locked_hint": "이용 서비스에 인터넷·IPTV가 포함되면 응답하는 문항입니다 (모바일만 이용 시 해당 없음).",
         "options": [
           {
             "code": "A",
-            "label": "5만원 미만",
+            "label": "없음 / 거의 없음",
             "features": {
-              "monthly_bill_level": 1
+              "non_mobile_cost_gap": 0
             }
           },
           {
             "code": "B",
-            "label": "5만원 이상~7만원 미만",
+            "label": "3만원대 이하",
             "features": {
-              "monthly_bill_level": 2
+              "non_mobile_cost_gap": 1
             }
           },
           {
             "code": "C",
-            "label": "7만원 이상~10만원 미만",
+            "label": "4~6만원대",
             "features": {
-              "monthly_bill_level": 3
+              "non_mobile_cost_gap": 2
             }
           },
           {
             "code": "D",
-            "label": "10만원 이상",
+            "label": "7만원대 이상",
             "features": {
-              "monthly_bill_level": 4
+              "non_mobile_cost_gap": 3
             }
           }
         ]
@@ -303,7 +308,7 @@
         "id": "Q10",
         "block": "usage_tendency",
         "dimension": "혜택활용",
-        "question": "평소 혜택이나 쿠폰 이용 수준은?",
+        "question": "통신 결합 할인·멤버십 포인트·제휴 쿠폰(영화·커피 등)을 평소 얼마나 챙겨 쓰시나요?",
         "options": [
           {
             "code": "A",
@@ -332,7 +337,7 @@
         "id": "Q11",
         "block": "usage_tendency",
         "dimension": "불만요인",
-        "question": "현재 가장 아쉽게 느끼는 부분은?",
+        "question": "현재 통신 서비스에서 가장 아쉬운 점은?",
         "options": [
           {
             "code": "A",
@@ -381,35 +386,28 @@
       {
         "id": "Q12",
         "block": "usage_tendency",
-        "dimension": "콘텐츠소비",
-        "question": "콘텐츠를 시청한다면 주로 어떤 방식인가요?",
+        "dimension": "영상소비",
+        "question": "평소 영상 콘텐츠를 얼마나 즐겨 보시나요?",
         "options": [
           {
             "code": "A",
-            "label": "TV 위주",
+            "label": "거의 보지 않음",
             "features": {
               "content_view_mode": 1
             }
           },
           {
             "code": "B",
-            "label": "OTT 위주",
+            "label": "가끔 본다",
             "features": {
               "content_view_mode": 2
             }
           },
           {
             "code": "C",
-            "label": "둘 다 이용",
+            "label": "자주 본다",
             "features": {
               "content_view_mode": 3
-            }
-          },
-          {
-            "code": "D",
-            "label": "콘텐츠 이용이 많지 않음",
-            "features": {
-              "content_view_mode": 4
             }
           }
         ]
@@ -450,7 +448,7 @@
         },
         {
           "id": "1-E",
-          "name": "이탈 검토",
+          "name": "해지·위약금 조회",
           "event_type": "page_view",
           "entity": "competitor_explore"
         }
@@ -571,22 +569,22 @@
         ],
         "1-E": [
           {
+            "id": "2-E1",
+            "name": "해지 절차 조회",
+            "entity": "cancel_process",
+            "event_type": "churn_action"
+          },
+          {
             "id": "2-E2",
-            "name": "번호이동 혜택 조회",
-            "event_type": "churn_action",
-            "entity": "mnp"
-          },
-          {
-            "id": "2-E4",
             "name": "위약금 조회",
-            "event_type": "churn_action",
-            "entity": "penalty"
+            "entity": "penalty",
+            "event_type": "churn_action"
           },
           {
-            "id": "2-E5",
+            "id": "2-E3",
             "name": "고객센터 상담 연결",
-            "event_type": "support_entry",
-            "entity": "support_consult"
+            "entity": "support_consult",
+            "event_type": "support_entry"
           }
         ]
       },

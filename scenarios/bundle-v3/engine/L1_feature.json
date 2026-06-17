@@ -17,29 +17,6 @@
         }
       },
       {
-        "name": "non_mobile_cost_gap",
-        "formula": {
-          "terms": [
-            {
-              "feat": "monthly_bill_level",
-              "default": 2,
-              "linear": [
-                1,
-                0
-              ]
-            },
-            {
-              "feat": "plan_bill_level",
-              "default": 2,
-              "linear": [
-                -1,
-                0
-              ]
-            }
-          ]
-        }
-      },
-      {
         "name": "_BOI",
         "intermediate": true,
         "formula": {
@@ -141,11 +118,14 @@
               "mul": 55
             },
             {
-              "if": {
-                "feat": "content_view_mode",
-                "lte": 3
-              },
-              "then": 25
+              "feat": "content_view_mode",
+              "default": 2,
+              "linear": [
+                1,
+                -1
+              ],
+              "div": 2,
+              "mul": 25
             },
             {
               "if": {

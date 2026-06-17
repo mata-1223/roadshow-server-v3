@@ -2441,6 +2441,6 @@
       }
     },
     "heuristic_fallback": false,
-    "output_scale": 0.85
+    "output_scale": 1.0
   }
 }

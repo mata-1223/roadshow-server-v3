@@ -552,8 +552,8 @@
       "competitor_compare": [
         "INT-B5110"
       ],
-      "mnp": [
-        "INT-B5120"
+      "cancel_process": [
+        "INT-B5410"
       ],
       "benefit_check": [
         "INT-B2110",
@@ -734,8 +734,8 @@
         3.0
       ],
       "content_view_mode": [
-        0.0,
-        4.0
+        1.0,
+        3.0
       ],
       "benefit_utilization": [
         0.0,

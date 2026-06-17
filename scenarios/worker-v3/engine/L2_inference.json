@@ -156,9 +156,9 @@
   },
   "ranker": {
     "behavior_signals": {
-      "music": [
-        "INT-W110",
-        "INT-W240"
+      "delivery": [
+        "INT-W120",
+        "INT-W210"
       ],
       "sns": [
         "INT-W130",
@@ -167,10 +167,6 @@
       "ott": [
         "INT-W130",
         "INT-W140"
-      ],
-      "delivery": [
-        "INT-W210",
-        "INT-W120"
       ],
       "shopping": [
         "INT-W210"
@@ -185,6 +181,9 @@
       "mental_recovery": [
         "INT-W240"
       ],
+      "music": [
+        "INT-W240"
+      ],
       "messenger": [
         "INT-W250"
       ],
@@ -193,10 +192,46 @@
       ]
     },
     "action_signal": {
-      "scale": 0.45,
-      "cap": 0.85,
+      "scale": 0.6,
+      "cap": 0.92,
       "decay": 0.72,
-      "boost_mode": "headroom"
+      "boost_mode": "headroom",
+      "suppress": {
+        "by_entity": {
+          "mental_recovery": [
+            "INT-W110",
+            "INT-W120",
+            "INT-W130",
+            "INT-W140"
+          ],
+          "exercise": [
+            "INT-W110",
+            "INT-W120",
+            "INT-W130",
+            "INT-W140"
+          ],
+          "reading": [
+            "INT-W110",
+            "INT-W120",
+            "INT-W130",
+            "INT-W140"
+          ],
+          "messenger": [
+            "INT-W110",
+            "INT-W120",
+            "INT-W130",
+            "INT-W140"
+          ],
+          "music": [
+            "INT-W110",
+            "INT-W120",
+            "INT-W130",
+            "INT-W140"
+          ]
+        },
+        "scale": 0.3,
+        "cap": 0.7
+      }
     }
   },
   "calibrator": {
