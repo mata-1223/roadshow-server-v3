@@ -17,29 +17,6 @@
         }
       },
       {
-        "name": "non_mobile_cost_gap",
-        "formula": {
-          "terms": [
-            {
-              "feat": "monthly_bill_level",
-              "default": 2,
-              "linear": [
-                1,
-                0
-              ]
-            },
-            {
-              "feat": "plan_bill_level",
-              "default": 2,
-              "linear": [
-                -1,
-                0
-              ]
-            }
-          ]
-        }
-      },
-      {
         "name": "_BOI",
         "intermediate": true,
         "formula": {

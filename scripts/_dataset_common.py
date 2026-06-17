@@ -78,6 +78,7 @@ def build_samples(
     entity_intents: dict[str, list[str]],
     cust_prefix: str,                  # "C" | "BC" | "WC"
     behavior_labels: bool = True,      # False면 모델 라벨에 행동 신호 intent 제외 (행동→intent는 ranker 담당)
+    answer_fixup: Callable[[dict], None] | None = None,  # 샘플 답변 정합성 보정(in-place). 예: 조건부 문항
 ) -> list[dict]:
     rng = random.Random(seed)
     ex = get_extractor()
@@ -87,6 +88,8 @@ def build_samples(
         persona = rng.choices(personas, weights=[p["weight"] for p in personas], k=1)[0]
         answers = {qid: rng.choices(list(d), weights=list(d.values()), k=1)[0]
                    for qid, d in persona["answer_dist"].items()}
+        if answer_fixup:
+            answer_fixup(answers)
         batch = engine.build_batch_features(answers)
         seq = rng.choice(persona[seq_key])
         actions = action_resolver(seq)
