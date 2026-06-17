@@ -386,35 +386,28 @@
       {
         "id": "Q12",
         "block": "usage_tendency",
-        "dimension": "콘텐츠소비",
-        "question": "콘텐츠를 시청한다면 주로 어떤 방식인가요?",
+        "dimension": "영상소비",
+        "question": "평소 영상 콘텐츠를 얼마나 즐겨 보시나요?",
         "options": [
           {
             "code": "A",
-            "label": "TV 위주",
+            "label": "거의 보지 않음",
             "features": {
               "content_view_mode": 1
             }
           },
           {
             "code": "B",
-            "label": "OTT 위주",
+            "label": "가끔 본다",
             "features": {
               "content_view_mode": 2
             }
           },
           {
             "code": "C",
-            "label": "둘 다 이용",
+            "label": "자주 본다",
             "features": {
               "content_view_mode": 3
-            }
-          },
-          {
-            "code": "D",
-            "label": "콘텐츠 이용이 많지 않음",
-            "features": {
-              "content_view_mode": 4
             }
           }
         ]
