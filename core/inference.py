@@ -65,6 +65,18 @@ def _resolve_boost_mode(scenario_id: str | None) -> str:
     return "additive"
 
 
+def _resolve_action_suppress(scenario_id: str | None) -> dict | None:
+    """행동 기반 의도 감쇠 설정. config L2.ranker.action_signal.suppress (없으면 None).
+    형식: {"by_entity": {entity: [감쇠 대상 intent_id, ...]}, "scale": float, "cap": float}.
+    예) 회복 행동(mental_recovery/exercise) 누적 시 번아웃 심화 intent를 점진 감쇠."""
+    if scenario_id is not None:
+        try:
+            return config.get_action_signal(scenario_id).get("suppress")
+        except (KeyError, FileNotFoundError):
+            pass
+    return None
+
+
 def _action_intent_signals(
     events: list[dict],
     behavior_map: dict[str, list[str]],
@@ -169,6 +181,18 @@ def infer_with_behavior(
                 final_raw[iid] = final_raw[iid] + boost * (1.0 - final_raw[iid])
             else:
                 final_raw[iid] = min(final_raw[iid] + boost, 0.97)
+
+    # 행동 기반 감쇠: 특정 행동(예: 회복) 누적 시 대상 intent(예: 번아웃 심화)를 점진 감쇠.
+    # 가산 boost와 대칭 — 같은 recency decay 가중을 penalty로 환산해 점수를 비율 축소.
+    suppress = _resolve_action_suppress(scenario_id)
+    if suppress:
+        sup_scale = suppress.get("scale", 0.0)
+        sup_cap   = suppress.get("cap", 1.0)
+        sup_map   = suppress.get("by_entity", {})
+        for iid, cnt in _action_intent_signals(events, sup_map, decay=decay).items():
+            if iid in final_raw:
+                penalty = min(cnt * sup_scale, sup_cap)
+                final_raw[iid] = final_raw[iid] * (1.0 - penalty)
 
     scores = _to_intent_scores(baseline_raw, final_raw, engine)
     return batch_features, scores
