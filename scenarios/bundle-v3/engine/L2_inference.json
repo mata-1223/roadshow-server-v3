@@ -121,33 +121,6 @@
         }
       ]
     },
-    "INT-B2230": {
-      "terms": [
-        0.15,
-        {
-          "feat": "Benefit Optimization Index",
-          "linear": [
-            1,
-            0
-          ],
-          "div": 100,
-          "mul": 0.4
-        },
-        {
-          "feat": "non_mobile_cost_gap",
-          "clip": [
-            null,
-            3
-          ],
-          "linear": [
-            1,
-            0
-          ],
-          "div": 3,
-          "mul": 0.2
-        }
-      ]
-    },
     "INT-B2340": {
       "terms": [
         0.15,
@@ -512,31 +485,6 @@
           "then": 0.25
         }
       ]
-    },
-    "INT-B5440": {
-      "terms": [
-        0.05,
-        {
-          "feat": "Churn Risk Index",
-          "linear": [
-            1,
-            0
-          ],
-          "div": 100,
-          "mul": 0.35
-        },
-        {
-          "if": {
-            "feat": "dissatisfaction_factor",
-            "in": [
-              "인터넷 품질",
-              "IPTV 품질",
-              "모바일 데이터 품질"
-            ]
-          },
-          "then": 0.3
-        }
-      ]
     }
   },
   "ranker": {
@@ -570,19 +518,7 @@
         "INT-B1420"
       ],
       "current_bundle_benefit": [
-        "INT-B2110",
-        "INT-B2320",
-        "INT-B2330"
-      ],
-      "promotion_benefit": [
-        "INT-B2220"
-      ],
-      "card_benefit": [
-        "INT-B2230",
-        "INT-B2310"
-      ],
-      "membership_benefit": [
-        "INT-B2320"
+        "INT-B2110"
       ],
       "unused_benefit": [
         "INT-B2340"
@@ -606,17 +542,18 @@
         "INT-B4120"
       ],
       "long_term_benefit": [
-        "INT-B4210",
-        "INT-B1230"
+        "INT-B4210"
       ],
       "penalty": [
         "INT-B4320",
         "INT-B5410",
         "INT-B5420"
       ],
+      "competitor_compare": [
+        "INT-B5110"
+      ],
       "mnp": [
-        "INT-B5120",
-        "INT-B5440"
+        "INT-B5120"
       ],
       "benefit_check": [
         "INT-B2110",
@@ -632,8 +569,7 @@
         "INT-B1120",
         "INT-B3120",
         "INT-B3130",
-        "INT-B3140",
-        "INT-B3150"
+        "INT-B3140"
       ],
       "contract_benefit_check": [
         "INT-B4110",
@@ -641,6 +577,7 @@
         "INT-B4210"
       ],
       "competitor_explore": [
+        "INT-B5110",
         "INT-B5410",
         "INT-B5420"
       ],
@@ -693,25 +630,7 @@
           "Bundle Opportunity Index"
         ]
       },
-      "INT-B2220": {
-        "features": [
-          "Benefit Optimization Index",
-          "benefit_utilization"
-        ]
-      },
       "INT-B2310": {
-        "features": [
-          "Benefit Engagement Index",
-          "content_view_mode"
-        ]
-      },
-      "INT-B2320": {
-        "features": [
-          "Benefit Engagement Index",
-          "benefit_utilization"
-        ]
-      },
-      "INT-B2330": {
         "features": [
           "Benefit Engagement Index",
           "content_view_mode"
@@ -737,12 +656,6 @@
         ]
       },
       "INT-B3230": {
-        "features": [
-          "plan_tier",
-          "Service Expansion Score"
-        ]
-      },
-      "INT-B3240": {
         "features": [
           "plan_tier",
           "Service Expansion Score"
@@ -804,13 +717,6 @@
         ]
       },
       "INT-B5330": {
-        "features": [
-          "Churn Risk Index",
-          "Churn Defense Score",
-          "churn_action_count_5m"
-        ]
-      },
-      "INT-B5340": {
         "features": [
           "Churn Risk Index",
           "Churn Defense Score",

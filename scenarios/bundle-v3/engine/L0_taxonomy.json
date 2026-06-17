@@ -83,7 +83,7 @@
     },
     {
       "id": "INT-B1310",
-      "name": "신규 가입 혜택 확인",
+      "name": "신규 결합 가입 혜택 확인",
       "L1_id": "INT-B1000",
       "L1_name": "가입 확대",
       "L2_id": "INT-B1300",
@@ -96,7 +96,7 @@
     },
     {
       "id": "INT-B1410",
-      "name": "온라인 가입 검토",
+      "name": "온라인 결합 가입 검토",
       "L1_id": "INT-B1000",
       "L1_name": "가입 확대",
       "L2_id": "INT-B1400",
@@ -109,7 +109,7 @@
     },
     {
       "id": "INT-B1420",
-      "name": "상담 기반 가입 검토",
+      "name": "상담 기반 결합 가입 검토",
       "L1_id": "INT-B1000",
       "L1_name": "가입 확대",
       "L2_id": "INT-B1400",
@@ -122,7 +122,7 @@
     },
     {
       "id": "INT-B1430",
-      "name": "매장 방문 가입 검토",
+      "name": "매장 방문 결합 가입 검토",
       "L1_id": "INT-B1000",
       "L1_name": "가입 확대",
       "L2_id": "INT-B1400",
@@ -135,7 +135,7 @@
     },
     {
       "id": "INT-B2110",
-      "name": "현재 적용 혜택 확인",
+      "name": "현재 결합 혜택 확인",
       "L1_id": "INT-B2000",
       "L1_name": "할인 최적화",
       "L2_id": "INT-B2100",
@@ -148,33 +148,7 @@
     },
     {
       "id": "INT-B2210",
-      "name": "추가 할인 가능 여부 확인",
-      "L1_id": "INT-B2000",
-      "L1_name": "할인 최적화",
-      "L2_id": "INT-B2200",
-      "L2_name": "추가 혜택 탐색",
-      "inference_type": "Rule",
-      "features": [
-        "Benefit Optimization Index",
-        "non_mobile_cost_gap"
-      ]
-    },
-    {
-      "id": "INT-B2220",
-      "name": "프로모션/이벤트 혜택 탐색",
-      "L1_id": "INT-B2000",
-      "L1_name": "할인 최적화",
-      "L2_id": "INT-B2200",
-      "L2_name": "추가 혜택 탐색",
-      "inference_type": "Model",
-      "features": [
-        "Benefit Optimization Index",
-        "benefit_utilization"
-      ]
-    },
-    {
-      "id": "INT-B2230",
-      "name": "카드 제휴 혜택 탐색",
+      "name": "추가 결합 할인 가능 여부 확인",
       "L1_id": "INT-B2000",
       "L1_name": "할인 최적화",
       "L2_id": "INT-B2200",
@@ -199,34 +173,8 @@
       ]
     },
     {
-      "id": "INT-B2320",
-      "name": "멤버십 혜택 활용 검토",
-      "L1_id": "INT-B2000",
-      "L1_name": "할인 최적화",
-      "L2_id": "INT-B2300",
-      "L2_name": "혜택 활용 최적화",
-      "inference_type": "Model",
-      "features": [
-        "Benefit Engagement Index",
-        "benefit_utilization"
-      ]
-    },
-    {
-      "id": "INT-B2330",
-      "name": "OTT/콘텐츠 혜택 활용 검토",
-      "L1_id": "INT-B2000",
-      "L1_name": "할인 최적화",
-      "L2_id": "INT-B2300",
-      "L2_name": "혜택 활용 최적화",
-      "inference_type": "Model",
-      "features": [
-        "Benefit Engagement Index",
-        "content_view_mode"
-      ]
-    },
-    {
       "id": "INT-B2340",
-      "name": "미사용 혜택 확인",
+      "name": "미사용 결합 혜택 확인",
       "L1_id": "INT-B2000",
       "L1_name": "할인 최적화",
       "L2_id": "INT-B2300",
@@ -342,19 +290,6 @@
       ]
     },
     {
-      "id": "INT-B3240",
-      "name": "IoT 기기 연계 검토",
-      "L1_id": "INT-B3000",
-      "L1_name": "회선/서비스 확장",
-      "L2_id": "INT-B3200",
-      "L2_name": "디바이스/IoT 확장",
-      "inference_type": "Model",
-      "features": [
-        "plan_tier",
-        "Service Expansion Score"
-      ]
-    },
-    {
       "id": "INT-B3310",
       "name": "가족 회선 통합 검토",
       "L1_id": "INT-B3000",
@@ -421,7 +356,7 @@
     },
     {
       "id": "INT-B4110",
-      "name": "약정 상태 및 연장 혜택 확인",
+      "name": "결합 약정 상태·연장 혜택 확인",
       "L1_id": "INT-B4000",
       "L1_name": "유지/락인",
       "L2_id": "INT-B4100",
@@ -434,7 +369,7 @@
     },
     {
       "id": "INT-B4120",
-      "name": "재약정 혜택 비교",
+      "name": "결합 재약정 혜택 비교",
       "L1_id": "INT-B4000",
       "L1_name": "유지/락인",
       "L2_id": "INT-B4100",
@@ -447,7 +382,7 @@
     },
     {
       "id": "INT-B4210",
-      "name": "장기 혜택 확인",
+      "name": "결합 장기 고객 혜택 확인",
       "L1_id": "INT-B4000",
       "L1_name": "유지/락인",
       "L2_id": "INT-B4200",
@@ -460,7 +395,7 @@
     },
     {
       "id": "INT-B4310",
-      "name": "요금제 변경 영향 확인",
+      "name": "요금제 변경 시 결합 영향 확인",
       "L1_id": "INT-B4000",
       "L1_name": "유지/락인",
       "L2_id": "INT-B4300",
@@ -512,7 +447,7 @@
     },
     {
       "id": "INT-B5210",
-      "name": "혜택 부족 체감",
+      "name": "결합 혜택 부족 체감",
       "L1_id": "INT-B5000",
       "L1_name": "이탈 검토",
       "L2_id": "INT-B5200",
@@ -538,7 +473,7 @@
     },
     {
       "id": "INT-B5230",
-      "name": "통신비 부담 증가",
+      "name": "결합 통신비 부담 증가",
       "L1_id": "INT-B5000",
       "L1_name": "이탈 검토",
       "L2_id": "INT-B5200",
@@ -589,21 +524,8 @@
       ]
     },
     {
-      "id": "INT-B5340",
-      "name": "장애 반복 불만",
-      "L1_id": "INT-B5000",
-      "L1_name": "이탈 검토",
-      "L2_id": "INT-B5300",
-      "L2_name": "품질 불만",
-      "inference_type": "Model",
-      "features": [
-        "dissatisfaction_factor",
-        "Churn Risk Index"
-      ]
-    },
-    {
       "id": "INT-B5410",
-      "name": "해지 절차 확인",
+      "name": "결합 해지 절차 확인",
       "L1_id": "INT-B5000",
       "L1_name": "이탈 검토",
       "L2_id": "INT-B5400",
@@ -616,7 +538,7 @@
     },
     {
       "id": "INT-B5420",
-      "name": "위약금 확인",
+      "name": "결합 해지 위약금 확인",
       "L1_id": "INT-B5000",
       "L1_name": "이탈 검토",
       "L2_id": "INT-B5400",
@@ -629,7 +551,7 @@
     },
     {
       "id": "INT-B5430",
-      "name": "해지 영향 확인",
+      "name": "결합 해지 시 잔여 회선 영향 확인",
       "L1_id": "INT-B5000",
       "L1_name": "이탈 검토",
       "L2_id": "INT-B5400",
@@ -638,19 +560,6 @@
       "features": [
         "Churn Risk Index",
         "Retention Readiness Index"
-      ]
-    },
-    {
-      "id": "INT-B5440",
-      "name": "번호이동 절차 확인",
-      "L1_id": "INT-B5000",
-      "L1_name": "이탈 검토",
-      "L2_id": "INT-B5400",
-      "L2_name": "해지 검토",
-      "inference_type": "Rule",
-      "features": [
-        "Churn Risk Index",
-        "contract_status"
       ]
     }
   ]
