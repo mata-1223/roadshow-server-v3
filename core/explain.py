@@ -156,7 +156,7 @@ FEATURE_LABELS = {
     "장애 페이지 체류": "장애 페이지 체류", "할인 페이지 체류": "할인 페이지 조회",
     "가족 결합 관련 행동": "가족 결합 페이지 조회",
     # 프로필 snake_case
-    "benefit_utilization": "혜택 활용도", "content_view_mode": "콘텐츠 이용 형태",
+    "benefit_utilization": "혜택 활용도", "content_view_mode": "영상 소비 강도",
     "family_line_count": "가족 회선 수", "household_change": "가구 변화", "offwork_time": "퇴근 시간",
     "overtime_freq": "야근 빈도", "plan_tier": "요금제 등급", "plan_bill_level": "요금제 금액대",
     "monthly_bill_level": "월 요금 수준", "service_coverage_ratio": "서비스 커버리지 비율",

@@ -19,11 +19,11 @@
     },
     {
       "id": "INT-W120",
-      "name": "에너지 최소화",
+      "name": "에너지 절약 모드",
       "L1_id": "INT-W100",
       "L1_name": "번아웃 심화",
       "L2_id": "INT-W120",
-      "L2_name": "에너지 최소화",
+      "L2_name": "에너지 절약 모드",
       "inference_type": "Model",
       "features": [
         "Fatigue Load Index",
@@ -32,11 +32,11 @@
     },
     {
       "id": "INT-W130",
-      "name": "수면 회피 / 야간 자극 추구",
+      "name": "늦은 밤 디지털 활동",
       "L1_id": "INT-W100",
       "L1_name": "번아웃 심화",
       "L2_id": "INT-W130",
-      "L2_name": "수면 회피 / 야간 자극 추구",
+      "L2_name": "늦은 밤 디지털 활동",
       "inference_type": "Rule",
       "features": [
         "Sleep Disturbance Index",
@@ -45,11 +45,11 @@
     },
     {
       "id": "INT-W140",
-      "name": "일상 루틴 붕괴",
+      "name": "생활 리듬 불규칙",
       "L1_id": "INT-W100",
       "L1_name": "번아웃 심화",
       "L2_id": "INT-W140",
-      "L2_name": "일상 루틴 붕괴",
+      "L2_name": "생활 리듬 불규칙",
       "inference_type": "Model",
       "features": [
         "Fatigue Load Index",
@@ -72,11 +72,11 @@
     },
     {
       "id": "INT-W220",
-      "name": "일탈·환경 전환 욕구",
+      "name": "환경 전환 욕구",
       "L1_id": "INT-W200",
       "L1_name": "번아웃 완화 시도",
       "L2_id": "INT-W220",
-      "L2_name": "일탈·환경 전환 욕구",
+      "L2_name": "환경 전환 욕구",
       "inference_type": "Rule",
       "features": [
         "Recovery Motivation Score",
