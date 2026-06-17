@@ -450,7 +450,7 @@
         },
         {
           "id": "1-E",
-          "name": "이탈 검토",
+          "name": "타사 상품 비교 조회",
           "event_type": "page_view",
           "entity": "competitor_explore"
         }
