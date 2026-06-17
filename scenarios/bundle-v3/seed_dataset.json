@@ -82,7 +82,7 @@
           "entity": "competitor_explore"
         },
         {
-          "behavior_id": "2-E4",
+          "behavior_id": "2-E2",
           "event_type": "churn_action",
           "entity": "penalty"
         }
@@ -429,9 +429,9 @@
         "decision_action_count_5m": 0,
         "dominant_entity_5m": "competitor_explore",
         "entity_focus_ratio_5m": 0.5,
-        "entity_transition_pattern": "competitor_explore→mnp",
+        "entity_transition_pattern": "competitor_explore→cancel_process",
         "explored_entity_count_5m": 2,
-        "last_entity": "mnp",
+        "last_entity": "cancel_process",
         "repeated_entity_count_5m": 1,
         "support_entry_count_5m": 0
       },
@@ -440,9 +440,9 @@
         "competitor_compare_entry": 0,
         "is_churn_signal": 1,
         "is_decision": 0,
-        "last_entity": "mnp",
+        "last_entity": "cancel_process",
         "last_event_type": "churn_action",
-        "mnp_benefit_check": 1,
+        "mnp_benefit_check": 0,
         "renewal_consult_submit": 0,
         "support_entry": 0,
         "termination_penalty_check": 0
@@ -454,9 +454,9 @@
           "entity": "competitor_explore"
         },
         {
-          "behavior_id": "2-E2",
+          "behavior_id": "2-E1",
           "event_type": "churn_action",
-          "entity": "mnp"
+          "entity": "cancel_process"
         }
       ],
       "intent_labels": {
@@ -648,7 +648,7 @@
           "entity": "competitor_explore"
         },
         {
-          "behavior_id": "2-E4",
+          "behavior_id": "2-E2",
           "event_type": "churn_action",
           "entity": "penalty"
         }
@@ -713,9 +713,9 @@
         "decision_action_count_5m": 0,
         "dominant_entity_5m": "competitor_explore",
         "entity_focus_ratio_5m": 0.5,
-        "entity_transition_pattern": "competitor_explore→mnp",
+        "entity_transition_pattern": "competitor_explore→cancel_process",
         "explored_entity_count_5m": 2,
-        "last_entity": "mnp",
+        "last_entity": "cancel_process",
         "repeated_entity_count_5m": 1,
         "support_entry_count_5m": 0
       },
@@ -724,9 +724,9 @@
         "competitor_compare_entry": 0,
         "is_churn_signal": 1,
         "is_decision": 0,
-        "last_entity": "mnp",
+        "last_entity": "cancel_process",
         "last_event_type": "churn_action",
-        "mnp_benefit_check": 1,
+        "mnp_benefit_check": 0,
         "renewal_consult_submit": 0,
         "support_entry": 0,
         "termination_penalty_check": 0
@@ -738,9 +738,9 @@
           "entity": "competitor_explore"
         },
         {
-          "behavior_id": "2-E2",
+          "behavior_id": "2-E1",
           "event_type": "churn_action",
-          "entity": "mnp"
+          "entity": "cancel_process"
         }
       ],
       "intent_labels": {
@@ -1678,7 +1678,7 @@
           "entity": "competitor_explore"
         },
         {
-          "behavior_id": "2-E4",
+          "behavior_id": "2-E2",
           "event_type": "churn_action",
           "entity": "penalty"
         }
@@ -1857,7 +1857,7 @@
           "entity": "competitor_explore"
         },
         {
-          "behavior_id": "2-E4",
+          "behavior_id": "2-E2",
           "event_type": "churn_action",
           "entity": "penalty"
         }
@@ -2586,7 +2586,7 @@
           "entity": "competitor_explore"
         },
         {
-          "behavior_id": "2-E4",
+          "behavior_id": "2-E2",
           "event_type": "churn_action",
           "entity": "penalty"
         }
@@ -2675,7 +2675,7 @@
           "entity": "competitor_explore"
         },
         {
-          "behavior_id": "2-E4",
+          "behavior_id": "2-E2",
           "event_type": "churn_action",
           "entity": "penalty"
         }
@@ -3599,7 +3599,7 @@
           "entity": "competitor_explore"
         },
         {
-          "behavior_id": "2-E4",
+          "behavior_id": "2-E2",
           "event_type": "churn_action",
           "entity": "penalty"
         },
@@ -3614,7 +3614,7 @@
           "entity": "competitor_explore"
         },
         {
-          "behavior_id": "2-E4",
+          "behavior_id": "2-E2",
           "event_type": "churn_action",
           "entity": "penalty"
         },
@@ -3900,7 +3900,7 @@
           "entity": "competitor_explore"
         },
         {
-          "behavior_id": "2-E4",
+          "behavior_id": "2-E2",
           "event_type": "churn_action",
           "entity": "penalty"
         },
@@ -3915,7 +3915,7 @@
           "entity": "competitor_explore"
         },
         {
-          "behavior_id": "2-E4",
+          "behavior_id": "2-E2",
           "event_type": "churn_action",
           "entity": "penalty"
         },
@@ -4396,7 +4396,7 @@
           "entity": "competitor_explore"
         },
         {
-          "behavior_id": "2-E4",
+          "behavior_id": "2-E2",
           "event_type": "churn_action",
           "entity": "penalty"
         }
@@ -4783,7 +4783,7 @@
           "entity": "competitor_explore"
         },
         {
-          "behavior_id": "2-E4",
+          "behavior_id": "2-E2",
           "event_type": "churn_action",
           "entity": "penalty"
         }
@@ -6024,7 +6024,7 @@
           "entity": "competitor_explore"
         },
         {
-          "behavior_id": "2-E4",
+          "behavior_id": "2-E2",
           "event_type": "churn_action",
           "entity": "penalty"
         }
@@ -7593,7 +7593,7 @@
           "entity": "competitor_explore"
         },
         {
-          "behavior_id": "2-E4",
+          "behavior_id": "2-E2",
           "event_type": "churn_action",
           "entity": "penalty"
         }
@@ -8146,7 +8146,7 @@
           "entity": "competitor_explore"
         },
         {
-          "behavior_id": "2-E4",
+          "behavior_id": "2-E2",
           "event_type": "churn_action",
           "entity": "penalty"
         },
@@ -8161,7 +8161,7 @@
           "entity": "competitor_explore"
         },
         {
-          "behavior_id": "2-E4",
+          "behavior_id": "2-E2",
           "event_type": "churn_action",
           "entity": "penalty"
         },
@@ -8345,7 +8345,7 @@
           "entity": "competitor_explore"
         },
         {
-          "behavior_id": "2-E4",
+          "behavior_id": "2-E2",
           "event_type": "churn_action",
           "entity": "penalty"
         }
@@ -8895,7 +8895,7 @@
           "entity": "competitor_explore"
         },
         {
-          "behavior_id": "2-E4",
+          "behavior_id": "2-E2",
           "event_type": "churn_action",
           "entity": "penalty"
         },
@@ -8910,7 +8910,7 @@
           "entity": "competitor_explore"
         },
         {
-          "behavior_id": "2-E4",
+          "behavior_id": "2-E2",
           "event_type": "churn_action",
           "entity": "penalty"
         },
@@ -9394,7 +9394,7 @@
           "entity": "competitor_explore"
         },
         {
-          "behavior_id": "2-E4",
+          "behavior_id": "2-E2",
           "event_type": "churn_action",
           "entity": "penalty"
         }
@@ -9483,7 +9483,7 @@
           "entity": "competitor_explore"
         },
         {
-          "behavior_id": "2-E4",
+          "behavior_id": "2-E2",
           "event_type": "churn_action",
           "entity": "penalty"
         }
@@ -9905,9 +9905,9 @@
         "decision_action_count_5m": 0,
         "dominant_entity_5m": "competitor_explore",
         "entity_focus_ratio_5m": 0.5,
-        "entity_transition_pattern": "competitor_explore→mnp",
+        "entity_transition_pattern": "competitor_explore→cancel_process",
         "explored_entity_count_5m": 2,
-        "last_entity": "mnp",
+        "last_entity": "cancel_process",
         "repeated_entity_count_5m": 1,
         "support_entry_count_5m": 0
       },
@@ -9916,9 +9916,9 @@
         "competitor_compare_entry": 0,
         "is_churn_signal": 1,
         "is_decision": 0,
-        "last_entity": "mnp",
+        "last_entity": "cancel_process",
         "last_event_type": "churn_action",
-        "mnp_benefit_check": 1,
+        "mnp_benefit_check": 0,
         "renewal_consult_submit": 0,
         "support_entry": 0,
         "termination_penalty_check": 0
@@ -9930,9 +9930,9 @@
           "entity": "competitor_explore"
         },
         {
-          "behavior_id": "2-E2",
+          "behavior_id": "2-E1",
           "event_type": "churn_action",
-          "entity": "mnp"
+          "entity": "cancel_process"
         }
       ],
       "intent_labels": {
@@ -10019,7 +10019,7 @@
           "entity": "competitor_explore"
         },
         {
-          "behavior_id": "2-E4",
+          "behavior_id": "2-E2",
           "event_type": "churn_action",
           "entity": "penalty"
         }
@@ -11237,9 +11237,9 @@
         "decision_action_count_5m": 0,
         "dominant_entity_5m": "competitor_explore",
         "entity_focus_ratio_5m": 0.5,
-        "entity_transition_pattern": "competitor_explore→mnp",
+        "entity_transition_pattern": "competitor_explore→cancel_process",
         "explored_entity_count_5m": 2,
-        "last_entity": "mnp",
+        "last_entity": "cancel_process",
         "repeated_entity_count_5m": 1,
         "support_entry_count_5m": 0
       },
@@ -11248,9 +11248,9 @@
         "competitor_compare_entry": 0,
         "is_churn_signal": 1,
         "is_decision": 0,
-        "last_entity": "mnp",
+        "last_entity": "cancel_process",
         "last_event_type": "churn_action",
-        "mnp_benefit_check": 1,
+        "mnp_benefit_check": 0,
         "renewal_consult_submit": 0,
         "support_entry": 0,
         "termination_penalty_check": 0
@@ -11262,9 +11262,9 @@
           "entity": "competitor_explore"
         },
         {
-          "behavior_id": "2-E2",
+          "behavior_id": "2-E1",
           "event_type": "churn_action",
-          "entity": "mnp"
+          "entity": "cancel_process"
         }
       ],
       "intent_labels": {
@@ -11326,9 +11326,9 @@
         "decision_action_count_5m": 0,
         "dominant_entity_5m": "competitor_explore",
         "entity_focus_ratio_5m": 0.5,
-        "entity_transition_pattern": "competitor_explore→mnp",
+        "entity_transition_pattern": "competitor_explore→cancel_process",
         "explored_entity_count_5m": 2,
-        "last_entity": "mnp",
+        "last_entity": "cancel_process",
         "repeated_entity_count_5m": 1,
         "support_entry_count_5m": 0
       },
@@ -11337,9 +11337,9 @@
         "competitor_compare_entry": 0,
         "is_churn_signal": 1,
         "is_decision": 0,
-        "last_entity": "mnp",
+        "last_entity": "cancel_process",
         "last_event_type": "churn_action",
-        "mnp_benefit_check": 1,
+        "mnp_benefit_check": 0,
         "renewal_consult_submit": 0,
         "support_entry": 0,
         "termination_penalty_check": 0
@@ -11351,9 +11351,9 @@
           "entity": "competitor_explore"
         },
         {
-          "behavior_id": "2-E2",
+          "behavior_id": "2-E1",
           "event_type": "churn_action",
-          "entity": "mnp"
+          "entity": "cancel_process"
         }
       ],
       "intent_labels": {
@@ -11788,9 +11788,9 @@
         "decision_action_count_5m": 0,
         "dominant_entity_5m": "competitor_explore",
         "entity_focus_ratio_5m": 0.5,
-        "entity_transition_pattern": "competitor_explore→mnp",
+        "entity_transition_pattern": "competitor_explore→cancel_process",
         "explored_entity_count_5m": 2,
-        "last_entity": "mnp",
+        "last_entity": "cancel_process",
         "repeated_entity_count_5m": 1,
         "support_entry_count_5m": 0
       },
@@ -11799,9 +11799,9 @@
         "competitor_compare_entry": 0,
         "is_churn_signal": 1,
         "is_decision": 0,
-        "last_entity": "mnp",
+        "last_entity": "cancel_process",
         "last_event_type": "churn_action",
-        "mnp_benefit_check": 1,
+        "mnp_benefit_check": 0,
         "renewal_consult_submit": 0,
         "support_entry": 0,
         "termination_penalty_check": 0
@@ -11813,9 +11813,9 @@
           "entity": "competitor_explore"
         },
         {
-          "behavior_id": "2-E2",
+          "behavior_id": "2-E1",
           "event_type": "churn_action",
-          "entity": "mnp"
+          "entity": "cancel_process"
         }
       ],
       "intent_labels": {
@@ -12184,7 +12184,7 @@
           "entity": "competitor_explore"
         },
         {
-          "behavior_id": "2-E4",
+          "behavior_id": "2-E2",
           "event_type": "churn_action",
           "entity": "penalty"
         }
@@ -12649,7 +12649,7 @@
           "entity": "competitor_explore"
         },
         {
-          "behavior_id": "2-E4",
+          "behavior_id": "2-E2",
           "event_type": "churn_action",
           "entity": "penalty"
         }
@@ -12738,7 +12738,7 @@
           "entity": "competitor_explore"
         },
         {
-          "behavior_id": "2-E4",
+          "behavior_id": "2-E2",
           "event_type": "churn_action",
           "entity": "penalty"
         },
@@ -12753,7 +12753,7 @@
           "entity": "competitor_explore"
         },
         {
-          "behavior_id": "2-E4",
+          "behavior_id": "2-E2",
           "event_type": "churn_action",
           "entity": "penalty"
         },
@@ -13384,7 +13384,7 @@
           "entity": "competitor_explore"
         },
         {
-          "behavior_id": "2-E4",
+          "behavior_id": "2-E2",
           "event_type": "churn_action",
           "entity": "penalty"
         }
@@ -13579,7 +13579,7 @@
           "entity": "competitor_explore"
         },
         {
-          "behavior_id": "2-E4",
+          "behavior_id": "2-E2",
           "event_type": "churn_action",
           "entity": "penalty"
         }
@@ -13773,7 +13773,7 @@
           "entity": "competitor_explore"
         },
         {
-          "behavior_id": "2-E4",
+          "behavior_id": "2-E2",
           "event_type": "churn_action",
           "entity": "penalty"
         }
@@ -15374,7 +15374,7 @@
           "entity": "competitor_explore"
         },
         {
-          "behavior_id": "2-E4",
+          "behavior_id": "2-E2",
           "event_type": "churn_action",
           "entity": "penalty"
         }
@@ -16181,7 +16181,7 @@
           "entity": "competitor_explore"
         },
         {
-          "behavior_id": "2-E4",
+          "behavior_id": "2-E2",
           "event_type": "churn_action",
           "entity": "penalty"
         },
@@ -16196,7 +16196,7 @@
           "entity": "competitor_explore"
         },
         {
-          "behavior_id": "2-E4",
+          "behavior_id": "2-E2",
           "event_type": "churn_action",
           "entity": "penalty"
         },
@@ -16380,7 +16380,7 @@
           "entity": "competitor_explore"
         },
         {
-          "behavior_id": "2-E4",
+          "behavior_id": "2-E2",
           "event_type": "churn_action",
           "entity": "penalty"
         }
@@ -16739,7 +16739,7 @@
           "entity": "competitor_explore"
         },
         {
-          "behavior_id": "2-E4",
+          "behavior_id": "2-E2",
           "event_type": "churn_action",
           "entity": "penalty"
         }
@@ -17356,9 +17356,9 @@
         "decision_action_count_5m": 0,
         "dominant_entity_5m": "competitor_explore",
         "entity_focus_ratio_5m": 0.5,
-        "entity_transition_pattern": "competitor_explore→mnp",
+        "entity_transition_pattern": "competitor_explore→cancel_process",
         "explored_entity_count_5m": 2,
-        "last_entity": "mnp",
+        "last_entity": "cancel_process",
         "repeated_entity_count_5m": 1,
         "support_entry_count_5m": 0
       },
@@ -17367,9 +17367,9 @@
         "competitor_compare_entry": 0,
         "is_churn_signal": 1,
         "is_decision": 0,
-        "last_entity": "mnp",
+        "last_entity": "cancel_process",
         "last_event_type": "churn_action",
-        "mnp_benefit_check": 1,
+        "mnp_benefit_check": 0,
         "renewal_consult_submit": 0,
         "support_entry": 0,
         "termination_penalty_check": 0
@@ -17381,9 +17381,9 @@
           "entity": "competitor_explore"
         },
         {
-          "behavior_id": "2-E2",
+          "behavior_id": "2-E1",
           "event_type": "churn_action",
-          "entity": "mnp"
+          "entity": "cancel_process"
         }
       ],
       "intent_labels": {
@@ -18473,7 +18473,7 @@
           "entity": "competitor_explore"
         },
         {
-          "behavior_id": "2-E4",
+          "behavior_id": "2-E2",
           "event_type": "churn_action",
           "entity": "penalty"
         }
@@ -18938,7 +18938,7 @@
           "entity": "competitor_explore"
         },
         {
-          "behavior_id": "2-E4",
+          "behavior_id": "2-E2",
           "event_type": "churn_action",
           "entity": "penalty"
         }
@@ -19402,7 +19402,7 @@
           "entity": "competitor_explore"
         },
         {
-          "behavior_id": "2-E4",
+          "behavior_id": "2-E2",
           "event_type": "churn_action",
           "entity": "penalty"
         }
@@ -19467,9 +19467,9 @@
         "decision_action_count_5m": 0,
         "dominant_entity_5m": "competitor_explore",
         "entity_focus_ratio_5m": 0.5,
-        "entity_transition_pattern": "competitor_explore→mnp",
+        "entity_transition_pattern": "competitor_explore→cancel_process",
         "explored_entity_count_5m": 2,
-        "last_entity": "mnp",
+        "last_entity": "cancel_process",
         "repeated_entity_count_5m": 1,
         "support_entry_count_5m": 0
       },
@@ -19478,9 +19478,9 @@
         "competitor_compare_entry": 0,
         "is_churn_signal": 1,
         "is_decision": 0,
-        "last_entity": "mnp",
+        "last_entity": "cancel_process",
         "last_event_type": "churn_action",
-        "mnp_benefit_check": 1,
+        "mnp_benefit_check": 0,
         "renewal_consult_submit": 0,
         "support_entry": 0,
         "termination_penalty_check": 0
@@ -19492,9 +19492,9 @@
           "entity": "competitor_explore"
         },
         {
-          "behavior_id": "2-E2",
+          "behavior_id": "2-E1",
           "event_type": "churn_action",
-          "entity": "mnp"
+          "entity": "cancel_process"
         }
       ],
       "intent_labels": {
@@ -20311,7 +20311,7 @@
           "entity": "competitor_explore"
         },
         {
-          "behavior_id": "2-E4",
+          "behavior_id": "2-E2",
           "event_type": "churn_action",
           "entity": "penalty"
         }
@@ -20855,9 +20855,9 @@
         "decision_action_count_5m": 0,
         "dominant_entity_5m": "competitor_explore",
         "entity_focus_ratio_5m": 0.5,
-        "entity_transition_pattern": "competitor_explore→mnp",
+        "entity_transition_pattern": "competitor_explore→cancel_process",
         "explored_entity_count_5m": 2,
-        "last_entity": "mnp",
+        "last_entity": "cancel_process",
         "repeated_entity_count_5m": 1,
         "support_entry_count_5m": 0
       },
@@ -20866,9 +20866,9 @@
         "competitor_compare_entry": 0,
         "is_churn_signal": 1,
         "is_decision": 0,
-        "last_entity": "mnp",
+        "last_entity": "cancel_process",
         "last_event_type": "churn_action",
-        "mnp_benefit_check": 1,
+        "mnp_benefit_check": 0,
         "renewal_consult_submit": 0,
         "support_entry": 0,
         "termination_penalty_check": 0
@@ -20880,9 +20880,9 @@
           "entity": "competitor_explore"
         },
         {
-          "behavior_id": "2-E2",
+          "behavior_id": "2-E1",
           "event_type": "churn_action",
-          "entity": "mnp"
+          "entity": "cancel_process"
         }
       ],
       "intent_labels": {
@@ -21059,7 +21059,7 @@
           "entity": "competitor_explore"
         },
         {
-          "behavior_id": "2-E4",
+          "behavior_id": "2-E2",
           "event_type": "churn_action",
           "entity": "penalty"
         }
@@ -21432,7 +21432,7 @@
           "entity": "competitor_explore"
         },
         {
-          "behavior_id": "2-E4",
+          "behavior_id": "2-E2",
           "event_type": "churn_action",
           "entity": "penalty"
         }
@@ -23491,7 +23491,7 @@
           "entity": "competitor_explore"
         },
         {
-          "behavior_id": "2-E4",
+          "behavior_id": "2-E2",
           "event_type": "churn_action",
           "entity": "penalty"
         }
@@ -25821,7 +25821,7 @@
           "entity": "competitor_explore"
         },
         {
-          "behavior_id": "2-E4",
+          "behavior_id": "2-E2",
           "event_type": "churn_action",
           "entity": "penalty"
         }
@@ -26266,7 +26266,7 @@
           "entity": "competitor_explore"
         },
         {
-          "behavior_id": "2-E4",
+          "behavior_id": "2-E2",
           "event_type": "churn_action",
           "entity": "penalty"
         }
@@ -26550,7 +26550,7 @@
           "entity": "competitor_explore"
         },
         {
-          "behavior_id": "2-E4",
+          "behavior_id": "2-E2",
           "event_type": "churn_action",
           "entity": "penalty"
         }
@@ -27297,7 +27297,7 @@
           "entity": "competitor_explore"
         },
         {
-          "behavior_id": "2-E4",
+          "behavior_id": "2-E2",
           "event_type": "churn_action",
           "entity": "penalty"
         }
@@ -27386,7 +27386,7 @@
           "entity": "competitor_explore"
         },
         {
-          "behavior_id": "2-E4",
+          "behavior_id": "2-E2",
           "event_type": "churn_action",
           "entity": "penalty"
         }
@@ -28415,7 +28415,7 @@
           "entity": "competitor_explore"
         },
         {
-          "behavior_id": "2-E4",
+          "behavior_id": "2-E2",
           "event_type": "churn_action",
           "entity": "penalty"
         }
@@ -28890,7 +28890,7 @@
           "entity": "competitor_explore"
         },
         {
-          "behavior_id": "2-E4",
+          "behavior_id": "2-E2",
           "event_type": "churn_action",
           "entity": "penalty"
         }
@@ -30042,7 +30042,7 @@
           "entity": "competitor_explore"
         },
         {
-          "behavior_id": "2-E4",
+          "behavior_id": "2-E2",
           "event_type": "churn_action",
           "entity": "penalty"
         }
@@ -30390,9 +30390,9 @@
         "decision_action_count_5m": 0,
         "dominant_entity_5m": "competitor_explore",
         "entity_focus_ratio_5m": 0.5,
-        "entity_transition_pattern": "competitor_explore→mnp",
+        "entity_transition_pattern": "competitor_explore→cancel_process",
         "explored_entity_count_5m": 2,
-        "last_entity": "mnp",
+        "last_entity": "cancel_process",
         "repeated_entity_count_5m": 1,
         "support_entry_count_5m": 0
       },
@@ -30401,9 +30401,9 @@
         "competitor_compare_entry": 0,
         "is_churn_signal": 1,
         "is_decision": 0,
-        "last_entity": "mnp",
+        "last_entity": "cancel_process",
         "last_event_type": "churn_action",
-        "mnp_benefit_check": 1,
+        "mnp_benefit_check": 0,
         "renewal_consult_submit": 0,
         "support_entry": 0,
         "termination_penalty_check": 0
@@ -30415,9 +30415,9 @@
           "entity": "competitor_explore"
         },
         {
-          "behavior_id": "2-E2",
+          "behavior_id": "2-E1",
           "event_type": "churn_action",
-          "entity": "mnp"
+          "entity": "cancel_process"
         }
       ],
       "intent_labels": {
@@ -30951,7 +30951,7 @@
           "entity": "competitor_explore"
         },
         {
-          "behavior_id": "2-E4",
+          "behavior_id": "2-E2",
           "event_type": "churn_action",
           "entity": "penalty"
         }
@@ -31788,7 +31788,7 @@
           "entity": "competitor_explore"
         },
         {
-          "behavior_id": "2-E4",
+          "behavior_id": "2-E2",
           "event_type": "churn_action",
           "entity": "penalty"
         }
@@ -33284,7 +33284,7 @@
           "entity": "competitor_explore"
         },
         {
-          "behavior_id": "2-E4",
+          "behavior_id": "2-E2",
           "event_type": "churn_action",
           "entity": "penalty"
         }
@@ -33658,7 +33658,7 @@
           "entity": "competitor_explore"
         },
         {
-          "behavior_id": "2-E4",
+          "behavior_id": "2-E2",
           "event_type": "churn_action",
           "entity": "penalty"
         },
@@ -33673,7 +33673,7 @@
           "entity": "competitor_explore"
         },
         {
-          "behavior_id": "2-E4",
+          "behavior_id": "2-E2",
           "event_type": "churn_action",
           "entity": "penalty"
         },
@@ -34215,7 +34215,7 @@
           "entity": "competitor_explore"
         },
         {
-          "behavior_id": "2-E4",
+          "behavior_id": "2-E2",
           "event_type": "churn_action",
           "entity": "penalty"
         },
@@ -34230,7 +34230,7 @@
           "entity": "competitor_explore"
         },
         {
-          "behavior_id": "2-E4",
+          "behavior_id": "2-E2",
           "event_type": "churn_action",
           "entity": "penalty"
         },
@@ -34324,7 +34324,7 @@
           "entity": "competitor_explore"
         },
         {
-          "behavior_id": "2-E4",
+          "behavior_id": "2-E2",
           "event_type": "churn_action",
           "entity": "penalty"
         },
@@ -34339,7 +34339,7 @@
           "entity": "competitor_explore"
         },
         {
-          "behavior_id": "2-E4",
+          "behavior_id": "2-E2",
           "event_type": "churn_action",
           "entity": "penalty"
         },
@@ -34717,7 +34717,7 @@
           "entity": "competitor_explore"
         },
         {
-          "behavior_id": "2-E4",
+          "behavior_id": "2-E2",
           "event_type": "churn_action",
           "entity": "penalty"
         }
@@ -34806,7 +34806,7 @@
           "entity": "competitor_explore"
         },
         {
-          "behavior_id": "2-E4",
+          "behavior_id": "2-E2",
           "event_type": "churn_action",
           "entity": "penalty"
         }
@@ -34985,7 +34985,7 @@
           "entity": "competitor_explore"
         },
         {
-          "behavior_id": "2-E4",
+          "behavior_id": "2-E2",
           "event_type": "churn_action",
           "entity": "penalty"
         }
@@ -35243,9 +35243,9 @@
         "decision_action_count_5m": 0,
         "dominant_entity_5m": "competitor_explore",
         "entity_focus_ratio_5m": 0.5,
-        "entity_transition_pattern": "competitor_explore→mnp",
+        "entity_transition_pattern": "competitor_explore→cancel_process",
         "explored_entity_count_5m": 2,
-        "last_entity": "mnp",
+        "last_entity": "cancel_process",
         "repeated_entity_count_5m": 1,
         "support_entry_count_5m": 0
       },
@@ -35254,9 +35254,9 @@
         "competitor_compare_entry": 0,
         "is_churn_signal": 1,
         "is_decision": 0,
-        "last_entity": "mnp",
+        "last_entity": "cancel_process",
         "last_event_type": "churn_action",
-        "mnp_benefit_check": 1,
+        "mnp_benefit_check": 0,
         "renewal_consult_submit": 0,
         "support_entry": 0,
         "termination_penalty_check": 0
@@ -35268,9 +35268,9 @@
           "entity": "competitor_explore"
         },
         {
-          "behavior_id": "2-E2",
+          "behavior_id": "2-E1",
           "event_type": "churn_action",
-          "entity": "mnp"
+          "entity": "cancel_process"
         }
       ],
       "intent_labels": {
@@ -37330,7 +37330,7 @@
           "entity": "competitor_explore"
         },
         {
-          "behavior_id": "2-E4",
+          "behavior_id": "2-E2",
           "event_type": "churn_action",
           "entity": "penalty"
         }
@@ -37510,7 +37510,7 @@
           "entity": "competitor_explore"
         },
         {
-          "behavior_id": "2-E4",
+          "behavior_id": "2-E2",
           "event_type": "churn_action",
           "entity": "penalty"
         }
@@ -37970,7 +37970,7 @@
           "entity": "competitor_explore"
         },
         {
-          "behavior_id": "2-E4",
+          "behavior_id": "2-E2",
           "event_type": "churn_action",
           "entity": "penalty"
         },
@@ -37985,7 +37985,7 @@
           "entity": "competitor_explore"
         },
         {
-          "behavior_id": "2-E4",
+          "behavior_id": "2-E2",
           "event_type": "churn_action",
           "entity": "penalty"
         },
@@ -38079,7 +38079,7 @@
           "entity": "competitor_explore"
         },
         {
-          "behavior_id": "2-E4",
+          "behavior_id": "2-E2",
           "event_type": "churn_action",
           "entity": "penalty"
         }
@@ -40575,7 +40575,7 @@
           "entity": "competitor_explore"
         },
         {
-          "behavior_id": "2-E4",
+          "behavior_id": "2-E2",
           "event_type": "churn_action",
           "entity": "penalty"
         }
@@ -41982,7 +41982,7 @@
           "entity": "competitor_explore"
         },
         {
-          "behavior_id": "2-E4",
+          "behavior_id": "2-E2",
           "event_type": "churn_action",
           "entity": "penalty"
         }
@@ -42071,7 +42071,7 @@
           "entity": "competitor_explore"
         },
         {
-          "behavior_id": "2-E4",
+          "behavior_id": "2-E2",
           "event_type": "churn_action",
           "entity": "penalty"
         }
@@ -43620,9 +43620,9 @@
         "decision_action_count_5m": 0,
         "dominant_entity_5m": "competitor_explore",
         "entity_focus_ratio_5m": 0.5,
-        "entity_transition_pattern": "competitor_explore→mnp",
+        "entity_transition_pattern": "competitor_explore→cancel_process",
         "explored_entity_count_5m": 2,
-        "last_entity": "mnp",
+        "last_entity": "cancel_process",
         "repeated_entity_count_5m": 1,
         "support_entry_count_5m": 0
       },
@@ -43631,9 +43631,9 @@
         "competitor_compare_entry": 0,
         "is_churn_signal": 1,
         "is_decision": 0,
-        "last_entity": "mnp",
+        "last_entity": "cancel_process",
         "last_event_type": "churn_action",
-        "mnp_benefit_check": 1,
+        "mnp_benefit_check": 0,
         "renewal_consult_submit": 0,
         "support_entry": 0,
         "termination_penalty_check": 0
@@ -43645,9 +43645,9 @@
           "entity": "competitor_explore"
         },
         {
-          "behavior_id": "2-E2",
+          "behavior_id": "2-E1",
           "event_type": "churn_action",
-          "entity": "mnp"
+          "entity": "cancel_process"
         }
       ],
       "intent_labels": {
@@ -43994,9 +43994,9 @@
         "decision_action_count_5m": 0,
         "dominant_entity_5m": "competitor_explore",
         "entity_focus_ratio_5m": 0.5,
-        "entity_transition_pattern": "competitor_explore→mnp",
+        "entity_transition_pattern": "competitor_explore→cancel_process",
         "explored_entity_count_5m": 2,
-        "last_entity": "mnp",
+        "last_entity": "cancel_process",
         "repeated_entity_count_5m": 1,
         "support_entry_count_5m": 0
       },
@@ -44005,9 +44005,9 @@
         "competitor_compare_entry": 0,
         "is_churn_signal": 1,
         "is_decision": 0,
-        "last_entity": "mnp",
+        "last_entity": "cancel_process",
         "last_event_type": "churn_action",
-        "mnp_benefit_check": 1,
+        "mnp_benefit_check": 0,
         "renewal_consult_submit": 0,
         "support_entry": 0,
         "termination_penalty_check": 0
@@ -44019,9 +44019,9 @@
           "entity": "competitor_explore"
         },
         {
-          "behavior_id": "2-E2",
+          "behavior_id": "2-E1",
           "event_type": "churn_action",
-          "entity": "mnp"
+          "entity": "cancel_process"
         }
       ],
       "intent_labels": {
@@ -45795,7 +45795,7 @@
           "entity": "competitor_explore"
         },
         {
-          "behavior_id": "2-E4",
+          "behavior_id": "2-E2",
           "event_type": "churn_action",
           "entity": "penalty"
         }

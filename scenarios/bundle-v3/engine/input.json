@@ -173,7 +173,7 @@
         "id": "Q6",
         "block": "objective_fact",
         "dimension": "거주환경",
-        "question": "최근 1년 내 가족 또는 거주 환경 변화가 있었나요?",
+        "question": "최근 1년 내 이사·독립·가족 구성 변화가 있으셨나요?",
         "options": [
           {
             "code": "A",
@@ -308,7 +308,7 @@
         "id": "Q10",
         "block": "usage_tendency",
         "dimension": "혜택활용",
-        "question": "평소 혜택이나 쿠폰 이용 수준은?",
+        "question": "통신 결합 할인·멤버십 포인트·제휴 쿠폰(영화·커피 등)을 평소 얼마나 챙겨 쓰시나요?",
         "options": [
           {
             "code": "A",
@@ -337,7 +337,7 @@
         "id": "Q11",
         "block": "usage_tendency",
         "dimension": "불만요인",
-        "question": "현재 가장 아쉽게 느끼는 부분은?",
+        "question": "현재 통신 서비스에서 가장 아쉬운 점은?",
         "options": [
           {
             "code": "A",
@@ -448,7 +448,7 @@
         },
         {
           "id": "1-E",
-          "name": "타사 상품 비교 조회",
+          "name": "해지·위약금 조회",
           "event_type": "page_view",
           "entity": "competitor_explore"
         }
@@ -569,22 +569,22 @@
         ],
         "1-E": [
           {
+            "id": "2-E1",
+            "name": "해지 절차 조회",
+            "entity": "cancel_process",
+            "event_type": "churn_action"
+          },
+          {
             "id": "2-E2",
-            "name": "번호이동 혜택 조회",
-            "event_type": "churn_action",
-            "entity": "mnp"
-          },
-          {
-            "id": "2-E4",
             "name": "위약금 조회",
-            "event_type": "churn_action",
-            "entity": "penalty"
+            "entity": "penalty",
+            "event_type": "churn_action"
           },
           {
-            "id": "2-E5",
+            "id": "2-E3",
             "name": "고객센터 상담 연결",
-            "event_type": "support_entry",
-            "entity": "support_consult"
+            "entity": "support_consult",
+            "event_type": "support_entry"
           }
         ]
       },
