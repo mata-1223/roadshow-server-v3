@@ -83,7 +83,7 @@
         "options": [
           {
             "code": "A",
-            "label": "3만원 이하",
+            "label": "3만원대 미만",
             "features": {
               "plan_tier": 1,
               "plan_bill_level": 1
@@ -91,7 +91,7 @@
           },
           {
             "code": "B",
-            "label": "3~5만원",
+            "label": "3~5만원대",
             "features": {
               "plan_tier": 2,
               "plan_bill_level": 2
@@ -99,7 +99,7 @@
           },
           {
             "code": "C",
-            "label": "6~8만원",
+            "label": "6~8만원대",
             "features": {
               "plan_tier": 3,
               "plan_bill_level": 3
@@ -107,7 +107,7 @@
           },
           {
             "code": "D",
-            "label": "9만원 이상",
+            "label": "9만원대 이상",
             "features": {
               "plan_tier": 4,
               "plan_bill_level": 4
