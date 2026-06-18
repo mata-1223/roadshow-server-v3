@@ -492,14 +492,14 @@
       "behaviors": [
         {
           "id": "1-A",
-          "name": "할인 혜택 확인",
+          "name": "현재 혜택·할인 점검",
           "event_type": "page_view",
           "entity": "benefit_check",
           "icon": "💰"
         },
         {
           "id": "1-B",
-          "name": "결합 할인 확인",
+          "name": "결합 상품·할인 확인",
           "event_type": "page_view",
           "entity": "bundle_discount_check",
           "icon": "🔗"
