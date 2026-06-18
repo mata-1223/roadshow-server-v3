@@ -426,31 +426,36 @@
           "id": "1-A",
           "name": "할인 혜택 확인",
           "event_type": "page_view",
-          "entity": "benefit_check"
+          "entity": "benefit_check",
+          "icon": "💰"
         },
         {
           "id": "1-B",
           "name": "결합 할인 확인",
           "event_type": "page_view",
-          "entity": "bundle_discount_check"
+          "entity": "bundle_discount_check",
+          "icon": "🔗"
         },
         {
           "id": "1-C",
           "name": "인터넷/IPTV 알아보기",
           "event_type": "page_view",
-          "entity": "home_service_explore"
+          "entity": "home_service_explore",
+          "icon": "📺"
         },
         {
           "id": "1-D",
           "name": "약정 혜택 확인",
           "event_type": "page_view",
-          "entity": "contract_benefit_check"
+          "entity": "contract_benefit_check",
+          "icon": "📑"
         },
         {
           "id": "1-E",
           "name": "해지·위약금 조회",
           "event_type": "page_view",
-          "entity": "competitor_explore"
+          "entity": "competitor_explore",
+          "icon": "🚪"
         }
       ]
     },
@@ -462,25 +467,29 @@
             "id": "2-A1",
             "name": "할인 계산기 조회",
             "event_type": "action_select",
-            "entity": "discount_calc"
+            "entity": "discount_calc",
+            "icon": "🧮"
           },
           {
             "id": "2-A2",
             "name": "카드 제휴 혜택 조회",
             "event_type": "action_select",
-            "entity": "card_benefit"
+            "entity": "card_benefit",
+            "icon": "💳"
           },
           {
             "id": "2-A3",
             "name": "미사용 혜택 조회",
             "event_type": "action_select",
-            "entity": "unused_benefit"
+            "entity": "unused_benefit",
+            "icon": "🎁"
           },
           {
             "id": "2-A4",
             "name": "장기고객 혜택 조회",
             "event_type": "action_select",
-            "entity": "long_term_benefit"
+            "entity": "long_term_benefit",
+            "icon": "🏅"
           }
         ],
         "1-B": [
@@ -488,25 +497,29 @@
             "id": "2-B1",
             "name": "가족 결합 조회",
             "event_type": "comparison_action",
-            "entity": "family_bundle"
+            "entity": "family_bundle",
+            "icon": "👨‍👩‍👧"
           },
           {
             "id": "2-B2",
             "name": "총액결합 할인 조회",
             "event_type": "comparison_action",
-            "entity": "total_bundle"
+            "entity": "total_bundle",
+            "icon": "💸"
           },
           {
             "id": "2-B3",
             "name": "결합 가능 여부 조회",
             "event_type": "action_select",
-            "entity": "bundle_eligibility"
+            "entity": "bundle_eligibility",
+            "icon": "✅"
           },
           {
             "id": "2-B4",
             "name": "결합 가입/변경 신청",
             "event_type": "decision_action",
-            "entity": "bundle_apply"
+            "entity": "bundle_apply",
+            "icon": "📝"
           }
         ],
         "1-C": [
@@ -514,31 +527,36 @@
             "id": "2-C1",
             "name": "인터넷 상품 조회",
             "event_type": "action_select",
-            "entity": "internet"
+            "entity": "internet",
+            "icon": "🌐"
           },
           {
             "id": "2-C2",
             "name": "IPTV 상품 조회",
             "event_type": "action_select",
-            "entity": "iptv"
+            "entity": "iptv",
+            "icon": "📺"
           },
           {
             "id": "2-C3",
             "name": "인터넷+IPTV 결합 조회",
             "event_type": "comparison_action",
-            "entity": "internet_iptv_bundle"
+            "entity": "internet_iptv_bundle",
+            "icon": "🔗"
           },
           {
             "id": "2-C4",
             "name": "홈WiFi 조회",
             "event_type": "action_select",
-            "entity": "wifi"
+            "entity": "wifi",
+            "icon": "📶"
           },
           {
             "id": "2-C5",
             "name": "인터넷 신규가입 혜택 조회",
             "event_type": "action_select",
-            "entity": "internet_signup_benefit"
+            "entity": "internet_signup_benefit",
+            "icon": "🎁"
           }
         ],
         "1-D": [
@@ -546,25 +564,29 @@
             "id": "2-D1",
             "name": "약정 상태 조회",
             "event_type": "action_select",
-            "entity": "contract_status"
+            "entity": "contract_status",
+            "icon": "📋"
           },
           {
             "id": "2-D2",
             "name": "현재 결합 혜택 조회",
             "event_type": "action_select",
-            "entity": "current_bundle_benefit"
+            "entity": "current_bundle_benefit",
+            "icon": "🎀"
           },
           {
             "id": "2-D3",
             "name": "재약정 혜택 조회",
             "event_type": "comparison_action",
-            "entity": "renewal_benefit"
+            "entity": "renewal_benefit",
+            "icon": "🔄"
           },
           {
             "id": "2-D4",
             "name": "재약정 상담 신청",
             "event_type": "decision_action",
-            "entity": "renewal_consult"
+            "entity": "renewal_consult",
+            "icon": "🧑‍💼"
           }
         ],
         "1-E": [
@@ -572,19 +594,22 @@
             "id": "2-E1",
             "name": "해지 절차 조회",
             "entity": "cancel_process",
-            "event_type": "churn_action"
+            "event_type": "churn_action",
+            "icon": "🚪"
           },
           {
             "id": "2-E2",
             "name": "위약금 조회",
             "entity": "penalty",
-            "event_type": "churn_action"
+            "event_type": "churn_action",
+            "icon": "⚠️"
           },
           {
             "id": "2-E3",
             "name": "고객센터 상담 연결",
             "entity": "support_consult",
-            "event_type": "support_entry"
+            "event_type": "support_entry",
+            "icon": "☎️"
           }
         ]
       },
@@ -593,13 +618,15 @@
           "id": "BACK",
           "name": "뒤로가기 (상위 메뉴로 복귀)",
           "event_type": "navigate_back",
-          "entity": "back_to_step1"
+          "entity": "back_to_step1",
+          "icon": "↩️"
         },
         {
           "id": "EXIT",
           "name": "앱 이탈 (세션 종료)",
           "event_type": "app_exit",
-          "entity": "session_end"
+          "entity": "session_end",
+          "icon": "👋"
         }
       ]
     }
