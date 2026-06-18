@@ -471,37 +471,43 @@
           "id": "1-A",
           "name": "데이터 사용량 페이지 진입",
           "event_type": "page_view",
-          "entity": "data_usage"
+          "entity": "data_usage",
+          "icon": "📊"
         },
         {
           "id": "1-B",
           "name": "요금/청구 상세 페이지 진입",
           "event_type": "page_view",
-          "entity": "billing"
+          "entity": "billing",
+          "icon": "🧾"
         },
         {
           "id": "1-C",
           "name": "가입정보 페이지 진입 (요금제·약정·해지)",
           "event_type": "page_view",
-          "entity": "subscription_info"
+          "entity": "subscription_info",
+          "icon": "📋"
         },
         {
           "id": "1-D",
           "name": "혜택/멤버십 페이지 진입",
           "event_type": "page_view",
-          "entity": "benefit_membership"
+          "entity": "benefit_membership",
+          "icon": "🎁"
         },
         {
           "id": "1-E",
           "name": "상품 탐색 페이지 진입",
           "event_type": "page_view",
-          "entity": "product_explore"
+          "entity": "product_explore",
+          "icon": "🛒"
         },
         {
           "id": "1-F",
           "name": "고객지원 페이지 진입",
           "event_type": "page_view",
-          "entity": "customer_support"
+          "entity": "customer_support",
+          "icon": "🛠️"
         }
       ]
     },
@@ -513,19 +519,22 @@
             "id": "2-A1",
             "name": "데이터 충전·상품 둘러보기",
             "event_type": "click",
-            "entity": "data_topup_button"
+            "entity": "data_topup_button",
+            "icon": "🔋"
           },
           {
             "id": "2-A2",
             "name": "데이터 부가서비스 가입 페이지",
             "event_type": "page_view",
-            "entity": "data_addon_page"
+            "entity": "data_addon_page",
+            "icon": "➕"
           },
           {
             "id": "2-A3",
             "name": "사용 상세 그래프 조회",
             "event_type": "page_view",
-            "entity": "usage_detail_chart"
+            "entity": "usage_detail_chart",
+            "icon": "📈"
           }
         ],
         "1-B": [
@@ -533,19 +542,22 @@
             "id": "2-B1",
             "name": "청구 상세 항목 조회",
             "event_type": "page_view",
-            "entity": "billing_detail"
+            "entity": "billing_detail",
+            "icon": "🧾"
           },
           {
             "id": "2-B2",
             "name": "즉시 납부 버튼 클릭",
             "event_type": "click",
-            "entity": "pay_now_button"
+            "entity": "pay_now_button",
+            "icon": "💳"
           },
           {
             "id": "2-B3",
             "name": "자동납부 설정 변경",
             "event_type": "page_view",
-            "entity": "auto_pay_setting"
+            "entity": "auto_pay_setting",
+            "icon": "🔁"
           }
         ],
         "1-C": [
@@ -553,19 +565,22 @@
             "id": "2-C1",
             "name": "요금제 변경 신청 클릭",
             "event_type": "click",
-            "entity": "plan_change_button"
+            "entity": "plan_change_button",
+            "icon": "🔄"
           },
           {
             "id": "2-C2",
             "name": "위약금 계산 페이지 진입",
             "event_type": "page_view",
-            "entity": "penalty_calc"
+            "entity": "penalty_calc",
+            "icon": "⚠️"
           },
           {
             "id": "2-C3",
             "name": "해지 신청 페이지 진입",
             "event_type": "page_view",
-            "entity": "cancel_page"
+            "entity": "cancel_page",
+            "icon": "🚪"
           }
         ],
         "1-D": [
@@ -573,19 +588,22 @@
             "id": "2-D1",
             "name": "쿠폰 사용/혜택 적용 클릭",
             "event_type": "click",
-            "entity": "coupon_use"
+            "entity": "coupon_use",
+            "icon": "🎟️"
           },
           {
             "id": "2-D2",
             "name": "멤버십·제휴 혜택 둘러보기",
             "event_type": "page_view",
-            "entity": "membership_tier"
+            "entity": "membership_tier",
+            "icon": "🎁"
           },
           {
             "id": "2-D3",
             "name": "이벤트/프로모션 페이지",
             "event_type": "page_view",
-            "entity": "promotion_event"
+            "entity": "promotion_event",
+            "icon": "🎉"
           }
         ],
         "1-E": [
@@ -593,19 +611,22 @@
             "id": "2-E1",
             "name": "요금제 탐색",
             "event_type": "page_view",
-            "entity": "plan_explore"
+            "entity": "plan_explore",
+            "icon": "📱"
           },
           {
             "id": "2-E2",
             "name": "단말기 탐색",
             "event_type": "page_view",
-            "entity": "device_explore"
+            "entity": "device_explore",
+            "icon": "📲"
           },
           {
             "id": "2-E3",
             "name": "가족 결합·회선 관리",
             "event_type": "page_view",
-            "entity": "family_bundle"
+            "entity": "family_bundle",
+            "icon": "👨‍👩‍👧"
           }
         ],
         "1-F": [
@@ -613,19 +634,22 @@
             "id": "2-F1",
             "name": "WiFi 진단 / 속도 측정 실행",
             "event_type": "click",
-            "entity": "quality_diagnosis"
+            "entity": "quality_diagnosis",
+            "icon": "📶"
           },
           {
             "id": "2-F2",
             "name": "챗봇 상담 진입",
             "event_type": "support_entry",
-            "entity": "chatbot"
+            "entity": "chatbot",
+            "icon": "💬"
           },
           {
             "id": "2-F3",
             "name": "전화 상담 연결 클릭",
             "event_type": "support_entry",
-            "entity": "call_support"
+            "entity": "call_support",
+            "icon": "☎️"
           }
         ]
       },
@@ -634,13 +658,15 @@
           "id": "BACK",
           "name": "뒤로가기 (상위 메뉴로 복귀)",
           "event_type": "navigate_back",
-          "entity": "back_to_step1"
+          "entity": "back_to_step1",
+          "icon": "↩️"
         },
         {
           "id": "EXIT",
           "name": "앱 이탈 (세션 종료)",
           "event_type": "app_exit",
-          "entity": "session_end"
+          "entity": "session_end",
+          "icon": "👋"
         }
       ]
     }
