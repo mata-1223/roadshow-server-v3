@@ -25,7 +25,8 @@
               "gender": "여성"
             }
           }
-        ]
+        ],
+        "realdata_source": "(KFM) 기본정보 - 성별"
       },
       {
         "id": "Q2",
@@ -73,7 +74,8 @@
               "나이": 65
             }
           }
-        ]
+        ],
+        "realdata_source": "(KFM) 기본정보 - 연령"
       },
       {
         "id": "Q3",
@@ -109,7 +111,8 @@
               "plan_tier": 4
             }
           }
-        ]
+        ],
+        "realdata_source": "(KFM) 계약정보 - 사용 요금제 금액 정보"
       },
       {
         "id": "Q4",
@@ -138,7 +141,8 @@
               "family_line_count": 3
             }
           }
-        ]
+        ],
+        "realdata_source": "(KFM) 결합/가구 회선 - 결합/가구 회선 수"
       },
       {
         "id": "Q5",
@@ -167,7 +171,8 @@
               "subscribed_service_count": 3
             }
           }
-        ]
+        ],
+        "realdata_source": "(KFM) 계약정보·결합/가구 회선 - 모바일/인터넷/IPTV 보유 구분 수"
       },
       {
         "id": "Q6",
@@ -196,7 +201,8 @@
               "household_change": 2
             }
           }
-        ]
+        ],
+        "realdata_source": "(KFM) 계약정보 + 청구정보 - 최근 1년간 청구지 변동 및 동일 주소 청구 회선 수 변동 여부"
       },
       {
         "id": "Q7",
@@ -228,7 +234,8 @@
               "가입 개월 수": 48
             }
           }
-        ]
+        ],
+        "realdata_source": "(KFM) 계약정보(가입일) - (현재일 − 가입일)"
       },
       {
         "id": "Q8",
@@ -257,7 +264,8 @@
               "contract_status": 3
             }
           }
-        ]
+        ],
+        "realdata_source": "(KFM) 계약정보(약정) - (약정 만료일 − 현재일)"
       },
       {
         "id": "Q9",
@@ -302,7 +310,8 @@
               "non_mobile_cost_gap": 3
             }
           }
-        ]
+        ],
+        "realdata_source": "(KFM/KDAP) 청구 이력(상품별) - 비(非)무선상품 대상 회선별 청구 요금 합산 금액"
       },
       {
         "id": "Q10",
@@ -331,7 +340,8 @@
               "benefit_utilization": 3
             }
           }
-        ]
+        ],
+        "realdata_source": "(KFM/KDAP) 멤버십·할인 적용 이력 - 멤버십 사용 빈도 등급화"
       },
       {
         "id": "Q11",
@@ -381,7 +391,8 @@
               "dissatisfaction_factor": "없음"
             }
           }
-        ]
+        ],
+        "realdata_source": "(KFM/VOC) VOC·품질 지표 - 품질·혜택 VOC 접수 건수"
       },
       {
         "id": "Q12",
@@ -410,7 +421,8 @@
               "content_view_mode": 3
             }
           }
-        ]
+        ],
+        "realdata_source": "(KFM/SGI) 영상 트래픽 통계 - 주요 영상·OTT 앱 사용 시간·트래픽양 등"
       }
     ]
   },

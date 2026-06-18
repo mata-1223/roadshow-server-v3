@@ -67,7 +67,8 @@
               "나이": 55
             }
           }
-        ]
+        ],
+        "realdata_source": "(KFM) 기본정보 - 성별·연령"
       },
       {
         "id": "Q2",
@@ -103,7 +104,8 @@
               "plan_tier": 4
             }
           }
-        ]
+        ],
+        "realdata_source": "(KFM) 가입정보 - 사용 요금제"
       },
       {
         "id": "Q3",
@@ -146,7 +148,8 @@
               "tenure_group": 5
             }
           }
-        ]
+        ],
+        "realdata_source": "(KFM) 계약정보 - (현재일 − 가입일)"
       },
       {
         "id": "Q4",
@@ -182,7 +185,8 @@
               "offwork_time": 4
             }
           }
-        ]
+        ],
+        "realdata_source": "(S1AP/SGI) 기지국 접속 위치(셀)·앱 사용 시간대"
       },
       {
         "id": "Q5",
@@ -218,7 +222,8 @@
               "overtime_freq": 4
             }
           }
-        ]
+        ],
+        "realdata_source": "(S1AP/SGI) 기지국 접속 위치·야간 사용 패턴"
       },
       {
         "id": "Q6",
@@ -240,7 +245,8 @@
               "move_pattern": 2
             }
           }
-        ]
+        ],
+        "realdata_source": "(S1AP/SGI) 기지국 접속 위치 패턴(셀 핸드오버)"
       },
       {
         "id": "Q7",
@@ -269,7 +275,8 @@
               "weekend_out": 3
             }
           }
-        ]
+        ],
+        "realdata_source": "(S1AP/SGI) 기지국 접속 위치 주말 패턴"
       },
       {
         "id": "Q8",
@@ -305,7 +312,8 @@
               "social_contact": 4
             }
           }
-        ]
+        ],
+        "realdata_source": "(KDAP) 통화·메시지 이력"
       },
       {
         "id": "Q9",
@@ -334,7 +342,8 @@
               "night_phone_usage": 3
             }
           }
-        ]
+        ],
+        "realdata_source": "(KFM/SGI) 야간 트래픽·앱 사용"
       }
     ]
   },
