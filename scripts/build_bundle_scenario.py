@@ -174,7 +174,7 @@ TAX: list[dict] = [
          push="IPTV 결합 시 콘텐츠 혜택을 받을 수 있어요",
          cc=("IPTV 결합 추가 검토", "IPTV 결합 상품과 콘텐츠 혜택을 안내"),
          agent="TV까지 결합하면 어떤 콘텐츠 혜택이 생기는지 볼까요?"),
-    dict(key="314", name="인터넷+IPTV 통합 이용 검토", type="Model",
+    dict(key="314", name="인터넷+IPTV 통합 이용 검토", type="Rule",
          features=["Home Service Expansion Index", "service_coverage_ratio"],
          entities=["internet_iptv_bundle"],
          push="인터넷+TV 통합 결합 혜택을 확인해보세요",

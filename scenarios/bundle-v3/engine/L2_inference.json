@@ -174,32 +174,46 @@
       ]
     },
     "INT-B3120": {
-      "terms": [
-        0.15,
-        {
-          "feat": "Home Service Expansion Index",
-          "linear": [
-            1,
-            0
-          ],
-          "div": 100,
-          "mul": 0.7
-        }
-      ]
+      "if": {
+        "feat": "has_internet",
+        "eq": 0
+      },
+      "then": {
+        "terms": [
+          0.15,
+          {
+            "feat": "Home Service Expansion Index",
+            "linear": [
+              1,
+              0
+            ],
+            "div": 100,
+            "mul": 0.7
+          }
+        ]
+      },
+      "else": 0.02
     },
     "INT-B3130": {
-      "terms": [
-        0.15,
-        {
-          "feat": "Home Service Expansion Index",
-          "linear": [
-            1,
-            0
-          ],
-          "div": 100,
-          "mul": 0.55
-        }
-      ]
+      "if": {
+        "feat": "has_iptv",
+        "eq": 0
+      },
+      "then": {
+        "terms": [
+          0.15,
+          {
+            "feat": "Home Service Expansion Index",
+            "linear": [
+              1,
+              0
+            ],
+            "div": 100,
+            "mul": 0.55
+          }
+        ]
+      },
+      "else": 0.02
     },
     "INT-B3150": {
       "terms": [
@@ -485,6 +499,35 @@
           "then": 0.25
         }
       ]
+    },
+    "INT-B3140": {
+      "if": {
+        "all": [
+          {
+            "feat": "has_internet",
+            "eq": 0
+          },
+          {
+            "feat": "has_iptv",
+            "eq": 0
+          }
+        ]
+      },
+      "then": {
+        "terms": [
+          0.18,
+          {
+            "feat": "Home Service Expansion Index",
+            "linear": [
+              1,
+              0
+            ],
+            "div": 100,
+            "mul": 0.8
+          }
+        ]
+      },
+      "else": 0.02
     }
   },
   "ranker": {
@@ -634,13 +677,6 @@
         "features": [
           "Benefit Engagement Index",
           "content_view_mode"
-        ]
-      },
-      "INT-B3140": {
-        "features": [
-          "Home Service Expansion Index",
-          "service_coverage_ratio",
-          "comparison_action_count_5m"
         ]
       },
       "INT-B3210": {
