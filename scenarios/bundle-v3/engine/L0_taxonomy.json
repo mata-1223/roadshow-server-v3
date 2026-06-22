@@ -231,7 +231,7 @@
       "L1_name": "회선/서비스 확장",
       "L2_id": "INT-B3100",
       "L2_name": "결합 범위 확대",
-      "inference_type": "Model",
+      "inference_type": "Rule",
       "features": [
         "Home Service Expansion Index",
         "service_coverage_ratio"
