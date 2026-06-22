@@ -154,21 +154,27 @@
             "code": "A",
             "label": "모바일",
             "features": {
-              "subscribed_service_count": 1
+              "subscribed_service_count": 1,
+              "has_internet": 0,
+              "has_iptv": 0
             }
           },
           {
             "code": "B",
             "label": "모바일 + 인터넷",
             "features": {
-              "subscribed_service_count": 2
+              "subscribed_service_count": 2,
+              "has_internet": 1,
+              "has_iptv": 0
             }
           },
           {
             "code": "C",
             "label": "모바일 + 인터넷 + IPTV",
             "features": {
-              "subscribed_service_count": 3
+              "subscribed_service_count": 3,
+              "has_internet": 1,
+              "has_iptv": 1
             }
           }
         ],
