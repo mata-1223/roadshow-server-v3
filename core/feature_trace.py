@@ -66,11 +66,13 @@ def build_feature_trace(scenario_id: str, answers: dict[str, str]) -> dict[str, 
     inter_to_final: dict[str, str] = {}
     for st in steps:
         f = st["formula"]
-        if (not st.get("intermediate") and f.get("feat") in inter_names
+        if (not st.get("intermediate") and isinstance(f, dict) and f.get("feat") in inter_names
                 and f.get("linear") == [1, 0] and "div" not in f and "mul" not in f):
             inter_to_final[f["feat"]] = st["name"]
 
-    def _terms(formula: dict) -> list[dict]:
+    def _terms(formula):
+        if not isinstance(formula, dict):
+            return []            # 상수 등 비-dict formula → 기여 항 없음
         if "terms" in formula:
             return formula["terms"]
         return [formula]  # 단일 feat 노드
@@ -90,23 +92,32 @@ def build_feature_trace(scenario_id: str, answers: dict[str, str]) -> dict[str, 
         # passthrough Index 는 중간값 산식을 인라인해 base 입력까지 노출
         eff = f
         kind = "weighted_sum"
-        if f.get("feat") in inter_names and f.get("linear") == [1, 0]:
+        if isinstance(f, dict) and f.get("feat") in inter_names and f.get("linear") == [1, 0]:
             eff = step_formula[f["feat"]]
             kind = "passthrough"
         clamp = eff["clamp"] if isinstance(eff, dict) and "clamp" in eff else None
 
+        def _num(v):
+            return round(float(v), 2) if isinstance(v, (int, float)) and not isinstance(v, bool) else v
+
         terms = []
         for t in _terms(eff):
-            ref = t.get("feat")
+            ref = t.get("feat") if isinstance(t, dict) else None
+            if ref is None:
+                continue  # 복합 항(if/switch 등 단일 입력 없음)은 산식 표시에서 제외
+            try:
+                contribution = round(eval_formula(t, feats), 2)
+            except Exception:
+                contribution = None
             terms.append({
                 "ref": inter_to_final.get(ref, ref),
-                "ref_value": round(float(feats.get(ref, 0.0)), 2),
-                "ref_answer": base_answer.get(ref),   # base 입력이면 선택 응답 라벨 (없으면 None)
-                "weight": _weight(t),
-                "contribution": round(eval_formula(t, feats), 2),
+                "ref_value": _num(feats.get(ref, 0.0)),   # 문자열(범주형) 값은 그대로
+                "ref_answer": base_answer.get(ref),        # base 입력이면 선택 응답 라벨
+                "weight": _weight(t) if isinstance(t, dict) else None,
+                "contribution": contribution,
             })
         trace[name] = {
-            "value": round(float(feats[name]), 2),
+            "value": _num(feats[name]),
             "clamp": clamp,
             "kind": kind,
             "terms": terms,
