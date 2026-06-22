@@ -122,10 +122,15 @@ async def submit_survey(session_id: str, submission: SurveySubmission) -> dict[s
     _explain.attach_reasoning(_eng, _combined, top_items)
     all_probabilities = to_probability_dict(intent_scores, scenario_id=scenario_id)
 
+    # 파생 변수 산출 근거(분석 오버레이의 변수 클릭 → 산식 표시)
+    from core.feature_trace import build_feature_trace
+    feature_trace = build_feature_trace(scenario_id, submission.answers)
+
     return {
         "session_id":        session_id,
         "stage":             "initial",
         "batch_features":    batch_features,
+        "feature_trace":     feature_trace,
         "top_n":             top_items,
         "others":            others,
         "all_probabilities": all_probabilities,
