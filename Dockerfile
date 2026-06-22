@@ -16,6 +16,8 @@ RUN pip install --no-cache-dir --upgrade pip && \
     pip install --no-cache-dir -r requirements.txt
 
 # ── 애플리케이션 코드 ─────────────────────────────────────────
+# cache-bust: COPY 레이어 강제 무효화 (HF Space stale-layer 방지) — 값 바꾸면 새로 COPY
+ARG APP_REBUILD=2026-06-22-1
 COPY . /app
 
 # HF Spaces 표준 포트 7860, 쓰기 가능 디렉토리는 /tmp 또는 /data
