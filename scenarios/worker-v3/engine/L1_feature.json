@@ -27,8 +27,7 @@
       { "name": "Recovery Motivation Score", "round": 2, "formula": { "terms": [
         { "feat": "_FAT", "linear": [0.6, 0] }, { "feat": "_ISO", "linear": [0.4, 0] } ] } },
       { "name": "Digital Escape Score",      "round": 2, "formula": { "terms": [
-        { "feat": "_SLEEP", "linear": [0.7, 0] }, { "feat": "_ISO", "linear": [0.3, 0] } ] } },
-      { "name": "Retention Value Score",     "round": 2, "formula": { "feat": "_RETV", "linear": [1, 0] } }
+        { "feat": "_SLEEP", "linear": [0.7, 0] }, { "feat": "_ISO", "linear": [0.3, 0] } ] } }
     ]
   },
   "pattern": {
