@@ -53,12 +53,15 @@ def build_feature_trace(scenario_id: str, answers: dict[str, str]) -> dict[str, 
 
     inter_names: set[str] = set()
     step_formula: dict[str, Any] = {}
+    label_map: dict[str, str] = {}        # 중간/파생 변수명 → 읽기 쉬운 라벨(step.label)
     for st in steps:
         val = eval_formula(st["formula"], feats)
         if "round" in st:
             val = round(val, st["round"])
         feats[st["name"]] = val
         step_formula[st["name"]] = st["formula"]
+        if st.get("label"):
+            label_map[st["name"]] = st["label"]
         if st.get("intermediate"):
             inter_names.add(st["name"])
 
@@ -77,11 +80,48 @@ def build_feature_trace(scenario_id: str, answers: dict[str, str]) -> dict[str, 
             return formula["terms"]
         return [formula]  # 단일 feat 노드
 
+    def _cond_feat(c):
+        # 조건(cond)이 참조하는 입력 feat — 단일/복합(all·any·not) 모두 탐색
+        if not isinstance(c, dict):
+            return None
+        if c.get("feat") is not None:
+            return c["feat"]
+        for key in ("all", "any"):
+            for sub in (c.get(key) or []):
+                r = _cond_feat(sub)
+                if r:
+                    return r
+        if "not" in c:
+            return _cond_feat(c["not"])
+        return None
+
+    def _feat_of(t):
+        # 항의 입력 feat — 평면 {feat}, 중첩 {clamp,value:{feat}}, 조건부 {if/switch} 모두 인식
+        if not isinstance(t, dict):
+            return None
+        if t.get("feat") is not None:
+            return t["feat"]
+        v = t.get("value")
+        if isinstance(v, dict) and v.get("feat") is not None:
+            return v["feat"]
+        if isinstance(t.get("if"), dict):                       # 조건부(if) 항 → 조건이 보는 입력
+            return _cond_feat(t["if"])
+        if isinstance(t.get("switch"), list) and t["switch"]:   # switch 항 → 첫 분기 조건의 입력
+            return _cond_feat(t["switch"][0].get("if", {}))
+        return None
+
     def _weight(term: dict):
+        if not isinstance(term, dict):
+            return None
         lin = term.get("linear")
         if lin and lin[1] == 0 and "div" not in term and "mul" not in term:
             return lin[0]
+        if isinstance(term.get("mul"), (int, float)):   # clamp/value 래퍼 항은 mul이 사실상 가중치
+            return term["mul"]
         return None
+
+    def _num(v):
+        return round(float(v), 2) if isinstance(v, (int, float)) and not isinstance(v, bool) else v
 
     trace: dict[str, dict] = {}
     for st in steps:
@@ -96,24 +136,32 @@ def build_feature_trace(scenario_id: str, answers: dict[str, str]) -> dict[str, 
             eff = step_formula[f["feat"]]
             kind = "passthrough"
         clamp = eff["clamp"] if isinstance(eff, dict) and "clamp" in eff else None
-
-        def _num(v):
-            return round(float(v), 2) if isinstance(v, (int, float)) and not isinstance(v, bool) else v
+        # 외부 배수/제수(예: Index의 mul:100) — 각 항 기여에도 동일 적용해야 합이 value와 일치
+        mul_o = eff.get("mul", 1) if isinstance(eff, dict) else 1
+        div_o = eff.get("div", 1) if isinstance(eff, dict) else 1
+        factor = (mul_o or 1) / (div_o or 1)
 
         terms = []
         for t in _terms(eff):
-            ref = t.get("feat") if isinstance(t, dict) else None
-            if ref is None:
-                continue  # 복합 항(if/switch 등 단일 입력 없음)은 산식 표시에서 제외
+            ref = _feat_of(t)
             try:
-                contribution = round(eval_formula(t, feats), 2)
+                contribution = round(eval_formula(t, feats) * factor, 2)
             except Exception:
                 contribution = None
+            if ref is None:
+                # feat 없는 항(상수=기본 점수 / if·switch=조건부) — 합 보존을 위해 포함
+                is_cond = isinstance(t, dict) and ("if" in t or "switch" in t)
+                terms.append({
+                    "ref": "조건부 항" if is_cond else "기본 점수",
+                    "ref_value": None, "ref_answer": None,
+                    "weight": None, "contribution": contribution,
+                })
+                continue
             terms.append({
-                "ref": inter_to_final.get(ref, ref),
+                "ref": label_map.get(ref) or inter_to_final.get(ref, ref),
                 "ref_value": _num(feats.get(ref, 0.0)),   # 문자열(범주형) 값은 그대로
                 "ref_answer": base_answer.get(ref),        # base 입력이면 선택 응답 라벨
-                "weight": _weight(t) if isinstance(t, dict) else None,
+                "weight": _weight(t),
                 "contribution": contribution,
             })
         trace[name] = {

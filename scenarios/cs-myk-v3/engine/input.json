@@ -754,7 +754,7 @@
         },
         {
           "id": "EXIT",
-          "name": "앱 이탈 (세션 종료)",
+          "name": "앱 이탈",
           "event_type": "app_exit",
           "entity": "session_end",
           "icon": "👋"
