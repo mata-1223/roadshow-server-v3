@@ -360,6 +360,12 @@
           "Q7": "A",
           "Q8": "A",
           "Q9": "C"
+        },
+        "history": {
+          "fav_genre": "시티팝",
+          "last_meal": "편의점 도시락",
+          "last_watched": "다큐 「현대인의 밤」",
+          "home_pref": "웜 조명"
         }
       },
       {
@@ -375,6 +381,12 @@
           "Q7": "A",
           "Q8": "B",
           "Q9": "B"
+        },
+        "history": {
+          "fav_genre": "로파이",
+          "last_meal": "샐러드볼",
+          "last_watched": "힐링 예능 「숲속의 하루」",
+          "home_pref": "디퓨저·은은한 조명"
         }
       },
       {
@@ -390,6 +402,12 @@
           "Q7": "A",
           "Q8": "B",
           "Q9": "B"
+        },
+        "history": {
+          "fav_genre": "K-POP 댄스",
+          "last_meal": "양념치킨",
+          "last_watched": "예능 「먹방천국」",
+          "home_pref": "밝은 조명"
         }
       }
     ]
