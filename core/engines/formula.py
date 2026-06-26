@@ -135,5 +135,3 @@ def _raw(node: dict, features: dict) -> float:
         return a * x + b
 
     raise ValueError(f"unknown formula node: {node!r}")
-
-    raise ValueError(f"unknown formula node: {node!r}")
