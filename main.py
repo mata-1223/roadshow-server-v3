@@ -26,11 +26,22 @@ logger = logging.getLogger(__name__)
 
 @asynccontextmanager
 async def lifespan(app: FastAPI):
-    """앱 수명주기: 기동 시 DB 초기화(스키마+카탈로그 시드), 종료 로깅."""
+    """앱 수명주기를 관리한다.
+
+    기동 시 DB를 초기화(스키마 생성 + 카탈로그 시드)하고,
+    WARMUP_ON_START가 켜져 있으면 모델을 미리 학습·준비한다.
+    종료 시 로깅한다.
+
+    Args:
+        app: FastAPI 애플리케이션 인스턴스.
+
+    Yields:
+        제어를 애플리케이션 실행 구간으로 넘긴다.
+    """
     logger.info(f"Starting roadshow-server-v3 (scenario={settings.SCENARIO_ID})")
     init_db()
     logger.info(f"DB initialized: {settings.DB_PATH}")
-    if settings.WARMUP_ON_START:                  # 배포 후 첫 설문 없이 모델 준비
+    if settings.WARMUP_ON_START:                  # 첫 설문 없이 모델 준비
         from core.warmup import warmup_models
         warmup_models()
     yield
@@ -66,7 +77,11 @@ app.include_router(ws_router)
 
 @app.get("/health")
 async def health() -> dict:
-    """헬스 체크 — 상태·시나리오·환경."""
+    """헬스 체크 엔드포인트.
+
+    Returns:
+        서버 상태(status), 시나리오 ID(scenario_id), 환경(env)을 담은 dict.
+    """
     return {
         "status":      "ok",
         "scenario_id": settings.SCENARIO_ID,

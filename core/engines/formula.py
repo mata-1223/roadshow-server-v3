@@ -1,9 +1,8 @@
 from __future__ import annotations
 """
-선언형 수식 평가기 (Step B / Phase 4 토대).
+선언형 수식 평가기
 
 config의 수식 spec(JSON)을 Python 수식과 수치 동일하게 평가한다.
-design 문서 `engines-layered-config-design.md` §5 규약 구현.
 
 노드 종류 (eval_formula 가 재귀 평가):
   • 숫자                      → 그 값
@@ -30,15 +29,34 @@ from core.engines.common import g, clamp, clamp01
 
 
 def _load_py(ref: str) -> Callable[..., Any]:
-    """"module.path:function" 문자열 → 임포트한 콜러블 (py escape / pre_hook 해석)."""
+    """"module.path:function" 문자열을 임포트해 콜러블로 반환한다.
+
+    py escape hatch 및 pre_hook 참조를 해석하는 데 쓴다.
+
+    Args:
+        ref: "module.path:function" 형식의 참조 문자열.
+
+    Returns:
+        임포트된 콜러블.
+    """
     mod_name, _, fn_name = ref.partition(":")
     return getattr(import_module(mod_name), fn_name)
 
 
 def rule_predict(rules_spec: dict, intent_id: str, features: dict) -> float:
-    """[L2a] 선언형 룰: spec 평가 후 clamp01.
-    미등록 intent는 baseline 반환 — 시나리오가 rule spec에 "_default"(메타키)를 주면 그 값,
-    없으면 0.05. (bundle/worker는 미지정 → 0.05 유지)"""
+    """[L2a] 선언형 룰 spec을 평가한 뒤 clamp01한 점수를 반환한다.
+
+    미등록 intent는 baseline을 반환한다. 시나리오가 rule spec에 "_default" 메타키를
+    주면 그 값을, 없으면 0.05를 쓴다.
+
+    Args:
+        rules_spec: intent id → 룰 수식 spec 매핑("_default" 메타키 선택).
+        intent_id: 점수를 계산할 intent id.
+        features: 평가에 사용할 feature dict.
+
+    Returns:
+        0~1로 클램프된 Rule Intent 점수.
+    """
     spec = rules_spec.get(intent_id)
     if spec is None:
         return rules_spec.get("_default", 0.05)
@@ -46,7 +64,20 @@ def rule_predict(rules_spec: dict, intent_id: str, features: dict) -> float:
 
 
 def _cond(spec: dict, features: dict) -> bool:
-    """조건 spec 평가 → bool. 복합(all/any/not) + 비교(in/gte/gt/lte/lt/eq)."""
+    """조건 spec을 평가한다.
+
+    복합 조건(all/any/not)과 비교 조건(in/gte/gt/lte/lt/eq)을 지원한다.
+
+    Args:
+        spec: 평가할 조건 spec.
+        features: 평가에 사용할 feature dict.
+
+    Returns:
+        조건 충족 여부.
+
+    Raises:
+        ValueError: 알 수 없는 조건인 경우.
+    """
     if "all" in spec:
         return all(_cond(c, features) for c in spec["all"])
     if "any" in spec:
@@ -66,7 +97,20 @@ def _cond(spec: dict, features: dict) -> bool:
 
 
 def eval_formula(node: Any, features: dict) -> float:
-    """수식 spec → float. (시나리오 무관). dict 노드는 결과에 div→mul 후처리(연산순서 재현)."""
+    """수식 spec 노드를 평가해 float로 반환한다(시나리오 무관).
+
+    dict 노드는 원시값 계산 후 div→mul 순서로 후처리한다(원본 연산순서 재현).
+
+    Args:
+        node: 평가할 수식 노드(숫자 또는 dict spec).
+        features: 평가에 사용할 feature dict.
+
+    Returns:
+        평가된 float 값.
+
+    Raises:
+        ValueError: 유효하지 않은 수식 노드인 경우.
+    """
     if isinstance(node, bool):
         return float(node)
     if isinstance(node, (int, float)):
@@ -82,7 +126,18 @@ def eval_formula(node: Any, features: dict) -> float:
 
 
 def _raw(node: dict, features: dict) -> float:
-    """노드 타입별 원시값 계산 (div/mul 후처리 전). eval_formula 내부용."""
+    """노드 타입별 원시값을 계산한다(div/mul 후처리 전, eval_formula 내부용).
+
+    Args:
+        node: 평가할 dict 수식 노드.
+        features: 평가에 사용할 feature dict.
+
+    Returns:
+        후처리 전 원시 float 값.
+
+    Raises:
+        ValueError: 알 수 없는 수식 노드인 경우.
+    """
     if "py" in node:
         return float(_load_py(node["py"])(features))
 
@@ -133,7 +188,5 @@ def _raw(node: dict, features: dict) -> float:
             if hi is not None:
                 x = min(hi, x)
         return a * x + b
-
-    raise ValueError(f"unknown formula node: {node!r}")
 
     raise ValueError(f"unknown formula node: {node!r}")

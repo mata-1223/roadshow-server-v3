@@ -39,7 +39,19 @@ class CreateSessionRequest(BaseModel):
 
 @router.post("", response_model=CreateSessionResponse)
 async def create_session(req: Optional[CreateSessionRequest] = None) -> CreateSessionResponse:
-    """새 세션 생성 (scenario_id 검증 후 sessions에 적재)."""
+    """새 세션을 생성한다.
+
+    scenario_id를 검증(미지정 시 기본 시나리오)한 뒤 sessions 테이블에 적재한다.
+
+    Args:
+        req: 세션 생성 요청 본문 (scenario_id 선택). 없으면 기본 시나리오 사용.
+
+    Returns:
+        생성된 session_id와 scenario_id.
+
+    Raises:
+        HTTPException: 알 수 없는 scenario_id이면 400.
+    """
     from core.engines import available_scenarios
     scenario_id = (req.scenario_id if req and req.scenario_id else None) or settings.SCENARIO_ID
     if scenario_id not in available_scenarios():
@@ -59,7 +71,23 @@ async def create_session(req: Optional[CreateSessionRequest] = None) -> CreateSe
 
 @router.post("/{session_id}/survey")
 async def submit_survey(session_id: str, submission: SurveySubmission) -> dict[str, Any]:
-    """설문 제출 → baseline Intent 추론·적재 → Top-N·확률 분포 응답."""
+    """설문을 제출받아 baseline Intent를 추론·적재하고 결과를 반환한다.
+
+    답변을 survey_answers에 적재하고 baseline Intent를 추론하여 intent_scores·
+    customer_contexts에 저장한 뒤, 세션 stage를 갱신한다. Top-N·확률 분포·추론 근거·
+    파생 변수 산출 근거(feature_trace)를 함께 반환한다.
+
+    Args:
+        session_id: 설문을 제출할 세션 ID (path).
+        submission: 설문 답변 본문 ({question_id: answer_code}).
+
+    Returns:
+        session_id·stage·batch_features·feature_trace·top_n·others·
+        all_probabilities·total_intents를 담은 dict.
+
+    Raises:
+        HTTPException: 세션이 없으면 404.
+    """
     ex = get_executor()
 
     # 세션 검증 + scenario_id 조회

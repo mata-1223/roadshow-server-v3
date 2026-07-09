@@ -23,7 +23,11 @@ _SCENARIO_NAMES = {
 
 
 def seed_catalogs() -> None:
-    """등록된 모든 시나리오의 카탈로그를 적재(기존 카탈로그는 전체 교체)."""
+    """등록된 모든 시나리오의 카탈로그를 적재한다.
+
+    catalog_intents·catalog_actions·catalog_behaviors를 비운 뒤
+    available_scenarios()의 모든 시나리오를 다시 적재한다(전체 교체).
+    """
     ex = get_executor()
     for tbl in ("catalog_intents", "catalog_actions", "catalog_behaviors"):
         ex.execute(f"DELETE FROM {tbl}")
@@ -32,7 +36,16 @@ def seed_catalogs() -> None:
 
 
 def _seed_one(ex: DuckDBExecutor, scenario_id: str) -> None:
-    """한 시나리오의 메타·Intent·Action·Behavior 카탈로그를 catalog_* 테이블에 적재."""
+    """한 시나리오의 카탈로그를 catalog_* 테이블에 적재한다.
+
+    시나리오 메타(scenarios)와 Intent·Action·Behavior 카탈로그를 적재한다.
+    Action은 Intent-키 3채널 구조(dict)와 구버전 리스트를 모두 처리하고,
+    Behavior는 tree-2step·single-select·구버전 steps 구조를 모두 처리한다.
+
+    Args:
+        ex: 카탈로그를 적재할 DuckDB executor.
+        scenario_id: 적재할 시나리오 ID.
+    """
     # ── 시나리오 메타 ────────────────────────────────────────
     taxonomy = config.get_taxonomy(scenario_id)
     description = config.load_layer(scenario_id, "input").get("description", "")
@@ -135,7 +148,14 @@ def _seed_one(ex: DuckDBExecutor, scenario_id: str) -> None:
 
 
 def load_intents_catalog(scenario_id: str = settings.SCENARIO_ID) -> list[dict]:
-    """Intent 카탈로그 조회 (시나리오별)"""
+    """시나리오별 Intent 카탈로그를 조회한다.
+
+    Args:
+        scenario_id: 조회할 시나리오 ID (기본값은 settings.SCENARIO_ID).
+
+    Returns:
+        Intent 정의 dict의 목록 (id·name·계층·inference_type·features 포함).
+    """
     ex = get_executor()
     df = ex.to_pandas(
         "SELECT intent_id, intent_name, L1_id, L1_name, L2_id, L2_name, inference_type, features_json "
@@ -158,7 +178,15 @@ def load_intents_catalog(scenario_id: str = settings.SCENARIO_ID) -> list[dict]:
 
 
 def load_behaviors_catalog(scenario_id: str = settings.SCENARIO_ID) -> dict[str, dict]:
-    """behavior_id → behavior info (시나리오별)"""
+    """시나리오별 Behavior 카탈로그를 조회한다.
+
+    Args:
+        scenario_id: 조회할 시나리오 ID (기본값은 settings.SCENARIO_ID).
+
+    Returns:
+        behavior_id를 키로 하고 step·name·event_type·entity를 담은 dict를
+        값으로 가지는 매핑.
+    """
     ex = get_executor()
     df = ex.to_pandas(
         "SELECT behavior_id, step, behavior_name, event_type, entity "
