@@ -3,193 +3,61 @@
     "INT-W130": {
       "terms": [
         0.1,
-        {
-          "feat": "Sleep Disturbance Index",
-          "linear": [
-            1,
-            0
-          ],
-          "div": 100,
-          "mul": 0.5
-        },
-        {
-          "feat": "Digital Escape Score",
-          "linear": [
-            1,
-            0
-          ],
-          "div": 100,
-          "mul": 0.25
-        }
+        {"feat": "Sleep Disturbance Index", "linear": [1, 0], "div": 100, "mul": 0.5},
+        {"feat": "Digital Escape Score", "linear": [1, 0], "div": 100, "mul": 0.25}
       ]
     },
     "INT-W210": {
       "terms": [
         0.1,
-        {
-          "feat": "Burnout Deep Score",
-          "linear": [
-            1,
-            0
-          ],
-          "div": 100,
-          "mul": 0.45
-        },
-        {
-          "feat": "Fatigue Load Index",
-          "linear": [
-            1,
-            0
-          ],
-          "div": 100,
-          "mul": 0.2
-        }
+        {"feat": "Burnout Deep Score", "linear": [1, 0], "div": 100, "mul": 0.45},
+        {"feat": "Fatigue Load Index", "linear": [1, 0], "div": 100, "mul": 0.2}
       ]
     },
     "INT-W220": {
       "terms": [
         0.08,
-        {
-          "feat": "Fatigue Load Index",
-          "linear": [
-            1,
-            0
-          ],
-          "div": 100,
-          "mul": 0.35
-        },
-        {
-          "feat": "Recovery Motivation Score",
-          "linear": [
-            1,
-            0
-          ],
-          "div": 100,
-          "mul": 0.15
-        },
-        {
-          "if": {
-            "feat": "move_pattern",
-            "gte": 2
-          },
-          "then": 0.2
-        }
+        {"feat": "Fatigue Load Index", "linear": [1, 0], "div": 100, "mul": 0.35},
+        {"feat": "Recovery Motivation Score", "linear": [1, 0], "div": 100, "mul": 0.15},
+        {"if": {"feat": "move_pattern", "gte": 2}, "then": 0.2}
       ]
     },
     "INT-W230": {
       "terms": [
         0.08,
-        {
-          "feat": "Recovery Motivation Score",
-          "linear": [
-            1,
-            0
-          ],
-          "div": 100,
-          "mul": 0.3
-        },
-        {
-          "if": {
-            "feat": "weekend_out",
-            "gte": 2
-          },
-          "then": 0.18
-        },
-        {
-          "if": {
-            "feat": "night_phone_usage",
-            "lte": 2
-          },
-          "then": 0.1
-        }
+        {"feat": "Recovery Motivation Score", "linear": [1, 0], "div": 100, "mul": 0.3},
+        {"if": {"feat": "weekend_out", "gte": 2}, "then": 0.18},
+        {"if": {"feat": "night_phone_usage", "lte": 2}, "then": 0.1}
       ]
     },
     "INT-W240": {
       "terms": [
         0.08,
-        {
-          "feat": "Isolation Tendency Index",
-          "linear": [
-            1,
-            0
-          ],
-          "div": 100,
-          "mul": 0.45
-        },
-        {
-          "if": {
-            "feat": "social_contact",
-            "lte": 2
-          },
-          "then": 0.2
-        }
+        {"feat": "Isolation Tendency Index", "linear": [1, 0], "div": 100, "mul": 0.45},
+        {"if": {"feat": "social_contact", "lte": 2}, "then": 0.2}
       ]
     },
     "INT-W250": {
       "terms": [
         0.12,
-        {
-          "if": {
-            "feat": "social_contact",
-            "gte": 3
-          },
-          "then": 0.32
-        },
-        {
-          "if": {
-            "feat": "social_contact",
-            "gte": 4
-          },
-          "then": 0.1
-        },
-        {
-          "feat": "Recovery Motivation Score",
-          "linear": [
-            1,
-            0
-          ],
-          "div": 100,
-          "mul": 0.16
-        }
+        {"if": {"feat": "social_contact", "gte": 3}, "then": 0.32},
+        {"if": {"feat": "social_contact", "gte": 4}, "then": 0.1},
+        {"feat": "Recovery Motivation Score", "linear": [1, 0], "div": 100, "mul": 0.16}
       ]
     }
   },
   "ranker": {
     "behavior_signals": {
-      "delivery": [
-        "INT-W120",
-        "INT-W210"
-      ],
-      "sns": [
-        "INT-W130",
-        "INT-W140"
-      ],
-      "ott": [
-        "INT-W130",
-        "INT-W140"
-      ],
-      "shopping": [
-        "INT-W210"
-      ],
-      "travel": [
-        "INT-W220"
-      ],
-      "exercise": [
-        "INT-W230",
-        "INT-W250"
-      ],
-      "mental_recovery": [
-        "INT-W240"
-      ],
-      "music": [
-        "INT-W240"
-      ],
-      "messenger": [
-        "INT-W250"
-      ],
-      "reading": [
-        "INT-W250"
-      ]
+      "delivery": ["INT-W120", "INT-W210"],
+      "sns": ["INT-W130", "INT-W140"],
+      "ott": ["INT-W130", "INT-W140"],
+      "shopping": ["INT-W210"],
+      "travel": ["INT-W220"],
+      "exercise": ["INT-W230", "INT-W250"],
+      "mental_recovery": ["INT-W240"],
+      "music": ["INT-W240"],
+      "messenger": ["INT-W250"],
+      "reading": ["INT-W250"]
     },
     "action_signal": {
       "scale": 0.6,
@@ -198,91 +66,30 @@
       "boost_mode": "headroom",
       "suppress": {
         "by_entity": {
-          "mental_recovery": [
-            "INT-W110",
-            "INT-W120",
-            "INT-W130",
-            "INT-W140"
-          ],
-          "exercise": [
-            "INT-W110",
-            "INT-W120",
-            "INT-W130",
-            "INT-W140"
-          ],
-          "reading": [
-            "INT-W110",
-            "INT-W120",
-            "INT-W130",
-            "INT-W140"
-          ],
-          "messenger": [
-            "INT-W110",
-            "INT-W120",
-            "INT-W130",
-            "INT-W140"
-          ],
-          "music": [
-            "INT-W110",
-            "INT-W120",
-            "INT-W130",
-            "INT-W140"
-          ]
+          "mental_recovery": ["INT-W110", "INT-W120", "INT-W130", "INT-W140"],
+          "exercise": ["INT-W110", "INT-W120", "INT-W130", "INT-W140"],
+          "reading": ["INT-W110", "INT-W120", "INT-W130", "INT-W140"],
+          "messenger": ["INT-W110", "INT-W120", "INT-W130", "INT-W140"],
+          "music": ["INT-W110", "INT-W120", "INT-W130", "INT-W140"]
         },
         "scale": 0.3,
         "cap": 0.7
       }
     }
   },
-  "calibrator": {
-    "probability_temperature": 0.15
-  },
+  "calibrator": {"probability_temperature": 0.15},
   "model": {
     "predictive_model": "sklearn",
     "training_data": {
-      "INT-W110": {
-        "features": [
-          "Burnout Deep Score",
-          "Isolation Tendency Index",
-          "Sleep Disturbance Index"
-        ]
-      },
-      "INT-W120": {
-        "features": [
-          "Fatigue Load Index",
-          "Burnout Deep Score",
-          "offwork_time"
-        ]
-      },
-      "INT-W140": {
-        "features": [
-          "Fatigue Load Index",
-          "Isolation Tendency Index",
-          "weekend_out"
-        ]
-      }
+      "INT-W110": {"features": ["Burnout Deep Score", "Isolation Tendency Index", "Sleep Disturbance Index"]},
+      "INT-W120": {"features": ["Fatigue Load Index", "Burnout Deep Score", "offwork_time"]},
+      "INT-W140": {"features": ["Fatigue Load Index", "Isolation Tendency Index", "weekend_out"]}
     },
-    "ranges": {
-      "offwork_time": [
-        1.0,
-        4.0
-      ],
-      "weekend_out": [
-        1.0,
-        3.0
-      ]
-    },
+    "ranges": {"offwork_time": [1.0, 4.0], "weekend_out": [1.0, 3.0]},
     "scale": 0.7,
-    "invert": [
-      [
-        "INT-W140",
-        "weekend_out"
-      ]
-    ],
+    "invert": [["INT-W140", "weekend_out"]],
     "heuristic_fallback": true,
-    "train": {
-      "class_weight": null
-    },
+    "train": {"class_weight": null},
     "calibration": "base_rate_logodds",
     "calibration_strength": 0.6
   }

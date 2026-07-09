@@ -940,7 +940,7 @@
     },
     {
       "id": "INT-5150",
-      "name": "QoE 문제 해결",
+      "name": "체감 품질 저하 문제 해결",
       "L1_id": "INT-5000",
       "L1_name": "문제 해결/상담",
       "L2_id": "INT-5100",
@@ -1291,32 +1291,6 @@
       "features": [
         "비용 부담도",
         "부가서비스 수"
-      ]
-    },
-    {
-      "id": "INT-7210",
-      "name": "번호이동 탐색",
-      "L1_id": "INT-7000",
-      "L1_name": "이탈/전환",
-      "L2_id": "INT-7200",
-      "L2_name": "경쟁사 이동 검토",
-      "inference_type": "Model",
-      "features": [
-        "이탈 위험 Score",
-        "비용 부담도",
-        "mnp_benefit_check"
-      ]
-    },
-    {
-      "id": "INT-7240",
-      "name": "이동 조건 검토",
-      "L1_id": "INT-7000",
-      "L1_name": "이탈/전환",
-      "L2_id": "INT-7200",
-      "L2_name": "경쟁사 이동 검토",
-      "inference_type": "Rule",
-      "features": [
-        "약정 진행률"
       ]
     },
     {
