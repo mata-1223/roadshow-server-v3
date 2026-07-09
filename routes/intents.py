@@ -13,7 +13,21 @@ router = APIRouter()
 
 @router.get("/latest")
 async def get_latest_intents(session_id: str, top_n: int = 5) -> dict:
-    """세션의 최신 stage Intent Top-N"""
+    """세션의 최신 stage에 대한 Intent Top-N을 반환한다.
+
+    세션의 현재 stage를 찾아 해당 stage의 Intent Score를 rank 순으로 조회하고,
+    시나리오 카탈로그의 Intent 메타(이름·계층)를 병합한다.
+
+    Args:
+        session_id: 조회할 세션 ID (query).
+        top_n: 반환할 상위 Intent 개수 (query).
+
+    Returns:
+        session_id·stage·intents(메타 병합된 Top-N 항목 목록)를 담은 dict.
+
+    Raises:
+        HTTPException: 세션이 없으면 404.
+    """
     ex = get_executor()
 
     # 최신 stage 찾기
@@ -68,7 +82,20 @@ async def get_latest_intents(session_id: str, top_n: int = 5) -> dict:
 
 @router.get("/context/{session_id}")
 async def get_customer_context(session_id: str, stage: Optional[str] = None) -> dict:
-    """Customer Context JSON 조회 (최신 또는 특정 stage)"""
+    """Customer Context JSON을 조회한다.
+
+    stage가 주어지면 해당 stage의 최신 컨텍스트를, 없으면 세션 전체의 최신 컨텍스트를 반환한다.
+
+    Args:
+        session_id: 조회할 세션 ID (path).
+        stage: 특정 stage로 한정 (없으면 최신, query).
+
+    Returns:
+        파싱된 Customer Context JSON.
+
+    Raises:
+        HTTPException: 컨텍스트가 없으면 404.
+    """
     ex = get_executor()
 
     if stage:

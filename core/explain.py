@@ -18,7 +18,14 @@ from core.engines.formula import eval_formula
 
 
 def _node_label(node: Any) -> str:
-    """rule 항 노드 → 사람이 읽을 라벨."""
+    """rule 항 노드를 사람이 읽을 라벨로 변환한다.
+
+    Args:
+        node: rule 항 노드.
+
+    Returns:
+        라벨 문자열.
+    """
     if isinstance(node, (int, float, bool)):
         return "기본 점수"
     if not isinstance(node, dict):
@@ -45,7 +52,14 @@ def _node_label(node: Any) -> str:
 
 
 def _node_feat(node: Any) -> str | None:
-    """rule 항이 참조하는 feature 키 (현재값 조회용)."""
+    """rule 항이 참조하는 feature 키를 찾는다 (현재값 조회용).
+
+    Args:
+        node: rule 항 노드.
+
+    Returns:
+        참조 feature 키. 없으면 None.
+    """
     if not isinstance(node, dict):
         return None
     if "feat" in node:
@@ -75,7 +89,17 @@ VALUE_LABELS = {
 
 
 def _fmt_value(feat: str | None, v: Any) -> str | None:
-    """feature 현재값 표시 문자열. 코드값(contract_status 등)은 실제 의미로 변환."""
+    """feature 현재값을 표시 문자열로 변환한다.
+
+    코드값(contract_status 등)은 실제 의미로 변환한다.
+
+    Args:
+        feat: feature 키. VALUE_LABELS 조회에 사용된다.
+        v: feature 현재값.
+
+    Returns:
+        표시 문자열. v가 None이면 None.
+    """
     if v is None:
         return None
     if feat in VALUE_LABELS:
@@ -90,7 +114,19 @@ def _fmt_value(feat: str | None, v: Any) -> str | None:
 
 
 def explain_rule(scenario_id: str, intent_id: str, features: dict, top: int = 3) -> list[dict]:
-    """rule spec의 top-level 항별 기여도 → |기여| 상위 top개. 상수(기본 점수) 제외, 한글 라벨·실제값 포함."""
+    """rule spec의 top-level 항별 기여도를 분해한다.
+
+    |기여| 상위 top개를 반환하며, 상수(기본 점수)는 제외하고 한글 라벨·실제값을 포함한다.
+
+    Args:
+        scenario_id: 시나리오 ID.
+        intent_id: 대상 intent ID.
+        features: 추론에 쓰인 feature 매핑.
+        top: 반환할 상위 항 개수.
+
+    Returns:
+        |기여| 내림차순 상위 top개의 factor dict 리스트. spec이 없으면 빈 리스트.
+    """
     spec = config.get_rule_spec(scenario_id).get(intent_id)
     if spec is None:
         return []
@@ -110,7 +146,20 @@ def explain_rule(scenario_id: str, intent_id: str, features: dict, top: int = 3)
 
 
 def explain_intent(engine, intent_id: str, features: dict, inference_type: str, top: int = 3) -> dict:
-    """intent 1개의 추론 이유. inference_type에 따라 rule/model 분해. 라벨 한글화·코드값 변환."""
+    """intent 1개의 추론 이유를 분해한다.
+
+    inference_type에 따라 rule/model로 분해하며, 라벨을 한글화하고 코드값을 실제값으로 변환한다.
+
+    Args:
+        engine: 시나리오 엔진.
+        intent_id: 대상 intent ID.
+        features: 추론에 쓰인 feature 매핑.
+        inference_type: "Model" 또는 "Rule".
+        top: 반환할 상위 factor 개수.
+
+    Returns:
+        {"type", "factors"} 키를 가진 reasoning dict.
+    """
     if inference_type == "Model":
         factors = engine.explain_model(intent_id, features, top=top)
         for f in factors:                          # 모델 feature명 → 한글, 코드값 → 실제값
@@ -165,7 +214,16 @@ FEATURE_LABELS = {
 
 
 def _label_ko(raw: str) -> str:
-    """factor 라벨 → 자연스러운 한글. '조건:/행동:' 접두 제거 후 매핑, 미등록은 접미사 정리."""
+    """factor 라벨을 자연스러운 한글로 변환한다.
+
+    '조건:/행동:' 접두를 제거한 뒤 매핑하며, 미등록 라벨은 Index/Score 접미사를 정리한다.
+
+    Args:
+        raw: 원본 factor 라벨.
+
+    Returns:
+        한글화된 라벨.
+    """
     s = raw.replace("조건: ", "").replace("행동: ", "").strip()
     if s in FEATURE_LABELS:
         return FEATURE_LABELS[s]
@@ -173,7 +231,17 @@ def _label_ko(raw: str) -> str:
 
 
 def _situation_text(intent_name: str, r: dict) -> str:
-    """상담사 콘솔 [상황]용 — 이 고객 특성으로 intent가 추론된 이유를 자연어 한 문장으로."""
+    """상담사 콘솔 [상황]용 추론 이유 문장을 만든다.
+
+    이 고객 특성으로 intent가 추론된 이유를 자연어 한 문장으로 표현한다.
+
+    Args:
+        intent_name: intent 한글명.
+        r: reasoning dict (factors 포함).
+
+    Returns:
+        자연어 한 문장.
+    """
     facts = [f for f in r.get("factors", []) if f.get("label") != "기본 점수"]
     facts = [f for f in facts if f.get("direction") == "up"] or facts   # 의도를 끌어올린 특성 우선
     labels = []
@@ -189,9 +257,16 @@ def _situation_text(intent_name: str, r: dict) -> str:
 
 
 def attach_reasoning(engine, features: dict, top_items: list[dict], top: int = 3) -> None:
-    """서빙 top_items 각 항목에 reasoning 첨부 (in-place).
-    features는 추론에 쓰인 결합 feature(batch+pattern+event).
-    reasoning.situation_text: 상담사 콘솔 [상황]용 동적 추론 이유 문장."""
+    """서빙 top_items 각 항목에 reasoning을 첨부한다 (in-place).
+
+    reasoning.situation_text는 상담사 콘솔 [상황]용 동적 추론 이유 문장이다.
+
+    Args:
+        engine: 시나리오 엔진.
+        features: 추론에 쓰인 결합 feature(batch+pattern+event) 매핑.
+        top_items: reasoning을 첨부할 서빙 항목 리스트.
+        top: 항목당 분해할 상위 factor 개수.
+    """
     for it in top_items:
         r = explain_intent(engine, it["intent_id"], features, it.get("inference_type", "Rule"), top=top)
         rc = it.get("rank_change", 0)

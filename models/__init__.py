@@ -15,25 +15,57 @@ from typing import Any, Protocol
 
 
 class PredictiveModel(Protocol):
-    """예측 모델 구현 인터페이스 (sklearn/torch… 공통). intent별 0~1 점수를 반환.
+    """예측 모델 구현 인터페이스 (sklearn/torch… 공통).
 
-    train_params: 학습 하이퍼파라미터(config L2.model.train). 미사용 구현은 무시 가능.
+    intent별 0~1 점수를 반환하는 predict 메서드를 정의한다.
     """
     def predict(self, intent_id: str, features: dict[str, Any], *,
                 training_data: dict, dataset_path, model_prefix: str,
-                train_params: dict | None = None) -> float: ...
+                train_params: dict | None = None) -> float:
+        """Intent에 대한 0~1 예측 점수를 반환한다.
+
+        Args:
+            intent_id: 예측할 Intent ID.
+            features: 추론에 사용할 feature dict.
+            training_data: 학습 데이터(시나리오 엔진 제공).
+            dataset_path: 시드 데이터셋 경로.
+            model_prefix: 시나리오별 모델명 네임스페이스.
+            train_params: 학습 하이퍼파라미터(config L2.model.train).
+                미사용 구현은 무시 가능.
+
+        Returns:
+            0~1 범위의 예측 점수.
+        """
+        ...
 
 
 _PREDICTIVE_MODELS: dict[str, Any] = {}
 
 
 def register_predictive_model(name: str, predictive_model: Any) -> None:
-    """예측 모델 구현을 name으로 등록 (예: "torch")."""
+    """예측 모델 구현을 name으로 등록한다.
+
+    Args:
+        name: 등록 키 (예: "torch").
+        predictive_model: PredictiveModel 인터페이스를 만족하는 객체/모듈.
+    """
     _PREDICTIVE_MODELS[name] = predictive_model
 
 
 def get_predictive_model(name: str = "sklearn") -> Any:
-    """name에 등록된 예측 모델 구현을 반환. "sklearn"은 최초 호출 시 lazy 등록."""
+    """name에 등록된 예측 모델 구현을 반환한다.
+
+    "sklearn"은 최초 호출 시 기본 구현을 lazy 등록한다.
+
+    Args:
+        name: 조회할 예측 모델 등록 키.
+
+    Returns:
+        등록된 예측 모델 구현 객체/모듈.
+
+    Raises:
+        ValueError: 등록되지 않은 name이면 발생.
+    """
     if name == "sklearn" and "sklearn" not in _PREDICTIVE_MODELS:
         from models import sklearn_model            # 기본 구현 lazy 등록
         _PREDICTIVE_MODELS["sklearn"] = sklearn_model

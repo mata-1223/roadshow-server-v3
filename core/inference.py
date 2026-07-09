@@ -1,6 +1,5 @@
 from __future__ import annotations
-"""
-Intent Inference 통합 ([2] reference Layer)
+"""Intent Inference 통합.
 
 흐름:
   - infer_batch(survey)  : Batch Feature만으로 baseline Intent Score 산출
@@ -35,7 +34,14 @@ ACTION_SIGNAL_DECAY = 0.6    # 위치 기반 recency 감쇠 (최신 age=0 → 1.
 
 
 def _resolve_temperature(scenario_id: str | None) -> float:
-    """시나리오 config의 softmax 온도. 누락 시 모듈 기본값 fallback."""
+    """시나리오 config의 softmax 온도를 조회한다.
+
+    Args:
+        scenario_id: 조회할 시나리오 ID. None이면 모듈 기본값을 사용한다.
+
+    Returns:
+        softmax 온도. config 누락 시 모듈 기본값으로 fallback한다.
+    """
     if scenario_id is None:
         return PROBABILITY_TEMPERATURE
     try:
@@ -45,7 +51,14 @@ def _resolve_temperature(scenario_id: str | None) -> float:
 
 
 def _resolve_action_signal(scenario_id: str | None) -> tuple[float, float, float]:
-    """시나리오 config의 행동 부스트 (scale, cap, decay). 누락 시 모듈 기본값 fallback."""
+    """시나리오 config의 행동 부스트 파라미터를 조회한다.
+
+    Args:
+        scenario_id: 조회할 시나리오 ID. None이면 모듈 기본값을 사용한다.
+
+    Returns:
+        (scale, cap, decay) 튜플. config 누락 시 모듈 기본값으로 fallback한다.
+    """
     if scenario_id is not None:
         try:
             sig = config.get_action_signal(scenario_id)
@@ -56,7 +69,16 @@ def _resolve_action_signal(scenario_id: str | None) -> tuple[float, float, float
 
 
 def _resolve_boost_mode(scenario_id: str | None) -> str:
-    """행동 boost 합성 방식. config L2.ranker.action_signal.boost_mode (없으면 'additive')."""
+    """행동 boost 합성 방식을 조회한다.
+
+    config L2.ranker.action_signal.boost_mode 값을 사용한다.
+
+    Args:
+        scenario_id: 조회할 시나리오 ID. None이면 기본값을 사용한다.
+
+    Returns:
+        합성 방식 문자열. 누락 시 'additive'로 fallback한다.
+    """
     if scenario_id is not None:
         try:
             return config.get_action_signal(scenario_id).get("boost_mode", "additive")
@@ -66,9 +88,18 @@ def _resolve_boost_mode(scenario_id: str | None) -> str:
 
 
 def _resolve_action_suppress(scenario_id: str | None) -> dict | None:
-    """행동 기반 의도 감쇠 설정. config L2.ranker.action_signal.suppress (없으면 None).
+    """행동 기반 의도 감쇠 설정을 조회한다.
+
+    config L2.ranker.action_signal.suppress 값을 사용한다.
     형식: {"by_entity": {entity: [감쇠 대상 intent_id, ...]}, "scale": float, "cap": float}.
-    예) 회복 행동(mental_recovery/exercise) 누적 시 번아웃 심화 intent를 점진 감쇠."""
+    예) 회복 행동(mental_recovery/exercise) 누적 시 번아웃 심화 intent를 점진 감쇠.
+
+    Args:
+        scenario_id: 조회할 시나리오 ID. None이면 None을 반환한다.
+
+    Returns:
+        감쇠 설정 dict. 미설정 시 None.
+    """
     if scenario_id is not None:
         try:
             return config.get_action_signal(scenario_id).get("suppress")
@@ -82,13 +113,20 @@ def _action_intent_signals(
     behavior_map: dict[str, list[str]],
     decay: float = ACTION_SIGNAL_DECAY,
 ) -> dict[str, float]:
-    """
-    세션 누적 행동 → entity→intent 매핑으로 의도별 가중 신호 산출.
+    """세션 누적 행동을 entity→intent 매핑으로 의도별 가중 신호로 환산한다.
 
     - recency decay: 최신 행동일수록 큰 weight (DECAY^age). 방금 한 행동이 현재 의도를 주도하되,
       같은 행동 반복은 누적되어 강해진다(과거도 0으로 죽이진 않음).
     - BACK(navigate_back)은 메뉴 복귀용 순수 내비게이션 → 신호·aging 모두에서 제외(무효과).
       섹션을 떠난 행동은 이후 다른 행동이 쌓이며 decay로 자연 소멸한다.
+
+    Args:
+        events: 세션에 누적된 행동 이벤트 리스트.
+        behavior_map: entity → intent_id 리스트 매핑.
+        decay: 위치 기반 recency 감쇠 계수.
+
+    Returns:
+        intent_id → 가중 신호 합 매핑.
     """
     real = [ev for ev in events if ev.get("event_type") != "navigate_back"]
     n = len(real)
@@ -124,8 +162,15 @@ def infer_batch(
     survey_answers: dict[str, str],
     scenario_id: str = settings.SCENARIO_ID,
 ) -> tuple[dict[str, Any], list[IntentScore]]:
-    """
-    설문 답변만으로 baseline Intent Score 산출 (행동 전).
+    """설문 답변만으로 baseline Intent Score를 산출한다 (행동 반영 전).
+
+    Args:
+        survey_answers: 질문 ID → 선택 응답 코드 매핑.
+        scenario_id: 추론에 사용할 시나리오 ID.
+
+    Returns:
+        (batch_features, scores) 튜플. batch_features는 산출된 Batch Feature,
+        scores는 final 점수 내림차순으로 정렬된 IntentScore 리스트.
     """
     engine = get_engine(scenario_id)
     batch_features = engine.build_batch_features(survey_answers)
@@ -145,10 +190,18 @@ def infer_with_behavior(
     session_id: str,
     scenario_id: str = settings.SCENARIO_ID,
 ) -> tuple[dict[str, Any], list[IntentScore]]:
-    """
-    Batch Feature + 누적 Behavioral Pattern Feature + 최신 Event Feature를 합쳐 재추론.
+    """Batch + 누적 Pattern + 최신 Event Feature를 합쳐 재추론한다.
 
     baseline(행동 없는 상태) 점수를 함께 산출해 delta_score / rank_change를 채운다.
+
+    Args:
+        survey_answers: 질문 ID → 선택 응답 코드 매핑.
+        session_id: 누적 행동 이벤트를 조회할 세션 ID.
+        scenario_id: 추론에 사용할 시나리오 ID.
+
+    Returns:
+        (batch_features, scores) 튜플. scores는 baseline 대비 델타·순위변화가 채워진
+        IntentScore 리스트로, final 점수 내림차순으로 정렬된다.
     """
     engine = get_engine(scenario_id)
     batch_features = engine.build_batch_features(survey_answers)
@@ -199,7 +252,17 @@ def infer_with_behavior(
 
 
 def _score_all(features: dict[str, Any], engine: ScenarioEngine) -> dict[str, float]:
-    """모든 Intent에 대해 점수만 산출 (intent_id → score). 타입별 rule/model 분기."""
+    """모든 Intent에 대해 점수만 산출한다.
+
+    inference_type에 따라 rule/model로 분기한다.
+
+    Args:
+        features: 추론 입력 feature 매핑.
+        engine: 시나리오 엔진.
+
+    Returns:
+        intent_id → score 매핑.
+    """
     f = dict(features)
     if isinstance(f.get("결합 여부"), bool):
         f["결합 여부"] = 1 if f["결합 여부"] else 0
@@ -216,7 +279,14 @@ def _score_all(features: dict[str, Any], engine: ScenarioEngine) -> dict[str, fl
 
 
 def _rank_map(raw: dict[str, float]) -> dict[str, int]:
-    """intent_id → 점수 내림차순 순위(1-기반)."""
+    """raw 점수를 내림차순 순위로 환산한다.
+
+    Args:
+        raw: intent_id → score 매핑.
+
+    Returns:
+        intent_id → 순위(1-기반) 매핑.
+    """
     ordered = sorted(raw.items(), key=lambda kv: kv[1], reverse=True)
     return {iid: i for i, (iid, _) in enumerate(ordered, start=1)}
 
@@ -226,7 +296,18 @@ def _to_intent_scores(
     final_raw: dict[str, float],
     engine: ScenarioEngine,
 ) -> list[IntentScore]:
-    """baseline·final raw 점수 → IntentScore 리스트(델타·순위변화 채워 final 내림차순 정렬)."""
+    """baseline·final raw 점수를 IntentScore 리스트로 변환한다.
+
+    델타·순위변화를 채우고 final 점수 내림차순으로 정렬한다.
+
+    Args:
+        baseline_raw: baseline intent_id → score 매핑.
+        final_raw: final intent_id → score 매핑.
+        engine: 시나리오 엔진.
+
+    Returns:
+        final 점수 내림차순으로 정렬된 IntentScore 리스트.
+    """
     baseline_ranks = _rank_map(baseline_raw)
     final_ranks    = _rank_map(final_raw)
 
@@ -260,7 +341,15 @@ def _to_intent_scores(
 # ── WebSocket 페이로드 헬퍼 ───────────────────────────────────
 
 def _softmax(values: list[float], temperature: float) -> list[float]:
-    """Numerically stable softmax (raw score → 정규화 확률 분포)."""
+    """수치적으로 안정적인 softmax로 raw score를 정규화 확률 분포로 변환한다.
+
+    Args:
+        values: 정규화할 raw score 리스트.
+        temperature: softmax 온도. 작을수록 상위 값에 분포가 집중된다.
+
+    Returns:
+        합이 1이 되는 정규화 확률 리스트. 입력이 비면 빈 리스트.
+    """
     if not values:
         return []
     scaled = [v / temperature for v in values]
@@ -275,15 +364,21 @@ def to_probability_dict(
     scenario_id: str | None = None,
     temperature: float | None = None,
 ) -> dict[str, dict[str, float]]:
-    """
-    Intent raw score → softmax 정규화 확률(p) + baseline 정규화 확률(p0).
+    """Intent raw score를 softmax 정규화 확률(p)과 baseline 확률(p0)로 변환한다.
 
-    raw score 합 분모 정규화는 분포가 너무 평탄해 시연 임팩트가 약하므로
-    softmax(score / T) 분포를 사용. T가 작을수록 상위 Intent에 분포가 집중된다.
-    T는 scenario_id의 config(L2_inference.calibrator)에서 조회(미지정 시 모듈 기본값).
+    raw score 합 분모 정규화는 분포가 너무 평탄하므로 softmax(score / T) 분포를 사용한다.
+    T가 작을수록 상위 Intent에 분포가 집중된다.
+    T는 scenario_id의 config(L2_inference.calibrator)에서 조회한다(미지정 시 모듈 기본값).
 
-    Vector Space 시각화([1-2]) 가중 평균 위치 계산에 사용.
-    INTENT_UPDATE 페이로드의 `all_probabilities` 필드.
+    INTENT_UPDATE 페이로드의 `all_probabilities` 필드에 사용된다.
+
+    Args:
+        scores: 확률로 변환할 IntentScore 리스트.
+        scenario_id: 온도 조회에 사용할 시나리오 ID. None이면 모듈 기본값.
+        temperature: softmax 온도 직접 지정. None이면 scenario_id로 조회한다.
+
+    Returns:
+        intent_id → {"p": final 확률, "p0": baseline 확률} 매핑.
     """
     if temperature is None:
         temperature = _resolve_temperature(scenario_id)
@@ -303,14 +398,17 @@ def to_topn_with_others(
     top_n: int = 5,
     scenario_id: str | None = None,
 ) -> tuple[list[dict], dict]:
-    """
-    Top-N + 기타(others) 페이로드 구성.
+    """Top-N + 기타(others) 페이로드를 구성한다.
 
-    Returns
-    -------
-    (top_list, others)
-        top_list : [ {intent_id, ..., probability, baseline_probability, delta_probability} ]
-        others   : { count, probability, baseline_probability, delta_probability }
+    Args:
+        scores: 확률로 변환할 IntentScore 리스트.
+        top_n: 상위로 노출할 intent 개수.
+        scenario_id: 온도 조회에 사용할 시나리오 ID. None이면 모듈 기본값.
+
+    Returns:
+        (top_list, others) 튜플.
+        top_list: [ {intent_id, ..., probability, baseline_probability, delta_probability} ]
+        others: { count, probability, baseline_probability, delta_probability }
     """
     probs = to_probability_dict(scores, scenario_id=scenario_id)
     sorted_scores = sorted(scores, key=lambda s: s.final_score, reverse=True)
@@ -355,7 +453,20 @@ def to_customer_context_json(
     scores: list[IntentScore],
     batch_features: dict[str, Any],
 ) -> dict[str, Any]:
-    """세션·단계·전체 intent 점수를 Customer Context JSON(저장/조회용)으로 직렬화."""
+    """세션·단계·전체 intent 점수를 Customer Context JSON으로 직렬화한다.
+
+    저장/조회용 페이로드를 구성한다.
+
+    Args:
+        session_id: 세션 ID.
+        stage: 추론 단계.
+        scenario_id: 시나리오 ID.
+        scores: 직렬화할 IntentScore 리스트.
+        batch_features: 산출된 Batch Feature 매핑.
+
+    Returns:
+        session/scenario/stage/intents 키를 가진 Customer Context JSON dict.
+    """
     intents = []
     for s in scores:
         intents.append({

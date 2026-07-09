@@ -69,7 +69,13 @@ _HIDDEN_PREFIXES = ("information_schema", "pg_", "sqlite_")
 
 
 def _list_user_tables() -> list[str]:
-    """DuckDB의 모든 user 테이블 이름"""
+    """DuckDB의 모든 user 테이블 이름을 반환한다.
+
+    시스템 테이블 접두사(_HIDDEN_PREFIXES)에 해당하는 테이블은 제외한다.
+
+    Returns:
+        user 테이블 이름 목록 (이름순 정렬).
+    """
     ex = get_executor()
     rows = ex.fetchall(
         "SELECT table_name FROM information_schema.tables "
@@ -86,7 +92,14 @@ def _list_user_tables() -> list[str]:
 
 
 def _table_columns(table_name: str) -> list[str]:
-    """테이블의 컬럼 목록 (선언 순서)"""
+    """테이블의 컬럼 목록을 선언 순서로 반환한다.
+
+    Args:
+        table_name: 컬럼을 조회할 테이블 이름.
+
+    Returns:
+        컬럼 이름 목록 (ordinal_position 순서).
+    """
     ex = get_executor()
     rows = ex.fetchall(
         "SELECT column_name FROM information_schema.columns "
@@ -98,7 +111,17 @@ def _table_columns(table_name: str) -> list[str]:
 
 
 def _order_clause(columns: list[str]) -> str:
-    """기본 정렬: 가능한 가장 의미 있는 컬럼 desc"""
+    """기본 정렬 절을 산출한다.
+
+    우선순위 컬럼(_PREFERRED_ORDER_COLS)이 있으면 그 컬럼 DESC,
+    없으면 '_at'으로 끝나는 timestamp 컬럼 DESC, 그래도 없으면 첫 컬럼을 사용한다.
+
+    Args:
+        columns: 테이블 컬럼 이름 목록.
+
+    Returns:
+        ORDER BY 절에 사용할 문자열 (컬럼이 없으면 "1").
+    """
     for c in _PREFERRED_ORDER_COLS:
         if c in columns:
             return f"{c} DESC"
@@ -111,7 +134,13 @@ def _order_clause(columns: list[str]) -> str:
 
 @router.get("/tables")
 async def list_tables() -> list[dict]:
-    """모든 user 테이블 + 행 수 + 분류(runtime/catalog)"""
+    """모든 user 테이블 목록을 행 수·분류와 함께 반환한다.
+
+    각 테이블에 대해 라벨·설명·분류(runtime/catalog/other)·행 수를 포함한다.
+
+    Returns:
+        테이블별 메타 정보(name, label, description, kind, row_count) dict의 목록.
+    """
     ex = get_executor()
     result = []
     for name in _list_user_tables():
@@ -136,7 +165,23 @@ async def query_table(
     limit:  int = Query(50, ge=1, le=1000),
     offset: int = Query(0, ge=0),
 ) -> dict:
-    """테이블 조회 (페이징 + 세션/시나리오 필터)"""
+    """단일 테이블을 페이징·필터링하여 조회한다.
+
+    매우 긴 문자열 값(JSON 등)은 200자에서 잘라 노출한다.
+
+    Args:
+        table_name: 조회할 테이블 이름 (path).
+        session_id: 세션 ID로 필터링 (해당 컬럼이 있을 때만 적용, query).
+        scenario_id: 시나리오 ID로 필터링 (해당 컬럼이 있을 때만 적용, query).
+        limit: 페이지당 행 수 (1~1000, query).
+        offset: 시작 오프셋 (query).
+
+    Returns:
+        테이블 메타·컬럼·총 행 수·페이징 정보·행 데이터를 담은 dict.
+
+    Raises:
+        HTTPException: 테이블이 없으면 404, 컬럼 조회 실패 시 500.
+    """
     if table_name not in _list_user_tables():
         raise HTTPException(404, f"Table not found: {table_name}")
 
@@ -204,7 +249,17 @@ async def query_table(
 
 @router.get("/tables/customer_contexts/{ctx_id}")
 async def get_context_detail(ctx_id: int) -> dict:
-    """customer_contexts JSON 본문 조회"""
+    """customer_contexts 단건의 JSON 본문을 조회한다.
+
+    Args:
+        ctx_id: customer_contexts 행 id (path).
+
+    Returns:
+        id·session_id·scenario_id·stage·파싱된 context_json·created_at을 담은 dict.
+
+    Raises:
+        HTTPException: 해당 id의 컨텍스트가 없으면 404.
+    """
     ex = get_executor()
     row = ex.fetchone(
         "SELECT id, session_id, scenario_id, stage, context_json, created_at "
@@ -226,7 +281,19 @@ async def get_context_detail(ctx_id: int) -> dict:
 
 @router.get("/cell/{table_name}/{row_id}/{column}")
 async def get_cell_full(table_name: str, row_id: str, column: str) -> dict:
-    """긴 문자열(JSON 등) 전체 값 조회"""
+    """단일 셀의 전체 값(잘리지 않은 긴 문자열 등)을 조회한다.
+
+    Args:
+        table_name: 조회할 테이블 이름 (path).
+        row_id: id 컬럼 기준 행 식별자 (path).
+        column: 조회할 컬럼 이름 (path).
+
+    Returns:
+        table·row_id·column·value를 담은 dict.
+
+    Raises:
+        HTTPException: 테이블/컬럼/행이 없으면 404, id 컬럼이 없으면 400.
+    """
     if table_name not in _list_user_tables():
         raise HTTPException(404, f"Table not found: {table_name}")
     columns = _table_columns(table_name)

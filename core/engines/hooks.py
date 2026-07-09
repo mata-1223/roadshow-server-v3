@@ -15,8 +15,17 @@ _GRADE_BY_TENURE = {6: "Bronze", 24: "Silver", 48: "Gold", 84: "Gold"}
 
 
 def cs_base(f: dict[str, Any]) -> dict[str, Any]:
-    """CS proxy 추정(비용부담도·품질만족도·멤버십활용도·30일상담)·자동납부/등급 시뮬·구성비.
-    (구 cs._extract_base 추정부 + _build_ratio)"""
+    """CS proxy feature를 추정해 추가 feature dict로 반환한다.
+
+    비용 부담도·품질 만족도·멤버십 활용도·30일 상담 횟수를 추정하고, 자동납부/고객
+    등급을 시뮬레이션하며, 약정 진행률·가족 결합 비중 구성비를 계산한다.
+
+    Args:
+        f: survey base와 defaults가 병합된 feature dict.
+
+    Returns:
+        base에 병합할 추정·시뮬·구성비 feature dict.
+    """
     out: dict[str, Any] = {}
 
     # 청구 급증 경험 → 비용 부담도 (요금제 월정액 가산)

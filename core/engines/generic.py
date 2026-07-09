@@ -1,6 +1,6 @@
 from __future__ import annotations
 """
-GenericEngine — config-driven 단일 시나리오 엔진 (Phase 4 수렴).
+GenericEngine — config-driven 단일 시나리오 엔진.
 
 cs/bundle/worker 전용 엔진을 대체. 모든 시나리오 차이는 config(input/L0~L3 JSON)에 있고,
 이 엔진은 sid로 config를 읽어 공통 메커니즘(extract/formula/common/models predictive_model)에 위임만 한다.
@@ -27,14 +27,27 @@ _SCENARIOS = Path(__file__).parent.parent.parent / "scenarios"
 class GenericEngine(ScenarioEngine):
 
     def __init__(self, scenario_id: str):
-        """seed_dataset 경로·MLflow 모델 prefix를 sid로 결정."""
+        """seed_dataset 경로와 모델 prefix를 시나리오 id로 결정한다.
+
+        Args:
+            scenario_id: 이 엔진이 담당할 시나리오 id.
+        """
         super().__init__(scenario_id)
         self._dataset_path = _SCENARIOS / scenario_id / "seed_dataset.json"
         self._model_prefix = f"{scenario_id}__"
         self._base_rates: dict[str, float] | None = None   # lazy (calibration용)
 
     def _base_rate(self, intent_id: str) -> float:
-        """seed_dataset의 intent별 양성 라벨 비율(캐시). base-rate 보정용."""
+        """seed_dataset의 intent별 양성 라벨 비율을 반환한다(지연 계산·캐시).
+
+        base-rate 보정에 사용한다.
+
+        Args:
+            intent_id: 비율을 조회할 intent id.
+
+        Returns:
+            해당 intent의 양성 라벨 비율(0~1). 데이터가 없으면 0.0.
+        """
         if self._base_rates is None:
             self._base_rates = {}
             if self._dataset_path.exists():
@@ -48,17 +61,35 @@ class GenericEngine(ScenarioEngine):
 
     # ── [1a] Batch ────────────────────────────────────────────
     def build_batch_features(self, answers: dict[str, str]) -> dict[str, Any]:
-        """설문 → Base + L1.batch_builder(선언형) 파생 → Batch Feature."""
+        """설문 답변을 Base feature와 L1.batch_builder 파생을 거쳐 Batch Feature로 만든다.
+
+        Args:
+            answers: 질문 id → 선택 옵션 코드 매핑.
+
+        Returns:
+            Batch Context Feature dict.
+        """
         base = extract.survey_base(config.get_survey(self.scenario_id), answers)
         return extract.run_batch_builder(base, config.get_batch_builder(self.scenario_id))
 
     # ── [1c] Pattern / [1b] Event ─────────────────────────────
     def empty_pattern_features(self) -> dict[str, Any]:
-        """행동 없음 상태의 Pattern Feature (pattern spec 기준 0/빈값)."""
+        """행동 없음 상태의 Pattern Feature를 반환한다(pattern spec 기준 0/빈값).
+
+        Returns:
+            기본값으로 채운 Pattern Feature dict.
+        """
         return extract.pattern_from_spec([], config.get_pattern_spec(self.scenario_id))
 
     def pattern_features(self, session_id: str) -> dict[str, Any]:
-        """세션의 윈도우 내 이벤트 → L1.pattern spec으로 Pattern Feature."""
+        """세션의 윈도우 내 이벤트를 L1.pattern spec으로 Pattern Feature로 만든다.
+
+        Args:
+            session_id: 이벤트를 조회할 세션 id.
+
+        Returns:
+            Pattern Feature dict.
+        """
         spec = config.get_pattern_spec(self.scenario_id)
         ext = get_extractor()
         if spec.get("window_events"):       # 클릭 기반 윈도우 (최근 N 이벤트)
@@ -68,22 +99,53 @@ class GenericEngine(ScenarioEngine):
         return extract.pattern_from_spec(extract._filter(events, spec.get("filter")), spec)
 
     def empty_event_features(self) -> dict[str, Any]:
-        """행동 없음 상태의 Event Feature (event spec 기준 0/빈값)."""
+        """행동 없음 상태의 Event Feature를 반환한다(event spec 기준 0/빈값).
+
+        Returns:
+            기본값으로 채운 Event Feature dict.
+        """
         return extract.event_from_spec(None, config.get_event_spec(self.scenario_id))
 
     def event_features(self, session_id: str) -> dict[str, Any]:
-        """세션 최신 이벤트 → L1.event spec으로 Event Feature."""
+        """세션 최신 이벤트를 L1.event spec으로 Event Feature로 만든다.
+
+        Args:
+            session_id: 최신 이벤트를 조회할 세션 id.
+
+        Returns:
+            Event Feature dict.
+        """
         events = get_extractor()._events_by_session.get(session_id, [])
         last = events[-1] if events else None
         return extract.event_from_spec(last, config.get_event_spec(self.scenario_id))
 
     # ── [2a] Rule / [2b] Model ────────────────────────────────
     def rule_predict(self, intent_id: str, features: dict[str, Any]) -> float:
-        """L2.rule 선언형 spec 평가 → Rule Intent 점수(0~1)."""
+        """L2.rule 선언형 spec을 평가해 Rule Intent 점수(0~1)를 반환한다.
+
+        Args:
+            intent_id: 점수를 계산할 intent id.
+            features: 평가에 사용할 feature dict.
+
+        Returns:
+            0~1 범위의 Rule Intent 점수.
+        """
         return formula.rule_predict(config.get_rule_spec(self.scenario_id), intent_id, features)
 
     def model_predict(self, intent_id: str, features: dict[str, Any]) -> float:
-        """L2.model spec의 predictive_model로 추론. heuristic_fallback이면 휴리스틱 폴백 포함."""
+        """L2.model spec의 predictive_model로 Model Intent 점수를 추론한다.
+
+        heuristic_fallback이 설정되면 휴리스틱 폴백을 포함하고, 그렇지 않으면
+        predictive_model을 직접 호출한다. base_rate_logodds 보정과 output_scale
+        톤다운이 spec에 있으면 적용한다.
+
+        Args:
+            intent_id: 점수를 계산할 intent id.
+            features: 추론에 사용할 feature dict.
+
+        Returns:
+            보정/스케일까지 반영된 Model Intent 점수.
+        """
         m = config.get_model_spec(self.scenario_id)
         predictive_model = models.get_predictive_model(m.get("predictive_model", "sklearn"))  # sklearn/torch… config 선택
         training_data = m.get("training_data", {})
@@ -115,7 +177,18 @@ class GenericEngine(ScenarioEngine):
         return p
 
     def explain_model(self, intent_id: str, features: dict[str, Any], top: int = 3) -> list[dict]:
-        """Model intent 추론 기여도(feature별). predictive_model.explain에 위임."""
+        """Model intent 추론의 feature별 기여도를 반환한다.
+
+        predictive_model.explain에 위임하며, explain 메서드가 없으면 빈 리스트를 반환한다.
+
+        Args:
+            intent_id: 설명을 구할 intent id.
+            features: 추론에 사용한 feature dict.
+            top: 반환할 상위 기여 feature 개수.
+
+        Returns:
+            feature별 기여도 dict들의 리스트. explain 미지원이면 빈 리스트.
+        """
         m = config.get_model_spec(self.scenario_id)
         pm = models.get_predictive_model(m.get("predictive_model", "sklearn"))
         if not hasattr(pm, "explain"):
