@@ -14,7 +14,14 @@ logger = logging.getLogger(__name__)
 
 
 def warmup_models() -> dict[str, int]:
-    """전 시나리오 Model intent를 load-or-train으로 준비. {scenario: 모델수} 반환."""
+    """전 시나리오의 Model intent를 load-or-train으로 준비한다.
+
+    레지스트리에 이미 있으면 load만 하므로 멱등적이며, best-effort로 동작해
+    개별 intent 준비 실패는 경고 로그만 남기고 건너뛴다.
+
+    Returns:
+        scenario_id → 준비된 모델 수 매핑.
+    """
     t0 = time.time()
     result: dict[str, int] = {}
     for sid in available_scenarios():

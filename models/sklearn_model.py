@@ -1,6 +1,6 @@
 from __future__ import annotations
 """
-Model-based Intent Inference ([2b] reference 모듈)
+Model-based Intent Inference ([2b] 모듈)
 
 시나리오 무관 sklearn Logistic Regression 추론 머신러리.
 - 학습 데이터(training_data)·dataset_path·model_prefix는 호출자(시나리오 엔진)가 주입
@@ -30,8 +30,20 @@ _model_cache: dict[str, Any] = {}
 # ── Public API ────────────────────────────────────────────────
 
 def _train_pipeline(X: list, y: list, seed: int = 42, train_params: dict | None = None) -> Pipeline:
-    """StandardScaler + LogisticRegression 학습 (seed 고정).
-    train_params(시나리오 config L2.model.train): class_weight / C override. 기본 balanced·C=1.0."""
+    """StandardScaler + LogisticRegression 파이프라인을 학습한다.
+
+    seed를 고정하여 재현성을 확보한다.
+
+    Args:
+        X: 특징 행렬.
+        y: 레이블 벡터.
+        seed: 난수 시드 (재현성).
+        train_params: 시나리오 config L2.model.train의 하이퍼파라미터.
+            class_weight·C를 override 가능 (기본 balanced·C=1.0).
+
+    Returns:
+        학습된 sklearn Pipeline.
+    """
     tp = train_params or {}
     pipe = Pipeline([
         ("scaler", StandardScaler()),
@@ -53,13 +65,20 @@ def _extract_from_dataset(
     dataset_path: Path,
     neg_pos_ratio: float = 2.0,
 ) -> tuple[list[list[float]], list[int]] | None:
-    """
-    seed_dataset.json에서 intent_id에 대한 (X, y) 추출.
+    """seed_dataset.json에서 intent_id에 대한 (X, y)를 추출한다.
 
-    - 양성: sample["intent_labels"]에 intent_id가 있는 경우 (y=1)
-    - 음성: 그 외 (y=0)
-    - 클래스 불균형 처리: 음성을 neg_pos_ratio × n_pos 까지만 샘플링
-    - 양성/음성 둘 다 3건 이상일 때만 반환, 아니면 None
+    양성은 sample["intent_labels"]에 intent_id가 있는 경우(y=1), 음성은 그 외(y=0)이다.
+    클래스 불균형 처리를 위해 음성은 neg_pos_ratio × n_pos 까지만 샘플링한다.
+
+    Args:
+        intent_id: 추출할 Intent ID.
+        feature_names: feature 벡터를 구성할 feature 이름 순서.
+        seed: 음성 샘플링에 사용할 난수 시드.
+        dataset_path: seed_dataset.json 경로.
+        neg_pos_ratio: 양성 대비 음성 샘플 비율 상한.
+
+    Returns:
+        (X, y) 튜플. 양성·음성이 각각 3건 미만이거나 데이터셋이 없으면 None.
     """
     if not dataset_path.exists():
         return None
@@ -104,14 +123,23 @@ def train_and_register(
     seed: int = 42,
     train_params: dict | None = None,
 ) -> Pipeline | None:
-    """
-    Intent의 학습 데이터로 모델 학습 + MLflow 등록.
+    """Intent의 학습 데이터로 모델을 학습하고 MLflow에 등록한다.
 
     데이터 소스 우선순위:
       1) dataset_path(seed_dataset.json)의 페르소나 시드 데이터셋
       2) training_data[intent_id]의 도메인 지식 X, y
 
-    model_prefix: 시나리오별 MLflow 모델명 네임스페이스. 등록명 = {prefix}{intent_id}_sklearn
+    Args:
+        intent_id: 학습할 Intent ID.
+        training_data: Intent별 학습 정의(features·X·y 등).
+        dataset_path: seed_dataset.json 경로.
+        model_prefix: 시나리오별 MLflow 모델명 네임스페이스.
+            등록명은 {model_prefix}{intent_id}_sklearn.
+        seed: 난수 시드 (재현성).
+        train_params: 학습 하이퍼파라미터(class_weight/C).
+
+    Returns:
+        학습된 Pipeline. 학습 데이터가 없으면 None.
     """
     data = training_data.get(intent_id)
     if data is None:
@@ -164,7 +192,20 @@ def _load_or_train(
     model_prefix: str,
     train_params: dict | None = None,
 ) -> Pipeline | None:
-    """캐시→MLflow Registry 로드, 없으면 train_and_register. (프로세스 캐시로 1회만 로드/학습)"""
+    """모델을 캐시→MLflow Registry 순으로 로드하고, 없으면 학습·등록한다.
+
+    프로세스 캐시(_model_cache)를 사용해 intent별로 1회만 로드/학습한다.
+
+    Args:
+        intent_id: 로드/학습할 Intent ID.
+        training_data: Intent별 학습 정의.
+        dataset_path: seed_dataset.json 경로.
+        model_prefix: 시나리오별 MLflow 모델명 네임스페이스.
+        train_params: 학습 하이퍼파라미터.
+
+    Returns:
+        로드 또는 학습된 Pipeline. 학습 정의가 없으면 None.
+    """
     cache_key = f"{model_prefix}{intent_id}"
     if cache_key in _model_cache:
         return _model_cache[cache_key]
@@ -195,12 +236,21 @@ def predict(
     model_prefix: str,
     train_params: dict | None = None,
 ) -> float:
-    """
-    Intent ID에 대해 Model 기반 Score 추론.
+    """Intent ID에 대해 Model 기반 Score를 추론한다.
 
-    features dict에서 학습에 사용된 피처들을 순서대로 추출. 누락된 피처는 0.0으로 처리.
-    training_data/dataset_path/model_prefix는 시나리오 엔진이 제공한다.
-    train_params: 학습 하이퍼파라미터(class_weight/C) — 시나리오 config L2.model.train.
+    features dict에서 학습에 사용된 피처들을 순서대로 추출하며,
+    누락된 피처는 0.0으로 처리한다.
+
+    Args:
+        intent_id: 추론할 Intent ID.
+        features: 추론에 사용할 feature dict.
+        training_data: Intent별 학습 정의(시나리오 엔진 제공).
+        dataset_path: seed_dataset.json 경로(시나리오 엔진 제공).
+        model_prefix: 시나리오별 모델명 네임스페이스(시나리오 엔진 제공).
+        train_params: 학습 하이퍼파라미터(class_weight/C, config L2.model.train).
+
+    Returns:
+        0~1 범위의 예측 점수. 모델이 없으면 0.0.
     """
     pipe = _load_or_train(intent_id, training_data, dataset_path, model_prefix, train_params)
     if pipe is None:
@@ -221,8 +271,24 @@ def explain(
     model_prefix: str,
     top: int = 3,
 ) -> list[dict]:
-    """Model 추론 기여도 분해. 선형 파이프라인(StandardScaler+LogisticRegression):
-    기여_i = coef_i × ((x_i - mean_i)/scale_i). |기여| 상위 top개 반환."""
+    """Model 추론의 feature 기여도를 분해한다.
+
+    선형 파이프라인(StandardScaler + LogisticRegression)에서
+    기여_i = coef_i × ((x_i - mean_i) / scale_i)로 계산하고,
+    |기여| 상위 top개를 반환한다.
+
+    Args:
+        intent_id: 기여도를 분해할 Intent ID.
+        features: 추론에 사용한 feature dict.
+        training_data: Intent별 학습 정의.
+        dataset_path: seed_dataset.json 경로.
+        model_prefix: 시나리오별 모델명 네임스페이스.
+        top: 반환할 상위 기여 feature 개수.
+
+    Returns:
+        feature별 기여 정보(label·contribution·direction·value) dict의 목록.
+        모델이 없거나 분해에 실패하면 빈 목록.
+    """
     pipe = _load_or_train(intent_id, training_data, dataset_path, model_prefix)
     if pipe is None or intent_id not in training_data:
         return []
@@ -247,12 +313,16 @@ def train_all(
     model_prefix: str,
     seed: int = 42,
 ) -> dict[str, float]:
-    """
-    training_data의 Model Intent 전체 학습 + 등록.
+    """training_data의 모든 Model Intent를 학습·등록한다.
 
-    Returns
-    -------
-    dict : {intent_id: 1.0}
+    Args:
+        training_data: Intent별 학습 정의.
+        dataset_path: seed_dataset.json 경로.
+        model_prefix: 시나리오별 MLflow 모델명 네임스페이스.
+        seed: 난수 시드 (재현성).
+
+    Returns:
+        학습에 성공한 Intent에 대한 {intent_id: 1.0} 매핑.
     """
     results = {}
     for intent_id in training_data.keys():

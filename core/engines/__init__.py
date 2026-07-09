@@ -14,12 +14,25 @@ _cache: dict[str, ScenarioEngine] = {}
 
 
 def get_engine(scenario_id: str) -> ScenarioEngine:
-    """scenario_id에 대한 엔진 인스턴스(캐시). 전 시나리오가 GenericEngine."""
+    """scenario_id에 대한 엔진 인스턴스를 반환한다(프로세스 캐시).
+
+    모든 시나리오가 GenericEngine으로 동작한다.
+
+    Args:
+        scenario_id: 엔진을 조회할 시나리오 id.
+
+    Returns:
+        해당 시나리오의 ScenarioEngine 인스턴스.
+    """
     if scenario_id not in _cache:
         _cache[scenario_id] = GenericEngine(scenario_id)
     return _cache[scenario_id]
 
 
 def available_scenarios() -> list[str]:
-    """등록된 시나리오 id 목록."""
+    """등록된 시나리오 id 목록을 반환한다.
+
+    Returns:
+        등록된 시나리오 id의 리스트.
+    """
     return list(_SCENARIOS)

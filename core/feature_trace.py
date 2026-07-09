@@ -26,6 +26,18 @@ from core.engines.formula import eval_formula, _load_py
 
 
 def build_feature_trace(scenario_id: str, answers: dict[str, str]) -> dict[str, dict]:
+    """파생 변수의 산출 근거 trace를 구성한다.
+
+    L1 batch_builder의 선언형 formula와 실제 입력값을 풀어, 각 최종 파생 변수가
+    어떤 입력으로 어떻게 계산됐는지를 사람이 읽을 수 있는 구조로 반환한다.
+
+    Args:
+        scenario_id: 시나리오 ID.
+        answers: 질문 ID → 선택 응답 코드 매핑.
+
+    Returns:
+        파생변수명 → {"value", "clamp", "kind", "terms"} 매핑. step이 없으면 빈 dict.
+    """
     survey = config.get_survey(scenario_id)
     spec = config.get_batch_builder(scenario_id)
     steps = spec.get("steps", [])
@@ -74,6 +86,14 @@ def build_feature_trace(scenario_id: str, answers: dict[str, str]) -> dict[str, 
             inter_to_final[f["feat"]] = st["name"]
 
     def _terms(formula):
+        """formula의 기여 항 리스트를 추출한다.
+
+        Args:
+            formula: 평가 대상 formula 노드.
+
+        Returns:
+            기여 항 리스트. 상수 등 비-dict formula는 빈 리스트, 단일 feat 노드는 그 노드만.
+        """
         if not isinstance(formula, dict):
             return []            # 상수 등 비-dict formula → 기여 항 없음
         if "terms" in formula:
@@ -81,7 +101,16 @@ def build_feature_trace(scenario_id: str, answers: dict[str, str]) -> dict[str, 
         return [formula]  # 단일 feat 노드
 
     def _cond_feat(c):
-        # 조건(cond)이 참조하는 입력 feat — 단일/복합(all·any·not) 모두 탐색
+        """조건(cond)이 참조하는 입력 feat를 찾는다.
+
+        단일 조건과 복합 조건(all·any·not)을 모두 탐색한다.
+
+        Args:
+            c: 조건 노드.
+
+        Returns:
+            참조 입력 feat명. 없으면 None.
+        """
         if not isinstance(c, dict):
             return None
         if c.get("feat") is not None:
@@ -96,7 +125,16 @@ def build_feature_trace(scenario_id: str, answers: dict[str, str]) -> dict[str, 
         return None
 
     def _feat_of(t):
-        # 항의 입력 feat — 평면 {feat}, 중첩 {clamp,value:{feat}}, 조건부 {if/switch} 모두 인식
+        """항이 참조하는 입력 feat를 찾는다.
+
+        평면 {feat}, 중첩 {clamp,value:{feat}}, 조건부 {if/switch}를 모두 인식한다.
+
+        Args:
+            t: 기여 항 노드.
+
+        Returns:
+            참조 입력 feat명. 없으면 None.
+        """
         if not isinstance(t, dict):
             return None
         if t.get("feat") is not None:
@@ -111,6 +149,16 @@ def build_feature_trace(scenario_id: str, answers: dict[str, str]) -> dict[str, 
         return None
 
     def _weight(term: dict):
+        """기여 항의 가중치를 추출한다.
+
+        선형 [w, 0] 항의 계수 또는 clamp/value 래퍼 항의 mul을 가중치로 본다.
+
+        Args:
+            term: 기여 항 노드.
+
+        Returns:
+            가중치 값. 가중치로 해석할 수 없으면 None.
+        """
         if not isinstance(term, dict):
             return None
         lin = term.get("linear")
@@ -121,6 +169,14 @@ def build_feature_trace(scenario_id: str, answers: dict[str, str]) -> dict[str, 
         return None
 
     def _num(v):
+        """수치값을 소수점 2자리로 반올림한다.
+
+        Args:
+            v: 변환할 값.
+
+        Returns:
+            수치(bool 제외)는 반올림한 float, 그 외는 원본 그대로.
+        """
         return round(float(v), 2) if isinstance(v, (int, float)) and not isinstance(v, bool) else v
 
     trace: dict[str, dict] = {}

@@ -36,7 +36,11 @@ class Settings(BaseSettings):
 
 @lru_cache
 def get_settings() -> Settings:
-    """Settings 싱글톤(캐시)."""
+    """Settings 싱글톤을 반환한다.
+
+    Returns:
+        lru_cache로 캐시된 Settings 인스턴스 (싱글톤).
+    """
     return Settings()
 
 

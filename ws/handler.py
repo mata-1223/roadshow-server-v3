@@ -28,7 +28,15 @@ logger = logging.getLogger(__name__)
 
 @router.websocket("/ws")
 async def websocket_endpoint(websocket: WebSocket) -> None:
-    """WS 엔드포인트: JOIN으로 세션 결합 후 BEHAVIOR 메시지를 받아 재추론 Push."""
+    """WebSocket 엔드포인트.
+
+    첫 메시지로 JOIN을 받아 세션에 결합하고 SESSION_READY를 보낸 뒤,
+    이후 BEHAVIOR 메시지마다 재추론하여 INTENT_UPDATE를 Push한다.
+    연결 종료 시 매니저에서 연결을 해제한다.
+
+    Args:
+        websocket: 클라이언트 WebSocket 연결.
+    """
     session_id: str | None = None
 
     try:
@@ -87,7 +95,20 @@ async def _handle_behavior(
     survey_answers: dict[str, str],
     msg: dict,
 ) -> None:
-    """BEHAVIOR 처리: 이벤트 로그·extractor 적재 → 재추론 → Intent Score·Context 저장 → INTENT_UPDATE Push."""
+    """BEHAVIOR 메시지를 처리한다.
+
+    이벤트를 event_log와 extractor에 적재하고 EVENT_ACK를 보낸다.
+    app_exit이면 세션을 종료(stage='exited')하고 INTENT_UPDATE 없이 반환한다.
+    그 외에는 누적 행동 기반으로 재추론하여 intent_scores·customer_contexts에 저장하고
+    INTENT_UPDATE를 Push한다.
+
+    Args:
+        websocket: 응답을 보낼 WebSocket 연결.
+        session_id: 대상 세션 ID.
+        scenario_id: 세션의 시나리오 ID.
+        survey_answers: 재추론에 사용할 설문 답변 ({question_id: answer_code}).
+        msg: BEHAVIOR 메시지 (behavior_id·event_type·entity 포함).
+    """
     behavior_id = msg.get("behavior_id")
     event_type  = msg.get("event_type")
     entity      = msg.get("entity")
@@ -184,7 +205,14 @@ async def _handle_behavior(
 
 
 def _load_session_answers(session_id: str) -> dict[str, str]:
-    """세션의 설문 답변을 DB에서 로드 ({question_id: answer_code})."""
+    """세션의 설문 답변을 DB에서 로드한다.
+
+    Args:
+        session_id: 답변을 조회할 세션 ID.
+
+    Returns:
+        {question_id: answer_code} 형태의 설문 답변 dict.
+    """
     ex = get_executor()
     df = ex.to_pandas(
         "SELECT question_id, answer_code FROM survey_answers WHERE session_id = ?",

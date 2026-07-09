@@ -35,7 +35,15 @@ from core.engines.formula import eval_formula, _load_py
 
 # ── [1a] Batch Builder (설문 → Base + 파생 Index/Score) ──────────
 def survey_base(survey: dict, answers: dict[str, str]) -> dict[str, Any]:
-    """설문 답변 → 선택 옵션의 features 병합 (Base)."""
+    """설문 답변에서 선택 옵션들의 features를 병합해 Base feature를 만든다.
+
+    Args:
+        survey: 질문/옵션 정의가 담긴 설문 dict.
+        answers: 질문 id → 선택 옵션 코드 매핑.
+
+    Returns:
+        선택된 옵션들의 features를 병합한 Base feature dict.
+    """
     base: dict[str, Any] = {}
     for q in survey["questions"]:
         code = answers.get(q["id"])
@@ -48,15 +56,22 @@ def survey_base(survey: dict, answers: dict[str, str]) -> dict[str, Any]:
 
 
 def run_batch_builder(base: dict[str, Any], spec: dict) -> dict[str, Any]:
-    """
-    base → steps 순차 평가 → Index/Score 파생.
+    """base에 defaults/pre_hook/steps를 적용해 Index/Score 파생 feature를 만든다.
 
-    step: {"name", "formula", "round"?, "intermediate"?}
-      - formula = eval_formula spec, 직전까지 누적된 feats 참조
-      - round 있으면 반올림
-      - intermediate=true 면 최종 출력에서 제외 (Score가 참조하는 raw Index 용)
+    각 step은 {"name", "formula", "round"?, "intermediate"?} 형태다:
+      - formula는 eval_formula spec으로, 직전까지 누적된 feats를 참조한다.
+      - round가 있으면 반올림한다.
+      - intermediate=true면 최종 출력에서 제외한다(Score가 참조하는 raw Index 용).
 
-    defaults: 없는 키만 채움(base.get(k, default)). pre_hook: 불규칙 Python 격리("mod:fn", feats→추가 dict).
+    defaults는 없는 키만 채우고(base.get(k, default) 의미), pre_hook은 선언형으로
+    표현 불가한 불규칙 Python 로직을 격리한다("mod:fn", feats → 추가 dict).
+
+    Args:
+        base: 시작 feature dict.
+        spec: defaults/pre_hook/steps를 담은 batch_builder spec.
+
+    Returns:
+        파생 feature까지 채워진 feature dict(intermediate 키 제외).
     """
     feats = dict(base)
     for k, v in spec.get("defaults", {}).items():
@@ -78,7 +93,15 @@ def run_batch_builder(base: dict[str, Any], spec: dict) -> dict[str, Any]:
 
 # ── 이벤트 필터 ─────────────────────────────────────────────────
 def _filter(events: list[dict], filt: dict | None) -> list[dict]:
-    """이벤트 목록을 filter spec으로 거른다. {exclude:[...]} | {include:[...]} | None(전체)."""
+    """이벤트 목록을 filter spec으로 거른다.
+
+    Args:
+        events: 거를 이벤트 목록.
+        filt: {exclude:[...]} 또는 {include:[...]}, None이면 전체 통과.
+
+    Returns:
+        필터가 적용된 이벤트 리스트.
+    """
     if not filt:
         return list(events)
     if "exclude" in filt:
@@ -92,7 +115,18 @@ def _filter(events: list[dict], filt: dict | None) -> list[dict]:
 
 # ── 집계 ────────────────────────────────────────────────────────
 def _aggregate(events: list[dict], spec: dict) -> dict[str, Any]:
-    """이벤트 → 집계 컨텍스트(entity/type/group 카운트, total, dominant, events)."""
+    """이벤트 목록을 집계 컨텍스트로 변환한다.
+
+    entity/type/group 카운트, total, dominant entity 등을 계산한다.
+
+    Args:
+        events: 집계할 이벤트 목록.
+        spec: entity_groups 등 집계 옵션을 담은 pattern spec.
+
+    Returns:
+        entity_counts/type_counts/group_counts/total/dominant/dom_count/events를
+        담은 집계 컨텍스트 dict.
+    """
     entity_counts: dict[str, int] = {}
     type_counts: dict[str, int] = {}
     group_counts: dict[str, int] = {}
@@ -116,8 +150,21 @@ def _aggregate(events: list[dict], spec: dict) -> dict[str, Any]:
 
 
 def _field_value(fld: dict, ctx: dict[str, Any]) -> Any:
-    """pattern 필드 1개 계산: source(group_count/type_count/distinct_entity/repeated_max/total/
-    dominant_entity/last_entity/focus_ratio/recent_join/const) + 변환(mult/binary)."""
+    """pattern 필드 1개의 값을 계산한다.
+
+    source(group_count/type_count/distinct_entity/repeated_max/total/dominant_entity/
+    last_entity/focus_ratio/recent_join/const)로 원시값을 구한 뒤 변환(mult/binary)을 적용한다.
+
+    Args:
+        fld: source와 변환 옵션을 담은 필드 spec.
+        ctx: _aggregate가 만든 집계 컨텍스트.
+
+    Returns:
+        계산된 필드 값(수치 또는 문자열).
+
+    Raises:
+        ValueError: 알 수 없는 source인 경우.
+    """
     src = fld["source"]
 
     # 문자열/특수 반환 (변환 미적용)
@@ -158,14 +205,35 @@ def _field_value(fld: dict, ctx: dict[str, Any]) -> Any:
 
 
 def pattern_from_spec(events: list[dict], spec: dict) -> dict[str, Any]:
-    """[1c] 이벤트 + pattern spec → Behavioral Pattern Feature dict. (events=[] → empty와 동일)"""
+    """[1c] 이벤트와 pattern spec으로 Behavioral Pattern Feature dict를 만든다.
+
+    events=[]이면 결과는 empty pattern feature와 동일하다.
+
+    Args:
+        events: 집계할 이벤트 목록.
+        spec: fields/entity_groups 등을 담은 pattern spec.
+
+    Returns:
+        필드 이름 → 값으로 이루어진 Pattern Feature dict.
+    """
     ctx = _aggregate(events, spec)
     return {fld["name"]: _field_value(fld, ctx) for fld in spec.get("fields", [])}
 
 
 # ── event ───────────────────────────────────────────────────────
 def _flag_match(when: dict, ev: dict) -> bool:
-    """event 플래그 조건 평가 → bool. event_type_eq / entity_in / entity_eq."""
+    """event 플래그 조건을 평가한다.
+
+    Args:
+        when: event_type_eq / entity_in / entity_eq 중 하나를 담은 조건 spec.
+        ev: 평가 대상 이벤트.
+
+    Returns:
+        조건이 일치하면 True.
+
+    Raises:
+        ValueError: 알 수 없는 조건인 경우.
+    """
     if "event_type_eq" in when:
         return ev["event_type"] == when["event_type_eq"]
     if "entity_in" in when:
@@ -176,8 +244,19 @@ def _flag_match(when: dict, ev: dict) -> bool:
 
 
 def event_from_spec(last_event: dict | None, spec: dict | None) -> dict[str, Any]:
-    """[1b] 최신 이벤트 + event spec → Event Feature dict. (last_event=None → empty와 동일, spec 없으면 {})"""
-    if not spec:                       # worker: event feature 미생성
+    """[1b] 최신 이벤트와 event spec으로 Event Feature dict를 만든다.
+
+    last_event=None이면 결과는 empty event feature와 동일하다.
+
+    Args:
+        last_event: 세션의 최신 이벤트. 없으면 None.
+        spec: entity_page_map/trigger_by_entity/flags 등을 담은 event spec.
+            없거나 빈 dict면 빈 결과를 반환한다.
+
+    Returns:
+        last_event_type/last_entity 및 spec 기반 플래그를 담은 Event Feature dict.
+    """
+    if not spec:                       # event feature 미생성
         return {}
     out: dict[str, Any] = {
         "last_event_type": last_event["event_type"] if last_event else "",
