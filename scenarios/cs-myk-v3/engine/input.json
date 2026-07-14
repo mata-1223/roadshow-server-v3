@@ -143,7 +143,7 @@
         "options": [
           {
             "code": "A",
-            "label": "결합 안 함 (모바일만)",
+            "label": "결합 안 함",
             "features": {
               "결합 여부": false,
               "결합 형태": "none"
