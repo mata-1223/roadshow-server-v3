@@ -151,7 +151,7 @@
           },
           {
             "code": "B",
-            "label": "모바일 결합만 (가족 회선만)",
+            "label": "모바일 결합만",
             "features": {
               "결합 여부": true,
               "결합 형태": "mobile_only"
@@ -167,7 +167,7 @@
           },
           {
             "code": "D",
-            "label": "풀 결합 (모바일+인터넷+IPTV)",
+            "label": "모바일+인터넷+IPTV",
             "features": {
               "결합 여부": true,
               "결합 형태": "full"
